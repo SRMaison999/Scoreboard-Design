@@ -41,4 +41,22 @@ describe('ScoreboardCanvas', () => {
     expect(screen.getAllByText('KOPITAR').length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText('GOALS')).toBeInTheDocument();
   });
+
+  it('utilise un fond uni en mode uniform', () => {
+    const state = {
+      ...DEFAULT_STATE,
+      bgMode: 'uniform' as const,
+      colors: { ...DEFAULT_STATE.colors, bgTop: '#ff0000' },
+    };
+    render(<ScoreboardCanvas state={state} />);
+    const canvas = screen.getByTestId('scoreboard-canvas');
+    expect(canvas.style.background).not.toContain('linear-gradient');
+  });
+
+  it('utilise un dégradé en mode gradient', () => {
+    const state = { ...DEFAULT_STATE, bgMode: 'gradient' as const };
+    render(<ScoreboardCanvas state={state} />);
+    const canvas = screen.getByTestId('scoreboard-canvas');
+    expect(canvas.style.background).toContain('linear-gradient');
+  });
 });

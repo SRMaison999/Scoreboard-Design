@@ -26,7 +26,10 @@ export function ScoreboardCanvas({
   const col = (key: keyof typeof colors) =>
     hexToRgba(colors[key], opacities[key] ?? 0);
 
-  const bg = `linear-gradient(180deg, ${col('bgTop')} 0%, ${col('bgMid')} 50%, ${col('bgBot')} 100%)`;
+  const bg =
+    state.bgMode === 'uniform'
+      ? col('bgTop')
+      : `linear-gradient(180deg, ${col('bgTop')} 0%, ${col('bgMid')} 50%, ${col('bgBot')} 100%)`;
 
   return (
     <div

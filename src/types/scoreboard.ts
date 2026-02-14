@@ -3,6 +3,8 @@ import type { FontId } from './fonts';
 
 export type BodyTypeId = 1 | 2 | 3;
 
+export type BgMode = 'uniform' | 'gradient';
+
 export type ClockBoxMode = 'never' | 'always' | 'stopped' | 'running';
 
 export interface BodyTypeOption {
@@ -43,6 +45,7 @@ export interface FontSizeEntry {
 
 export interface ScoreboardState {
   bodyType: BodyTypeId;
+  bgMode: BgMode;
   showPenalties: boolean;
 
   team1: string;

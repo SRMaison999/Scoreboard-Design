@@ -13,6 +13,7 @@ interface SyncMessage {
 function selectState(store: ReturnType<typeof useScoreboardStore.getState>): ScoreboardState {
   return {
     bodyType: store.bodyType,
+    bgMode: store.bgMode,
     showPenalties: store.showPenalties,
     team1: store.team1,
     team2: store.team2,

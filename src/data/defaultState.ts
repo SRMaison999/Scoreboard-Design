@@ -4,6 +4,7 @@ import type { ScoreboardState } from '@/types/scoreboard';
 
 export const DEFAULT_STATE: ScoreboardState = {
   bodyType: 1,
+  bgMode: 'gradient',
   showPenalties: false,
 
   team1: 'SVK',

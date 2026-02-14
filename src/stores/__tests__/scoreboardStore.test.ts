@@ -221,6 +221,7 @@ describe('scoreboardStore', () => {
       const s = useScoreboardStore.getState();
       const plainState: ScoreboardState = {
         bodyType: s.bodyType,
+        bgMode: s.bgMode,
         showPenalties: s.showPenalties,
         team1: 'USA',
         team2: 'CAN',

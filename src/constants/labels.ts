@@ -66,6 +66,9 @@ export const EDITOR_LABELS = {
   addPenalty: 'Ajouter',
 
   /* Couleurs */
+  bgModeUniform: 'Couleur unie',
+  bgModeGradient: 'Dégradé',
+  colorBgUniform: 'Couleur de fond',
   colorBgTop: 'Haut',
   colorBgMid: 'Milieu',
   colorBgBot: 'Bas',

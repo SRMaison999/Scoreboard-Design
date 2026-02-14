@@ -4,7 +4,9 @@ import { Button } from '@/components/ui/Button';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { COLOR_PRESETS } from '@/constants/colors';
 import { EDITOR_LABELS } from '@/constants/labels';
+import { cn } from '@/lib/utils';
 import type { ColorKey } from '@/types/colors';
+import type { BgMode } from '@/types/scoreboard';
 
 function useColorHandlers() {
   const colors = useScoreboardStore((s) => s.colors);
@@ -35,12 +37,70 @@ function ColorRow({
   );
 }
 
+const BG_MODES: readonly { readonly key: BgMode; readonly label: string }[] = [
+  { key: 'uniform', label: EDITOR_LABELS.bgModeUniform },
+  { key: 'gradient', label: EDITOR_LABELS.bgModeGradient },
+];
+
+function useUniformBgHandlers() {
+  const colors = useScoreboardStore((s) => s.colors);
+  const opacities = useScoreboardStore((s) => s.opacities);
+  const updateColor = useScoreboardStore((s) => s.updateColor);
+  const updateOpacity = useScoreboardStore((s) => s.updateOpacity);
+
+  const onColorChange = (value: string) => {
+    updateColor('bgTop', value);
+    updateColor('bgMid', value);
+    updateColor('bgBot', value);
+  };
+
+  const onOpacityChange = (value: number) => {
+    updateOpacity('bgTop', value);
+    updateOpacity('bgMid', value);
+    updateOpacity('bgBot', value);
+  };
+
+  return { color: colors.bgTop, opacity: opacities.bgTop, onColorChange, onOpacityChange };
+}
+
 function BackgroundColors() {
+  const bgMode = useScoreboardStore((s) => s.bgMode);
+  const update = useScoreboardStore((s) => s.update);
+  const { color, opacity, onColorChange, onOpacityChange } = useUniformBgHandlers();
+
   return (
     <Section title={EDITOR_LABELS.sectionColorsBg} defaultOpen={false}>
-      <ColorRow colorKey="bgTop" label={EDITOR_LABELS.colorBgTop} />
-      <ColorRow colorKey="bgMid" label={EDITOR_LABELS.colorBgMid} />
-      <ColorRow colorKey="bgBot" label={EDITOR_LABELS.colorBgBot} />
+      <div className="flex gap-1.5">
+        {BG_MODES.map((mode) => (
+          <Button
+            key={mode.key}
+            variant="ghost"
+            className={cn(
+              'flex-1 text-[11px]',
+              bgMode === mode.key && 'border-2 border-sky-300',
+            )}
+            onClick={() => update('bgMode', mode.key)}
+          >
+            {mode.label}
+          </Button>
+        ))}
+      </div>
+
+      {bgMode === 'uniform' ? (
+        <ColorPicker
+          label={EDITOR_LABELS.colorBgUniform}
+          value={color}
+          onChange={onColorChange}
+          opacity={opacity}
+          onOpacityChange={onOpacityChange}
+        />
+      ) : (
+        <>
+          <ColorRow colorKey="bgTop" label={EDITOR_LABELS.colorBgTop} />
+          <ColorRow colorKey="bgMid" label={EDITOR_LABELS.colorBgMid} />
+          <ColorRow colorKey="bgBot" label={EDITOR_LABELS.colorBgBot} />
+        </>
+      )}
     </Section>
   );
 }
