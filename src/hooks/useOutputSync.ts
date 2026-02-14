@@ -9,51 +9,51 @@ interface SyncMessage {
   state: ScoreboardState;
 }
 
+/** Extrait uniquement les donnees de state (sans les actions) du store. */
+function selectState(store: ReturnType<typeof useScoreboardStore.getState>): ScoreboardState {
+  return {
+    bodyType: store.bodyType,
+    showPenalties: store.showPenalties,
+    team1: store.team1,
+    team2: store.team2,
+    score1: store.score1,
+    score2: store.score2,
+    time: store.time,
+    period: store.period,
+    showClock: store.showClock,
+    clockBoxMode: store.clockBoxMode,
+    periodOptions: store.periodOptions,
+    demoRunning: store.demoRunning,
+    titleCenter: store.titleCenter,
+    titleLeft: store.titleLeft,
+    titleRight: store.titleRight,
+    fontTeams: store.fontTeams,
+    fontClock: store.fontClock,
+    fontBody: store.fontBody,
+    colors: store.colors,
+    opacities: store.opacities,
+    showPlayerPhoto: store.showPlayerPhoto,
+    playerStats: store.playerStats,
+    stats: store.stats,
+    penaltiesLeft: store.penaltiesLeft,
+    penaltiesRight: store.penaltiesRight,
+  };
+}
+
 /**
  * Cote editeur : envoie le state a la fenetre de sortie via BroadcastChannel.
  */
 export function useOutputSyncSender(): void {
-  const state = useScoreboardStore();
+  const store = useScoreboardStore();
 
   useEffect(() => {
     const channel = new BroadcastChannel(CHANNEL_NAME);
-    const {
-      update: _u,
-      updateColor: _uc,
-      updateOpacity: _uo,
-      applyPreset: _ap,
-      updateStat: _us,
-      addStat: _as,
-      removeStat: _rs,
-      updatePlayerStat: _ups,
-      addPlayerStat: _aps,
-      removePlayerStat: _rps,
-      updatePenalty: _up,
-      addPenalty: _apn,
-      removePenalty: _rp,
-      startClock: _sc,
-      stopClock: _stc,
-      resetClock: _rc,
-      tickTimer: _tt,
-      incrementScore: _is,
-      decrementScore: _ds,
-      nextPhase: _np,
-      updatePhase: _uph,
-      addPhase: _aph,
-      removePhase: _rph,
-      loadState: _ls,
-      resetState: _rst,
-      ...plainState
-    } = state;
-
-    const message: SyncMessage = {
-      type: 'STATE_UPDATE',
-      state: plainState as ScoreboardState,
-    };
+    const plainState = selectState(store);
+    const message: SyncMessage = { type: 'STATE_UPDATE', state: plainState };
     channel.postMessage(message);
 
     return () => channel.close();
-  }, [state]);
+  }, [store]);
 }
 
 /**

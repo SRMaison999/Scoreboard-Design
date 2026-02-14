@@ -1,0 +1,95 @@
+import { hexToRgba } from '@/utils/color';
+import { ff } from '@/utils/font';
+import type { ColorMap, OpacityMap } from '@/types/colors';
+import type { FontId, } from '@/types/fonts';
+import type { ClockBoxMode } from '@/types/scoreboard';
+
+interface ClockOverlayProps {
+  readonly time: string;
+  readonly period: string;
+  readonly showClock: boolean;
+  readonly clockBoxMode: ClockBoxMode;
+  readonly demoRunning: boolean;
+  readonly colors: ColorMap;
+  readonly opacities: OpacityMap;
+  readonly fontClock: FontId;
+}
+
+export function ClockOverlay({
+  time,
+  period,
+  showClock,
+  clockBoxMode,
+  demoRunning,
+  colors,
+  opacities,
+  fontClock,
+}: ClockOverlayProps) {
+  if (!showClock) return null;
+
+  const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
+
+  const showClockBox =
+    clockBoxMode === 'always' ||
+    (clockBoxMode === 'stopped' && !demoRunning) ||
+    (clockBoxMode === 'running' && demoRunning);
+
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        pointerEvents: 'none',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          pointerEvents: 'auto',
+          ...(showClockBox
+            ? {
+                background: col('clockBox'),
+                borderRadius: 8,
+                padding: '4px 28px',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+              }
+            : {}),
+        }}
+      >
+        <span
+          style={{
+            fontSize: 80,
+            fontWeight: 600,
+            fontFamily: ff(fontClock),
+            color: col('time'),
+          }}
+        >
+          {time}
+        </span>
+        {period && (
+          <span
+            style={{
+              fontSize: 22,
+              fontWeight: 600,
+              letterSpacing: 3,
+              fontFamily: ff(fontClock),
+              textTransform: 'uppercase',
+              marginTop: -8,
+              color: col('period'),
+            }}
+          >
+            {period}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
