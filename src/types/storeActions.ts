@@ -4,6 +4,7 @@ import type { GoalData } from './bodyTypes/goal';
 import type { PlayerCardData } from './bodyTypes/playerCard';
 import type { FinalScoreData } from './bodyTypes/finalScore';
 import type { ShootoutResult } from './bodyTypes/shootout';
+import type { RosterData } from './bodyTypes/roster';
 import type { FontSizeKey } from './fontSizes';
 
 export interface ScoreboardActions {
@@ -69,6 +70,37 @@ export interface ScoreboardActions {
   addFreeTextLine: () => void;
   removeFreeTextLine: (index: number) => void;
   updateFreeTextLine: (index: number, field: string, value: unknown) => void;
+
+  /* Head to Head (type 9) */
+  updateHeadToHeadTitle: (value: string) => void;
+  updateHeadToHeadPlayer: (side: PenaltySide, field: string, value: string) => void;
+  addHeadToHeadStat: () => void;
+  removeHeadToHeadStat: (index: number) => void;
+  updateHeadToHeadStat: (index: number, field: string, value: string) => void;
+
+  /* Timeline (type 10) */
+  updateTimelineTitle: (value: string) => void;
+  addTimelineEvent: () => void;
+  removeTimelineEvent: (index: number) => void;
+  updateTimelineEvent: (index: number, field: string, value: string) => void;
+
+  /* Bar Chart (type 11) */
+  updateBarChartTitle: (value: string) => void;
+  addBarChartRow: () => void;
+  removeBarChartRow: (index: number) => void;
+  updateBarChartRow: (index: number, field: string, value: string | number) => void;
+
+  /* Roster (type 12) */
+  updateRosterField: (field: keyof RosterData, value: string) => void;
+  addRosterPlayer: () => void;
+  removeRosterPlayer: (index: number) => void;
+  updateRosterPlayer: (index: number, field: string, value: string) => void;
+
+  /* Schedule (type 13) */
+  updateScheduleTitle: (value: string) => void;
+  addScheduleMatch: () => void;
+  removeScheduleMatch: (index: number) => void;
+  updateScheduleMatch: (index: number, field: string, value: string) => void;
 
   /* Shootout */
   addShootoutAttempt: (side: PenaltySide) => void;

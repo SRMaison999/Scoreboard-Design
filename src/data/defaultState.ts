@@ -5,6 +5,11 @@ import { DEFAULT_PLAYER_CARD_DATA } from '@/types/bodyTypes/playerCard';
 import { DEFAULT_STANDINGS_DATA } from '@/types/bodyTypes/standings';
 import { DEFAULT_FINAL_SCORE_DATA } from '@/types/bodyTypes/finalScore';
 import { DEFAULT_FREE_TEXT_DATA } from '@/types/bodyTypes/freeText';
+import { DEFAULT_HEAD_TO_HEAD_DATA } from '@/types/bodyTypes/headToHead';
+import { DEFAULT_TIMELINE_DATA } from '@/types/bodyTypes/timeline';
+import { DEFAULT_BAR_CHART_DATA } from '@/types/bodyTypes/barChart';
+import { DEFAULT_ROSTER_DATA } from '@/types/bodyTypes/roster';
+import { DEFAULT_SCHEDULE_DATA } from '@/types/bodyTypes/schedule';
 import { DEFAULT_FONT_SIZES } from '@/types/fontSizes';
 import { DEFAULT_TEMPLATE_WIDTH, DEFAULT_TEMPLATE_HEIGHT } from '@/constants/resolutions';
 import type { ScoreboardState } from '@/types/scoreboard';
@@ -65,6 +70,11 @@ export const DEFAULT_STATE: ScoreboardState = {
   standingsData: structuredClone(DEFAULT_STANDINGS_DATA),
   finalScoreData: structuredClone(DEFAULT_FINAL_SCORE_DATA),
   freeTextData: structuredClone(DEFAULT_FREE_TEXT_DATA),
+  headToHeadData: structuredClone(DEFAULT_HEAD_TO_HEAD_DATA),
+  timelineData: structuredClone(DEFAULT_TIMELINE_DATA),
+  barChartData: structuredClone(DEFAULT_BAR_CHART_DATA),
+  rosterData: structuredClone(DEFAULT_ROSTER_DATA),
+  scheduleData: structuredClone(DEFAULT_SCHEDULE_DATA),
 
   showTimeouts: false,
   timeoutsLeft: 0,

@@ -36,6 +36,16 @@ function resolveBodyData(state: ScoreboardState): BodyDataUnion {
       return { type: 'finalScore', data: structuredClone(state.finalScoreData) };
     case 8:
       return { type: 'freeText', data: structuredClone(state.freeTextData) };
+    case 9:
+      return { type: 'headToHead', data: structuredClone(state.headToHeadData) };
+    case 10:
+      return { type: 'timeline', data: structuredClone(state.timelineData) };
+    case 11:
+      return { type: 'barChart', data: structuredClone(state.barChartData) };
+    case 12:
+      return { type: 'roster', data: structuredClone(state.rosterData) };
+    case 13:
+      return { type: 'schedule', data: structuredClone(state.scheduleData) };
     default:
       return { type: 'stats', data: structuredClone(state.stats) };
   }

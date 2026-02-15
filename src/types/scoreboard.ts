@@ -6,10 +6,15 @@ import type { StandingsData } from './bodyTypes/standings';
 import type { FinalScoreData } from './bodyTypes/finalScore';
 import type { FreeTextData } from './bodyTypes/freeText';
 import type { ShootoutAttempt } from './bodyTypes/shootout';
+import type { HeadToHeadData } from './bodyTypes/headToHead';
+import type { TimelineData } from './bodyTypes/timeline';
+import type { BarChartData } from './bodyTypes/barChart';
+import type { RosterData } from './bodyTypes/roster';
+import type { ScheduleData } from './bodyTypes/schedule';
 import type { BackgroundMediaMode } from './media';
 import type { FontSizeConfig } from './fontSizes';
 
-export type BodyTypeId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type BodyTypeId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
 
 export type BgMode = 'uniform' | 'gradient';
 
@@ -103,6 +108,21 @@ export interface ScoreboardState {
 
   /* Type 8 : Texte libre */
   freeTextData: FreeTextData;
+
+  /* Type 9 : Face-à-face */
+  headToHeadData: HeadToHeadData;
+
+  /* Type 10 : Chronologie */
+  timelineData: TimelineData;
+
+  /* Type 11 : Barres comparatives */
+  barChartData: BarChartData;
+
+  /* Type 12 : Composition d'équipe */
+  rosterData: RosterData;
+
+  /* Type 13 : Calendrier */
+  scheduleData: ScheduleData;
 
   /* Header : timeouts */
   showTimeouts: boolean;

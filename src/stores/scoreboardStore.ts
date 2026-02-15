@@ -117,6 +117,58 @@ export const useScoreboardStore = create<ScoreboardStore>()(
       updateFreeTextLine: (index: number, field: string, value: unknown) =>
         set((s) => { const line = s.freeTextData.lines[index]; if (line) (line as Record<string, unknown>)[field] = value; }),
 
+      /* Head to Head (type 9) */
+      updateHeadToHeadTitle: (value: string) =>
+        set((s) => { s.headToHeadData.title = value; }),
+      updateHeadToHeadPlayer: (side, field, value) =>
+        set((s) => { const p = side === 'left' ? s.headToHeadData.playerLeft : s.headToHeadData.playerRight; (p as Record<string, string>)[field] = value; }),
+      addHeadToHeadStat: () =>
+        set((s) => { if (s.headToHeadData.stats.length < MAX_LINES) s.headToHeadData.stats.push({ label: 'STAT', valueLeft: '0', valueRight: '0' }); }),
+      removeHeadToHeadStat: (index: number) =>
+        set((s) => { s.headToHeadData.stats.splice(index, 1); }),
+      updateHeadToHeadStat: (index: number, field: string, value: string) =>
+        set((s) => { const st = s.headToHeadData.stats[index]; if (st) (st as Record<string, string>)[field] = value; }),
+
+      /* Timeline (type 10) */
+      updateTimelineTitle: (value: string) =>
+        set((s) => { s.timelineData.title = value; }),
+      addTimelineEvent: () =>
+        set((s) => { if (s.timelineData.events.length < MAX_LINES) s.timelineData.events.push({ period: '1st', time: '00:00', type: 'goal', description: '', team: '' }); }),
+      removeTimelineEvent: (index: number) =>
+        set((s) => { s.timelineData.events.splice(index, 1); }),
+      updateTimelineEvent: (index: number, field: string, value: string) =>
+        set((s) => { const ev = s.timelineData.events[index]; if (ev) (ev as Record<string, string>)[field] = value; }),
+
+      /* Bar Chart (type 11) */
+      updateBarChartTitle: (value: string) =>
+        set((s) => { s.barChartData.title = value; }),
+      addBarChartRow: () =>
+        set((s) => { if (s.barChartData.rows.length < MAX_LINES) s.barChartData.rows.push({ label: 'STAT', valueLeft: 0, valueRight: 0, format: 'absolute' }); }),
+      removeBarChartRow: (index: number) =>
+        set((s) => { s.barChartData.rows.splice(index, 1); }),
+      updateBarChartRow: (index: number, field: string, value: string | number) =>
+        set((s) => { const row = s.barChartData.rows[index]; if (row) (row as Record<string, string | number>)[field] = value; }),
+
+      /* Roster (type 12) */
+      updateRosterField: (field, value) =>
+        set((s) => { (s.rosterData as Record<string, unknown>)[field] = value; }),
+      addRosterPlayer: () =>
+        set((s) => { if (s.rosterData.players.length < 25) s.rosterData.players.push({ number: '0', name: 'JOUEUR', position: 'F' }); }),
+      removeRosterPlayer: (index: number) =>
+        set((s) => { s.rosterData.players.splice(index, 1); }),
+      updateRosterPlayer: (index: number, field: string, value: string) =>
+        set((s) => { const p = s.rosterData.players[index]; if (p) (p as Record<string, string>)[field] = value; }),
+
+      /* Schedule (type 13) */
+      updateScheduleTitle: (value: string) =>
+        set((s) => { s.scheduleData.title = value; }),
+      addScheduleMatch: () =>
+        set((s) => { if (s.scheduleData.matches.length < MAX_LINES) s.scheduleData.matches.push({ date: '', time: '', teamLeft: '', teamRight: '', scoreLeft: '', scoreRight: '', status: 'upcoming', venue: '' }); }),
+      removeScheduleMatch: (index: number) =>
+        set((s) => { s.scheduleData.matches.splice(index, 1); }),
+      updateScheduleMatch: (index: number, field: string, value: string) =>
+        set((s) => { const m = s.scheduleData.matches[index]; if (m) (m as Record<string, string>)[field] = value; }),
+
       /* Shootout */
       addShootoutAttempt: (side: PenaltySide) =>
         set((s) => { (side === 'left' ? s.shootoutLeft : s.shootoutRight).push({ result: 'pending' }); }),

@@ -9,6 +9,11 @@ import { BodyType5 } from './body/BodyType5';
 import { BodyType6 } from './body/BodyType6';
 import { BodyType7 } from './body/BodyType7';
 import { BodyType8 } from './body/BodyType8';
+import { BodyType9 } from './body/BodyType9';
+import { BodyType10 } from './body/BodyType10';
+import { BodyType11 } from './body/BodyType11';
+import { BodyType12 } from './body/BodyType12';
+import { BodyType13 } from './body/BodyType13';
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
 import type { ScoreboardState } from '@/types/scoreboard';
@@ -48,6 +53,16 @@ function BodyRenderer({ state, colors, opacities, fontBody, fontSizes }: BodyPro
       return <BodyType7 finalScoreData={state.finalScoreData} team1={state.team1} team2={state.team2} score1={state.score1} score2={state.score2} {...shared} />;
     case 8:
       return <BodyType8 freeTextData={state.freeTextData} {...shared} />;
+    case 9:
+      return <BodyType9 headToHeadData={state.headToHeadData} {...shared} />;
+    case 10:
+      return <BodyType10 timelineData={state.timelineData} {...shared} />;
+    case 11:
+      return <BodyType11 barChartData={state.barChartData} team1={state.team1} team2={state.team2} {...shared} />;
+    case 12:
+      return <BodyType12 rosterData={state.rosterData} {...shared} />;
+    case 13:
+      return <BodyType13 scheduleData={state.scheduleData} {...shared} />;
     default:
       return <BodyType1 stats={state.stats} titleCenter={state.titleCenter} {...shared} />;
   }

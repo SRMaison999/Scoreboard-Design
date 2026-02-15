@@ -13,6 +13,7 @@ const STATE_KEYS: readonly (keyof ScoreboardState)[] = [
   'showPlayerPhoto', 'playerStats', 'stats',
   'penaltiesLeft', 'penaltiesRight',
   'goalData', 'playerCardData', 'standingsData', 'finalScoreData', 'freeTextData',
+  'headToHeadData', 'timelineData', 'barChartData', 'rosterData', 'scheduleData',
   'showTimeouts', 'timeoutsLeft', 'timeoutsRight',
   'showShootout', 'shootoutLeft', 'shootoutRight',
   'backgroundMediaMode', 'backgroundMediaUrl',

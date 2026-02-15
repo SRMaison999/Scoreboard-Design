@@ -159,6 +159,68 @@ export const EDITOR_LABELS = {
   freeTextAlignCenter: 'Centre',
   freeTextAlignRight: 'Droite',
 
+  /* Head to Head (type 9) */
+  sectionHeadToHead: 'Face-à-face',
+  headToHeadTitle: 'Titre',
+  headToHeadPlayerName: 'Nom',
+  headToHeadPlayerNumber: 'Numéro',
+  headToHeadPlayerTeam: 'Équipe',
+  headToHeadStatLabel: 'Stat',
+  headToHeadStatLeft: 'Val. G',
+  headToHeadStatRight: 'Val. D',
+  headToHeadAddStat: 'Ajouter une stat',
+
+  /* Timeline (type 10) */
+  sectionTimeline: 'Chronologie',
+  timelineTitle: 'Titre',
+  timelineEventPeriod: 'Pér.',
+  timelineEventTime: 'Temps',
+  timelineEventType: 'Type',
+  timelineEventDescription: 'Description',
+  timelineEventTeam: 'Équipe',
+  timelineAddEvent: 'Ajouter un événement',
+  timelineTypeGoal: 'But',
+  timelineTypePenalty: 'Pénalité',
+  timelineTypeTimeout: 'Temps mort',
+  timelineTypePeriod: 'Période',
+
+  /* Bar Chart (type 11) */
+  sectionBarChart: 'Barres comparatives',
+  barChartTitle: 'Titre',
+  barChartLabel: 'Label',
+  barChartValueLeft: 'Val. G',
+  barChartValueRight: 'Val. D',
+  barChartFormat: 'Format',
+  barChartFormatPercent: 'Pourcentage',
+  barChartFormatAbsolute: 'Absolu',
+  barChartAddRow: 'Ajouter une barre',
+
+  /* Roster (type 12) */
+  sectionRoster: "Composition d'équipe",
+  rosterTitle: 'Titre',
+  rosterTeam: 'Équipe',
+  rosterCoach: 'Entraîneur',
+  rosterPlayerNumber: 'No',
+  rosterPlayerName: 'Nom',
+  rosterPlayerPosition: 'Pos.',
+  rosterAddPlayer: 'Ajouter un joueur',
+
+  /* Schedule (type 13) */
+  sectionSchedule: 'Calendrier',
+  scheduleTitle: 'Titre',
+  scheduleDate: 'Date',
+  scheduleTime: 'Heure',
+  scheduleTeamLeft: 'Éq. G',
+  scheduleTeamRight: 'Éq. D',
+  scheduleScoreLeft: 'Sc. G',
+  scheduleScoreRight: 'Sc. D',
+  scheduleStatus: 'Statut',
+  scheduleVenue: 'Lieu',
+  scheduleAddMatch: 'Ajouter un match',
+  scheduleStatusUpcoming: 'À venir',
+  scheduleStatusLive: 'En cours',
+  scheduleStatusFinished: 'Terminé',
+
   /* Header - Timeouts */
   sectionTimeouts: 'Temps morts',
   showTimeoutsLabel: 'Afficher les temps morts',

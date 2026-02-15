@@ -9,4 +9,9 @@ export const BODY_TYPES: readonly BodyTypeOption[] = [
   { id: 6, label: 'Classement / Tableau' },
   { id: 7, label: 'Score final / Résultat' },
   { id: 8, label: 'Texte libre / Message' },
+  { id: 9, label: 'Face-à-face (Head to Head)' },
+  { id: 10, label: 'Chronologie (Timeline)' },
+  { id: 11, label: 'Barres comparatives' },
+  { id: 12, label: "Composition d'équipe (Roster)" },
+  { id: 13, label: 'Calendrier / Programme' },
 ] as const;
