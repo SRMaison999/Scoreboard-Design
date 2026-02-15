@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
+import { displayTime } from '@/utils/time';
 
 const PRESET_DURATIONS = ['2:00', '4:00', '5:00', '10:00'] as const;
 
@@ -63,7 +64,7 @@ export function PenaltyControls() {
             <div className="flex flex-col gap-1 mt-1">
               {penaltiesLeft.map((p, i) => (
                 <div key={`pl-${String(i)}`} className="flex items-center gap-2 text-sm">
-                  <span className="text-orange-300 tabular-nums font-bold">{p.time}</span>
+                  <span className="text-orange-300 tabular-nums font-bold">{displayTime(p.time)}</span>
                   <span className="text-gray-400">#{p.number}</span>
                   <button
                     type="button"
@@ -105,7 +106,7 @@ export function PenaltyControls() {
             <div className="flex flex-col gap-1 mt-1">
               {penaltiesRight.map((p, i) => (
                 <div key={`pr-${String(i)}`} className="flex items-center gap-2 text-sm">
-                  <span className="text-orange-300 tabular-nums font-bold">{p.time}</span>
+                  <span className="text-orange-300 tabular-nums font-bold">{displayTime(p.time)}</span>
                   <span className="text-gray-400">#{p.number}</span>
                   <button
                     type="button"

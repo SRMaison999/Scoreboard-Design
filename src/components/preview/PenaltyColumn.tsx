@@ -1,5 +1,6 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
+import { displayTime } from '@/utils/time';
 import type { Penalty, PenaltySide } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
@@ -65,7 +66,7 @@ export function PenaltyColumn({
                   fontVariantNumeric: 'tabular-nums',
                 }}
               >
-                {p.time}
+                {displayTime(p.time)}
               </span>
               <span
                 style={{
@@ -102,7 +103,7 @@ export function PenaltyColumn({
                   fontVariantNumeric: 'tabular-nums',
                 }}
               >
-                {p.time}
+                {displayTime(p.time)}
               </span>
             </>
           )}

@@ -21,13 +21,13 @@ describe('useTimer', () => {
     expect(useScoreboardStore.getState().time).toBe('5:00');
   });
 
-  it('decremente chaque seconde quand le timer tourne', () => {
+  it('decremente chaque dixieme de seconde quand le timer tourne', () => {
     useScoreboardStore.getState().update('time', '5:00');
     useScoreboardStore.getState().startClock();
     renderHook(() => useTimer());
 
     vi.advanceTimersByTime(3000);
-    expect(useScoreboardStore.getState().time).toBe('4:57');
+    expect(useScoreboardStore.getState().time).toBe('4:57.0');
   });
 
   it('arrete le decompte quand stopClock est appele', () => {
@@ -40,6 +40,6 @@ describe('useTimer', () => {
     rerender();
     vi.advanceTimersByTime(5000);
 
-    expect(useScoreboardStore.getState().time).toBe('4:58');
+    expect(useScoreboardStore.getState().time).toBe('4:58.0');
   });
 });

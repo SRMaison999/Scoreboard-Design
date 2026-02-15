@@ -7,15 +7,17 @@ import type {
   FramePenalty,
   BodyDataUnion,
 } from '@/types/frameData';
-import { parseTime } from '@/utils/time';
+import { parseTime, displayTime } from '@/utils/time';
+
+const TENTHS_PER_SECOND = 10;
 
 const FRAME_DATA_VERSION = '1.0';
 
 function mapPenalties(penalties: Penalty[]): FramePenalty[] {
   return penalties.map((p) => ({
     playerNumber: p.number,
-    remainingTime: p.time,
-    remainingSeconds: parseTime(p.time),
+    remainingTime: displayTime(p.time),
+    remainingSeconds: parseTime(p.time) / TENTHS_PER_SECOND,
   }));
 }
 
@@ -105,8 +107,8 @@ export function toFrameData(
       left: parseInt(state.score1, 10) || 0,
       right: parseInt(state.score2, 10) || 0,
     },
-    time: state.time,
-    timeSeconds: parseTime(state.time),
+    time: displayTime(state.time),
+    timeSeconds: parseTime(state.time) / TENTHS_PER_SECOND,
     period: state.period,
     clockRunning: state.demoRunning,
     penaltiesLeft: mapPenalties(state.penaltiesLeft),

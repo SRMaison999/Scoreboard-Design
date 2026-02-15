@@ -9,7 +9,7 @@ export function tickTimerDraft(s: ScoreboardState & { penaltiesLeft: Penalty[]; 
       const pen = list[i];
       if (!pen) continue;
       const ps = parseTime(pen.time);
-      if (ps <= 1) {
+      if (ps <= 0) {
         list.splice(i, 1);
       } else {
         pen.time = formatTime(ps - 1);

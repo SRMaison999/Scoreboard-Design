@@ -3,6 +3,7 @@ import { InputField } from '@/components/ui/InputField';
 import { Button } from '@/components/ui/Button';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
+import { displayTime } from '@/utils/time';
 import type { PenaltySide } from '@/types/scoreboard';
 
 interface PenaltySectionProps {
@@ -36,7 +37,7 @@ export function PenaltySection({ side }: PenaltySectionProps) {
               <>
                 <InputField
                   label={EDITOR_LABELS.penaltyTime}
-                  value={p.time}
+                  value={displayTime(p.time)}
                   onChange={(v) => updatePenalty(side, i, 'time', v)}
                 />
                 <InputField
@@ -54,7 +55,7 @@ export function PenaltySection({ side }: PenaltySectionProps) {
                 />
                 <InputField
                   label={EDITOR_LABELS.penaltyTime}
-                  value={p.time}
+                  value={displayTime(p.time)}
                   onChange={(v) => updatePenalty(side, i, 'time', v)}
                 />
               </>

@@ -143,10 +143,10 @@ describe('scoreboardStore', () => {
   });
 
   describe('tickTimer', () => {
-    it('decremente le temps de 1 seconde', () => {
+    it('decremente le temps de 1 dixieme', () => {
       useScoreboardStore.getState().update('time', '5:00');
       useScoreboardStore.getState().tickTimer();
-      expect(useScoreboardStore.getState().time).toBe('4:59');
+      expect(useScoreboardStore.getState().time).toBe('4:59.9');
     });
 
     it('decremente les penalites', () => {
@@ -155,12 +155,12 @@ describe('scoreboardStore', () => {
       ]);
       useScoreboardStore.getState().update('time', '5:00');
       useScoreboardStore.getState().tickTimer();
-      expect(useScoreboardStore.getState().penaltiesLeft[0]?.time).toBe('0:59');
+      expect(useScoreboardStore.getState().penaltiesLeft[0]?.time).toBe('0:59.9');
     });
 
-    it('supprime les penalites a 0:01 apres tick', () => {
+    it('supprime les penalites a 0.0 apres tick', () => {
       useScoreboardStore.getState().update('penaltiesLeft', [
-        { time: '0:01', number: '10' },
+        { time: '0.0', number: '10' },
       ]);
       useScoreboardStore.getState().update('time', '5:00');
       useScoreboardStore.getState().tickTimer();

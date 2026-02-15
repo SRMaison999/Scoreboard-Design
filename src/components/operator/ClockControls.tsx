@@ -1,5 +1,6 @@
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
+import { displayTime } from '@/utils/time';
 
 export function ClockControls() {
   const time = useScoreboardStore((s) => s.time);
@@ -20,7 +21,7 @@ export function ClockControls() {
       <div className="flex items-center gap-4">
         <div className="text-center">
           <div className="text-4xl font-bold text-white tabular-nums font-[family-name:var(--font-barlow)]">
-            {time}
+            {displayTime(time)}
           </div>
           <div className="text-sm text-gray-400 tracking-widest mt-1">{period}</div>
         </div>

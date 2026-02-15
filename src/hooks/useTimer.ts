@@ -3,7 +3,7 @@ import { useScoreboardStore } from '@/stores/scoreboardStore';
 
 /**
  * Hook qui gere le timer de match.
- * Decremente l'horloge et les penalites chaque seconde quand le timer tourne.
+ * Decremente l'horloge et les penalites chaque dixieme de seconde quand le timer tourne.
  */
 export function useTimer(): void {
   const demoRunning = useScoreboardStore((s) => s.demoRunning);
@@ -20,7 +20,7 @@ export function useTimer(): void {
 
     intervalRef.current = setInterval(() => {
       tickTimer();
-    }, 1000);
+    }, 100);
 
     return () => {
       if (intervalRef.current) {

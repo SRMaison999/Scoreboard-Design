@@ -4,6 +4,7 @@ import { InputField } from '@/components/ui/InputField';
 import { Select } from '@/components/ui/Select';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
+import { displayTime } from '@/utils/time';
 import { PhaseSection } from './PhaseSection';
 import { DemoSection } from './DemoSection';
 import type { ClockBoxMode } from '@/types/scoreboard';
@@ -64,7 +65,7 @@ export function ClockSection() {
         <>
           <InputField
             label={EDITOR_LABELS.timeLabel}
-            value={time}
+            value={displayTime(time)}
             onChange={handleTimeChange}
           />
 

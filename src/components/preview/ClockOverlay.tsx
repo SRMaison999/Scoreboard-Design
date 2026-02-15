@@ -1,5 +1,6 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
+import { displayTime } from '@/utils/time';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId, } from '@/types/fonts';
 import type { ClockBoxMode } from '@/types/scoreboard';
@@ -76,7 +77,7 @@ export function ClockOverlay({
             color: col('time'),
           }}
         >
-          {time}
+          {displayTime(time)}
         </span>
         {period && (
           <span
