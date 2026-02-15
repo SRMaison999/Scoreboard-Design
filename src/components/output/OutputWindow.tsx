@@ -3,6 +3,7 @@ import { useFontLoader } from '@/hooks/useFontLoader';
 import { usePlayerPhotos } from '@/hooks/usePlayerPhotos';
 import { useLogos } from '@/hooks/useLogos';
 import { AnimatedScoreboard } from '@/components/preview/AnimatedScoreboard';
+import { OverlayRenderer } from '@/components/output/OverlayRenderer';
 
 /**
  * Fenetre de sortie capturable par OBS/vMix.
@@ -24,8 +25,9 @@ export function OutputWindow() {
   }
 
   return (
-    <div className="w-screen h-screen bg-black overflow-hidden flex items-center justify-center">
+    <div className="w-screen h-screen bg-black overflow-hidden flex items-center justify-center relative">
       <AnimatedScoreboard state={state} playerPhotos={playerPhotos} logos={logos} />
+      <OverlayRenderer />
     </div>
   );
 }
