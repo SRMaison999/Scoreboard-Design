@@ -1,9 +1,18 @@
+import { useState, useCallback } from 'react';
 import { Section } from '@/components/ui/Section';
 import { InputField } from '@/components/ui/InputField';
 import { Button } from '@/components/ui/Button';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
-import type { PlayerPosition } from '@/types/bodyTypes/roster';
+import { RosterImportModal } from '@/components/editor/RosterImportModal';
+import {
+  exportRosterCsv,
+  exportRosterExcel,
+  exportRosterJson,
+  downloadFile,
+} from '@/utils/roster/rosterExporter';
+import type { PlayerPosition, RosterPlayer } from '@/types/bodyTypes/roster';
+import type { RosterImportMode } from '@/types/rosterImport';
 
 const MAX_PLAYERS = 25;
 
@@ -22,6 +31,31 @@ export function RosterSection() {
   const addPlayer = useScoreboardStore((s) => s.addRosterPlayer);
   const removePlayer = useScoreboardStore((s) => s.removeRosterPlayer);
   const updatePlayer = useScoreboardStore((s) => s.updateRosterPlayer);
+  const importPlayers = useScoreboardStore((s) => s.importRosterPlayers);
+
+  const [importOpen, setImportOpen] = useState(false);
+
+  const handleImport = useCallback(
+    (players: RosterPlayer[], mode: RosterImportMode) => {
+      importPlayers(players, mode);
+    },
+    [importPlayers],
+  );
+
+  const handleExportCsv = useCallback(() => {
+    const csv = exportRosterCsv(data.players);
+    downloadFile(csv, 'roster.csv', 'text/csv');
+  }, [data.players]);
+
+  const handleExportExcel = useCallback(() => {
+    const buf = exportRosterExcel(data.players);
+    downloadFile(buf, 'roster.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+  }, [data.players]);
+
+  const handleExportJson = useCallback(() => {
+    const json = exportRosterJson(data.players);
+    downloadFile(json, 'roster.json', 'application/json');
+  }, [data.players]);
 
   const title = `${EDITOR_LABELS.sectionRoster} (${String(data.players.length)}/${String(MAX_PLAYERS)})`;
 
@@ -44,6 +78,22 @@ export function RosterSection() {
         value={data.coach}
         onChange={(v) => updateField('coach', v)}
       />
+
+      {/* Boutons import / export */}
+      <div className="flex gap-1.5 flex-wrap">
+        <Button variant="primary" className="text-xs" onClick={() => setImportOpen(true)}>
+          {EDITOR_LABELS.rosterImport}
+        </Button>
+        <Button variant="ghost" className="text-xs" onClick={handleExportCsv}>
+          {EDITOR_LABELS.rosterExportCsv}
+        </Button>
+        <Button variant="ghost" className="text-xs" onClick={handleExportExcel}>
+          {EDITOR_LABELS.rosterExportExcel}
+        </Button>
+        <Button variant="ghost" className="text-xs" onClick={handleExportJson}>
+          {EDITOR_LABELS.rosterExportJson}
+        </Button>
+      </div>
 
       {data.players.map((player, i) => (
         <div key={`roster-${String(i)}`} className="flex gap-1.5 items-end">
@@ -86,6 +136,12 @@ export function RosterSection() {
           + {EDITOR_LABELS.rosterAddPlayer}
         </Button>
       )}
+
+      <RosterImportModal
+        open={importOpen}
+        onClose={() => setImportOpen(false)}
+        onImport={handleImport}
+      />
     </Section>
   );
 }

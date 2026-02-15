@@ -158,6 +158,15 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { s.rosterData.players.splice(index, 1); }),
       updateRosterPlayer: (index: number, field: string, value: string) =>
         set((s) => { const p = s.rosterData.players[index]; if (p) (p as Record<string, string>)[field] = value; }),
+      importRosterPlayers: (players, mode) =>
+        set((s) => {
+          if (mode === 'replace') {
+            s.rosterData.players = players;
+          } else {
+            const remaining = 25 - s.rosterData.players.length;
+            s.rosterData.players.push(...players.slice(0, remaining));
+          }
+        }),
 
       /* Schedule (type 13) */
       updateScheduleTitle: (value: string) =>

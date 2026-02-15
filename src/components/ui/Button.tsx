@@ -1,7 +1,7 @@
 import { type ButtonHTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
 
-type ButtonVariant = 'primary' | 'danger' | 'ghost' | 'add';
+type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'ghost' | 'add';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   readonly variant?: ButtonVariant;
@@ -9,6 +9,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary: 'bg-green-900 text-white font-bold',
+  secondary: 'bg-gray-700 text-gray-200',
   danger: 'bg-red-900 text-red-300',
   ghost: 'bg-gray-800 border border-gray-700 text-gray-400',
   add: 'bg-blue-950 border border-blue-600 text-blue-300 w-full',
