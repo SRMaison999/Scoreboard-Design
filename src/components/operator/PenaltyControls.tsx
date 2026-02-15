@@ -10,6 +10,7 @@ export function PenaltyControls() {
   const team2 = useScoreboardStore((s) => s.team2);
   const penaltiesLeft = useScoreboardStore((s) => s.penaltiesLeft);
   const penaltiesRight = useScoreboardStore((s) => s.penaltiesRight);
+  const clockTenthsThreshold = useScoreboardStore((s) => s.clockTenthsThreshold);
   const addPenalty = useScoreboardStore((s) => s.addPenalty);
   const updatePenalty = useScoreboardStore((s) => s.updatePenalty);
   const removePenalty = useScoreboardStore((s) => s.removePenalty);
@@ -64,7 +65,7 @@ export function PenaltyControls() {
             <div className="flex flex-col gap-1 mt-1">
               {penaltiesLeft.map((p, i) => (
                 <div key={`pl-${String(i)}`} className="flex items-center gap-2 text-sm">
-                  <span className="text-orange-300 tabular-nums font-bold">{displayTime(p.time)}</span>
+                  <span className="text-orange-300 tabular-nums font-bold">{displayTime(p.time, clockTenthsThreshold)}</span>
                   <span className="text-gray-400">#{p.number}</span>
                   <button
                     type="button"
@@ -106,7 +107,7 @@ export function PenaltyControls() {
             <div className="flex flex-col gap-1 mt-1">
               {penaltiesRight.map((p, i) => (
                 <div key={`pr-${String(i)}`} className="flex items-center gap-2 text-sm">
-                  <span className="text-orange-300 tabular-nums font-bold">{displayTime(p.time)}</span>
+                  <span className="text-orange-300 tabular-nums font-bold">{displayTime(p.time, clockTenthsThreshold)}</span>
                   <span className="text-gray-400">#{p.number}</span>
                   <button
                     type="button"

@@ -14,6 +14,7 @@ interface PenaltyColumnProps {
   readonly fontSizePenaltyTime?: number;
   readonly fontSizePenaltyNumber?: number;
   readonly flash?: boolean;
+  readonly clockTenthsThreshold?: number;
 }
 
 const PEN_W = 346;
@@ -27,6 +28,7 @@ export function PenaltyColumn({
   fontSizePenaltyTime = 60,
   fontSizePenaltyNumber = 60,
   flash = false,
+  clockTenthsThreshold = 10,
 }: PenaltyColumnProps) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
 
@@ -69,7 +71,7 @@ export function PenaltyColumn({
                   fontVariantNumeric: 'tabular-nums',
                 }}
               >
-                {displayTime(p.time)}
+                {displayTime(p.time, clockTenthsThreshold)}
               </span>
               <span
                 style={{
@@ -106,7 +108,7 @@ export function PenaltyColumn({
                   fontVariantNumeric: 'tabular-nums',
                 }}
               >
-                {displayTime(p.time)}
+                {displayTime(p.time, clockTenthsThreshold)}
               </span>
             </>
           )}

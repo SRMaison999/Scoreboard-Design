@@ -78,7 +78,7 @@ describe('formatTime', () => {
 });
 
 describe('displayTime', () => {
-  it('masque les dixièmes au format M:SS.t', () => {
+  it('masque les dixièmes au format M:SS.t avec seuil par défaut', () => {
     expect(displayTime('4:59.9')).toBe('4:59');
   });
 
@@ -86,7 +86,7 @@ describe('displayTime', () => {
     expect(displayTime('20:00')).toBe('20:00');
   });
 
-  it('garde le format S.t tel quel', () => {
+  it('garde le format S.t sous le seuil par défaut', () => {
     expect(displayTime('9.5')).toBe('9.5');
   });
 
@@ -94,7 +94,38 @@ describe('displayTime', () => {
     expect(displayTime('0.0')).toBe('0.0');
   });
 
-  it('masque les dixièmes pour 0:10.0', () => {
+  it('masque les dixièmes pour 0:10.0 avec seuil par défaut', () => {
     expect(displayTime('0:10.0')).toBe('0:10');
+  });
+
+  describe('seuil configurable', () => {
+    it('affiche les dixièmes sous le seuil personnalisé', () => {
+      expect(displayTime('0:25.3', 30)).toBe('0:25.3');
+    });
+
+    it('masque les dixièmes au-dessus du seuil personnalisé', () => {
+      expect(displayTime('0:35.7', 30)).toBe('0:35');
+    });
+
+    it('masque les dixièmes pile au seuil', () => {
+      expect(displayTime('0:30.0', 30)).toBe('0:30');
+    });
+
+    it('affiche toujours les dixièmes avec seuil 0', () => {
+      // seuil 0 = jamais de dixièmes (0 secondes < 0 est faux, rien n'est sous 0)
+      expect(displayTime('5.5', 0)).toBe('5');
+    });
+
+    it('affiche les dixièmes pour un grand seuil', () => {
+      expect(displayTime('4:59.9', 600)).toBe('4:59.9');
+    });
+
+    it('masque les dixièmes au-dessus d\'un grand seuil', () => {
+      expect(displayTime('10:00.0', 600)).toBe('10:00');
+    });
+
+    it('garde un temps sans dixièmes inchangé quel que soit le seuil', () => {
+      expect(displayTime('20:00', 30)).toBe('20:00');
+    });
   });
 });

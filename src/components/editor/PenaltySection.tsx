@@ -18,6 +18,7 @@ export function PenaltySection({ side }: PenaltySectionProps) {
   const penalties = useScoreboardStore((s) =>
     side === 'left' ? s.penaltiesLeft : s.penaltiesRight,
   );
+  const clockTenthsThreshold = useScoreboardStore((s) => s.clockTenthsThreshold);
   const updatePenalty = useScoreboardStore((s) => s.updatePenalty);
   const addPenalty = useScoreboardStore((s) => s.addPenalty);
   const removePenalty = useScoreboardStore((s) => s.removePenalty);
@@ -37,7 +38,7 @@ export function PenaltySection({ side }: PenaltySectionProps) {
               <>
                 <InputField
                   label={EDITOR_LABELS.penaltyTime}
-                  value={displayTime(p.time)}
+                  value={displayTime(p.time, clockTenthsThreshold)}
                   onChange={(v) => updatePenalty(side, i, 'time', v)}
                 />
                 <InputField
@@ -55,7 +56,7 @@ export function PenaltySection({ side }: PenaltySectionProps) {
                 />
                 <InputField
                   label={EDITOR_LABELS.penaltyTime}
-                  value={displayTime(p.time)}
+                  value={displayTime(p.time, clockTenthsThreshold)}
                   onChange={(v) => updatePenalty(side, i, 'time', v)}
                 />
               </>

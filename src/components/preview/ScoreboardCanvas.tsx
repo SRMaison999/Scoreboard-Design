@@ -208,6 +208,7 @@ export function ScoreboardCanvas({
           fontSizeClockTime={fontSizes.clockTime}
           fontSizePeriod={fontSizes.period}
           clockPulse={clockPulse}
+          clockTenthsThreshold={state.clockTenthsThreshold}
         />
       </div>
 
@@ -220,13 +221,13 @@ export function ScoreboardCanvas({
 
       <div style={{ flex: 1, display: 'flex', position: 'relative', zIndex: 1 }}>
         {state.showPenalties && (
-          <PenaltyColumn side="left" penalties={state.penaltiesLeft} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} flash={penaltyFlashLeft} />
+          <PenaltyColumn side="left" penalties={state.penaltiesLeft} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} flash={penaltyFlashLeft} clockTenthsThreshold={state.clockTenthsThreshold} />
         )}
 
         <BodyRenderer state={state} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizes={fontSizes} playerPhotos={playerPhotos} />
 
         {state.showPenalties && (
-          <PenaltyColumn side="right" penalties={state.penaltiesRight} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} flash={penaltyFlashRight} />
+          <PenaltyColumn side="right" penalties={state.penaltiesRight} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} flash={penaltyFlashRight} clockTenthsThreshold={state.clockTenthsThreshold} />
         )}
       </div>
     </div>

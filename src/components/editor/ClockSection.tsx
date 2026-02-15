@@ -22,6 +22,7 @@ export function ClockSection() {
   const period = useScoreboardStore((s) => s.period);
   const clockBoxMode = useScoreboardStore((s) => s.clockBoxMode);
   const periodOptions = useScoreboardStore((s) => s.periodOptions);
+  const clockTenthsThreshold = useScoreboardStore((s) => s.clockTenthsThreshold);
   const update = useScoreboardStore((s) => s.update);
   const stopClock = useScoreboardStore((s) => s.stopClock);
 
@@ -65,7 +66,7 @@ export function ClockSection() {
         <>
           <InputField
             label={EDITOR_LABELS.timeLabel}
-            value={displayTime(time)}
+            value={displayTime(time, clockTenthsThreshold)}
             onChange={handleTimeChange}
           />
 
@@ -86,6 +87,24 @@ export function ClockSection() {
             value={clockBoxMode}
             onChange={(v) => update('clockBoxMode', v as ClockBoxMode)}
           />
+
+          <div className="flex flex-col gap-0.5">
+            <div className="flex items-center justify-between">
+              <label className="text-[11px] text-gray-400 font-medium">
+                {EDITOR_LABELS.clockTenthsThreshold}
+              </label>
+              <span className="text-[11px] text-gray-300 tabular-nums">{clockTenthsThreshold}s</span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={120}
+              step={5}
+              value={clockTenthsThreshold}
+              onChange={(e) => update('clockTenthsThreshold', Number(e.target.value))}
+              className="w-full accent-sky-300"
+            />
+          </div>
         </>
       )}
     </Section>

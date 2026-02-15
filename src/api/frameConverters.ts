@@ -13,10 +13,10 @@ const TENTHS_PER_SECOND = 10;
 
 const FRAME_DATA_VERSION = '1.0';
 
-function mapPenalties(penalties: Penalty[]): FramePenalty[] {
+function mapPenalties(penalties: Penalty[], tenthsThreshold: number): FramePenalty[] {
   return penalties.map((p) => ({
     playerNumber: p.number,
-    remainingTime: displayTime(p.time),
+    remainingTime: displayTime(p.time, tenthsThreshold),
     remainingSeconds: parseTime(p.time) / TENTHS_PER_SECOND,
   }));
 }
@@ -107,12 +107,12 @@ export function toFrameData(
       left: parseInt(state.score1, 10) || 0,
       right: parseInt(state.score2, 10) || 0,
     },
-    time: displayTime(state.time),
+    time: displayTime(state.time, state.clockTenthsThreshold),
     timeSeconds: parseTime(state.time) / TENTHS_PER_SECOND,
     period: state.period,
     clockRunning: state.demoRunning,
-    penaltiesLeft: mapPenalties(state.penaltiesLeft),
-    penaltiesRight: mapPenalties(state.penaltiesRight),
+    penaltiesLeft: mapPenalties(state.penaltiesLeft, state.clockTenthsThreshold),
+    penaltiesRight: mapPenalties(state.penaltiesRight, state.clockTenthsThreshold),
   };
 }
 

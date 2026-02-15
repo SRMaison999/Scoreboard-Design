@@ -294,7 +294,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 
 **Setup** : `src/test/setup.ts`
 
-**Couverture** : 84 fichiers de test, 491 tests.
+**Couverture** : 84 fichiers de test, 498 tests.
 
 | Categorie | Nombre | Exemples |
 |-----------|--------|----------|

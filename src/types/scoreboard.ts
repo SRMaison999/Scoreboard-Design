@@ -72,6 +72,7 @@ export interface ScoreboardState {
   period: string;
   showClock: boolean;
   clockBoxMode: ClockBoxMode;
+  clockTenthsThreshold: number;
 
   periodOptions: PeriodOption[];
 

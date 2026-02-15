@@ -17,6 +17,7 @@ interface ClockOverlayProps {
   readonly fontSizeClockTime?: number;
   readonly fontSizePeriod?: number;
   readonly clockPulse?: boolean;
+  readonly clockTenthsThreshold?: number;
 }
 
 export function ClockOverlay({
@@ -31,6 +32,7 @@ export function ClockOverlay({
   fontSizeClockTime = 80,
   fontSizePeriod = 22,
   clockPulse = false,
+  clockTenthsThreshold = 10,
 }: ClockOverlayProps) {
   if (!showClock) return null;
 
@@ -80,7 +82,7 @@ export function ClockOverlay({
             ...(clockPulse ? { animation: 'sb-clock-pulse 1s ease-in-out infinite' } : {}),
           }}
         >
-          {displayTime(time)}
+          {displayTime(time, clockTenthsThreshold)}
         </span>
         {period && (
           <span

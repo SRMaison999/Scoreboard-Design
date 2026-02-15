@@ -29,6 +29,7 @@ export const DEFAULT_STATE: ScoreboardState = {
   period: '1st PERIOD',
   showClock: true,
   clockBoxMode: 'never',
+  clockTenthsThreshold: 10,
 
   periodOptions: DEFAULT_PERIOD_OPTIONS.map((p) => ({ ...p })),
 

@@ -231,6 +231,7 @@ describe('scoreboardStore', () => {
         period: s.period,
         showClock: s.showClock,
         clockBoxMode: s.clockBoxMode,
+        clockTenthsThreshold: s.clockTenthsThreshold,
         periodOptions: s.periodOptions,
         demoRunning: s.demoRunning,
         titleCenter: s.titleCenter,

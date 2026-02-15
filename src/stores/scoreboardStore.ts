@@ -187,7 +187,7 @@ export const useScoreboardStore = create<ScoreboardStore>()(
     })),
     {
       name: 'scoreboard-state',
-      version: 4,
+      version: 5,
       migrate: (persisted: unknown) => {
         const state = persisted as Record<string, unknown>;
         if (state['logoMode'] === undefined) {
@@ -208,6 +208,9 @@ export const useScoreboardStore = create<ScoreboardStore>()(
             penaltyFlashEnabled: true, penaltyFlashDuration: 600,
             clockPulseEnabled: true, clockPulseThreshold: 10,
           };
+        }
+        if (state['clockTenthsThreshold'] === undefined) {
+          state['clockTenthsThreshold'] = 10;
         }
         return state as unknown as ScoreboardState & ScoreboardActions;
       },

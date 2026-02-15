@@ -44,6 +44,7 @@ export const EDITOR_LABELS = {
   clockBoxAlways: 'Toujours',
   clockBoxStopped: 'Horloge arrêtée',
   clockBoxRunning: 'Horloge en marche',
+  clockTenthsThreshold: 'Dixi\u00e8mes de seconde sous',
 
   /* Polices */
   fontTeams: "Noms d'équipes / Scores",

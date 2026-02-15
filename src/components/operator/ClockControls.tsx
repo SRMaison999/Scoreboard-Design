@@ -4,6 +4,7 @@ import { displayTime } from '@/utils/time';
 
 export function ClockControls() {
   const time = useScoreboardStore((s) => s.time);
+  const clockTenthsThreshold = useScoreboardStore((s) => s.clockTenthsThreshold);
   const period = useScoreboardStore((s) => s.period);
   const demoRunning = useScoreboardStore((s) => s.demoRunning);
   const startClock = useScoreboardStore((s) => s.startClock);
@@ -21,7 +22,7 @@ export function ClockControls() {
       <div className="flex items-center gap-4">
         <div className="text-center">
           <div className="text-4xl font-bold text-white tabular-nums font-[family-name:var(--font-barlow)]">
-            {displayTime(time)}
+            {displayTime(time, clockTenthsThreshold)}
           </div>
           <div className="text-sm text-gray-400 tracking-widest mt-1">{period}</div>
         </div>

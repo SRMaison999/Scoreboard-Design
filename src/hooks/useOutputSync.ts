@@ -23,6 +23,7 @@ function selectState(store: ReturnType<typeof useScoreboardStore.getState>): Sco
     period: store.period,
     showClock: store.showClock,
     clockBoxMode: store.clockBoxMode,
+    clockTenthsThreshold: store.clockTenthsThreshold,
     periodOptions: store.periodOptions,
     demoRunning: store.demoRunning,
     titleCenter: store.titleCenter,

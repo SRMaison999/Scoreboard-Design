@@ -4,7 +4,17 @@
 
 ### Affichage
 
-L'horloge affiche le temps de jeu au format MM:SS. Lorsque le temps restant passe sous 10 secondes, l'affichage bascule automatiquement en format M:SS.t (avec dixiemes de seconde) pour une precision broadcast.
+L'horloge affiche le temps de jeu au format MM:SS. Lorsque le temps restant passe sous un seuil configurable, l'affichage bascule automatiquement en format avec dixiemes de seconde (S.t ou M:SS.t) pour une precision broadcast.
+
+### Seuil des dixiemes de seconde
+
+Par defaut, les dixiemes de seconde apparaissent sous 10 secondes. Ce seuil est configurable via le curseur "Dixiemes de seconde sous" dans la section Horloge de l'editeur :
+
+- **Plage** : de 0 a 120 secondes (par pas de 5 secondes)
+- **0 secondes** : les dixiemes ne sont jamais affiches
+- **120 secondes** : les dixiemes sont affiches pour les 2 dernieres minutes
+
+Ce seuil s'applique a l'horloge principale et aux temps de penalite.
 
 ### Visibilite
 
@@ -69,7 +79,7 @@ Quand le mode demo est actif :
 - Les penalites sont decrementees simultanement
 - Les penalites expirees (temps = 0:00) sont automatiquement supprimees
 - A 0:00, l'horloge passe automatiquement a la phase suivante avec sa duree
-- Sous 10 secondes, l'affichage passe en dixiemes de seconde
+- Sous le seuil configure, l'affichage passe en dixiemes de seconde
 - Si aucune phase suivante n'existe, le mode demo s'arrete
 
 ## Penalites et horloge
@@ -78,4 +88,4 @@ Les penalites sont liees a l'horloge :
 
 - Quand le mode demo tourne, les penalites sont decrementees en parallele
 - Les penalites expirees disparaissent automatiquement
-- L'affichage des penalites passe egalement en dixiemes de seconde sous 10 secondes
+- L'affichage des penalites passe egalement en dixiemes de seconde sous le seuil configure

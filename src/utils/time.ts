@@ -45,13 +45,19 @@ export function formatTime(tenths: number): string {
 
 /**
  * Formate une chaîne de temps pour affichage.
- * Masque les dixièmes au-dessus de 10 secondes : "4:59.9" → "4:59"
- * Garde les dixièmes en dessous : "9.5" → "9.5"
+ * Masque les dixièmes quand le temps est au-dessus du seuil.
+ * @param timeStr - Chaîne au format "M:SS.t" ou "S.t"
+ * @param tenthsThreshold - Seuil en secondes en dessous duquel les dixièmes sont affichés (défaut 10)
  */
-export function displayTime(timeStr: string): string {
-  if (timeStr.includes(':')) {
-    const dotIdx = timeStr.indexOf('.');
-    return dotIdx >= 0 ? timeStr.substring(0, dotIdx) : timeStr;
+export function displayTime(timeStr: string, tenthsThreshold: number = 10): string {
+  const tenths = parseTime(timeStr);
+  const seconds = tenths / 10;
+
+  if (seconds < tenthsThreshold) {
+    return timeStr;
   }
-  return timeStr;
+
+  /* Au-dessus du seuil : masquer les dixièmes */
+  const dotIdx = timeStr.indexOf('.');
+  return dotIdx >= 0 ? timeStr.substring(0, dotIdx) : timeStr;
 }
