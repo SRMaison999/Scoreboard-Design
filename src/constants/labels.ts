@@ -248,4 +248,14 @@ export const EDITOR_LABELS = {
   templateConfirm: 'Confirmer',
   templatePresets: 'Templates prédéfinis',
   templateUpdated: 'Template mis à jour',
+
+  /* Frame Data API */
+  frameRecordStart: 'Enregistrer',
+  frameRecordStop: 'Arrêter',
+  frameRecordReset: 'Réinitialiser',
+  frameExportSnapshot: 'Exporter snapshot',
+  frameExportMatch: 'Exporter match',
+  frameExportStream: 'Exporter stream',
+  frameCount: 'Frames',
+  frameRecording: 'Enregistrement en cours',
 } as const;
