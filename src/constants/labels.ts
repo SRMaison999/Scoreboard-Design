@@ -173,6 +173,25 @@ export const EDITOR_LABELS = {
   shootoutPending: '-',
   shootoutAddAttempt: 'Ajouter un tir',
 
+  /* Médias */
+  mediaUploadPhoto: 'Photo',
+  mediaUploadBackground: 'Arrière-plan',
+  mediaSelectFile: 'Choisir un fichier',
+  mediaDragDrop: 'ou glisser-déposer ici',
+  mediaRemove: 'Supprimer',
+  mediaFormatError: 'Format non supporté. Utilisez PNG, JPEG ou WebP.',
+  mediaVideoFormatError: 'Format non supporté. Utilisez MP4 ou WebM.',
+  scorerPhoto: 'Photo du buteur',
+  playerPhoto: 'Photo du joueur',
+
+  /* Fond d'écran */
+  sectionBackground: 'Arrière-plan média',
+  bgMediaNone: 'Aucun',
+  bgMediaImage: 'Image',
+  bgMediaVideo: 'Vidéo',
+  bgMediaSelectImage: 'Choisir une image de fond',
+  bgMediaSelectVideo: 'Choisir une vidéo de fond',
+
   /* Output */
   openOutput: 'Ouvrir la sortie',
 } as const;

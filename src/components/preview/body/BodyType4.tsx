@@ -1,6 +1,7 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
 import { Flag } from '@/components/preview/Flag';
+import { PhotoCircle } from '@/components/preview/PhotoCircle';
 import type { GoalData } from '@/types/bodyTypes/goal';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
@@ -72,30 +73,15 @@ export function BodyType4({
         </div>
       </div>
 
-      {/* Photo placeholder (cercle avec numero) */}
-      <div
-        style={{
-          width: 140,
-          height: 140,
-          borderRadius: '50%',
-          background: 'rgba(255,255,255,0.06)',
-          border: '3px solid rgba(255,255,255,0.15)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <span
-          style={{
-            fontSize: 48,
-            fontWeight: 700,
-            color: col('statVal'),
-            fontFamily: ff(fontBody),
-          }}
-        >
-          {goalData.scorerNumber}
-        </span>
-      </div>
+      {/* Photo du buteur */}
+      <PhotoCircle
+        photo={goalData.scorerPhoto}
+        fallbackText={goalData.scorerNumber}
+        size={140}
+        fontSize={48}
+        color={col('statVal')}
+        fontFamily={ff(fontBody)}
+      />
 
       {/* Nom du buteur */}
       <div

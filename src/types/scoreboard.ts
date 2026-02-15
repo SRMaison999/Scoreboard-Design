@@ -6,6 +6,7 @@ import type { StandingsData } from './bodyTypes/standings';
 import type { FinalScoreData } from './bodyTypes/finalScore';
 import type { FreeTextData } from './bodyTypes/freeText';
 import type { ShootoutAttempt } from './bodyTypes/shootout';
+import type { BackgroundMediaMode } from './media';
 
 export type BodyTypeId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
@@ -111,4 +112,8 @@ export interface ScoreboardState {
   showShootout: boolean;
   shootoutLeft: ShootoutAttempt[];
   shootoutRight: ShootoutAttempt[];
+
+  /* Média de fond */
+  backgroundMediaMode: BackgroundMediaMode;
+  backgroundMediaUrl: string;
 }

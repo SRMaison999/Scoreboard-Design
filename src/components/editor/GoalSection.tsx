@@ -1,11 +1,23 @@
+import { useCallback } from 'react';
 import { Section } from '@/components/ui/Section';
 import { InputField } from '@/components/ui/InputField';
+import { ImageUpload } from '@/components/ui/ImageUpload';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
+import { compressImage } from '@/utils/image';
 
 export function GoalSection() {
   const goalData = useScoreboardStore((s) => s.goalData);
   const updateGoalField = useScoreboardStore((s) => s.updateGoalField);
+
+  const handlePhotoUpload = useCallback(
+    (dataUrl: string) => {
+      void compressImage(dataUrl).then((compressed) => {
+        updateGoalField('scorerPhoto', compressed);
+      });
+    },
+    [updateGoalField],
+  );
 
   return (
     <Section title={EDITOR_LABELS.sectionGoal}>
@@ -41,6 +53,13 @@ export function GoalSection() {
           />
         </div>
       </div>
+
+      <ImageUpload
+        label={EDITOR_LABELS.scorerPhoto}
+        value={goalData.scorerPhoto}
+        onUpload={handlePhotoUpload}
+        onRemove={() => updateGoalField('scorerPhoto', '')}
+      />
 
       <div className="bg-gray-800 rounded-md p-1.5">
         <div className="flex gap-1.5 items-end">

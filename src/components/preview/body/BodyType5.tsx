@@ -1,6 +1,7 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
 import { Flag } from '@/components/preview/Flag';
+import { PhotoCircle } from '@/components/preview/PhotoCircle';
 import type { PlayerCardData } from '@/types/bodyTypes/playerCard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
@@ -22,7 +23,7 @@ export function BodyType5({
 }: BodyType5Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const pad = showPenalties ? 10 : 40;
-  const { title, subtitle, playerName, playerNumber, playerTeam, stats } = playerCardData;
+  const { title, subtitle, playerName, playerNumber, playerTeam, playerPhoto, stats } = playerCardData;
 
   return (
     <div
@@ -56,30 +57,16 @@ export function BodyType5({
         </div>
       )}
 
-      {/* Photo placeholder */}
-      <div
-        style={{
-          width: 180,
-          height: 180,
-          borderRadius: '50%',
-          background: 'rgba(255,255,255,0.06)',
-          border: '3px solid rgba(255,255,255,0.15)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: 8,
-        }}
-      >
-        <span
-          style={{
-            fontSize: 56,
-            fontWeight: 700,
-            color: col('statVal'),
-            fontFamily: ff(fontBody),
-          }}
-        >
-          {playerNumber}
-        </span>
+      {/* Photo du joueur */}
+      <div style={{ marginTop: 8 }}>
+        <PhotoCircle
+          photo={playerPhoto}
+          fallbackText={playerNumber}
+          size={180}
+          fontSize={56}
+          color={col('statVal')}
+          fontFamily={ff(fontBody)}
+        />
       </div>
 
       {/* Nom + equipe */}

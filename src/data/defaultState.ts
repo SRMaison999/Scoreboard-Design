@@ -71,4 +71,7 @@ export const DEFAULT_STATE: ScoreboardState = {
   showShootout: false,
   shootoutLeft: [],
   shootoutRight: [],
+
+  backgroundMediaMode: 'none',
+  backgroundMediaUrl: '',
 };

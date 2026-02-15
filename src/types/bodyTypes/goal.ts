@@ -4,6 +4,7 @@ export interface GoalData {
   readonly scoringTeamSide: PenaltySide;
   scorerName: string;
   scorerNumber: string;
+  scorerPhoto: string;
   goalTime: string;
   goalPeriod: string;
   goalCountMatch: string;
@@ -18,6 +19,7 @@ export const DEFAULT_GOAL_DATA: GoalData = {
   scoringTeamSide: 'left',
   scorerName: 'KOPITAR',
   scorerNumber: '11',
+  scorerPhoto: '',
   goalTime: '14:23',
   goalPeriod: '2nd PERIOD',
   goalCountMatch: '2',

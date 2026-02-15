@@ -9,6 +9,7 @@ export interface PlayerCardData {
   playerName: string;
   playerNumber: string;
   playerTeam: string;
+  playerPhoto: string;
   stats: PlayerCardStat[];
 }
 
@@ -18,6 +19,7 @@ export const DEFAULT_PLAYER_CARD_DATA: PlayerCardData = {
   playerName: 'KOPITAR',
   playerNumber: '11',
   playerTeam: 'SVK',
+  playerPhoto: '',
   stats: [
     { label: 'BUTS', value: '2' },
     { label: 'ASSISTS', value: '3' },

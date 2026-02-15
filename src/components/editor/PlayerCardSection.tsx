@@ -1,10 +1,13 @@
+import { useCallback } from 'react';
 import { Section } from '@/components/ui/Section';
 import { InputField } from '@/components/ui/InputField';
 import { Select } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
+import { ImageUpload } from '@/components/ui/ImageUpload';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { HOCKEY_NATIONS } from '@/constants/nations';
 import { EDITOR_LABELS } from '@/constants/labels';
+import { compressImage } from '@/utils/image';
 
 const NATION_OPTIONS = HOCKEY_NATIONS.map((n) => ({
   value: n.noc,
@@ -19,6 +22,15 @@ export function PlayerCardSection() {
   const addStat = useScoreboardStore((s) => s.addPlayerCardStat);
   const removeStat = useScoreboardStore((s) => s.removePlayerCardStat);
   const updateStat = useScoreboardStore((s) => s.updatePlayerCardStat);
+
+  const handlePhotoUpload = useCallback(
+    (dataUrl: string) => {
+      void compressImage(dataUrl).then((compressed) => {
+        updateField('playerPhoto', compressed);
+      });
+    },
+    [updateField],
+  );
 
   const title = `${EDITOR_LABELS.sectionPlayerCard} (${String(data.stats.length)}/${String(MAX_STATS)})`;
 
@@ -53,6 +65,13 @@ export function PlayerCardSection() {
           />
         </div>
       </div>
+
+      <ImageUpload
+        label={EDITOR_LABELS.playerPhoto}
+        value={data.playerPhoto}
+        onUpload={handlePhotoUpload}
+        onRemove={() => updateField('playerPhoto', '')}
+      />
 
       <Select
         label={EDITOR_LABELS.playerCardTeam}

@@ -83,6 +83,35 @@ export function ScoreboardCanvas({
         color: '#fff',
       }}
     >
+      {/* Média de fond (image ou vidéo) */}
+      {state.backgroundMediaMode === 'image' && state.backgroundMediaUrl && (
+        <img
+          src={state.backgroundMediaUrl}
+          alt=""
+          style={{
+            position: 'absolute',
+            top: 0, left: 0, width: '100%', height: '100%',
+            objectFit: 'cover',
+            pointerEvents: 'none',
+          }}
+        />
+      )}
+      {state.backgroundMediaMode === 'video' && state.backgroundMediaUrl && (
+        <video
+          src={state.backgroundMediaUrl}
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: 'absolute',
+            top: 0, left: 0, width: '100%', height: '100%',
+            objectFit: 'cover',
+            pointerEvents: 'none',
+          }}
+        />
+      )}
+
       <div
         style={{
           position: 'absolute',
