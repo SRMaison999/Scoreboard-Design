@@ -5,6 +5,7 @@ import { useFontLoader } from '@/hooks/useFontLoader';
 import { useOutputSyncSender } from '@/hooks/useOutputSync';
 import { EditorPanel } from '@/components/editor/EditorPanel';
 import { ScoreboardPreview } from '@/components/preview/ScoreboardPreview';
+import { TemplateManager } from '@/components/editor/TemplateManager';
 import { EDITOR_LABELS } from '@/constants/labels';
 import { captureScreenshot, buildScreenshotFilename } from '@/utils/screenshot';
 import { Camera, Printer } from 'lucide-react';
@@ -40,7 +41,9 @@ export function App() {
       <EditorPanel />
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="flex items-center justify-end gap-2 px-4 py-2 border-b border-gray-800">
+        <div className="flex items-center justify-between gap-2 px-4 py-2 border-b border-gray-800">
+          <TemplateManager />
+          <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={handleScreenshot}
@@ -64,6 +67,7 @@ export function App() {
           >
             {EDITOR_LABELS.openOutput}
           </button>
+          </div>
         </div>
 
         <div className="flex-1 flex items-center justify-center p-6 bg-gray-950 overflow-hidden">

@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom/vitest';
+import 'fake-indexeddb/auto';
 
 /* Mock global ResizeObserver (absent de jsdom) */
 globalThis.ResizeObserver = class ResizeObserver {
