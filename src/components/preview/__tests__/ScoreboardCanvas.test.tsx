@@ -59,4 +59,34 @@ describe('ScoreboardCanvas', () => {
     const canvas = screen.getByTestId('scoreboard-canvas');
     expect(canvas.style.background).toContain('linear-gradient');
   });
+
+  it('affiche le body type 4 avec GOAL', () => {
+    const state = { ...DEFAULT_STATE, bodyType: 4 as const };
+    render(<ScoreboardCanvas state={state} />);
+    expect(screen.getByText('GOAL')).toBeInTheDocument();
+  });
+
+  it('affiche le body type 5 avec la fiche joueur', () => {
+    const state = { ...DEFAULT_STATE, bodyType: 5 as const };
+    render(<ScoreboardCanvas state={state} />);
+    expect(screen.getByText('JOUEUR DU MATCH')).toBeInTheDocument();
+  });
+
+  it('affiche le body type 6 avec le classement', () => {
+    const state = { ...DEFAULT_STATE, bodyType: 6 as const };
+    render(<ScoreboardCanvas state={state} />);
+    expect(screen.getByText('GROUPE A - CLASSEMENT')).toBeInTheDocument();
+  });
+
+  it('affiche le body type 7 avec le score final', () => {
+    const state = { ...DEFAULT_STATE, bodyType: 7 as const };
+    render(<ScoreboardCanvas state={state} />);
+    expect(screen.getByText('SCORE FINAL')).toBeInTheDocument();
+  });
+
+  it('affiche le body type 8 avec le texte libre', () => {
+    const state = { ...DEFAULT_STATE, bodyType: 8 as const };
+    render(<ScoreboardCanvas state={state} />);
+    expect(screen.getByText('BIENVENUE')).toBeInTheDocument();
+  });
 });

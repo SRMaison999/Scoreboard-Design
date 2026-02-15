@@ -4,9 +4,16 @@ import { PenaltyColumn } from './PenaltyColumn';
 import { BodyType1 } from './body/BodyType1';
 import { BodyType2 } from './body/BodyType2';
 import { BodyType3 } from './body/BodyType3';
+import { BodyType4 } from './body/BodyType4';
+import { BodyType5 } from './body/BodyType5';
+import { BodyType6 } from './body/BodyType6';
+import { BodyType7 } from './body/BodyType7';
+import { BodyType8 } from './body/BodyType8';
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
 import type { ScoreboardState } from '@/types/scoreboard';
+import type { ColorMap, OpacityMap } from '@/types/colors';
+import type { FontId } from '@/types/fonts';
 
 interface ScoreboardCanvasProps {
   readonly state: ScoreboardState;
@@ -16,6 +23,36 @@ interface ScoreboardCanvasProps {
 
 const DEFAULT_W = 1920;
 const DEFAULT_H = 1080;
+
+interface BodyProps {
+  readonly state: ScoreboardState;
+  readonly colors: ColorMap;
+  readonly opacities: OpacityMap;
+  readonly fontBody: FontId;
+}
+
+function BodyRenderer({ state, colors, opacities, fontBody }: BodyProps) {
+  const shared = { showPenalties: state.showPenalties, colors, opacities, fontBody };
+
+  switch (state.bodyType) {
+    case 2:
+      return <BodyType2 stats={state.stats} titleLeft={state.titleLeft} titleRight={state.titleRight} {...shared} />;
+    case 3:
+      return <BodyType3 playerStats={state.playerStats} titleCenter={state.titleCenter} showPlayerPhoto={state.showPlayerPhoto} {...shared} />;
+    case 4:
+      return <BodyType4 goalData={state.goalData} team1={state.team1} team2={state.team2} {...shared} />;
+    case 5:
+      return <BodyType5 playerCardData={state.playerCardData} {...shared} />;
+    case 6:
+      return <BodyType6 standingsData={state.standingsData} {...shared} />;
+    case 7:
+      return <BodyType7 finalScoreData={state.finalScoreData} team1={state.team1} team2={state.team2} score1={state.score1} score2={state.score2} {...shared} />;
+    case 8:
+      return <BodyType8 freeTextData={state.freeTextData} {...shared} />;
+    default:
+      return <BodyType1 stats={state.stats} titleCenter={state.titleCenter} {...shared} />;
+  }
+}
 
 export function ScoreboardCanvas({
   state,
@@ -46,29 +83,16 @@ export function ScoreboardCanvas({
         color: '#fff',
       }}
     >
-      {/* Overlay decoratif */}
       <div
         style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background:
-            'radial-gradient(ellipse at 25% 15%, rgba(100,200,255,0.12) 0%, transparent 50%), radial-gradient(ellipse at 75% 85%, rgba(100,200,255,0.08) 0%, transparent 50%)',
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: 'radial-gradient(ellipse at 25% 15%, rgba(100,200,255,0.12) 0%, transparent 50%), radial-gradient(ellipse at 75% 85%, rgba(100,200,255,0.08) 0%, transparent 50%)',
           pointerEvents: 'none',
         }}
       />
 
-      {/* Header */}
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 1,
-          flexShrink: 0,
-          padding: '14px 96px 10px',
-        }}
-      >
+      <div style={{ position: 'relative', zIndex: 1, flexShrink: 0, padding: '14px 96px 10px' }}>
         <Header
           team1={state.team1}
           team2={state.team2}
@@ -77,6 +101,12 @@ export function ScoreboardCanvas({
           colors={colors}
           opacities={opacities}
           fontTeams={state.fontTeams}
+          showTimeouts={state.showTimeouts}
+          timeoutsLeft={state.timeoutsLeft}
+          timeoutsRight={state.timeoutsRight}
+          showShootout={state.showShootout}
+          shootoutLeft={state.shootoutLeft}
+          shootoutRight={state.shootoutRight}
         />
 
         <ClockOverlay
@@ -91,57 +121,15 @@ export function ScoreboardCanvas({
         />
       </div>
 
-      {/* Zone principale */}
       <div style={{ flex: 1, display: 'flex', position: 'relative', zIndex: 1 }}>
         {state.showPenalties && (
-          <PenaltyColumn
-            side="left"
-            penalties={state.penaltiesLeft}
-            colors={colors}
-            opacities={opacities}
-            fontBody={state.fontBody}
-          />
+          <PenaltyColumn side="left" penalties={state.penaltiesLeft} colors={colors} opacities={opacities} fontBody={state.fontBody} />
         )}
 
-        {state.bodyType === 3 ? (
-          <BodyType3
-            playerStats={state.playerStats}
-            titleCenter={state.titleCenter}
-            showPlayerPhoto={state.showPlayerPhoto}
-            showPenalties={state.showPenalties}
-            colors={colors}
-            opacities={opacities}
-            fontBody={state.fontBody}
-          />
-        ) : state.bodyType === 2 ? (
-          <BodyType2
-            stats={state.stats}
-            titleLeft={state.titleLeft}
-            titleRight={state.titleRight}
-            showPenalties={state.showPenalties}
-            colors={colors}
-            opacities={opacities}
-            fontBody={state.fontBody}
-          />
-        ) : (
-          <BodyType1
-            stats={state.stats}
-            titleCenter={state.titleCenter}
-            showPenalties={state.showPenalties}
-            colors={colors}
-            opacities={opacities}
-            fontBody={state.fontBody}
-          />
-        )}
+        <BodyRenderer state={state} colors={colors} opacities={opacities} fontBody={state.fontBody} />
 
         {state.showPenalties && (
-          <PenaltyColumn
-            side="right"
-            penalties={state.penaltiesRight}
-            colors={colors}
-            opacities={opacities}
-            fontBody={state.fontBody}
-          />
+          <PenaltyColumn side="right" penalties={state.penaltiesRight} colors={colors} opacities={opacities} fontBody={state.fontBody} />
         )}
       </div>
     </div>

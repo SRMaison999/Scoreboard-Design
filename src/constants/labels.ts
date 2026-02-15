@@ -101,6 +101,78 @@ export const EDITOR_LABELS = {
   demoTransitionPrefix: 'À 0:00',
   demoTransitionStop: 'stop',
 
+  /* Goal (type 4) */
+  sectionGoal: 'Célébration de but',
+  goalScoringTeamSide: 'Côté équipe marqueuse',
+  goalSideLeft: 'Gauche',
+  goalSideRight: 'Droite',
+  goalScorerName: 'Nom du buteur',
+  goalScorerNumber: 'Numéro',
+  goalTime: 'Temps du but',
+  goalPeriod: 'Période',
+  goalCountMatch: 'Buts dans le match',
+  goalCountTournament: 'Buts dans le tournoi',
+  goalAssist1Name: 'Assist 1 - Nom',
+  goalAssist1Number: 'Assist 1 - No',
+  goalAssist2Name: 'Assist 2 - Nom',
+  goalAssist2Number: 'Assist 2 - No',
+
+  /* Player Card (type 5) */
+  sectionPlayerCard: 'Fiche joueur',
+  playerCardTitle: 'Titre',
+  playerCardSubtitle: 'Sous-titre',
+  playerCardName: 'Nom du joueur',
+  playerCardNumber: 'Numéro',
+  playerCardTeam: 'Équipe (NOC)',
+  playerCardStatLabel: 'Label',
+  playerCardStatValue: 'Valeur',
+  playerCardAddStat: 'Ajouter une stat',
+
+  /* Standings (type 6) */
+  sectionStandings: 'Classement',
+  standingsTitle: 'Titre',
+  standingsTeam: 'Équipe',
+  standingsHighlight: 'Surligner',
+  standingsAddRow: 'Ajouter une équipe',
+
+  /* Final Score (type 7) */
+  sectionFinalScore: 'Score final',
+  finalScoreTitle: 'Titre',
+  finalScoreShowGwg: 'Afficher le but gagnant',
+  finalScoreGwgPlayer: 'Joueur GWG',
+  finalScoreGwgTeam: 'Équipe GWG',
+  finalScoreGwgTime: 'Temps GWG',
+  finalScoreOvertimeNote: 'Note prolongation',
+  finalScorePeriodLabel: 'Période',
+  finalScoreLeft: 'G',
+  finalScoreRight: 'D',
+  finalScoreAddPeriod: 'Ajouter une période',
+
+  /* Free Text (type 8) */
+  sectionFreeText: 'Texte libre',
+  freeTextContent: 'Texte',
+  freeTextFontSize: 'Taille',
+  freeTextAlign: 'Alignement',
+  freeTextBold: 'Gras',
+  freeTextAddLine: 'Ajouter une ligne',
+  freeTextAlignLeft: 'Gauche',
+  freeTextAlignCenter: 'Centre',
+  freeTextAlignRight: 'Droite',
+
+  /* Header - Timeouts */
+  sectionTimeouts: 'Temps morts',
+  showTimeoutsLabel: 'Afficher les temps morts',
+  timeoutsLeftLabel: 'Temps morts G',
+  timeoutsRightLabel: 'Temps morts D',
+
+  /* Header - Shootout */
+  sectionShootout: 'Tirs au but',
+  showShootoutLabel: 'Afficher les tirs au but',
+  shootoutScored: 'B',
+  shootoutMissed: 'R',
+  shootoutPending: '-',
+  shootoutAddAttempt: 'Ajouter un tir',
+
   /* Output */
   openOutput: 'Ouvrir la sortie',
 } as const;

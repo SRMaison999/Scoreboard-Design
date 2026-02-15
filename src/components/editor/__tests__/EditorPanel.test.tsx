@@ -32,4 +32,41 @@ describe('EditorPanel', () => {
     expect(screen.getByText('Type de corps')).toBeInTheDocument();
     expect(screen.getByText('Header')).toBeInTheDocument();
   });
+
+  it('affiche les sections timeouts et shootout', () => {
+    render(<EditorPanel />);
+    expect(screen.getByText(/Temps morts/)).toBeInTheDocument();
+    expect(screen.getByText(/Tirs au but/)).toBeInTheDocument();
+  });
+
+  it('affiche la section goal pour body type 4', () => {
+    useScoreboardStore.getState().update('bodyType', 4);
+    render(<EditorPanel />);
+    // Radio label + section title
+    expect(screen.getAllByText(/Célébration de but/).length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('affiche la section fiche joueur pour body type 5', () => {
+    useScoreboardStore.getState().update('bodyType', 5);
+    render(<EditorPanel />);
+    expect(screen.getAllByText(/Fiche joueur/).length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('affiche la section classement pour body type 6', () => {
+    useScoreboardStore.getState().update('bodyType', 6);
+    render(<EditorPanel />);
+    expect(screen.getAllByText(/Classement/).length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('affiche la section score final pour body type 7', () => {
+    useScoreboardStore.getState().update('bodyType', 7);
+    render(<EditorPanel />);
+    expect(screen.getAllByText(/Score final/).length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('affiche la section texte libre pour body type 8', () => {
+    useScoreboardStore.getState().update('bodyType', 8);
+    render(<EditorPanel />);
+    expect(screen.getAllByText(/Texte libre/).length).toBeGreaterThanOrEqual(2);
+  });
 });
