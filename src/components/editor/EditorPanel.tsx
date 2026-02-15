@@ -29,6 +29,7 @@ import { PhotoSection } from './PhotoSection';
 import { LogoSection } from './LogoSection';
 import { AnimationSection } from './AnimationSection';
 import { ExportSection } from './ExportSection';
+import { LiveDataSection } from './LiveDataSection';
 
 function BodyContentSection({ bodyType }: { readonly bodyType: number }) {
   switch (bodyType) {
@@ -88,6 +89,9 @@ export function EditorPanel() {
       <SectionGroupLabel label={EDITOR_LABELS.groupAnimationsExport} />
       <AnimationSection />
       <ExportSection />
+
+      <SectionGroupLabel label={EDITOR_LABELS.groupIntegrations} />
+      <LiveDataSection />
 
       <div className="h-10 flex-shrink-0" />
     </div>
