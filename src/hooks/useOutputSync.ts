@@ -38,6 +38,17 @@ function selectState(store: ReturnType<typeof useScoreboardStore.getState>): Sco
     stats: store.stats,
     penaltiesLeft: store.penaltiesLeft,
     penaltiesRight: store.penaltiesRight,
+    goalData: store.goalData,
+    playerCardData: store.playerCardData,
+    standingsData: store.standingsData,
+    finalScoreData: store.finalScoreData,
+    freeTextData: store.freeTextData,
+    showTimeouts: store.showTimeouts,
+    timeoutsLeft: store.timeoutsLeft,
+    timeoutsRight: store.timeoutsRight,
+    showShootout: store.showShootout,
+    shootoutLeft: store.shootoutLeft,
+    shootoutRight: store.shootoutRight,
   };
 }
 

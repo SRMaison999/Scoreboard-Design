@@ -1,5 +1,10 @@
 import { DEFAULT_COLORS, DEFAULT_OPACITIES } from '@/constants/colors';
 import { DEFAULT_PERIOD_OPTIONS } from '@/constants/phases';
+import { DEFAULT_GOAL_DATA } from '@/types/bodyTypes/goal';
+import { DEFAULT_PLAYER_CARD_DATA } from '@/types/bodyTypes/playerCard';
+import { DEFAULT_STANDINGS_DATA } from '@/types/bodyTypes/standings';
+import { DEFAULT_FINAL_SCORE_DATA } from '@/types/bodyTypes/finalScore';
+import { DEFAULT_FREE_TEXT_DATA } from '@/types/bodyTypes/freeText';
 import type { ScoreboardState } from '@/types/scoreboard';
 
 export const DEFAULT_STATE: ScoreboardState = {
@@ -52,4 +57,18 @@ export const DEFAULT_STATE: ScoreboardState = {
   penaltiesRight: [
     { time: '0:45', number: '11' },
   ],
+
+  goalData: { ...DEFAULT_GOAL_DATA },
+  playerCardData: structuredClone(DEFAULT_PLAYER_CARD_DATA),
+  standingsData: structuredClone(DEFAULT_STANDINGS_DATA),
+  finalScoreData: structuredClone(DEFAULT_FINAL_SCORE_DATA),
+  freeTextData: structuredClone(DEFAULT_FREE_TEXT_DATA),
+
+  showTimeouts: false,
+  timeoutsLeft: 0,
+  timeoutsRight: 0,
+
+  showShootout: false,
+  shootoutLeft: [],
+  shootoutRight: [],
 };

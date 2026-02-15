@@ -246,6 +246,17 @@ describe('scoreboardStore', () => {
         stats: s.stats,
         penaltiesLeft: s.penaltiesLeft,
         penaltiesRight: s.penaltiesRight,
+        goalData: s.goalData,
+        playerCardData: s.playerCardData,
+        standingsData: s.standingsData,
+        finalScoreData: s.finalScoreData,
+        freeTextData: s.freeTextData,
+        showTimeouts: s.showTimeouts,
+        timeoutsLeft: s.timeoutsLeft,
+        timeoutsRight: s.timeoutsRight,
+        showShootout: s.showShootout,
+        shootoutLeft: s.shootoutLeft,
+        shootoutRight: s.shootoutRight,
       };
       useScoreboardStore.getState().loadState(plainState);
       expect(useScoreboardStore.getState().team1).toBe('USA');

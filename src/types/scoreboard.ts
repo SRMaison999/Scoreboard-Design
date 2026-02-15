@@ -1,7 +1,13 @@
 import type { ColorMap, OpacityMap } from './colors';
 import type { FontId } from './fonts';
+import type { GoalData } from './bodyTypes/goal';
+import type { PlayerCardData } from './bodyTypes/playerCard';
+import type { StandingsData } from './bodyTypes/standings';
+import type { FinalScoreData } from './bodyTypes/finalScore';
+import type { FreeTextData } from './bodyTypes/freeText';
+import type { ShootoutAttempt } from './bodyTypes/shootout';
 
-export type BodyTypeId = 1 | 2 | 3;
+export type BodyTypeId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export type BgMode = 'uniform' | 'gradient';
 
@@ -80,4 +86,29 @@ export interface ScoreboardState {
 
   penaltiesLeft: Penalty[];
   penaltiesRight: Penalty[];
+
+  /* Type 4 : Celebration de but */
+  goalData: GoalData;
+
+  /* Type 5 : Fiche joueur */
+  playerCardData: PlayerCardData;
+
+  /* Type 6 : Classement */
+  standingsData: StandingsData;
+
+  /* Type 7 : Score final */
+  finalScoreData: FinalScoreData;
+
+  /* Type 8 : Texte libre */
+  freeTextData: FreeTextData;
+
+  /* Header : timeouts */
+  showTimeouts: boolean;
+  timeoutsLeft: number;
+  timeoutsRight: number;
+
+  /* Header : tirs au but */
+  showShootout: boolean;
+  shootoutLeft: ShootoutAttempt[];
+  shootoutRight: ShootoutAttempt[];
 }
