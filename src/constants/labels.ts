@@ -320,4 +320,22 @@ export const EDITOR_LABELS = {
   frameExportStream: 'Exporter stream',
   frameCount: 'Frames',
   frameRecording: 'Enregistrement en cours',
+
+  /* Mode opérateur */
+  operatorTitle: 'Mode opérateur',
+  operatorScore: 'Score',
+  operatorClock: 'Horloge',
+  operatorPenalties: 'Pénalités',
+  operatorPhase: 'Phase',
+  operatorStart: 'START',
+  operatorStop: 'STOP',
+  operatorReset: 'RESET',
+  operatorNextPhase: 'Phase suivante',
+  operatorAddPenalty: 'Pénalité',
+  operatorPenaltyNumber: 'No joueur',
+  operatorPenaltyDuration: 'Durée',
+  operatorFullscreen: 'Plein écran',
+  operatorBackToEditor: 'Retour éditeur',
+  operatorWaiting: 'En attente de données...',
+  operatorKeyboardHelp: 'Raccourcis : Espace = Start/Stop, R = Reset, P = Phase suivante',
 } as const;

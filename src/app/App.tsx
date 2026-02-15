@@ -8,7 +8,7 @@ import { ScoreboardPreview } from '@/components/preview/ScoreboardPreview';
 import { TemplateManager } from '@/components/editor/TemplateManager';
 import { EDITOR_LABELS } from '@/constants/labels';
 import { captureScreenshot, buildScreenshotFilename } from '@/utils/screenshot';
-import { Camera, Printer } from 'lucide-react';
+import { Camera, Printer, Radio } from 'lucide-react';
 import '@/styles/index.css';
 import '@/styles/print.css';
 
@@ -22,6 +22,10 @@ export function App() {
   const handleOpenOutput = () => {
     window.open('/output', 'scoreboard-output', 'width=1920,height=1080');
   };
+
+  const handleOpenOperator = useCallback(() => {
+    window.location.href = '/operator';
+  }, []);
 
   const handleScreenshot = useCallback(() => {
     const el = document.querySelector<HTMLElement>('[data-testid="scoreboard-capture"]');
@@ -59,6 +63,14 @@ export function App() {
           >
             <Printer size={14} className="flex-shrink-0" />
             {EDITOR_LABELS.print}
+          </button>
+          <button
+            type="button"
+            onClick={handleOpenOperator}
+            className={toolbarBtnClass}
+          >
+            <Radio size={14} className="flex-shrink-0" />
+            {EDITOR_LABELS.operatorTitle}
           </button>
           <button
             type="button"
