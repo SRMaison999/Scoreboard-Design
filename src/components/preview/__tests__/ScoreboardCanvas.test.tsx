@@ -89,4 +89,30 @@ describe('ScoreboardCanvas', () => {
     render(<ScoreboardCanvas state={state} />);
     expect(screen.getByText('BIENVENUE')).toBeInTheDocument();
   });
+
+  it('passe les logos d\'équipe au Header', () => {
+    const logos = { 'team-SVK': 'data:image/webp;base64,svk' };
+    const state = { ...DEFAULT_STATE, logoMode: 'logo' as const };
+    const { container } = render(<ScoreboardCanvas state={state} logos={logos} />);
+    const images = container.querySelectorAll('img');
+    expect(images.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('affiche le logo de compétition quand activé', () => {
+    const logos = { 'competition-iihf': 'data:image/webp;base64,iihf' };
+    const state = { ...DEFAULT_STATE, showCompetitionLogo: true, competitionLogoSize: 80 };
+    const { container } = render(<ScoreboardCanvas state={state} logos={logos} />);
+    const images = container.querySelectorAll('img');
+    const iihfImg = Array.from(images).find((img) => img.getAttribute('src') === 'data:image/webp;base64,iihf');
+    expect(iihfImg).toBeTruthy();
+  });
+
+  it('affiche le logo sponsor quand activé', () => {
+    const logos = { 'sponsor-nike': 'data:image/webp;base64,nike' };
+    const state = { ...DEFAULT_STATE, showSponsorLogo: true, sponsorLogoSize: 60 };
+    const { container } = render(<ScoreboardCanvas state={state} logos={logos} />);
+    const images = container.querySelectorAll('img');
+    const nikeImg = Array.from(images).find((img) => img.getAttribute('src') === 'data:image/webp;base64,nike');
+    expect(nikeImg).toBeTruthy();
+  });
 });

@@ -28,7 +28,7 @@ State principal de l'application. Contient toutes les donnees du scoreboard : eq
 
 **Middleware** :
 - `immer` : mutations immutables via draft
-- `persist` : sauvegarde automatique dans `localStorage` (cle `scoreboard-state`, version 2)
+- `persist` : sauvegarde automatique dans `localStorage` (cle `scoreboard-state`, version 3)
 
 **Actions principales** :
 - `update(key, value)` : mise a jour generique d'un champ
@@ -72,7 +72,22 @@ Gestion des photos de joueurs persistees dans IndexedDB.
 - `removePhoto(id)` : supprime une photo par son ID
 - `getPhoto(team, number)` : retourne le data URL d'une photo (ou chaine vide)
 
-### 2.4 `useFrameStore`
+### 2.4 `useLogoStore`
+
+**Fichier** : `src/stores/logoStore.ts`
+
+Gestion des logos (equipe, competition, sponsor) persistes dans IndexedDB.
+
+**State** : `logos: LogoEntry[]`, `loading: boolean`
+
+**Actions** :
+- `fetchLogos()` : charge tous les logos depuis IndexedDB
+- `addLogo(logoType, key, name, file)` : traite et ajoute/remplace un logo
+- `removeLogo(id)` : supprime un logo par son ID
+- `getLogo(logoType, key)` : retourne le data URL d'un logo (ou chaine vide)
+- `getLogosByType(logoType)` : retourne les logos filtres par type
+
+### 2.5 `useFrameStore`
 
 **Fichier** : `src/stores/frameStore.ts`
 
@@ -99,6 +114,7 @@ Gestion de l'enregistrement de frames pour la Frame Data API.
 | `useOutputSyncReceiver` | `src/hooks/useOutputSync.ts` | Recoit le state via `BroadcastChannel` (cote sortie) |
 | `useOperatorKeyboard` | `src/hooks/useOperatorKeyboard.ts` | Raccourcis clavier du mode operateur |
 | `usePlayerPhotos` | `src/hooks/usePlayerPhotos.ts` | Map id -> dataUrl des photos de joueurs (charge depuis IndexedDB) |
+| `useLogos` | `src/hooks/useLogos.ts` | Map id -> dataUrl de tous les logos (charge depuis IndexedDB) |
 
 ---
 
@@ -149,13 +165,15 @@ Source de verite unique pour les composants de base : Button, Modal, Section, In
 
 **Composant de rendu** : `PhotoCircle` (`src/components/preview/PhotoCircle.tsx`) - cercle affichant une photo de joueur ou un numero en fallback.
 
+**Composant de rendu** : `LogoOverlay` (`src/components/preview/LogoOverlay.tsx`) - logo en superposition sur le canvas (competition ou sponsor), positionnable dans 6 positions.
+
 Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 
 ### 5.2 Editeur (`src/components/editor/`)
 
 **EditorPanel.tsx** organise le panneau lateral en 3 groupes :
 
-1. **Contenu** : HeaderSection, TitleSection, BodyContentSection (switch par body type), TimeoutSection, ShootoutSection, PenaltySection, PhotoSection
+1. **Contenu** : HeaderSection, TitleSection, BodyContentSection (switch par body type), TimeoutSection, ShootoutSection, PenaltySection, PhotoSection, LogoSection
 2. **Apparence** : GeneralSection, TemplateSizeSection, BackgroundSection, FontSection, FontSizeSection, ColorSection
 3. **Horloge** : ClockSection
 
@@ -169,10 +187,11 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 
 **ScoreboardCanvas.tsx** (186 lignes) : composant de rendu principal. Inline styles uniquement. Compose de :
 - Fond en degrade (`bgTop` -> `bgMid` -> `bgBot`) ou fond uniforme
-- `Header` : drapeaux, noms d'equipes, scores
+- `Header` : drapeaux/logos, noms d'equipes, scores (avec mode TeamBadge : flag/logo/both)
 - `ClockOverlay` : horloge et periode
 - `BodyRenderer` : switch vers le body type actif (1-13)
 - `PenaltyColumn` (gauche et droite) : penalites actives
+- `CompetitionLogoRenderer` / `SponsorLogoRenderer` : logos en overlay
 
 **13 body types** dans `src/components/preview/body/` :
 
@@ -223,6 +242,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 | `fontSizes.ts` | `FontSizeConfig`, `FontSizeKey` |
 | `media.ts` | `BackgroundMediaMode` |
 | `playerPhoto.ts` | `PlayerPhoto`, `playerPhotoKey()` |
+| `logo.ts` | `LogoEntry`, `LogoType`, `LogoPosition`, `LogoMode`, `logoEntryId()` |
 | `nations.ts` | Codes nations |
 | `bodyTypes/*.ts` | Types par body type (goal, playerCard, standings, etc.) |
 
@@ -265,14 +285,14 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 
 **Setup** : `src/test/setup.ts`
 
-**Couverture** : 69 fichiers de test, 387 tests.
+**Couverture** : 75 fichiers de test, 426 tests.
 
 | Categorie | Nombre | Exemples |
 |-----------|--------|----------|
 | API | 4 | frameExport, frameRecorder, frameDelta, frameConverters |
 | Composants | 40+ | editeur, body types, UI, operateur |
-| Hooks | 6 | useTimer, useScaling, useOperatorKeyboard, useOutputSync, useFontLoader, usePlayerPhotos |
-| Stores | 3 | scoreboardStore, templateStore, photoStore |
+| Hooks | 7 | useTimer, useScaling, useOperatorKeyboard, useOutputSync, useFontLoader, usePlayerPhotos, useLogos |
+| Stores | 4 | scoreboardStore, templateStore, photoStore, logoStore |
 | Utilitaires | 5+ | color, time, font, screenshot, image |
 | Integration | 2 | App, OutputWindow |
 

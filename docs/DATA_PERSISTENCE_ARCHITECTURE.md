@@ -13,6 +13,7 @@ Le systeme utilise deux couches de persistance complementaires :
 | Session | localStorage | State du scoreboard actif | Zustand persist middleware |
 | Bibliotheque | IndexedDB (Dexie.js) | Templates sauvegardes | `useTemplateStore` |
 | Photos | IndexedDB (Dexie.js) | Photos de joueurs (base64) | `usePhotoStore` |
+| Logos | IndexedDB (Dexie.js) | Logos equipe/competition/sponsor (base64) | `useLogoStore` |
 
 ```
 +------------------+     persist      +------------------+
@@ -27,7 +28,12 @@ Le systeme utilise deux couches de persistance complementaires :
                                      |  - playerPhotos  |
 +------------------+     Dexie.js    |                  |
 |  Photo Store     | <-------------> |                  |
-|  photoStore      |   CRUD          +------------------+
+|  photoStore      |   CRUD          |                  |
++------------------+                 |                  |
+                                     |                  |
++------------------+     Dexie.js    |                  |
+|  Logo Store      | <-------------> |  - logos         |
+|  logoStore       |   CRUD          +------------------+
 +------------------+
 ```
 
@@ -40,7 +46,7 @@ Le systeme utilise deux couches de persistance complementaires :
 | Parametre | Valeur |
 |-----------|--------|
 | Cle | `scoreboard-state` |
-| Version | 2 |
+| Version | 3 |
 | Middleware | Zustand `persist` |
 | Format | JSON serialise |
 
@@ -53,7 +59,7 @@ Le systeme utilise deux couches de persistance complementaires :
 
 ### Donnees persistees
 
-Le `ScoreboardState` complet : equipes, scores, couleurs, opacites, polices, tailles de police, phases, penalites, stats, donnees de body type, dimensions du template, mode d'arriere-plan.
+Le `ScoreboardState` complet : equipes, scores, couleurs, opacites, polices, tailles de police, phases, penalites, stats, donnees de body type, dimensions du template, mode d'arriere-plan, configuration des logos (mode, positions, tailles).
 
 ### Donnees NON persistees
 
@@ -83,6 +89,11 @@ class ScoreboardDatabase extends Dexie {
       templates: 'id, name, created, modified',
       playerPhotos: 'id, team, number, playerName'
     });
+    this.version(3).stores({
+      templates: 'id, name, created, modified',
+      playerPhotos: 'id, team, number, playerName',
+      logos: 'id, logoType, key, name'
+    });
   }
 }
 ```
@@ -90,8 +101,8 @@ class ScoreboardDatabase extends Dexie {
 | Propriete | Valeur |
 |-----------|--------|
 | Nom de la base | `scoreboard-editor` |
-| Version du schema | 2 |
-| Tables | `templates`, `playerPhotos` |
+| Version du schema | 3 |
+| Tables | `templates`, `playerPhotos`, `logos` |
 
 **Table `templates`** :
 | Cle primaire | `id` |
@@ -144,6 +155,43 @@ Avant stockage, les images passent par un pipeline de compression :
 2. Lecture en data URL via `FileReader`
 3. Recadrage carre centre (taille maximale 256px)
 4. Compression en WebP (qualite 85%)
+5. Stockage du data URL en base64
+
+**Table `logos`** :
+| Cle primaire | `id` (format `TYPE-KEY`, ex: `team-CAN`, `competition-iihf`) |
+|---|---|
+| Index | `logoType`, `key`, `name` |
+
+### Structure d'un logo
+
+```typescript
+interface LogoEntry {
+  id: string;         // ex: "team-CAN" (cle: type-key)
+  logoType: LogoType; // 'team' | 'competition' | 'sponsor'
+  key: string;        // identifiant unique par type (ex: "CAN", "iihf", "nike")
+  name: string;       // nom descriptif
+  dataUrl: string;    // image en base64 (WebP compresse, max 300px)
+  created: string;    // ISO 8601
+}
+```
+
+### Operations sur les logos
+
+| Operation | Methode du store | Requete Dexie |
+|-----------|-----------------|---------------|
+| Lister | `fetchLogos()` | `db.logos.toArray()` |
+| Ajouter | `addLogo(type, key, name, file)` | `db.logos.add(logo)` ou `.update(id, ...)` |
+| Supprimer | `removeLogo(id)` | `db.logos.delete(id)` |
+| Chercher | `getLogo(type, key)` | Recherche en memoire dans le state |
+| Filtrer | `getLogosByType(type)` | Filtre en memoire par type |
+
+### Traitement des logos
+
+Avant stockage, les images passent par un pipeline de compression :
+1. Validation du format (PNG, JPEG, WebP)
+2. Lecture en data URL via `FileReader`
+3. Redimensionnement proportionnel (max 300px, ratio conserve)
+4. Compression en WebP (qualite 90%)
 5. Stockage du data URL en base64
 
 ### Generation des IDs

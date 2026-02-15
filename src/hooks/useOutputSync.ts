@@ -59,6 +59,13 @@ function selectState(store: ReturnType<typeof useScoreboardStore.getState>): Sco
     templateWidth: store.templateWidth,
     templateHeight: store.templateHeight,
     fontSizes: store.fontSizes,
+    logoMode: store.logoMode,
+    showCompetitionLogo: store.showCompetitionLogo,
+    competitionLogoPosition: store.competitionLogoPosition,
+    competitionLogoSize: store.competitionLogoSize,
+    showSponsorLogo: store.showSponsorLogo,
+    sponsorLogoPosition: store.sponsorLogoPosition,
+    sponsorLogoSize: store.sponsorLogoSize,
   };
 }
 

@@ -4,6 +4,8 @@ import { ff } from '@/utils/font';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
 import type { ShootoutAttempt } from '@/types/bodyTypes/shootout';
+import type { LogoMode } from '@/types/logo';
+import type { CSSProperties } from 'react';
 
 interface HeaderProps {
   readonly team1: string;
@@ -21,6 +23,8 @@ interface HeaderProps {
   readonly showShootout?: boolean;
   readonly shootoutLeft?: readonly ShootoutAttempt[];
   readonly shootoutRight?: readonly ShootoutAttempt[];
+  readonly logoMode?: LogoMode;
+  readonly teamLogos?: Record<string, string>;
 }
 
 function col(colors: ColorMap, opacities: OpacityMap, key: keyof ColorMap): string {
@@ -76,12 +80,38 @@ function ShootoutDisplay({ attempts, color }: { readonly attempts: readonly Shoo
   );
 }
 
+function TeamBadge({ code, logoMode, teamLogos }: { readonly code: string; readonly logoMode: LogoMode; readonly teamLogos: Record<string, string> }) {
+  const logoUrl = teamLogos[`team-${code}`] ?? '';
+  const showFlag = logoMode === 'flag' || logoMode === 'both' || !logoUrl;
+  const showLogo = (logoMode === 'logo' || logoMode === 'both') && logoUrl;
+
+  if (showLogo && !showFlag) {
+    const logoStyle: CSSProperties = { width: 77, height: 50, objectFit: 'contain', flexShrink: 0 };
+    return <img src={logoUrl} alt="" style={logoStyle} />;
+  }
+
+  if (showLogo && showFlag) {
+    const logoStyle: CSSProperties = { width: 50, height: 50, objectFit: 'contain', flexShrink: 0 };
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <Flag code={code} w={50} h={34} />
+        <img src={logoUrl} alt="" style={logoStyle} />
+      </div>
+    );
+  }
+
+  return <Flag code={code} />;
+}
+
+const EMPTY_LOGOS: Record<string, string> = {};
+
 export function Header({
   team1, team2, score1, score2,
   colors, opacities, fontTeams,
   fontSizeTeamName = 80, fontSizeScore = 80,
   showTimeouts = false, timeoutsLeft = 0, timeoutsRight = 0,
   showShootout = false, shootoutLeft = [], shootoutRight = [],
+  logoMode = 'flag', teamLogos = EMPTY_LOGOS,
 }: HeaderProps) {
   const c = (key: keyof ColorMap) => col(colors, opacities, key);
   const hasScoreBox = !!colors.scoreBox;
@@ -103,7 +133,7 @@ export function Header({
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-            <Flag code={team1} />
+            <TeamBadge code={team1} logoMode={logoMode} teamLogos={teamLogos} />
             {showShootout && <ShootoutDisplay attempts={shootoutLeft} color={c('teamName')} />}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -119,7 +149,7 @@ export function Header({
             {showTimeouts && <TimeoutDots count={timeoutsRight} maxTimeouts={maxTimeouts} />}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-            <Flag code={team2} />
+            <TeamBadge code={team2} logoMode={logoMode} teamLogos={teamLogos} />
             {showShootout && <ShootoutDisplay attempts={shootoutRight} color={c('teamName')} />}
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { Header } from './Header';
 import { ClockOverlay } from './ClockOverlay';
 import { PenaltyColumn } from './PenaltyColumn';
+import { LogoOverlay } from './LogoOverlay';
 import { BodyType1 } from './body/BodyType1';
 import { BodyType2 } from './body/BodyType2';
 import { BodyType3 } from './body/BodyType3';
@@ -20,12 +21,14 @@ import type { ScoreboardState } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
 import type { FontSizeConfig } from '@/types/fontSizes';
+import type { LogoPosition } from '@/types/logo';
 
 interface ScoreboardCanvasProps {
   readonly state: ScoreboardState;
   readonly width?: number;
   readonly height?: number;
   readonly playerPhotos?: Record<string, string>;
+  readonly logos?: Record<string, string>;
 }
 
 interface BodyProps {
@@ -70,13 +73,31 @@ function BodyRenderer({ state, colors, opacities, fontBody, fontSizes, playerPho
   }
 }
 
+interface LogoRendererProps {
+  readonly logos: Record<string, string>;
+  readonly position: LogoPosition;
+  readonly size: number;
+}
+
+function CompetitionLogoRenderer({ logos, position, size }: LogoRendererProps) {
+  const url = Object.entries(logos).find(([k]) => k.startsWith('competition-'))?.[1] ?? '';
+  return <LogoOverlay dataUrl={url} position={position} size={size} />;
+}
+
+function SponsorLogoRenderer({ logos, position, size }: LogoRendererProps) {
+  const url = Object.entries(logos).find(([k]) => k.startsWith('sponsor-'))?.[1] ?? '';
+  return <LogoOverlay dataUrl={url} position={position} size={size} />;
+}
+
 const EMPTY_PHOTOS: Record<string, string> = {};
+const EMPTY_LOGOS: Record<string, string> = {};
 
 export function ScoreboardCanvas({
   state,
   width,
   height,
   playerPhotos = EMPTY_PHOTOS,
+  logos = EMPTY_LOGOS,
 }: ScoreboardCanvasProps) {
   const w = width ?? state.templateWidth;
   const h = height ?? state.templateHeight;
@@ -159,6 +180,8 @@ export function ScoreboardCanvas({
           showShootout={state.showShootout}
           shootoutLeft={state.shootoutLeft}
           shootoutRight={state.shootoutRight}
+          logoMode={state.logoMode}
+          teamLogos={logos}
         />
 
         <ClockOverlay
@@ -174,6 +197,13 @@ export function ScoreboardCanvas({
           fontSizePeriod={fontSizes.period}
         />
       </div>
+
+      {state.showCompetitionLogo && (
+        <CompetitionLogoRenderer logos={logos} position={state.competitionLogoPosition} size={state.competitionLogoSize} />
+      )}
+      {state.showSponsorLogo && (
+        <SponsorLogoRenderer logos={logos} position={state.sponsorLogoPosition} size={state.sponsorLogoSize} />
+      )}
 
       <div style={{ flex: 1, display: 'flex', position: 'relative', zIndex: 1 }}>
         {state.showPenalties && (

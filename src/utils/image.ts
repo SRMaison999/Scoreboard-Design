@@ -4,6 +4,7 @@ import {
   MAX_PHOTO_DIMENSION,
   MAX_BG_IMAGE_DIMENSION,
 } from '@/types/media';
+import { MAX_LOGO_DIMENSION } from '@/types/logo';
 
 /**
  * Valide qu'un fichier est une image acceptée.
@@ -114,4 +115,43 @@ export async function processBackgroundImage(file: File): Promise<string> {
   }
   const raw = await fileToDataUrl(file);
   return compressBackgroundImage(raw);
+}
+
+/**
+ * Redimensionne un logo en conservant le ratio d'aspect (max 300px).
+ */
+export function compressLogo(dataUrl: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const maxDim = MAX_LOGO_DIMENSION;
+      const ratio = Math.min(1, maxDim / Math.max(img.width, img.height));
+      const w = Math.round(img.width * ratio);
+      const h = Math.round(img.height * ratio);
+      const canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        reject(new Error('Impossible de créer le contexte canvas'));
+        return;
+      }
+      ctx.drawImage(img, 0, 0, w, h);
+      resolve(canvas.toDataURL('image/webp', 0.9));
+    };
+    img.onerror = () => reject(new Error('Erreur de chargement de l\'image'));
+    img.src = dataUrl;
+  });
+}
+
+/**
+ * Traite un fichier image pour upload de logo.
+ * Conserve le ratio d'aspect, max 300px.
+ */
+export async function processLogo(file: File): Promise<string> {
+  if (!isValidImageFile(file)) {
+    throw new Error('Format non supporté. Utilisez PNG, JPEG ou WebP.');
+  }
+  const raw = await fileToDataUrl(file);
+  return compressLogo(raw);
 }

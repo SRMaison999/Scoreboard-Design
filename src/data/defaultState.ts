@@ -91,4 +91,12 @@ export const DEFAULT_STATE: ScoreboardState = {
   templateHeight: DEFAULT_TEMPLATE_HEIGHT,
 
   fontSizes: { ...DEFAULT_FONT_SIZES },
+
+  logoMode: 'flag',
+  showCompetitionLogo: false,
+  competitionLogoPosition: 'top-right',
+  competitionLogoSize: 80,
+  showSponsorLogo: false,
+  sponsorLogoPosition: 'bottom-right',
+  sponsorLogoSize: 60,
 };

@@ -267,6 +267,13 @@ describe('scoreboardStore', () => {
         templateWidth: s.templateWidth,
         templateHeight: s.templateHeight,
         fontSizes: { ...s.fontSizes },
+        logoMode: s.logoMode,
+        showCompetitionLogo: s.showCompetitionLogo,
+        competitionLogoPosition: s.competitionLogoPosition,
+        competitionLogoSize: s.competitionLogoSize,
+        showSponsorLogo: s.showSponsorLogo,
+        sponsorLogoPosition: s.sponsorLogoPosition,
+        sponsorLogoSize: s.sponsorLogoSize,
       };
       useScoreboardStore.getState().loadState(plainState);
       expect(useScoreboardStore.getState().team1).toBe('USA');

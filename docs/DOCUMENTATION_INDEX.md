@@ -25,6 +25,7 @@
 | [manuel-utilisateur/08-sortie-broadcast.md](./manuel-utilisateur/08-sortie-broadcast.md) | Fenetre de sortie et integration OBS/vMix |
 | [manuel-utilisateur/09-capture-impression.md](./manuel-utilisateur/09-capture-impression.md) | Screenshot et impression |
 | [manuel-utilisateur/10-photos-joueurs.md](./manuel-utilisateur/10-photos-joueurs.md) | Gestion des photos de joueurs |
+| [manuel-utilisateur/11-logos.md](./manuel-utilisateur/11-logos.md) | Gestion des logos (equipe, competition, sponsor) |
 
 ## Fichiers projet
 
@@ -50,6 +51,6 @@
 
 | Phase | Description | Statut |
 |-------|-------------|--------|
-| 7 | Photos et medias (upload joueurs, fond image/video) | En cours |
+| 7 | Photos et medias (photos joueurs, logos equipe/competition/sponsor) | Termine |
 | 8 | Animations et export video/GIF | A faire |
 | 9 | Integrations externes (API, CasparCG, multi-scoreboard) | A faire |

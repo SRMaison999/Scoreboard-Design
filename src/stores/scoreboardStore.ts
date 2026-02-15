@@ -185,6 +185,22 @@ export const useScoreboardStore = create<ScoreboardStore>()(
       loadState: (state) => set(() => structuredClone(state)),
       resetState: () => set(() => structuredClone(DEFAULT_STATE)),
     })),
-    { name: 'scoreboard-state', version: 2 },
+    {
+      name: 'scoreboard-state',
+      version: 3,
+      migrate: (persisted: unknown) => {
+        const state = persisted as Record<string, unknown>;
+        if (state['logoMode'] === undefined) {
+          state['logoMode'] = 'flag';
+          state['showCompetitionLogo'] = false;
+          state['competitionLogoPosition'] = 'top-right';
+          state['competitionLogoSize'] = 80;
+          state['showSponsorLogo'] = false;
+          state['sponsorLogoPosition'] = 'bottom-right';
+          state['sponsorLogoSize'] = 60;
+        }
+        return state as unknown as ScoreboardState & ScoreboardActions;
+      },
+    },
   ),
 );

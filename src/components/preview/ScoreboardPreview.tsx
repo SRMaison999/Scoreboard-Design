@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { useScaling } from '@/hooks/useScaling';
 import { usePlayerPhotos } from '@/hooks/usePlayerPhotos';
+import { useLogos } from '@/hooks/useLogos';
 import { ScoreboardCanvas } from './ScoreboardCanvas';
 import type { ScoreboardState } from '@/types/scoreboard';
 
@@ -10,6 +11,7 @@ interface ScoreboardPreviewProps {
 
 export function ScoreboardPreview({ state }: ScoreboardPreviewProps) {
   const playerPhotos = usePlayerPhotos();
+  const logos = useLogos();
   const wrapRef = useRef<HTMLDivElement>(null);
   const w = state.templateWidth;
   const h = state.templateHeight;
@@ -37,7 +39,7 @@ export function ScoreboardPreview({ state }: ScoreboardPreviewProps) {
           flexShrink: 0,
         }}
       >
-        <ScoreboardCanvas state={state} playerPhotos={playerPhotos} />
+        <ScoreboardCanvas state={state} playerPhotos={playerPhotos} logos={logos} />
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ import type { RosterData } from './bodyTypes/roster';
 import type { ScheduleData } from './bodyTypes/schedule';
 import type { BackgroundMediaMode } from './media';
 import type { FontSizeConfig } from './fontSizes';
+import type { LogoMode, LogoPosition } from './logo';
 
 export type BodyTypeId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
 
@@ -144,4 +145,13 @@ export interface ScoreboardState {
 
   /* Tailles de police individuelles */
   fontSizes: FontSizeConfig;
+
+  /* Logos */
+  logoMode: LogoMode;
+  showCompetitionLogo: boolean;
+  competitionLogoPosition: LogoPosition;
+  competitionLogoSize: number;
+  showSponsorLogo: boolean;
+  sponsorLogoPosition: LogoPosition;
+  sponsorLogoSize: number;
 }
