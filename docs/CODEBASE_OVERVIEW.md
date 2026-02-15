@@ -101,6 +101,64 @@ Gestion de l'enregistrement de frames pour la Frame Data API.
 - `getRecording()` : retourne l'enregistrement complet
 - `resetRecording()` : reinitialise
 
+### 2.6 `useLiveDataStore`
+
+**Fichier** : `src/stores/liveDataStore.ts`
+
+Connexion a une API externe de scores en temps reel (WebSocket ou HTTP polling).
+
+**State** : `config: LiveDataConfig`, `status: LiveDataConnectionStatus`, `lastUpdate: string`, `errorMessage: string`
+
+**Actions** :
+- `updateConfig(key, value)` : modification de la configuration (endpoint, matchId, autoUpdate)
+- `setStatus(status)` : mise a jour du statut de connexion
+- `setLastUpdate(time)` / `setErrorMessage(msg)` : suivi d'etat
+- `resetLiveData()` : reinitialisation complete
+
+### 2.7 `useMultiScoreboardStore`
+
+**Fichier** : `src/stores/multiScoreboardStore.ts`
+
+Gestion des overlays multi-scoreboard (lower third, score bug, ticker).
+
+**State** : `overlays: OverlayInstance[]`, `tickerItems: TickerItem[]`, `tickerSpeed: number`
+
+**Actions** :
+- `addOverlay(type)` : ajoute un overlay (max 10)
+- `removeOverlay(id)` / `toggleOverlay(id)` : gestion des overlays
+- `updateOverlay(id, updates)` : mise a jour position, opacite
+- `addTickerItem(text)` / `removeTickerItem(id)` / `updateTickerItem(id, text)` : elements du ticker
+- `setTickerSpeed(speed)` : vitesse de defilement
+- `resetMultiScoreboard()` : reinitialisation
+
+### 2.8 `useSyncStore`
+
+**Fichier** : `src/stores/syncStore.ts`
+
+Synchronisation multi-poste via WebSocket (admin, operateur, viewer).
+
+**State** : `config: SyncConfig`, `status: SyncConnectionStatus`, `clientId: string`, `peers: SyncPeer[]`, `errorMessage: string`
+
+**Actions** :
+- `updateConfig(key, value)` : modification de la configuration
+- `setStatus(status)` / `setRole(role)` : statut et role
+- `addPeer(peer)` / `removePeer(clientId)` : gestion des pairs connectes
+- `resetSync()` : reinitialisation complete
+
+### 2.9 `useBroadcastStore`
+
+**Fichier** : `src/stores/broadcastStore.ts`
+
+Integration CasparCG / Viz : streaming de donnees vers des systemes broadcast externes.
+
+**State** : `config: BroadcastConfig`, `status: BroadcastStatus`, `connectedClients: number`, `framesSent: number`, `lastFrameTime: string`
+
+**Actions** :
+- `updateConfig(key, value)` : modification de la configuration (ports, export fichier)
+- `setStatus(status)` / `setConnectedClients(n)` : statut du streaming
+- `incrementFramesSent()` : compteur de frames envoyees
+- `resetBroadcast()` : reinitialisation complete
+
 ---
 
 ## 3. Hooks
@@ -117,6 +175,9 @@ Gestion de l'enregistrement de frames pour la Frame Data API.
 | `useLogos` | `src/hooks/useLogos.ts` | Map id -> dataUrl de tous les logos (charge depuis IndexedDB) |
 | `useAnimationTriggers` | `src/hooks/useAnimationTriggers.ts` | Detection de changements (score, penalites, visibilite) et activation des drapeaux d'animation |
 | `useExportConfig` | `src/hooks/useExportConfig.ts` | Configuration d'export video/GIF (etat local) |
+| `useLiveData` | `src/hooks/useLiveData.ts` | Connexion a une API de scores temps reel (WebSocket/polling) |
+| `useSync` | `src/hooks/useSync.ts` | Synchronisation multi-poste via WebSocket |
+| `useBroadcast` | `src/hooks/useBroadcast.ts` | Streaming de donnees vers CasparCG / Viz |
 
 ---
 
@@ -147,6 +208,10 @@ Scores, temps, penalites, phase active. Change chaque seconde.
 | `frameDelta.ts` | `computeDelta()` et `applyDelta()` : encodage delta pour optimisation |
 | `frameConverters.ts` | Conversion `ScoreboardState` vers `TemplateData`, `MatchData`, `FrameData` |
 | `db.ts` | Instance Dexie.js pour IndexedDB |
+| `liveData/liveDataClient.ts` | Client WebSocket + HTTP polling pour API de scores externes |
+| `liveData/liveDataMapper.ts` | Mapping des donnees live vers `ScoreboardState` |
+| `sync/syncClient.ts` | Client WebSocket pour synchronisation multi-poste (reconnexion auto) |
+| `broadcast/broadcastStreamer.ts` | Streamer CasparCG/Viz : snapshots, deltas, export JSON |
 
 ### Formats d'export
 
@@ -179,6 +244,7 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 2. **Apparence** : GeneralSection, TemplateSizeSection, BackgroundSection, FontSection, FontSizeSection, ColorSection
 3. **Horloge** : ClockSection
 4. **Animations et export** : AnimationSection, ExportSection
+5. **Integrations** : LiveDataSection, MultiScoreboardSection, SyncSection, BroadcastSection
 
 **BodyContentSection** renvoie la section d'edition appropriee selon le body type actif (StatsSection, PlayerStatsSection, GoalSection, etc.).
 
@@ -228,7 +294,13 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 
 ### 5.5 Sortie (`src/components/output/`)
 
-**OutputWindow.tsx** (27 lignes) : recoit le state via `useOutputSyncReceiver()` et affiche `ScoreboardCanvas` en plein ecran. Ouverte via `window.open()` depuis l'editeur.
+**OutputWindow.tsx** : recoit le state via `useOutputSyncReceiver()` et affiche `ScoreboardCanvas` en plein ecran. Integre `OverlayRenderer` pour les overlays multi-scoreboard. Ouverte via `window.open()` depuis l'editeur.
+
+**Overlays multi-scoreboard** (`src/components/output/`) :
+- `LowerThird.tsx` : barre inferieure pleine largeur (equipes, score, temps, periode)
+- `ScoreBug.tsx` : affichage compact de score, positionnable en 6 positions
+- `Ticker.tsx` : bandeau defilant avec animation CSS
+- `OverlayRenderer.tsx` : rendu conditionnel des overlays visibles
 
 ---
 
@@ -251,6 +323,11 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 | `animation.ts` | `AnimationConfig`, `EntryAnimation`, `EasingType`, `ExportConfig`, `VideoFormat`, `GifQuality` |
 | `nations.ts` | Codes nations |
 | `bodyTypes/*.ts` | Types par body type (goal, playerCard, standings, etc.) |
+| `rosterImport.ts` | `RosterImportFormat`, `RosterImportMode`, `RosterImportResult`, `RosterImportColumn` |
+| `liveData.ts` | `LiveDataConnectionStatus`, `LiveMatchData`, `LiveDataConfig` |
+| `multiScoreboard.ts` | `OverlayType`, `OverlayInstance`, `TickerItem`, `MultiScoreboardConfig` |
+| `sync.ts` | `SyncRole`, `SyncPeer`, `SyncMessage`, `SyncConfig` |
+| `broadcast.ts` | `BroadcastStatus`, `BroadcastConfig`, `DEFAULT_BROADCAST_CONFIG` |
 
 ---
 
@@ -260,7 +337,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 
 | Fichier | Contenu |
 |---------|---------|
-| `labels.ts` | 380+ labels UI en francais (EDITOR_LABELS) |
+| `labels.ts` | 440+ labels UI en francais (EDITOR_LABELS) |
 | `colors.ts` | DEFAULT_COLORS, DEFAULT_OPACITIES, 5 presets |
 | `fonts.ts` | FONT_OPTIONS, FONT_LINK (Google Fonts URL) |
 | `fontSizes.ts` | FONT_SIZES (tailles auto par nombre de lignes) |
@@ -285,6 +362,11 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 | `animation.ts` | `entryKeyframeName()`, `buildAnimationCss()`, `parseTimeToSeconds()` | Utilitaires d'animation CSS |
 | `videoRecorder.ts` | `VideoRecorder` (classe) | Enregistrement video via MediaRecorder + html-to-image |
 | `gifEncoder.ts` | `exportGif()`, `downloadGif()` | Export GIF anime via gif.js |
+| `roster/csvParser.ts` | `parseCsv()` | Import CSV via PapaParse |
+| `roster/excelParser.ts` | `parseExcel()` | Import Excel via xlsx |
+| `roster/jsonParser.ts` | `parseJsonRoster()` | Import JSON (array ou objet) |
+| `roster/rosterValidator.ts` | `validateAndMapRows()` | Validation et normalisation des rosters importes |
+| `roster/rosterExporter.ts` | `exportRosterCsv()`, `exportRosterJson()`, `exportRosterExcel()` | Export de rosters |
 
 ---
 
@@ -294,15 +376,15 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 
 **Setup** : `src/test/setup.ts`
 
-**Couverture** : 84 fichiers de test, 498 tests.
+**Couverture** : 100+ fichiers de test, 591 tests.
 
 | Categorie | Nombre | Exemples |
 |-----------|--------|----------|
-| API | 4 | frameExport, frameRecorder, frameDelta, frameConverters |
-| Composants | 40+ | editeur, body types, UI, operateur |
+| API | 8 | frameExport, frameRecorder, frameDelta, frameConverters, liveDataClient, liveDataMapper, syncClient, broadcastStreamer |
+| Composants | 50+ | editeur, body types, UI, operateur, overlays, sections integration |
 | Hooks | 9 | useTimer, useScaling, useOperatorKeyboard, useOutputSync, useFontLoader, usePlayerPhotos, useLogos, useAnimationTriggers, useExportConfig |
-| Stores | 4 | scoreboardStore, templateStore, photoStore, logoStore |
-| Utilitaires | 8+ | color, time, font, screenshot, image, animation, videoRecorder, gifEncoder |
+| Stores | 8 | scoreboardStore, templateStore, photoStore, logoStore, liveDataStore, multiScoreboardStore, syncStore, broadcastStore |
+| Utilitaires | 13+ | color, time, font, screenshot, image, animation, videoRecorder, gifEncoder, csvParser, excelParser, jsonParser, rosterValidator, rosterExporter |
 | Integration | 2 | App, OutputWindow |
 
 Verification avant commit : `npm run type-check && npm run lint && npm run test:run`

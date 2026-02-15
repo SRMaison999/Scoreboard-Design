@@ -32,6 +32,7 @@ import { ExportSection } from './ExportSection';
 import { LiveDataSection } from './LiveDataSection';
 import { MultiScoreboardSection } from './MultiScoreboardSection';
 import { SyncSection } from './SyncSection';
+import { BroadcastSection } from './BroadcastSection';
 
 function BodyContentSection({ bodyType }: { readonly bodyType: number }) {
   switch (bodyType) {
@@ -96,6 +97,7 @@ export function EditorPanel() {
       <LiveDataSection />
       <MultiScoreboardSection />
       <SyncSection />
+      <BroadcastSection />
 
       <div className="h-10 flex-shrink-0" />
     </div>

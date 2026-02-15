@@ -27,6 +27,7 @@
 | [manuel-utilisateur/10-photos-joueurs.md](./manuel-utilisateur/10-photos-joueurs.md) | Gestion des photos de joueurs |
 | [manuel-utilisateur/11-logos.md](./manuel-utilisateur/11-logos.md) | Gestion des logos (equipe, competition, sponsor) |
 | [manuel-utilisateur/12-animations-export.md](./manuel-utilisateur/12-animations-export.md) | Animations du scoreboard et export video/GIF |
+| [manuel-utilisateur/13-integrations.md](./manuel-utilisateur/13-integrations.md) | Integrations : import rosters, API scores, multi-scoreboard, sync, CasparCG/Viz |
 
 ## Fichiers projet
 
@@ -48,10 +49,10 @@
 | 5 | Body types 4-13 (13 types au total) | Termine |
 | 6 | Mode operateur live (raccourcis clavier, fenetre de sortie) | Termine |
 
-### Phases a venir
+### Phases completees (suite)
 
 | Phase | Description | Statut |
 |-------|-------------|--------|
 | 7 | Photos et medias (photos joueurs, logos equipe/competition/sponsor) | Termine |
 | 8 | Animations et export video/GIF | Termine |
-| 9 | Integrations externes (API, CasparCG, multi-scoreboard) | A faire |
+| 9 | Integrations externes (import rosters, API scores, multi-scoreboard, sync multi-poste, CasparCG/Viz) | Termine |
