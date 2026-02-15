@@ -29,6 +29,11 @@ interface ScoreboardCanvasProps {
   readonly height?: number;
   readonly playerPhotos?: Record<string, string>;
   readonly logos?: Record<string, string>;
+  readonly scorePopLeft?: boolean;
+  readonly scorePopRight?: boolean;
+  readonly penaltyFlashLeft?: boolean;
+  readonly penaltyFlashRight?: boolean;
+  readonly clockPulse?: boolean;
 }
 
 interface BodyProps {
@@ -98,6 +103,11 @@ export function ScoreboardCanvas({
   height,
   playerPhotos = EMPTY_PHOTOS,
   logos = EMPTY_LOGOS,
+  scorePopLeft = false,
+  scorePopRight = false,
+  penaltyFlashLeft = false,
+  penaltyFlashRight = false,
+  clockPulse = false,
 }: ScoreboardCanvasProps) {
   const w = width ?? state.templateWidth;
   const h = height ?? state.templateHeight;
@@ -182,6 +192,8 @@ export function ScoreboardCanvas({
           shootoutRight={state.shootoutRight}
           logoMode={state.logoMode}
           teamLogos={logos}
+          scorePopLeft={scorePopLeft}
+          scorePopRight={scorePopRight}
         />
 
         <ClockOverlay
@@ -195,6 +207,7 @@ export function ScoreboardCanvas({
           fontClock={state.fontClock}
           fontSizeClockTime={fontSizes.clockTime}
           fontSizePeriod={fontSizes.period}
+          clockPulse={clockPulse}
         />
       </div>
 
@@ -207,13 +220,13 @@ export function ScoreboardCanvas({
 
       <div style={{ flex: 1, display: 'flex', position: 'relative', zIndex: 1 }}>
         {state.showPenalties && (
-          <PenaltyColumn side="left" penalties={state.penaltiesLeft} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} />
+          <PenaltyColumn side="left" penalties={state.penaltiesLeft} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} flash={penaltyFlashLeft} />
         )}
 
         <BodyRenderer state={state} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizes={fontSizes} playerPhotos={playerPhotos} />
 
         {state.showPenalties && (
-          <PenaltyColumn side="right" penalties={state.penaltiesRight} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} />
+          <PenaltyColumn side="right" penalties={state.penaltiesRight} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} flash={penaltyFlashRight} />
         )}
       </div>
     </div>

@@ -12,6 +12,7 @@ import { DEFAULT_ROSTER_DATA } from '@/types/bodyTypes/roster';
 import { DEFAULT_SCHEDULE_DATA } from '@/types/bodyTypes/schedule';
 import { DEFAULT_FONT_SIZES } from '@/types/fontSizes';
 import { DEFAULT_TEMPLATE_WIDTH, DEFAULT_TEMPLATE_HEIGHT } from '@/constants/resolutions';
+import { DEFAULT_ANIMATION_CONFIG } from '@/types/animation';
 import type { ScoreboardState } from '@/types/scoreboard';
 
 export const DEFAULT_STATE: ScoreboardState = {
@@ -99,4 +100,7 @@ export const DEFAULT_STATE: ScoreboardState = {
   showSponsorLogo: false,
   sponsorLogoPosition: 'bottom-right',
   sponsorLogoSize: 60,
+
+  scoreboardVisible: true,
+  animationConfig: { ...DEFAULT_ANIMATION_CONFIG },
 };

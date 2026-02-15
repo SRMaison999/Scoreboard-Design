@@ -26,6 +26,7 @@
 | [manuel-utilisateur/09-capture-impression.md](./manuel-utilisateur/09-capture-impression.md) | Screenshot et impression |
 | [manuel-utilisateur/10-photos-joueurs.md](./manuel-utilisateur/10-photos-joueurs.md) | Gestion des photos de joueurs |
 | [manuel-utilisateur/11-logos.md](./manuel-utilisateur/11-logos.md) | Gestion des logos (equipe, competition, sponsor) |
+| [manuel-utilisateur/12-animations-export.md](./manuel-utilisateur/12-animations-export.md) | Animations du scoreboard et export video/GIF |
 
 ## Fichiers projet
 
@@ -52,5 +53,5 @@
 | Phase | Description | Statut |
 |-------|-------------|--------|
 | 7 | Photos et medias (photos joueurs, logos equipe/competition/sponsor) | Termine |
-| 8 | Animations et export video/GIF | A faire |
+| 8 | Animations et export video/GIF | Termine |
 | 9 | Integrations externes (API, CasparCG, multi-scoreboard) | A faire |

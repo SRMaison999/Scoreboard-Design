@@ -2,7 +2,7 @@ import { useOutputSyncReceiver } from '@/hooks/useOutputSync';
 import { useFontLoader } from '@/hooks/useFontLoader';
 import { usePlayerPhotos } from '@/hooks/usePlayerPhotos';
 import { useLogos } from '@/hooks/useLogos';
-import { ScoreboardCanvas } from '@/components/preview/ScoreboardCanvas';
+import { AnimatedScoreboard } from '@/components/preview/AnimatedScoreboard';
 
 /**
  * Fenetre de sortie capturable par OBS/vMix.
@@ -25,7 +25,7 @@ export function OutputWindow() {
 
   return (
     <div className="w-screen h-screen bg-black overflow-hidden flex items-center justify-center">
-      <ScoreboardCanvas state={state} playerPhotos={playerPhotos} logos={logos} />
+      <AnimatedScoreboard state={state} playerPhotos={playerPhotos} logos={logos} />
     </div>
   );
 }

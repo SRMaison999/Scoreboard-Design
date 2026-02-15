@@ -46,7 +46,7 @@ Le systeme utilise deux couches de persistance complementaires :
 | Parametre | Valeur |
 |-----------|--------|
 | Cle | `scoreboard-state` |
-| Version | 3 |
+| Version | 4 |
 | Middleware | Zustand `persist` |
 | Format | JSON serialise |
 

@@ -25,6 +25,8 @@ interface HeaderProps {
   readonly shootoutRight?: readonly ShootoutAttempt[];
   readonly logoMode?: LogoMode;
   readonly teamLogos?: Record<string, string>;
+  readonly scorePopLeft?: boolean;
+  readonly scorePopRight?: boolean;
 }
 
 function col(colors: ColorMap, opacities: OpacityMap, key: keyof ColorMap): string {
@@ -112,16 +114,20 @@ export function Header({
   showTimeouts = false, timeoutsLeft = 0, timeoutsRight = 0,
   showShootout = false, shootoutLeft = [], shootoutRight = [],
   logoMode = 'flag', teamLogos = EMPTY_LOGOS,
+  scorePopLeft = false, scorePopRight = false,
 }: HeaderProps) {
   const c = (key: keyof ColorMap) => col(colors, opacities, key);
   const hasScoreBox = !!colors.scoreBox;
   const maxTimeouts = 1;
 
-  const scoreStyle: React.CSSProperties = {
+  const baseScoreStyle: React.CSSProperties = {
     fontSize: fontSizeScore, fontWeight: 700, minWidth: 75, textAlign: 'center',
     textShadow: '0 4px 20px rgba(0,0,0,0.5)', color: c('score'),
     ...(hasScoreBox ? { background: c('scoreBox'), borderRadius: 8, padding: '2px 20px', boxShadow: '0 4px 16px rgba(0,0,0,0.3)' } : {}),
   };
+  const scorePopAnim = 'sb-score-pop 400ms ease-out';
+  const score1Style: React.CSSProperties = { ...baseScoreStyle, ...(scorePopLeft ? { animation: scorePopAnim } : {}) };
+  const score2Style: React.CSSProperties = { ...baseScoreStyle, ...(scorePopRight ? { animation: scorePopAnim } : {}) };
 
   const teamStyle: React.CSSProperties = {
     fontSize: fontSizeTeamName, fontWeight: 700, letterSpacing: 6,
@@ -140,10 +146,10 @@ export function Header({
             <div style={teamStyle}>{team1}</div>
             {showTimeouts && <TimeoutDots count={timeoutsLeft} maxTimeouts={maxTimeouts} />}
           </div>
-          <div style={scoreStyle}>{score1}</div>
+          <div style={score1Style}>{score1}</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
-          <div style={scoreStyle}>{score2}</div>
+          <div style={score2Style}>{score2}</div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <div style={teamStyle}>{team2}</div>
             {showTimeouts && <TimeoutDots count={timeoutsRight} maxTimeouts={maxTimeouts} />}

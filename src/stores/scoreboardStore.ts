@@ -187,7 +187,7 @@ export const useScoreboardStore = create<ScoreboardStore>()(
     })),
     {
       name: 'scoreboard-state',
-      version: 3,
+      version: 4,
       migrate: (persisted: unknown) => {
         const state = persisted as Record<string, unknown>;
         if (state['logoMode'] === undefined) {
@@ -198,6 +198,16 @@ export const useScoreboardStore = create<ScoreboardStore>()(
           state['showSponsorLogo'] = false;
           state['sponsorLogoPosition'] = 'bottom-right';
           state['sponsorLogoSize'] = 60;
+        }
+        if (state['scoreboardVisible'] === undefined) {
+          state['scoreboardVisible'] = true;
+          state['animationConfig'] = {
+            entryAnimation: 'fade', entryDuration: 800, entryEasing: 'ease-out',
+            exitAnimation: 'fade', exitDuration: 600, exitEasing: 'ease-in',
+            scorePopEnabled: true, scorePopDuration: 400,
+            penaltyFlashEnabled: true, penaltyFlashDuration: 600,
+            clockPulseEnabled: true, clockPulseThreshold: 10,
+          };
         }
         return state as unknown as ScoreboardState & ScoreboardActions;
       },

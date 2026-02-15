@@ -27,6 +27,8 @@ import { TemplateSizeSection } from './TemplateSizeSection';
 import { FontSizeSection } from './FontSizeSection';
 import { PhotoSection } from './PhotoSection';
 import { LogoSection } from './LogoSection';
+import { AnimationSection } from './AnimationSection';
+import { ExportSection } from './ExportSection';
 
 function BodyContentSection({ bodyType }: { readonly bodyType: number }) {
   switch (bodyType) {
@@ -82,6 +84,10 @@ export function EditorPanel() {
 
       <SectionGroupLabel label={EDITOR_LABELS.groupHorloge} />
       <ClockSection />
+
+      <SectionGroupLabel label={EDITOR_LABELS.groupAnimationsExport} />
+      <AnimationSection />
+      <ExportSection />
 
       <div className="h-10 flex-shrink-0" />
     </div>

@@ -14,6 +14,7 @@ import type { ScheduleData } from './bodyTypes/schedule';
 import type { BackgroundMediaMode } from './media';
 import type { FontSizeConfig } from './fontSizes';
 import type { LogoMode, LogoPosition } from './logo';
+import type { AnimationConfig } from './animation';
 
 export type BodyTypeId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
 
@@ -154,4 +155,8 @@ export interface ScoreboardState {
   showSponsorLogo: boolean;
   sponsorLogoPosition: LogoPosition;
   sponsorLogoSize: number;
+
+  /* Animations */
+  scoreboardVisible: boolean;
+  animationConfig: AnimationConfig;
 }

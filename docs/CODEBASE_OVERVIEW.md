@@ -28,7 +28,7 @@ State principal de l'application. Contient toutes les donnees du scoreboard : eq
 
 **Middleware** :
 - `immer` : mutations immutables via draft
-- `persist` : sauvegarde automatique dans `localStorage` (cle `scoreboard-state`, version 3)
+- `persist` : sauvegarde automatique dans `localStorage` (cle `scoreboard-state`, version 4)
 
 **Actions principales** :
 - `update(key, value)` : mise a jour generique d'un champ
@@ -115,6 +115,8 @@ Gestion de l'enregistrement de frames pour la Frame Data API.
 | `useOperatorKeyboard` | `src/hooks/useOperatorKeyboard.ts` | Raccourcis clavier du mode operateur |
 | `usePlayerPhotos` | `src/hooks/usePlayerPhotos.ts` | Map id -> dataUrl des photos de joueurs (charge depuis IndexedDB) |
 | `useLogos` | `src/hooks/useLogos.ts` | Map id -> dataUrl de tous les logos (charge depuis IndexedDB) |
+| `useAnimationTriggers` | `src/hooks/useAnimationTriggers.ts` | Detection de changements (score, penalites, visibilite) et activation des drapeaux d'animation |
+| `useExportConfig` | `src/hooks/useExportConfig.ts` | Configuration d'export video/GIF (etat local) |
 
 ---
 
@@ -176,6 +178,7 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 1. **Contenu** : HeaderSection, TitleSection, BodyContentSection (switch par body type), TimeoutSection, ShootoutSection, PenaltySection, PhotoSection, LogoSection
 2. **Apparence** : GeneralSection, TemplateSizeSection, BackgroundSection, FontSection, FontSizeSection, ColorSection
 3. **Horloge** : ClockSection
+4. **Animations et export** : AnimationSection, ExportSection
 
 **BodyContentSection** renvoie la section d'edition appropriee selon le body type actif (StatsSection, PlayerStatsSection, GoalSection, etc.).
 
@@ -183,9 +186,11 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 
 ### 5.3 Preview (`src/components/preview/`)
 
-**ScoreboardPreview.tsx** : conteneur avec scaling automatique via `useScaling`.
+**ScoreboardPreview.tsx** : conteneur avec scaling automatique via `useScaling`. Utilise `AnimatedScoreboard` pour les animations.
 
-**ScoreboardCanvas.tsx** (186 lignes) : composant de rendu principal. Inline styles uniquement. Compose de :
+**AnimatedScoreboard.tsx** : enveloppe ScoreboardCanvas avec les animations d'entree/sortie, score pop, penalty flash, clock pulse via `useAnimationTriggers`.
+
+**ScoreboardCanvas.tsx** (230 lignes) : composant de rendu principal. Inline styles uniquement. Compose de :
 - Fond en degrade (`bgTop` -> `bgMid` -> `bgBot`) ou fond uniforme
 - `Header` : drapeaux/logos, noms d'equipes, scores (avec mode TeamBadge : flag/logo/both)
 - `ClockOverlay` : horloge et periode
@@ -243,6 +248,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 | `media.ts` | `BackgroundMediaMode` |
 | `playerPhoto.ts` | `PlayerPhoto`, `playerPhotoKey()` |
 | `logo.ts` | `LogoEntry`, `LogoType`, `LogoPosition`, `LogoMode`, `logoEntryId()` |
+| `animation.ts` | `AnimationConfig`, `EntryAnimation`, `EasingType`, `ExportConfig`, `VideoFormat`, `GifQuality` |
 | `nations.ts` | Codes nations |
 | `bodyTypes/*.ts` | Types par body type (goal, playerCard, standings, etc.) |
 
@@ -254,7 +260,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 
 | Fichier | Contenu |
 |---------|---------|
-| `labels.ts` | 340+ labels UI en francais (EDITOR_LABELS) |
+| `labels.ts` | 380+ labels UI en francais (EDITOR_LABELS) |
 | `colors.ts` | DEFAULT_COLORS, DEFAULT_OPACITIES, 5 presets |
 | `fonts.ts` | FONT_OPTIONS, FONT_LINK (Google Fonts URL) |
 | `fontSizes.ts` | FONT_SIZES (tailles auto par nombre de lignes) |
@@ -276,6 +282,9 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 | `font.ts` | `ff(fontId)` | Resolution d'un ID vers la famille CSS |
 | `screenshot.ts` | `captureScreenshot()` | Capture PNG via html-to-image |
 | `image.ts` | Redimensionnement, compression, base64 | Traitement d'images uploadees |
+| `animation.ts` | `entryKeyframeName()`, `buildAnimationCss()`, `parseTimeToSeconds()` | Utilitaires d'animation CSS |
+| `videoRecorder.ts` | `VideoRecorder` (classe) | Enregistrement video via MediaRecorder + html-to-image |
+| `gifEncoder.ts` | `exportGif()`, `downloadGif()` | Export GIF anime via gif.js |
 
 ---
 
@@ -285,15 +294,15 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 
 **Setup** : `src/test/setup.ts`
 
-**Couverture** : 75 fichiers de test, 426 tests.
+**Couverture** : 84 fichiers de test, 491 tests.
 
 | Categorie | Nombre | Exemples |
 |-----------|--------|----------|
 | API | 4 | frameExport, frameRecorder, frameDelta, frameConverters |
 | Composants | 40+ | editeur, body types, UI, operateur |
-| Hooks | 7 | useTimer, useScaling, useOperatorKeyboard, useOutputSync, useFontLoader, usePlayerPhotos, useLogos |
+| Hooks | 9 | useTimer, useScaling, useOperatorKeyboard, useOutputSync, useFontLoader, usePlayerPhotos, useLogos, useAnimationTriggers, useExportConfig |
 | Stores | 4 | scoreboardStore, templateStore, photoStore, logoStore |
-| Utilitaires | 5+ | color, time, font, screenshot, image |
+| Utilitaires | 8+ | color, time, font, screenshot, image, animation, videoRecorder, gifEncoder |
 | Integration | 2 | App, OutputWindow |
 
 Verification avant commit : `npm run type-check && npm run lint && npm run test:run`

@@ -13,6 +13,7 @@ interface PenaltyColumnProps {
   readonly fontBody: FontId;
   readonly fontSizePenaltyTime?: number;
   readonly fontSizePenaltyNumber?: number;
+  readonly flash?: boolean;
 }
 
 const PEN_W = 346;
@@ -25,6 +26,7 @@ export function PenaltyColumn({
   fontBody,
   fontSizePenaltyTime = 60,
   fontSizePenaltyNumber = 60,
+  flash = false,
 }: PenaltyColumnProps) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
 
@@ -52,6 +54,7 @@ export function PenaltyColumn({
             gap: 16,
             fontFamily: ff(fontBody),
             fontWeight: 600,
+            ...(flash && i === 0 ? { animation: 'sb-penalty-flash 600ms ease-in-out' } : {}),
           }}
         >
           {isLeft ? (

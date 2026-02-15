@@ -66,6 +66,8 @@ function selectState(store: ReturnType<typeof useScoreboardStore.getState>): Sco
     showSponsorLogo: store.showSponsorLogo,
     sponsorLogoPosition: store.sponsorLogoPosition,
     sponsorLogoSize: store.sponsorLogoSize,
+    scoreboardVisible: store.scoreboardVisible,
+    animationConfig: store.animationConfig,
   };
 }
 
