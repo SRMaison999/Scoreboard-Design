@@ -32,7 +32,8 @@ Ideal pour : leaders statistiques (meilleurs buteurs, passeurs, etc.)
 Configuration :
 - 1 titre centre
 - Lignes : label, numero de joueur, nom, valeur
-- Option photo joueur (cercle avec numero ou image)
+- Option photo joueur (cercle avec image ou numero en fallback)
+- Les photos sont chargees depuis la galerie de photos joueurs (voir chapitre 10)
 
 ## Type 4 : But / Celebration
 
@@ -95,15 +96,15 @@ Configuration :
 
 ## Type 9 : Face-a-face joueurs
 
-Deux joueurs face a face avec comparaison statistique.
+Deux joueurs face a face avec comparaison statistique, avec photos circulaires.
 
 Ideal pour : comparaison de joueurs cles
 
 Configuration :
 - Titre
-- 2 joueurs (nom, numero, equipe)
+- 2 joueurs (nom, numero, equipe) avec photo circulaire
 - Lignes de comparaison (label + valeurs gauche/droite)
-- Mise en evidence automatique de la meilleure valeur (optionnelle)
+- Les photos sont chargees depuis la galerie de photos joueurs (voir chapitre 10)
 
 ## Type 10 : Chronologie
 

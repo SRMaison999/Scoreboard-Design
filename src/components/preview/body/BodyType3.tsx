@@ -1,6 +1,7 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
 import { FONT_SIZES } from '@/constants/fontSizes';
+import { PhotoCircle } from '@/components/preview/PhotoCircle';
 import type { PlayerStat } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
@@ -13,6 +14,23 @@ interface BodyType3Props {
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
+  readonly playerPhotos?: Record<string, string>;
+}
+
+/**
+ * Cherche la photo d'un joueur par numero dans la map des photos.
+ * Les cles sont au format "TEAM-NUMBER" (ex: "CAN-11").
+ */
+function findPhotoByNumber(
+  playerPhotos: Record<string, string>,
+  playerNumber: string,
+): string {
+  for (const [key, url] of Object.entries(playerPhotos)) {
+    if (key.endsWith(`-${playerNumber}`)) {
+      return url;
+    }
+  }
+  return '';
 }
 
 export function BodyType3({
@@ -23,6 +41,7 @@ export function BodyType3({
   colors,
   opacities,
   fontBody,
+  playerPhotos = {},
 }: BodyType3Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const n = playerStats.length;
@@ -91,6 +110,7 @@ export function BodyType3({
           );
 
           if (showPlayerPhoto) {
+            const photo = findPhotoByNumber(playerPhotos, s.playerNumber);
             nodes.push(
               <div
                 key={`ph-${i}`}
@@ -100,30 +120,14 @@ export function BodyType3({
                   justifyContent: 'center',
                 }}
               >
-                <div
-                  style={{
-                    width: rowFs * 1.3,
-                    height: rowFs * 1.3,
-                    borderRadius: '50%',
-                    background: 'rgba(255,255,255,0.08)',
-                    border: '2px solid rgba(255,255,255,0.15)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: rowFs * 0.5,
-                      fontWeight: 700,
-                      fontFamily: ff(fontBody),
-                      color: col('statVal'),
-                      lineHeight: 1,
-                    }}
-                  >
-                    {s.playerNumber}
-                  </span>
-                </div>
+                <PhotoCircle
+                  photo={photo}
+                  fallbackText={s.playerNumber}
+                  size={rowFs * 1.3}
+                  fontSize={rowFs * 0.5}
+                  color={col('statVal')}
+                  fontFamily={ff(fontBody)}
+                />
               </div>,
             );
           }

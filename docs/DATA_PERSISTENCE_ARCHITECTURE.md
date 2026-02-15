@@ -12,6 +12,7 @@ Le systeme utilise deux couches de persistance complementaires :
 |--------|-------------|---------|-------|
 | Session | localStorage | State du scoreboard actif | Zustand persist middleware |
 | Bibliotheque | IndexedDB (Dexie.js) | Templates sauvegardes | `useTemplateStore` |
+| Photos | IndexedDB (Dexie.js) | Photos de joueurs (base64) | `usePhotoStore` |
 
 ```
 +------------------+     persist      +------------------+
@@ -22,7 +23,12 @@ Le systeme utilise deux couches de persistance complementaires :
 +------------------+     Dexie.js     +------------------+
 |  Template Store  | <-------------> |  IndexedDB       |
 |  templateStore   |   CRUD          |  scoreboard-editor|
-+------------------+                 +------------------+
++------------------+                 |  - templates     |
+                                     |  - playerPhotos  |
++------------------+     Dexie.js    |                  |
+|  Photo Store     | <-------------> |                  |
+|  photoStore      |   CRUD          +------------------+
++------------------+
 ```
 
 ---
@@ -66,11 +72,16 @@ Le `ScoreboardState` complet : equipes, scores, couleurs, opacites, polices, tai
 ```typescript
 class ScoreboardDatabase extends Dexie {
   templates!: Dexie.Table<ScoreboardTemplate, string>;
+  playerPhotos!: Dexie.Table<PlayerPhoto, string>;
 
   constructor() {
     super('scoreboard-editor');
     this.version(1).stores({
       templates: 'id, name, created, modified'
+    });
+    this.version(2).stores({
+      templates: 'id, name, created, modified',
+      playerPhotos: 'id, team, number, playerName'
     });
   }
 }
@@ -79,10 +90,18 @@ class ScoreboardDatabase extends Dexie {
 | Propriete | Valeur |
 |-----------|--------|
 | Nom de la base | `scoreboard-editor` |
-| Version du schema | 1 |
-| Table | `templates` |
+| Version du schema | 2 |
+| Tables | `templates`, `playerPhotos` |
+
+**Table `templates`** :
 | Cle primaire | `id` |
+|---|---|
 | Index | `name`, `created`, `modified` |
+
+**Table `playerPhotos`** :
+| Cle primaire | `id` (format `TEAM-NUMBER`, ex: `CAN-11`) |
+|---|---|
+| Index | `team`, `number`, `playerName` |
 
 ### Structure d'un template
 
@@ -96,8 +115,40 @@ interface ScoreboardTemplate {
 }
 ```
 
+### Structure d'une photo de joueur
+
+```typescript
+interface PlayerPhoto {
+  id: string;         // ex: "CAN-11" (cle: equipe-numero)
+  team: string;       // code NOC (ex: "CAN")
+  number: string;     // numero du joueur (ex: "11")
+  playerName: string; // nom du joueur
+  dataUrl: string;    // image en base64 (WebP compresse)
+  created: string;    // ISO 8601
+}
+```
+
+### Operations sur les photos
+
+| Operation | Methode du store | Requete Dexie |
+|-----------|-----------------|---------------|
+| Lister | `fetchPhotos()` | `db.playerPhotos.toArray()` |
+| Ajouter | `addPhoto(team, number, name, file)` | `db.playerPhotos.add(photo)` ou `.update(id, ...)` |
+| Supprimer | `removePhoto(id)` | `db.playerPhotos.delete(id)` |
+| Chercher | `getPhoto(team, number)` | Recherche en memoire dans le state |
+
+### Traitement des images
+
+Avant stockage, les images passent par un pipeline de compression :
+1. Validation du format (PNG, JPEG, WebP)
+2. Lecture en data URL via `FileReader`
+3. Recadrage carre centre (taille maximale 256px)
+4. Compression en WebP (qualite 85%)
+5. Stockage du data URL en base64
+
 ### Generation des IDs
 
+**Templates** :
 ```typescript
 const id = `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 ```

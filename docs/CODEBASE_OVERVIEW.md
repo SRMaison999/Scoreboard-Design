@@ -58,7 +58,21 @@ Gestion de la bibliotheque de templates persistee dans IndexedDB.
 - `exportTemplate(id)` : telecharge en `.scoreboard.json`
 - `importTemplate(file)` : importe depuis un fichier JSON
 
-### 2.3 `useFrameStore`
+### 2.3 `usePhotoStore`
+
+**Fichier** : `src/stores/photoStore.ts`
+
+Gestion des photos de joueurs persistees dans IndexedDB.
+
+**State** : `photos: PlayerPhoto[]`, `loading: boolean`
+
+**Actions** :
+- `fetchPhotos()` : charge toutes les photos depuis IndexedDB
+- `addPhoto(team, number, playerName, file)` : traite et ajoute/remplace une photo
+- `removePhoto(id)` : supprime une photo par son ID
+- `getPhoto(team, number)` : retourne le data URL d'une photo (ou chaine vide)
+
+### 2.4 `useFrameStore`
 
 **Fichier** : `src/stores/frameStore.ts`
 
@@ -84,6 +98,7 @@ Gestion de l'enregistrement de frames pour la Frame Data API.
 | `useOutputSyncSender` | `src/hooks/useOutputSync.ts` | Envoie le state via `BroadcastChannel` (cote editeur/operateur) |
 | `useOutputSyncReceiver` | `src/hooks/useOutputSync.ts` | Recoit le state via `BroadcastChannel` (cote sortie) |
 | `useOperatorKeyboard` | `src/hooks/useOperatorKeyboard.ts` | Raccourcis clavier du mode operateur |
+| `usePlayerPhotos` | `src/hooks/usePlayerPhotos.ts` | Map id -> dataUrl des photos de joueurs (charge depuis IndexedDB) |
 
 ---
 
@@ -132,13 +147,15 @@ Scores, temps, penalites, phase active. Change chaque seconde.
 
 Source de verite unique pour les composants de base : Button, Modal, Section, InputField, Select, ColorPicker, ImageUpload, SectionGroupLabel.
 
+**Composant de rendu** : `PhotoCircle` (`src/components/preview/PhotoCircle.tsx`) - cercle affichant une photo de joueur ou un numero en fallback.
+
 Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 
 ### 5.2 Editeur (`src/components/editor/`)
 
 **EditorPanel.tsx** organise le panneau lateral en 3 groupes :
 
-1. **Contenu** : HeaderSection, TitleSection, BodyContentSection (switch par body type), TimeoutSection, ShootoutSection, PenaltySection
+1. **Contenu** : HeaderSection, TitleSection, BodyContentSection (switch par body type), TimeoutSection, ShootoutSection, PenaltySection, PhotoSection
 2. **Apparence** : GeneralSection, TemplateSizeSection, BackgroundSection, FontSection, FontSizeSection, ColorSection
 3. **Horloge** : ClockSection
 
@@ -205,6 +222,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 | `fonts.ts` | `FontId` (union de tous les IDs de police) |
 | `fontSizes.ts` | `FontSizeConfig`, `FontSizeKey` |
 | `media.ts` | `BackgroundMediaMode` |
+| `playerPhoto.ts` | `PlayerPhoto`, `playerPhotoKey()` |
 | `nations.ts` | Codes nations |
 | `bodyTypes/*.ts` | Types par body type (goal, playerCard, standings, etc.) |
 
@@ -247,14 +265,14 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 
 **Setup** : `src/test/setup.ts`
 
-**Couverture** : 64 fichiers de test, 354 tests.
+**Couverture** : 69 fichiers de test, 387 tests.
 
 | Categorie | Nombre | Exemples |
 |-----------|--------|----------|
 | API | 4 | frameExport, frameRecorder, frameDelta, frameConverters |
 | Composants | 40+ | editeur, body types, UI, operateur |
-| Hooks | 5 | useTimer, useScaling, useOperatorKeyboard, useOutputSync, useFontLoader |
-| Stores | 2 | scoreboardStore, templateStore |
+| Hooks | 6 | useTimer, useScaling, useOperatorKeyboard, useOutputSync, useFontLoader, usePlayerPhotos |
+| Stores | 3 | scoreboardStore, templateStore, photoStore |
 | Utilitaires | 5+ | color, time, font, screenshot, image |
 | Integration | 2 | App, OutputWindow |
 

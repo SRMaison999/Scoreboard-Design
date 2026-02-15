@@ -44,4 +44,29 @@ describe('BodyType9', () => {
     const { container } = render(<BodyType9 {...props} />);
     expect(container.firstChild).toBeInTheDocument();
   });
+
+  it('affiche les numéros en fallback quand pas de photos', () => {
+    render(<BodyType9 {...baseProps} playerPhotos={{}} />);
+    expect(screen.getByText('11')).toBeInTheDocument();
+    expect(screen.getByText('16')).toBeInTheDocument();
+  });
+
+  it('affiche l image quand une photo est fournie', () => {
+    const playerPhotos = {
+      'SVK-11': 'data:image/webp;base64,photoLeft',
+    };
+    const { container } = render(<BodyType9 {...baseProps} playerPhotos={playerPhotos} />);
+    const imgs = container.querySelectorAll('img');
+    expect(imgs.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('affiche les photos des deux joueurs', () => {
+    const playerPhotos = {
+      'SVK-11': 'data:image/webp;base64,photoLeft',
+      'FIN-16': 'data:image/webp;base64,photoRight',
+    };
+    const { container } = render(<BodyType9 {...baseProps} playerPhotos={playerPhotos} />);
+    const imgs = container.querySelectorAll('img');
+    expect(imgs.length).toBe(2);
+  });
 });

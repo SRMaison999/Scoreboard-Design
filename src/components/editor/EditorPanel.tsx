@@ -25,6 +25,7 @@ import { ClockSection } from './ClockSection';
 import { BackgroundSection } from './BackgroundSection';
 import { TemplateSizeSection } from './TemplateSizeSection';
 import { FontSizeSection } from './FontSizeSection';
+import { PhotoSection } from './PhotoSection';
 
 function BodyContentSection({ bodyType }: { readonly bodyType: number }) {
   switch (bodyType) {
@@ -67,6 +68,7 @@ export function EditorPanel() {
           <PenaltySection side="right" />
         </>
       )}
+      <PhotoSection />
 
       <SectionGroupLabel label={EDITOR_LABELS.groupApparence} />
       <GeneralSection />

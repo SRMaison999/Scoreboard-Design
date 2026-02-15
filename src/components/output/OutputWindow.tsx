@@ -1,5 +1,6 @@
 import { useOutputSyncReceiver } from '@/hooks/useOutputSync';
 import { useFontLoader } from '@/hooks/useFontLoader';
+import { usePlayerPhotos } from '@/hooks/usePlayerPhotos';
 import { ScoreboardCanvas } from '@/components/preview/ScoreboardCanvas';
 
 /**
@@ -10,6 +11,7 @@ import { ScoreboardCanvas } from '@/components/preview/ScoreboardCanvas';
 export function OutputWindow() {
   useFontLoader();
   const state = useOutputSyncReceiver();
+  const playerPhotos = usePlayerPhotos();
 
   if (!state) {
     return (
@@ -21,7 +23,7 @@ export function OutputWindow() {
 
   return (
     <div className="w-screen h-screen bg-black overflow-hidden flex items-center justify-center">
-      <ScoreboardCanvas state={state} />
+      <ScoreboardCanvas state={state} playerPhotos={playerPhotos} />
     </div>
   );
 }

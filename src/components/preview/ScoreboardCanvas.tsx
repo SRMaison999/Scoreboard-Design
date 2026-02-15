@@ -25,6 +25,7 @@ interface ScoreboardCanvasProps {
   readonly state: ScoreboardState;
   readonly width?: number;
   readonly height?: number;
+  readonly playerPhotos?: Record<string, string>;
 }
 
 interface BodyProps {
@@ -33,16 +34,17 @@ interface BodyProps {
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
   readonly fontSizes: FontSizeConfig;
+  readonly playerPhotos: Record<string, string>;
 }
 
-function BodyRenderer({ state, colors, opacities, fontBody, fontSizes }: BodyProps) {
+function BodyRenderer({ state, colors, opacities, fontBody, fontSizes, playerPhotos }: BodyProps) {
   const shared = { showPenalties: state.showPenalties, colors, opacities, fontBody, fontSizes };
 
   switch (state.bodyType) {
     case 2:
       return <BodyType2 stats={state.stats} titleLeft={state.titleLeft} titleRight={state.titleRight} {...shared} />;
     case 3:
-      return <BodyType3 playerStats={state.playerStats} titleCenter={state.titleCenter} showPlayerPhoto={state.showPlayerPhoto} {...shared} />;
+      return <BodyType3 playerStats={state.playerStats} titleCenter={state.titleCenter} showPlayerPhoto={state.showPlayerPhoto} playerPhotos={playerPhotos} {...shared} />;
     case 4:
       return <BodyType4 goalData={state.goalData} team1={state.team1} team2={state.team2} {...shared} />;
     case 5:
@@ -54,7 +56,7 @@ function BodyRenderer({ state, colors, opacities, fontBody, fontSizes }: BodyPro
     case 8:
       return <BodyType8 freeTextData={state.freeTextData} {...shared} />;
     case 9:
-      return <BodyType9 headToHeadData={state.headToHeadData} {...shared} />;
+      return <BodyType9 headToHeadData={state.headToHeadData} playerPhotos={playerPhotos} {...shared} />;
     case 10:
       return <BodyType10 timelineData={state.timelineData} {...shared} />;
     case 11:
@@ -68,10 +70,13 @@ function BodyRenderer({ state, colors, opacities, fontBody, fontSizes }: BodyPro
   }
 }
 
+const EMPTY_PHOTOS: Record<string, string> = {};
+
 export function ScoreboardCanvas({
   state,
   width,
   height,
+  playerPhotos = EMPTY_PHOTOS,
 }: ScoreboardCanvasProps) {
   const w = width ?? state.templateWidth;
   const h = height ?? state.templateHeight;
@@ -175,7 +180,7 @@ export function ScoreboardCanvas({
           <PenaltyColumn side="left" penalties={state.penaltiesLeft} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} />
         )}
 
-        <BodyRenderer state={state} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizes={fontSizes} />
+        <BodyRenderer state={state} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizes={fontSizes} playerPhotos={playerPhotos} />
 
         {state.showPenalties && (
           <PenaltyColumn side="right" penalties={state.penaltiesRight} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} />

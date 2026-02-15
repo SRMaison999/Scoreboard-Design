@@ -1,5 +1,7 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
+import { PhotoCircle } from '@/components/preview/PhotoCircle';
+import { playerPhotoKey } from '@/types/playerPhoto';
 import type { HeadToHeadData } from '@/types/bodyTypes/headToHead';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
@@ -10,6 +12,7 @@ interface BodyType9Props {
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
+  readonly playerPhotos?: Record<string, string>;
 }
 
 export function BodyType9({
@@ -18,10 +21,13 @@ export function BodyType9({
   colors,
   opacities,
   fontBody,
+  playerPhotos = {},
 }: BodyType9Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const pad = showPenalties ? 10 : 40;
   const { title, playerLeft, playerRight, stats } = headToHeadData;
+  const photoLeft = playerPhotos[playerPhotoKey(playerLeft.team, playerLeft.number)] ?? '';
+  const photoRight = playerPhotos[playerPhotoKey(playerRight.team, playerRight.number)] ?? '';
 
   return (
     <div
@@ -49,7 +55,7 @@ export function BodyType9({
         {title}
       </div>
 
-      {/* Noms des joueurs */}
+      {/* Photos et noms des joueurs */}
       <div
         style={{
           display: 'flex',
@@ -58,21 +64,41 @@ export function BodyType9({
           padding: '8px 20px',
         }}
       >
-        <div style={{ textAlign: 'left' }}>
-          <div style={{ fontSize: 32, fontWeight: 700, color: col('statVal'), letterSpacing: 2 }}>
-            {playerLeft.name}
-          </div>
-          <div style={{ fontSize: 16, color: col('statLabel'), letterSpacing: 2 }}>
-            #{playerLeft.number} {playerLeft.team}
+        <div style={{ textAlign: 'left', display: 'flex', alignItems: 'center', gap: 16 }}>
+          <PhotoCircle
+            photo={photoLeft}
+            fallbackText={playerLeft.number}
+            size={64}
+            fontSize={24}
+            color={col('statVal')}
+            fontFamily={ff(fontBody)}
+          />
+          <div>
+            <div style={{ fontSize: 32, fontWeight: 700, color: col('statVal'), letterSpacing: 2 }}>
+              {playerLeft.name}
+            </div>
+            <div style={{ fontSize: 16, color: col('statLabel'), letterSpacing: 2 }}>
+              #{playerLeft.number} {playerLeft.team}
+            </div>
           </div>
         </div>
-        <div style={{ textAlign: 'right' }}>
-          <div style={{ fontSize: 32, fontWeight: 700, color: col('statVal'), letterSpacing: 2 }}>
-            {playerRight.name}
+        <div style={{ textAlign: 'right', display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div>
+            <div style={{ fontSize: 32, fontWeight: 700, color: col('statVal'), letterSpacing: 2 }}>
+              {playerRight.name}
+            </div>
+            <div style={{ fontSize: 16, color: col('statLabel'), letterSpacing: 2 }}>
+              {playerRight.team} #{playerRight.number}
+            </div>
           </div>
-          <div style={{ fontSize: 16, color: col('statLabel'), letterSpacing: 2 }}>
-            {playerRight.team} #{playerRight.number}
-          </div>
+          <PhotoCircle
+            photo={photoRight}
+            fallbackText={playerRight.number}
+            size={64}
+            fontSize={24}
+            color={col('statVal')}
+            fontFamily={ff(fontBody)}
+          />
         </div>
       </div>
 

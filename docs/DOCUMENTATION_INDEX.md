@@ -24,6 +24,7 @@
 | [manuel-utilisateur/07-mode-operateur.md](./manuel-utilisateur/07-mode-operateur.md) | Mode operateur live et raccourcis clavier |
 | [manuel-utilisateur/08-sortie-broadcast.md](./manuel-utilisateur/08-sortie-broadcast.md) | Fenetre de sortie et integration OBS/vMix |
 | [manuel-utilisateur/09-capture-impression.md](./manuel-utilisateur/09-capture-impression.md) | Screenshot et impression |
+| [manuel-utilisateur/10-photos-joueurs.md](./manuel-utilisateur/10-photos-joueurs.md) | Gestion des photos de joueurs |
 
 ## Fichiers projet
 
@@ -49,6 +50,6 @@
 
 | Phase | Description | Statut |
 |-------|-------------|--------|
-| 7 | Photos et medias (upload joueurs, fond image/video) | A faire |
+| 7 | Photos et medias (upload joueurs, fond image/video) | En cours |
 | 8 | Animations et export video/GIF | A faire |
 | 9 | Integrations externes (API, CasparCG, multi-scoreboard) | A faire |

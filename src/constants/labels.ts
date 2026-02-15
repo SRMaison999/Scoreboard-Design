@@ -246,6 +246,18 @@ export const EDITOR_LABELS = {
   scorerPhoto: 'Photo du buteur',
   playerPhoto: 'Photo du joueur',
 
+  /* Galerie de photos joueurs */
+  sectionPhotos: 'Photos des joueurs',
+  photoTeam: 'Équipe',
+  photoNumber: 'Numéro',
+  photoPlayerName: 'Nom du joueur',
+  photoAdd: 'Ajouter une photo',
+  photoEmpty: 'Aucune photo enregistrée',
+  photoDeleteConfirm: 'Supprimer cette photo ?',
+  photoAdded: 'Photo ajoutée',
+  photoDeleted: 'Photo supprimée',
+  photoReplace: 'Remplacer',
+
   /* Fond d'écran */
   sectionBackground: 'Arrière-plan média',
   bgMediaNone: 'Aucun',
