@@ -259,6 +259,9 @@ describe('scoreboardStore', () => {
         shootoutRight: s.shootoutRight,
         backgroundMediaMode: s.backgroundMediaMode,
         backgroundMediaUrl: s.backgroundMediaUrl,
+        templateWidth: s.templateWidth,
+        templateHeight: s.templateHeight,
+        fontSizes: { ...s.fontSizes },
       };
       useScoreboardStore.getState().loadState(plainState);
       expect(useScoreboardStore.getState().team1).toBe('USA');

@@ -13,6 +13,8 @@ interface HeaderProps {
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
   readonly fontTeams: FontId;
+  readonly fontSizeTeamName?: number;
+  readonly fontSizeScore?: number;
   readonly showTimeouts?: boolean;
   readonly timeoutsLeft?: number;
   readonly timeoutsRight?: number;
@@ -77,6 +79,7 @@ function ShootoutDisplay({ attempts, color }: { readonly attempts: readonly Shoo
 export function Header({
   team1, team2, score1, score2,
   colors, opacities, fontTeams,
+  fontSizeTeamName = 80, fontSizeScore = 80,
   showTimeouts = false, timeoutsLeft = 0, timeoutsRight = 0,
   showShootout = false, shootoutLeft = [], shootoutRight = [],
 }: HeaderProps) {
@@ -85,13 +88,13 @@ export function Header({
   const maxTimeouts = 1;
 
   const scoreStyle: React.CSSProperties = {
-    fontSize: 80, fontWeight: 700, minWidth: 75, textAlign: 'center',
+    fontSize: fontSizeScore, fontWeight: 700, minWidth: 75, textAlign: 'center',
     textShadow: '0 4px 20px rgba(0,0,0,0.5)', color: c('score'),
     ...(hasScoreBox ? { background: c('scoreBox'), borderRadius: 8, padding: '2px 20px', boxShadow: '0 4px 16px rgba(0,0,0,0.3)' } : {}),
   };
 
   const teamStyle: React.CSSProperties = {
-    fontSize: 80, fontWeight: 700, letterSpacing: 6,
+    fontSize: fontSizeTeamName, fontWeight: 700, letterSpacing: 6,
     textShadow: '0 3px 15px rgba(0,0,0,0.5)', color: c('teamName'),
   };
 

@@ -5,6 +5,8 @@ import { DEFAULT_PLAYER_CARD_DATA } from '@/types/bodyTypes/playerCard';
 import { DEFAULT_STANDINGS_DATA } from '@/types/bodyTypes/standings';
 import { DEFAULT_FINAL_SCORE_DATA } from '@/types/bodyTypes/finalScore';
 import { DEFAULT_FREE_TEXT_DATA } from '@/types/bodyTypes/freeText';
+import { DEFAULT_FONT_SIZES } from '@/types/fontSizes';
+import { DEFAULT_TEMPLATE_WIDTH, DEFAULT_TEMPLATE_HEIGHT } from '@/constants/resolutions';
 import type { ScoreboardState } from '@/types/scoreboard';
 
 export const DEFAULT_STATE: ScoreboardState = {
@@ -74,4 +76,9 @@ export const DEFAULT_STATE: ScoreboardState = {
 
   backgroundMediaMode: 'none',
   backgroundMediaUrl: '',
+
+  templateWidth: DEFAULT_TEMPLATE_WIDTH,
+  templateHeight: DEFAULT_TEMPLATE_HEIGHT,
+
+  fontSizes: { ...DEFAULT_FONT_SIZES },
 };

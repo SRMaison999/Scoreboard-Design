@@ -7,6 +7,7 @@ import type { FinalScoreData } from './bodyTypes/finalScore';
 import type { FreeTextData } from './bodyTypes/freeText';
 import type { ShootoutAttempt } from './bodyTypes/shootout';
 import type { BackgroundMediaMode } from './media';
+import type { FontSizeConfig } from './fontSizes';
 
 export type BodyTypeId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
@@ -116,4 +117,11 @@ export interface ScoreboardState {
   /* Média de fond */
   backgroundMediaMode: BackgroundMediaMode;
   backgroundMediaUrl: string;
+
+  /* Dimensions du template */
+  templateWidth: number;
+  templateHeight: number;
+
+  /* Tailles de police individuelles */
+  fontSizes: FontSizeConfig;
 }

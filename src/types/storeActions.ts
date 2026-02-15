@@ -4,6 +4,7 @@ import type { GoalData } from './bodyTypes/goal';
 import type { PlayerCardData } from './bodyTypes/playerCard';
 import type { FinalScoreData } from './bodyTypes/finalScore';
 import type { ShootoutResult } from './bodyTypes/shootout';
+import type { FontSizeKey } from './fontSizes';
 
 export interface ScoreboardActions {
   /* Actions generiques */
@@ -73,6 +74,9 @@ export interface ScoreboardActions {
   addShootoutAttempt: (side: PenaltySide) => void;
   removeShootoutAttempt: (side: PenaltySide, index: number) => void;
   updateShootoutResult: (side: PenaltySide, index: number, result: ShootoutResult) => void;
+
+  /* Tailles de police */
+  updateFontSize: (key: FontSizeKey, value: number) => void;
 
   /* Templates */
   loadState: (state: ScoreboardState) => void;

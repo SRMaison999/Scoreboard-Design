@@ -7,6 +7,7 @@ import { tickTimerDraft } from './timerActions';
 import type { ScoreboardState, PenaltySide } from '@/types/scoreboard';
 import type { ColorKey, ColorPreset } from '@/types/colors';
 import type { ScoreboardActions } from '@/types/storeActions';
+import type { FontSizeKey } from '@/types/fontSizes';
 
 export type ScoreboardStore = ScoreboardState & ScoreboardActions;
 
@@ -123,6 +124,10 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { (side === 'left' ? s.shootoutLeft : s.shootoutRight).splice(index, 1); }),
       updateShootoutResult: (side, index, result) =>
         set((s) => { const a = (side === 'left' ? s.shootoutLeft : s.shootoutRight)[index]; if (a) a.result = result; }),
+
+      /* Tailles de police */
+      updateFontSize: (key: FontSizeKey, value: number) =>
+        set((s) => { s.fontSizes[key] = value; }),
 
       /* Templates */
       loadState: (state) => set(() => structuredClone(state)),

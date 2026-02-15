@@ -18,6 +18,8 @@ import { FontSection } from './FontSection';
 import { ColorSection } from './ColorSection';
 import { ClockSection } from './ClockSection';
 import { BackgroundSection } from './BackgroundSection';
+import { TemplateSizeSection } from './TemplateSizeSection';
+import { FontSizeSection } from './FontSizeSection';
 
 function BodyContentSection({ bodyType }: { readonly bodyType: number }) {
   switch (bodyType) {
@@ -58,8 +60,10 @@ export function EditorPanel() {
 
       <SectionGroupLabel label={EDITOR_LABELS.groupApparence} />
       <GeneralSection />
+      <TemplateSizeSection />
       <BackgroundSection />
       <FontSection />
+      <FontSizeSection />
       <ColorSection />
 
       <SectionGroupLabel label={EDITOR_LABELS.groupHorloge} />

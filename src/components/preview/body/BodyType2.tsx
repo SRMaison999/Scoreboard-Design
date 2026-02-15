@@ -4,6 +4,7 @@ import { FONT_SIZES } from '@/constants/fontSizes';
 import type { StatLine } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
+import type { FontSizeConfig } from '@/types/fontSizes';
 
 interface BodyType2Props {
   readonly stats: readonly StatLine[];
@@ -13,6 +14,7 @@ interface BodyType2Props {
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
+  readonly fontSizes?: FontSizeConfig;
 }
 
 export function BodyType2({
@@ -23,10 +25,14 @@ export function BodyType2({
   colors,
   opacities,
   fontBody,
+  fontSizes,
 }: BodyType2Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const n = stats.length;
-  const fs = FONT_SIZES[Math.min(Math.max(n, 1), 8)] ?? FONT_SIZES[1]!;
+  const autoFs = FONT_SIZES[Math.min(Math.max(n, 1), 8)] ?? FONT_SIZES[1]!;
+  const fsVal = fontSizes?.statValue || autoFs.val;
+  const fsLabel = fontSizes?.statLabel || autoFs.label;
+  const fsTitle = fontSizes?.title || 30;
   const contentPad = showPenalties ? 10 : 40;
   const labelW = showPenalties ? 240 : 300;
 
@@ -42,7 +48,7 @@ export function BodyType2({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: 30,
+    fontSize: fsTitle,
     fontWeight: 600,
     letterSpacing: 5,
     fontFamily: ff(fontBody),
@@ -77,7 +83,7 @@ export function BodyType2({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: fs.val,
+              fontSize: fsVal,
               fontWeight: 700,
               fontFamily: ff(fontBody),
               letterSpacing: 2,
@@ -96,7 +102,7 @@ export function BodyType2({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: fs.label,
+              fontSize: fsLabel,
               fontWeight: 500,
               letterSpacing: 5,
               textTransform: 'uppercase',
@@ -115,7 +121,7 @@ export function BodyType2({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: fs.val,
+              fontSize: fsVal,
               fontWeight: 700,
               fontFamily: ff(fontBody),
               letterSpacing: 2,

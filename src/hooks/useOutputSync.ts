@@ -51,6 +51,9 @@ function selectState(store: ReturnType<typeof useScoreboardStore.getState>): Sco
     shootoutRight: store.shootoutRight,
     backgroundMediaMode: store.backgroundMediaMode,
     backgroundMediaUrl: store.backgroundMediaUrl,
+    templateWidth: store.templateWidth,
+    templateHeight: store.templateHeight,
+    fontSizes: store.fontSizes,
   };
 }
 

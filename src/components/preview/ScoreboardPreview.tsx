@@ -7,12 +7,11 @@ interface ScoreboardPreviewProps {
   readonly state: ScoreboardState;
 }
 
-const W = 1920;
-const H = 1080;
-
 export function ScoreboardPreview({ state }: ScoreboardPreviewProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const scale = useScaling(wrapRef, W, H);
+  const w = state.templateWidth;
+  const h = state.templateHeight;
+  const scale = useScaling(wrapRef, w, h);
 
   return (
     <div
@@ -27,15 +26,16 @@ export function ScoreboardPreview({ state }: ScoreboardPreviewProps) {
       }}
     >
       <div
+        data-testid="scoreboard-capture"
         style={{
-          width: W,
-          height: H,
+          width: w,
+          height: h,
           transform: `scale(${scale})`,
           transformOrigin: 'center center',
           flexShrink: 0,
         }}
       >
-        <ScoreboardCanvas state={state} width={W} height={H} />
+        <ScoreboardCanvas state={state} />
       </div>
     </div>
   );

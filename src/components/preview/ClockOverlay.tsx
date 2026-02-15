@@ -13,6 +13,8 @@ interface ClockOverlayProps {
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
   readonly fontClock: FontId;
+  readonly fontSizeClockTime?: number;
+  readonly fontSizePeriod?: number;
 }
 
 export function ClockOverlay({
@@ -24,6 +26,8 @@ export function ClockOverlay({
   colors,
   opacities,
   fontClock,
+  fontSizeClockTime = 80,
+  fontSizePeriod = 22,
 }: ClockOverlayProps) {
   if (!showClock) return null;
 
@@ -66,7 +70,7 @@ export function ClockOverlay({
       >
         <span
           style={{
-            fontSize: 80,
+            fontSize: fontSizeClockTime,
             fontWeight: 600,
             fontFamily: ff(fontClock),
             color: col('time'),
@@ -77,7 +81,7 @@ export function ClockOverlay({
         {period && (
           <span
             style={{
-              fontSize: 22,
+              fontSize: fontSizePeriod,
               fontWeight: 600,
               letterSpacing: 3,
               fontFamily: ff(fontClock),

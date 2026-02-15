@@ -14,6 +14,7 @@ import { ff } from '@/utils/font';
 import type { ScoreboardState } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
+import type { FontSizeConfig } from '@/types/fontSizes';
 
 interface ScoreboardCanvasProps {
   readonly state: ScoreboardState;
@@ -21,18 +22,16 @@ interface ScoreboardCanvasProps {
   readonly height?: number;
 }
 
-const DEFAULT_W = 1920;
-const DEFAULT_H = 1080;
-
 interface BodyProps {
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
+  readonly fontSizes: FontSizeConfig;
 }
 
-function BodyRenderer({ state, colors, opacities, fontBody }: BodyProps) {
-  const shared = { showPenalties: state.showPenalties, colors, opacities, fontBody };
+function BodyRenderer({ state, colors, opacities, fontBody, fontSizes }: BodyProps) {
+  const shared = { showPenalties: state.showPenalties, colors, opacities, fontBody, fontSizes };
 
   switch (state.bodyType) {
     case 2:
@@ -56,10 +55,12 @@ function BodyRenderer({ state, colors, opacities, fontBody }: BodyProps) {
 
 export function ScoreboardCanvas({
   state,
-  width = DEFAULT_W,
-  height = DEFAULT_H,
+  width,
+  height,
 }: ScoreboardCanvasProps) {
-  const { colors, opacities } = state;
+  const w = width ?? state.templateWidth;
+  const h = height ?? state.templateHeight;
+  const { colors, opacities, fontSizes } = state;
   const col = (key: keyof typeof colors) =>
     hexToRgba(colors[key], opacities[key] ?? 0);
 
@@ -72,8 +73,8 @@ export function ScoreboardCanvas({
     <div
       data-testid="scoreboard-canvas"
       style={{
-        width,
-        height,
+        width: w,
+        height: h,
         background: bg,
         position: 'relative',
         overflow: 'hidden',
@@ -130,6 +131,8 @@ export function ScoreboardCanvas({
           colors={colors}
           opacities={opacities}
           fontTeams={state.fontTeams}
+          fontSizeTeamName={fontSizes.teamName}
+          fontSizeScore={fontSizes.score}
           showTimeouts={state.showTimeouts}
           timeoutsLeft={state.timeoutsLeft}
           timeoutsRight={state.timeoutsRight}
@@ -147,18 +150,20 @@ export function ScoreboardCanvas({
           colors={colors}
           opacities={opacities}
           fontClock={state.fontClock}
+          fontSizeClockTime={fontSizes.clockTime}
+          fontSizePeriod={fontSizes.period}
         />
       </div>
 
       <div style={{ flex: 1, display: 'flex', position: 'relative', zIndex: 1 }}>
         {state.showPenalties && (
-          <PenaltyColumn side="left" penalties={state.penaltiesLeft} colors={colors} opacities={opacities} fontBody={state.fontBody} />
+          <PenaltyColumn side="left" penalties={state.penaltiesLeft} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} />
         )}
 
-        <BodyRenderer state={state} colors={colors} opacities={opacities} fontBody={state.fontBody} />
+        <BodyRenderer state={state} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizes={fontSizes} />
 
         {state.showPenalties && (
-          <PenaltyColumn side="right" penalties={state.penaltiesRight} colors={colors} opacities={opacities} fontBody={state.fontBody} />
+          <PenaltyColumn side="right" penalties={state.penaltiesRight} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} />
         )}
       </div>
     </div>

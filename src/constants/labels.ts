@@ -192,6 +192,30 @@ export const EDITOR_LABELS = {
   bgMediaSelectImage: 'Choisir une image de fond',
   bgMediaSelectVideo: 'Choisir une vidéo de fond',
 
-  /* Output */
+  /* Barre d'outils */
   openOutput: 'Ouvrir la sortie',
+  screenshot: 'Capture',
+  print: 'Imprimer',
+  screenshotSuccess: 'Capture téléchargée',
+  clipboardSuccess: 'Copié dans le presse-papier',
+
+  /* Dimensions du template */
+  sectionTemplateSize: 'Dimensions du template',
+  templateWidth: 'Largeur',
+  templateHeight: 'Hauteur',
+  templatePreset: 'Preset',
+  templateCustom: 'Personnalisé',
+
+  /* Tailles de police */
+  sectionFontSizes: 'Tailles de police',
+  fontSizeTeamName: "Noms d'équipes",
+  fontSizeScore: 'Scores',
+  fontSizeClockTime: 'Horloge',
+  fontSizePeriod: 'Période',
+  fontSizeTitle: 'Titres',
+  fontSizeStatValue: 'Valeurs stats',
+  fontSizeStatLabel: 'Labels stats',
+  fontSizePenaltyTime: 'Temps pénalité',
+  fontSizePenaltyNumber: 'Numéro pénalité',
+  fontSizeAuto: 'Auto',
 } as const;

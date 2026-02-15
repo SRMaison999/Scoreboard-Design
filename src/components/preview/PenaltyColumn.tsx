@@ -10,6 +10,8 @@ interface PenaltyColumnProps {
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
+  readonly fontSizePenaltyTime?: number;
+  readonly fontSizePenaltyNumber?: number;
 }
 
 const PEN_W = 346;
@@ -20,6 +22,8 @@ export function PenaltyColumn({
   colors,
   opacities,
   fontBody,
+  fontSizePenaltyTime = 60,
+  fontSizePenaltyNumber = 60,
 }: PenaltyColumnProps) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
 
@@ -55,7 +59,7 @@ export function PenaltyColumn({
                 style={{
                   width: 172,
                   textAlign: 'right',
-                  fontSize: 60,
+                  fontSize: fontSizePenaltyTime,
                   color: col('penaltyTime'),
                   textShadow: `0 0 8px ${col('penaltyTime')}66`,
                   fontVariantNumeric: 'tabular-nums',
@@ -67,7 +71,7 @@ export function PenaltyColumn({
                 style={{
                   width: 115,
                   textAlign: 'center',
-                  fontSize: 60,
+                  fontSize: fontSizePenaltyNumber,
                   color: col('penaltyNumber'),
                   fontVariantNumeric: 'tabular-nums',
                 }}
@@ -81,7 +85,7 @@ export function PenaltyColumn({
                 style={{
                   width: 115,
                   textAlign: 'center',
-                  fontSize: 60,
+                  fontSize: fontSizePenaltyNumber,
                   color: col('penaltyNumber'),
                   fontVariantNumeric: 'tabular-nums',
                 }}
@@ -92,7 +96,7 @@ export function PenaltyColumn({
                 style={{
                   width: 172,
                   textAlign: 'left',
-                  fontSize: 60,
+                  fontSize: fontSizePenaltyTime,
                   color: col('penaltyTime'),
                   textShadow: `0 0 8px ${col('penaltyTime')}66`,
                   fontVariantNumeric: 'tabular-nums',
