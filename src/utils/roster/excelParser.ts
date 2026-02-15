@@ -1,9 +1,9 @@
-import * as XLSX from 'xlsx';
+import ExcelJS from 'exceljs';
 import type { RosterImportResult, RosterImportColumn } from '@/types/rosterImport';
 import { validateAndMapRows } from './rosterValidator';
 
 const COLUMN_ALIASES: Record<keyof RosterImportColumn, string[]> = {
-  number: ['number', 'no', 'num', 'numero', 'num\u00e9ro', '#', 'jersey'],
+  number: ['number', 'no', 'num', 'numero', 'numéro', '#', 'jersey'],
   name: ['name', 'nom', 'player', 'joueur', 'lastname', 'last_name'],
   position: ['position', 'pos', 'poste', 'role'],
 };
@@ -17,10 +17,11 @@ function findColumn(headers: string[], aliases: string[]): number {
   return -1;
 }
 
-export function parseExcel(buffer: ArrayBuffer): RosterImportResult {
-  let workbook: XLSX.WorkBook;
+export async function parseExcel(buffer: ArrayBuffer): Promise<RosterImportResult> {
+  const workbook = new ExcelJS.Workbook();
+
   try {
-    workbook = XLSX.read(buffer, { type: 'array' });
+    await workbook.xlsx.load(buffer);
   } catch {
     return {
       success: false,
@@ -30,42 +31,28 @@ export function parseExcel(buffer: ArrayBuffer): RosterImportResult {
     };
   }
 
-  const sheetName = workbook.SheetNames[0];
-  if (!sheetName) {
+  const sheet = workbook.worksheets[0];
+  if (!sheet || sheet.rowCount < 2) {
     return {
       success: false,
       players: [],
-      errors: ['Aucune feuille trouv\u00e9e dans le fichier'],
+      errors: sheet
+        ? ['Le fichier ne contient pas assez de lignes (en-tête + données)']
+        : ['Aucune feuille trouvée dans le fichier'],
       warnings: [],
     };
   }
 
-  const sheet = workbook.Sheets[sheetName];
-  if (!sheet) {
-    return {
-      success: false,
-      players: [],
-      errors: ['Feuille vide'],
-      warnings: [],
-    };
+  const headerRow = sheet.getRow(1);
+  const headers: string[] = [];
+  headerRow.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+    headers[colNumber - 1] = String(cell.value ?? '');
+  });
+
+  if (headers.length === 0) {
+    return { success: false, players: [], errors: ['En-tête manquant'], warnings: [] };
   }
 
-  const rawData = XLSX.utils.sheet_to_json<string[]>(sheet, { header: 1 });
-  if (rawData.length < 2) {
-    return {
-      success: false,
-      players: [],
-      errors: ['Le fichier ne contient pas assez de lignes (en-t\u00eate + donn\u00e9es)'],
-      warnings: [],
-    };
-  }
-
-  const headerRow = rawData[0];
-  if (!headerRow) {
-    return { success: false, players: [], errors: ['En-t\u00eate manquant'], warnings: [] };
-  }
-
-  const headers = headerRow.map(String);
   const numIdx = findColumn(headers, COLUMN_ALIASES.number);
   const nameIdx = findColumn(headers, COLUMN_ALIASES.name);
   const posIdx = findColumn(headers, COLUMN_ALIASES.position);
@@ -82,13 +69,16 @@ export function parseExcel(buffer: ArrayBuffer): RosterImportResult {
   }
 
   const rows: RosterImportColumn[] = [];
-  for (let i = 1; i < rawData.length; i++) {
-    const row = rawData[i];
-    if (!row) continue;
+  for (let i = 2; i <= sheet.rowCount; i++) {
+    const row = sheet.getRow(i);
+    const numVal = row.getCell(numIdx + 1).value;
+    const nameVal = row.getCell(nameIdx + 1).value;
+    const posVal = posIdx >= 0 ? row.getCell(posIdx + 1).value : null;
+
     rows.push({
-      number: row[numIdx] != null ? String(row[numIdx]) : '',
-      name: row[nameIdx] != null ? String(row[nameIdx]) : '',
-      position: posIdx >= 0 && row[posIdx] != null ? String(row[posIdx]) : '',
+      number: numVal != null ? String(numVal) : '',
+      name: nameVal != null ? String(nameVal) : '',
+      position: posVal != null ? String(posVal) : '',
     });
   }
 
