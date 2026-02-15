@@ -22,46 +22,51 @@ export function PenaltySection({ side }: PenaltySectionProps) {
   const removePenalty = useScoreboardStore((s) => s.removePenalty);
 
   const teamName = side === 'left' ? team1 : team2;
-  const title = `Pénalités ${teamName} (${String(penalties.length)}/${String(MAX_PENALTIES)})`;
+  const title = `${EDITOR_LABELS.sectionPenaltiesPrefix} ${teamName} (${String(penalties.length)}/${String(MAX_PENALTIES)})`;
 
   return (
     <Section title={title}>
       {penalties.map((p, i) => (
-        <div key={`pen-${side}-${String(i)}`} className="flex gap-1.5 items-end">
-          {side === 'left' ? (
-            <>
-              <InputField
-                label={EDITOR_LABELS.penaltyTime}
-                value={p.time}
-                onChange={(v) => updatePenalty(side, i, 'time', v)}
-              />
-              <InputField
-                label={EDITOR_LABELS.penaltyNumber}
-                value={p.number}
-                onChange={(v) => updatePenalty(side, i, 'number', v)}
-              />
-            </>
-          ) : (
-            <>
-              <InputField
-                label={EDITOR_LABELS.penaltyNumber}
-                value={p.number}
-                onChange={(v) => updatePenalty(side, i, 'number', v)}
-              />
-              <InputField
-                label={EDITOR_LABELS.penaltyTime}
-                value={p.time}
-                onChange={(v) => updatePenalty(side, i, 'time', v)}
-              />
-            </>
-          )}
-          <Button
-            variant="danger"
-            className="flex-shrink-0 h-8 px-2.5"
-            onClick={() => removePenalty(side, i)}
-          >
-            X
-          </Button>
+        <div
+          key={`pen-${side}-${String(i)}`}
+          className="bg-gray-800 rounded-md p-1.5"
+        >
+          <div className="flex gap-1.5 items-end">
+            {side === 'left' ? (
+              <>
+                <InputField
+                  label={EDITOR_LABELS.penaltyTime}
+                  value={p.time}
+                  onChange={(v) => updatePenalty(side, i, 'time', v)}
+                />
+                <InputField
+                  label={EDITOR_LABELS.penaltyNumber}
+                  value={p.number}
+                  onChange={(v) => updatePenalty(side, i, 'number', v)}
+                />
+              </>
+            ) : (
+              <>
+                <InputField
+                  label={EDITOR_LABELS.penaltyNumber}
+                  value={p.number}
+                  onChange={(v) => updatePenalty(side, i, 'number', v)}
+                />
+                <InputField
+                  label={EDITOR_LABELS.penaltyTime}
+                  value={p.time}
+                  onChange={(v) => updatePenalty(side, i, 'time', v)}
+                />
+              </>
+            )}
+            <Button
+              variant="danger"
+              className="flex-shrink-0 h-8 px-2.5"
+              onClick={() => removePenalty(side, i)}
+            >
+              X
+            </Button>
+          </div>
         </div>
       ))}
       {penalties.length < MAX_PENALTIES && (

@@ -19,10 +19,17 @@ describe('EditorPanel', () => {
     expect(screen.getByText('Scoreboard Editor')).toBeInTheDocument();
   });
 
+  it('affiche les groupes de sections', () => {
+    render(<EditorPanel />);
+    expect(screen.getByText('Contenu')).toBeInTheDocument();
+    expect(screen.getByText('Apparence')).toBeInTheDocument();
+    // "Horloge" apparaît 2 fois : groupe + section
+    expect(screen.getAllByText('Horloge')).toHaveLength(2);
+  });
+
   it('affiche les sections principales', () => {
     render(<EditorPanel />);
     expect(screen.getByText('Type de corps')).toBeInTheDocument();
     expect(screen.getByText('Header')).toBeInTheDocument();
-    expect(screen.getByText('Horloge')).toBeInTheDocument();
   });
 });

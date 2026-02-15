@@ -14,7 +14,7 @@ export function PlayerStatsSection() {
   const addPlayerStat = useScoreboardStore((s) => s.addPlayerStat);
   const removePlayerStat = useScoreboardStore((s) => s.removePlayerStat);
 
-  const title = `Stats joueur (${String(playerStats.length)}/${String(MAX_LINES)})`;
+  const title = `${EDITOR_LABELS.sectionPlayerStats} (${String(playerStats.length)}/${String(MAX_LINES)})`;
 
   return (
     <Section title={title}>
@@ -31,9 +31,9 @@ export function PlayerStatsSection() {
       {playerStats.map((s, i) => (
         <div
           key={`ps-${String(i)}`}
-          className="flex flex-col gap-1 bg-gray-800 rounded-md p-1.5"
+          className="bg-gray-800 rounded-md p-1.5"
         >
-          <div className="flex gap-1 items-end">
+          <div className="flex gap-1.5 items-end">
             <InputField
               label={EDITOR_LABELS.playerVariable}
               value={s.label}

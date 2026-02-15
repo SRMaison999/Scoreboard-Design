@@ -3,6 +3,11 @@
 export const EDITOR_LABELS = {
   appTitle: 'Scoreboard Editor',
 
+  /* Groupes de sections */
+  groupContenu: 'Contenu',
+  groupApparence: 'Apparence',
+  groupHorloge: 'Horloge',
+
   /* Sections */
   sectionBodyType: 'Type de corps',
   sectionPenalties: 'Colonnes de pénalités',
@@ -10,6 +15,9 @@ export const EDITOR_LABELS = {
   sectionClock: 'Horloge',
   sectionFonts: 'Polices',
   sectionTitles: 'Titre(s)',
+  sectionStats: 'Lignes de stats',
+  sectionPlayerStats: 'Stats joueur',
+  sectionPenaltiesPrefix: 'Pénalités',
   sectionColorsBg: 'Couleurs - Background',
   sectionColorsHeader: 'Couleurs - Header',
   sectionColorsBody: 'Couleurs - Corps',

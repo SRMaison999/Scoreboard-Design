@@ -1,14 +1,15 @@
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
-import { GeneralSection } from './GeneralSection';
+import { SectionGroupLabel } from '@/components/ui/SectionGroupLabel';
 import { HeaderSection } from './HeaderSection';
-import { ClockSection } from './ClockSection';
-import { FontSection } from './FontSection';
 import { TitleSection } from './TitleSection';
 import { StatsSection } from './StatsSection';
 import { PlayerStatsSection } from './PlayerStatsSection';
 import { PenaltySection } from './PenaltySection';
+import { GeneralSection } from './GeneralSection';
+import { FontSection } from './FontSection';
 import { ColorSection } from './ColorSection';
+import { ClockSection } from './ClockSection';
 
 export function EditorPanel() {
   const bodyType = useScoreboardStore((s) => s.bodyType);
@@ -20,14 +21,10 @@ export function EditorPanel() {
         {EDITOR_LABELS.appTitle}
       </div>
 
-      <GeneralSection />
+      <SectionGroupLabel label={EDITOR_LABELS.groupContenu} />
       <HeaderSection />
-      <ClockSection />
-      <FontSection />
       <TitleSection />
-
       {bodyType === 3 ? <PlayerStatsSection /> : <StatsSection />}
-
       {showPenalties && (
         <>
           <PenaltySection side="left" />
@@ -35,7 +32,13 @@ export function EditorPanel() {
         </>
       )}
 
+      <SectionGroupLabel label={EDITOR_LABELS.groupApparence} />
+      <GeneralSection />
+      <FontSection />
       <ColorSection />
+
+      <SectionGroupLabel label={EDITOR_LABELS.groupHorloge} />
+      <ClockSection />
 
       <div className="h-10 flex-shrink-0" />
     </div>
