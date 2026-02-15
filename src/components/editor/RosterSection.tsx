@@ -47,8 +47,8 @@ export function RosterSection() {
     downloadFile(csv, 'roster.csv', 'text/csv');
   }, [data.players]);
 
-  const handleExportExcel = useCallback(() => {
-    const buf = exportRosterExcel(data.players);
+  const handleExportExcel = useCallback(async () => {
+    const buf = await exportRosterExcel(data.players);
     downloadFile(buf, 'roster.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
   }, [data.players]);
 

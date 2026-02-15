@@ -1,4 +1,4 @@
-import * as XLSX from 'xlsx';
+import ExcelJS from 'exceljs';
 import type { RosterPlayer } from '@/types/bodyTypes/roster';
 
 export function exportRosterCsv(players: RosterPlayer[]): string {
@@ -13,21 +13,20 @@ export function exportRosterJson(players: RosterPlayer[]): string {
   return JSON.stringify({ players }, null, 2);
 }
 
-export function exportRosterExcel(players: RosterPlayer[]): ArrayBuffer {
-  const data = [
-    ['number', 'name', 'position'],
-    ...players.map((p) => [p.number, p.name, p.position]),
-  ];
-  const wb = XLSX.utils.book_new();
-  const ws = XLSX.utils.aoa_to_sheet(data);
-  XLSX.utils.book_append_sheet(wb, ws, 'Roster');
-  return XLSX.write(wb, { type: 'array', bookType: 'xlsx' }) as ArrayBuffer;
+export async function exportRosterExcel(players: RosterPlayer[]): Promise<ExcelJS.Buffer> {
+  const workbook = new ExcelJS.Workbook();
+  const sheet = workbook.addWorksheet('Roster');
+
+  sheet.addRow(['number', 'name', 'position']);
+  for (const p of players) {
+    sheet.addRow([p.number, p.name, p.position]);
+  }
+
+  return workbook.xlsx.writeBuffer();
 }
 
-export function downloadFile(data: string | ArrayBuffer, filename: string, mime: string): void {
-  const blob = data instanceof ArrayBuffer
-    ? new Blob([data], { type: mime })
-    : new Blob([data], { type: mime });
+export function downloadFile(data: string | BlobPart, filename: string, mime: string): void {
+  const blob = new Blob([data], { type: mime });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
