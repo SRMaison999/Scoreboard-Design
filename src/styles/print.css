@@ -1,15 +1,40 @@
 @media print {
-  body * {
-    visibility: hidden;
-  }
-
-  [data-testid="scoreboard-canvas"],
-  [data-testid="scoreboard-canvas"] * {
-    visibility: visible;
+  /* Forcer la conservation des couleurs pour TOUS les elements */
+  *,
+  *::before,
+  *::after {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
+  /* Masquer tout le contenu de la page */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Rendre visible le canvas du scoreboard et son contenu */
+  [data-testid="scoreboard-canvas"],
+  [data-testid="scoreboard-canvas"] * {
+    visibility: visible;
+  }
+
+  /* Neutraliser les transforms et overflow des conteneurs parents
+     qui empechent position: fixed de fonctionner correctement.
+     Sans cela, position: fixed agit comme position: absolute
+     a cause du transform: scale() du parent. */
+  [data-testid="scoreboard-capture"] {
+    transform: none !important;
+    overflow: visible !important;
+  }
+
+  [data-testid="animated-scoreboard"] {
+    transform: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+  }
+
+  /* Positionner le scoreboard centre sur la page d'impression */
   [data-testid="scoreboard-canvas"] {
     position: fixed !important;
     left: 50% !important;
