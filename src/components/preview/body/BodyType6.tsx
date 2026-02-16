@@ -134,7 +134,7 @@ export function BodyType6({
               {i + 1}
             </div>
             <div style={{ width: flagColW, display: 'flex', justifyContent: 'center' }}>
-              <Flag code={row.team} w={42} h={27} />
+              <Flag code={row.team} w={Math.round(42 * scale)} h={Math.round(27 * scale)} />
             </div>
             <div
               style={{

@@ -37,6 +37,8 @@ export function BodyType5({
   const fsStatLabel = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
   const photoSize = fontSizes ? bodyValueFs(fontSizes, 180) : 180;
   const photoFs = fontSizes ? bodyValueFs(fontSizes, 56) : 56;
+  const flagW = fontSizes ? bodyValueFs(fontSizes, 50) : 50;
+  const flagH = fontSizes ? bodyValueFs(fontSizes, 32) : 32;
 
   return (
     <div
@@ -96,7 +98,7 @@ export function BodyType5({
         {playerName}
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <Flag code={playerTeam} w={50} h={32} />
+        <Flag code={playerTeam} w={flagW} h={flagH} />
         <span style={{ fontSize: fsTeamCode, letterSpacing: 4, color: col('statLabel') }}>
           {playerTeam}
         </span>
