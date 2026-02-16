@@ -86,30 +86,27 @@ export function computeLabelColumnWidth(
 }
 
 /**
- * Ratio cap-height / em-size.
- * Pour du texte majuscule (NOC : "SVK", "FIN"), la hauteur
- * visible correspond environ a 70 % de la taille de police.
- */
-const FLAG_CAP_RATIO = 0.7;
-
-/**
  * Ratio largeur / hauteur standard d'un drapeau (3:2).
  */
 const FLAG_ASPECT = 1.5;
 
 /**
  * Calcule les dimensions d'un drapeau pour qu'il ait la meme
- * hauteur visuelle que le texte NOC adjacent.
+ * hauteur que le texte NOC adjacent.
+ *
+ * La hauteur du drapeau est egale a fontSize : elle correspond
+ * a la hauteur du bloc de texte CSS, ce qui garantit un
+ * alignement visuel parfait quel que soit le zoom.
  *
  * @param fontSize  Taille de police du texte NOC a cote du drapeau.
  * @returns { w, h } en pixels.
  *
- * Exemple : fontSize=80  -> h=56, w=84
- *           fontSize=40  -> h=28, w=42
- *           fontSize=120 -> h=84, w=126
+ * Exemple : fontSize=80  -> h=80, w=120
+ *           fontSize=40  -> h=40, w=60
+ *           fontSize=120 -> h=120, w=180
  */
 export function computeFlagDimensions(fontSize: number): { w: number; h: number } {
-  const h = Math.max(10, Math.round(fontSize * FLAG_CAP_RATIO));
+  const h = Math.max(10, Math.round(fontSize));
   const w = Math.round(h * FLAG_ASPECT);
   return { w, h };
 }

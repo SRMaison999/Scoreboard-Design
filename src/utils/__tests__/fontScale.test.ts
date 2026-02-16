@@ -126,10 +126,10 @@ describe('computeLabelColumnWidth', () => {
 });
 
 describe('computeFlagDimensions', () => {
-  it('produit un drapeau proportionnel a la taille de police', () => {
+  it('le drapeau a la meme hauteur que la taille de police', () => {
     const { w, h } = computeFlagDimensions(80);
-    expect(h).toBe(56);
-    expect(w).toBe(84);
+    expect(h).toBe(80);
+    expect(w).toBe(120);
   });
 
   it('scale lineairement avec la taille de police', () => {
@@ -137,8 +137,8 @@ describe('computeFlagDimensions', () => {
     const big = computeFlagDimensions(120);
     expect(big.h).toBeGreaterThan(small.h);
     expect(big.w).toBeGreaterThan(small.w);
-    expect(big.h).toBe(84);
-    expect(small.h).toBe(28);
+    expect(big.h).toBe(120);
+    expect(small.h).toBe(40);
   });
 
   it('ne descend pas en dessous de h=10', () => {
