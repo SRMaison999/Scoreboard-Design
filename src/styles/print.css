@@ -11,12 +11,18 @@
   }
 
   [data-testid="scoreboard-canvas"] {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    transform: none !important;
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%)
+      scale(
+        min(
+          1,
+          calc(100vw / var(--canvas-w, 1920px)),
+          calc(100vh / var(--canvas-h, 1080px))
+        )
+      ) !important;
+    transform-origin: center center !important;
   }
 
   @page {
