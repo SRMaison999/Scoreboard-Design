@@ -42,6 +42,8 @@ export function BodyType7({
   const fsOvertime = fontSizes ? bodyLabelFs(fontSizes, 22) : 22;
   const fsPeriodSummary = fontSizes ? bodyLabelFs(fontSizes, 20) : 20;
   const fsGwg = fontSizes ? bodyLabelFs(fontSizes, 20) : 20;
+  const flagW = fontSizes ? bodyValueFs(fontSizes, 70) : 70;
+  const flagH = fontSizes ? bodyValueFs(fontSizes, 44) : 44;
 
   const periodSummary = periodScores
     .map((ps) => `${ps.scoreLeft}-${ps.scoreRight}`)
@@ -84,7 +86,7 @@ export function BodyType7({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-          <Flag code={team1} w={70} h={44} />
+          <Flag code={team1} w={flagW} h={flagH} />
           <span
             style={{
               fontSize: fsTeamName,
@@ -119,7 +121,7 @@ export function BodyType7({
           >
             {team2}
           </span>
-          <Flag code={team2} w={70} h={44} />
+          <Flag code={team2} w={flagW} h={flagH} />
         </div>
       </div>
 

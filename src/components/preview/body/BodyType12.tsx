@@ -35,6 +35,8 @@ export function BodyType12({
   const fsPosition = fontSizes ? bodyLabelFs(fontSizes, 16) : 16;
   const numColW = fontSizes ? bodyValueFs(fontSizes, 40) : 40;
   const posColW = fontSizes ? bodyLabelFs(fontSizes, 40) : 40;
+  const flagW = fontSizes ? bodyValueFs(fontSizes, 44) : 44;
+  const flagH = fontSizes ? bodyValueFs(fontSizes, 28) : 28;
 
   return (
     <div
@@ -51,7 +53,7 @@ export function BodyType12({
     >
       {/* Titre + drapeau */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 4 }}>
-        <Flag code={team} w={44} h={28} />
+        <Flag code={team} w={flagW} h={flagH} />
         <div
           style={{
             fontSize: fsTitle,

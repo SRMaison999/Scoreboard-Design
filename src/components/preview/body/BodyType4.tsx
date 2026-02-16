@@ -44,6 +44,8 @@ export function BodyType4({
   const fsTime = fontSizes ? bodyLabelFs(fontSizes, 20) : 20;
   const photoSize = fontSizes ? bodyValueFs(fontSizes, 140) : 140;
   const photoFs = fontSizes ? bodyValueFs(fontSizes, 48) : 48;
+  const flagW = fontSizes ? bodyValueFs(fontSizes, 60) : 60;
+  const flagH = fontSizes ? bodyValueFs(fontSizes, 38) : 38;
 
   return (
     <div
@@ -75,7 +77,7 @@ export function BodyType4({
 
       {/* Equipe + drapeau */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-        <Flag code={scoringTeam} w={60} h={38} />
+        <Flag code={scoringTeam} w={flagW} h={flagH} />
         <div
           style={{
             fontSize: fsTeamCode,
