@@ -140,6 +140,7 @@ export function Header({
 
   const teamStyle: React.CSSProperties = {
     fontSize: fontSizeTeamName, fontWeight: 700, letterSpacing: 6,
+    lineHeight: 1,
     textShadow: '0 3px 15px rgba(0,0,0,0.5)', color: c('teamName'),
   };
 
