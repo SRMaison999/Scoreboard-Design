@@ -28,7 +28,7 @@ export function App() {
   }, []);
 
   const handleScreenshot = useCallback(() => {
-    const el = document.querySelector<HTMLElement>('[data-testid="scoreboard-capture"]');
+    const el = document.querySelector<HTMLElement>('[data-testid="scoreboard-canvas"]');
     if (!el) return;
     const filename = buildScreenshotFilename(state.team1, state.team2);
     void captureScreenshot(el, filename);
