@@ -6,6 +6,7 @@ import {
   bodyLabelFs,
   computeStatGap,
   computeLabelColumnWidth,
+  computeFlagDimensions,
 } from '@/utils/fontScale';
 import type { FontSizeConfig } from '@/types/fontSizes';
 
@@ -121,5 +122,32 @@ describe('computeLabelColumnWidth', () => {
 
   it('elargit la colonne avec penalites et grands labels', () => {
     expect(computeLabelColumnWidth(50, true)).toBeGreaterThan(240);
+  });
+});
+
+describe('computeFlagDimensions', () => {
+  it('produit un drapeau proportionnel a la taille de police', () => {
+    const { w, h } = computeFlagDimensions(80);
+    expect(h).toBe(56);
+    expect(w).toBe(84);
+  });
+
+  it('scale lineairement avec la taille de police', () => {
+    const small = computeFlagDimensions(40);
+    const big = computeFlagDimensions(120);
+    expect(big.h).toBeGreaterThan(small.h);
+    expect(big.w).toBeGreaterThan(small.w);
+    expect(big.h).toBe(84);
+    expect(small.h).toBe(28);
+  });
+
+  it('ne descend pas en dessous de h=10', () => {
+    const { h } = computeFlagDimensions(5);
+    expect(h).toBeGreaterThanOrEqual(10);
+  });
+
+  it('maintient le ratio 3:2 (largeur = hauteur * 1.5)', () => {
+    const { w, h } = computeFlagDimensions(100);
+    expect(w).toBe(Math.round(h * 1.5));
   });
 });

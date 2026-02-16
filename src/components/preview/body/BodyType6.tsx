@@ -1,6 +1,6 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
-import { bodyTitleFs, bodyValueFs, bodyLabelFs } from '@/utils/fontScale';
+import { bodyTitleFs, bodyValueFs, bodyLabelFs, computeFlagDimensions } from '@/utils/fontScale';
 import { Flag } from '@/components/preview/Flag';
 import type { StandingsData } from '@/types/bodyTypes/standings';
 import type { ColorMap, OpacityMap } from '@/types/colors';
@@ -54,6 +54,7 @@ export function BodyType6({
   const flagColW = Math.round(BASE_FLAG_COL_W * scale);
   const teamW = Math.round(BASE_TEAM_W * scale);
   const colW = Math.round(BASE_COL_W * scale);
+  const rowFlag = computeFlagDimensions(rowFs);
 
   return (
     <div
@@ -134,7 +135,7 @@ export function BodyType6({
               {i + 1}
             </div>
             <div style={{ width: flagColW, display: 'flex', justifyContent: 'center' }}>
-              <Flag code={row.team} w={Math.round(42 * scale)} h={Math.round(27 * scale)} />
+              <Flag code={row.team} w={rowFlag.w} h={rowFlag.h} />
             </div>
             <div
               style={{

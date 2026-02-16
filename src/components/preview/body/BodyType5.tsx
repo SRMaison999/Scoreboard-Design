@@ -1,6 +1,6 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
-import { bodyTitleFs, bodyValueFs, bodyLabelFs } from '@/utils/fontScale';
+import { bodyTitleFs, bodyValueFs, bodyLabelFs, computeFlagDimensions } from '@/utils/fontScale';
 import { Flag } from '@/components/preview/Flag';
 import { PhotoCircle } from '@/components/preview/PhotoCircle';
 import type { PlayerCardData } from '@/types/bodyTypes/playerCard';
@@ -37,8 +37,7 @@ export function BodyType5({
   const fsStatLabel = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
   const photoSize = fontSizes ? bodyValueFs(fontSizes, 180) : 180;
   const photoFs = fontSizes ? bodyValueFs(fontSizes, 56) : 56;
-  const flagW = fontSizes ? bodyValueFs(fontSizes, 50) : 50;
-  const flagH = fontSizes ? bodyValueFs(fontSizes, 32) : 32;
+  const { w: flagW, h: flagH } = computeFlagDimensions(fsTeamCode);
 
   return (
     <div
