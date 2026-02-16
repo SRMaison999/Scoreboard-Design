@@ -1,6 +1,6 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
-import { bodyTitleFs, bodyValueFs, bodyLabelFs } from '@/utils/fontScale';
+import { bodyTitleFs, bodyValueFs, bodyLabelFs, computeFlagDimensions } from '@/utils/fontScale';
 import { Flag } from '@/components/preview/Flag';
 import type { RosterData } from '@/types/bodyTypes/roster';
 import type { ColorMap, OpacityMap } from '@/types/colors';
@@ -35,8 +35,7 @@ export function BodyType12({
   const fsPosition = fontSizes ? bodyLabelFs(fontSizes, 16) : 16;
   const numColW = fontSizes ? bodyValueFs(fontSizes, 40) : 40;
   const posColW = fontSizes ? bodyLabelFs(fontSizes, 40) : 40;
-  const flagW = fontSizes ? bodyValueFs(fontSizes, 44) : 44;
-  const flagH = fontSizes ? bodyValueFs(fontSizes, 28) : 28;
+  const { w: flagW, h: flagH } = computeFlagDimensions(fsTitle);
 
   return (
     <div

@@ -1,6 +1,6 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
-import { bodyTitleFs, bodyValueFs, bodyLabelFs } from '@/utils/fontScale';
+import { bodyTitleFs, bodyValueFs, bodyLabelFs, computeFlagDimensions } from '@/utils/fontScale';
 import { Flag } from '@/components/preview/Flag';
 import type { FinalScoreData } from '@/types/bodyTypes/finalScore';
 import type { ColorMap, OpacityMap } from '@/types/colors';
@@ -42,8 +42,7 @@ export function BodyType7({
   const fsOvertime = fontSizes ? bodyLabelFs(fontSizes, 22) : 22;
   const fsPeriodSummary = fontSizes ? bodyLabelFs(fontSizes, 20) : 20;
   const fsGwg = fontSizes ? bodyLabelFs(fontSizes, 20) : 20;
-  const flagW = fontSizes ? bodyValueFs(fontSizes, 70) : 70;
-  const flagH = fontSizes ? bodyValueFs(fontSizes, 44) : 44;
+  const { w: flagW, h: flagH } = computeFlagDimensions(fsTeamName);
 
   const periodSummary = periodScores
     .map((ps) => `${ps.scoreLeft}-${ps.scoreRight}`)

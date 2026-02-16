@@ -1,6 +1,7 @@
 import { Flag } from './Flag';
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
+import { computeFlagDimensions } from '@/utils/fontScale';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
 import type { ShootoutAttempt } from '@/types/bodyTypes/shootout';
@@ -82,19 +83,6 @@ function ShootoutDisplay({ attempts, color }: { readonly attempts: readonly Shoo
   );
 }
 
-/**
- * Calcule les dimensions du drapeau/logo proportionnellement
- * a la taille de police des noms d'equipe.
- * A fontSizeTeamName=80 (defaut), les dimensions sont 77x50.
- */
-function computeBadgeSize(fontSizeTeamName: number): { flagW: number; flagH: number } {
-  const ratio = fontSizeTeamName / 80;
-  return {
-    flagW: Math.round(77 * ratio),
-    flagH: Math.round(50 * ratio),
-  };
-}
-
 function TeamBadge({ code, logoMode, teamLogos, fontSizeTeamName }: {
   readonly code: string;
   readonly logoMode: LogoMode;
@@ -104,7 +92,7 @@ function TeamBadge({ code, logoMode, teamLogos, fontSizeTeamName }: {
   const logoUrl = teamLogos[`team-${code}`] ?? '';
   const showFlag = logoMode === 'flag' || logoMode === 'both' || !logoUrl;
   const showLogo = (logoMode === 'logo' || logoMode === 'both') && logoUrl;
-  const { flagW, flagH } = computeBadgeSize(fontSizeTeamName);
+  const { w: flagW, h: flagH } = computeFlagDimensions(fontSizeTeamName);
 
   if (showLogo && !showFlag) {
     const logoStyle: CSSProperties = { width: flagW, height: flagH, objectFit: 'contain', flexShrink: 0 };
@@ -112,8 +100,8 @@ function TeamBadge({ code, logoMode, teamLogos, fontSizeTeamName }: {
   }
 
   if (showLogo && showFlag) {
-    const smallW = Math.round(flagW * 0.65);
-    const smallH = Math.round(flagH * 0.68);
+    const smallH = Math.round(flagH * 0.7);
+    const smallW = Math.round(smallH * 1.5);
     const logoStyle: CSSProperties = { width: flagH, height: flagH, objectFit: 'contain', flexShrink: 0 };
     return (
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

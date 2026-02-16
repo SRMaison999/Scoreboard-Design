@@ -1,6 +1,6 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
-import { bodyTitleFs, bodyValueFs, bodyLabelFs } from '@/utils/fontScale';
+import { bodyTitleFs, bodyValueFs, bodyLabelFs, computeFlagDimensions } from '@/utils/fontScale';
 import { Flag } from '@/components/preview/Flag';
 import { PhotoCircle } from '@/components/preview/PhotoCircle';
 import type { GoalData } from '@/types/bodyTypes/goal';
@@ -44,8 +44,7 @@ export function BodyType4({
   const fsTime = fontSizes ? bodyLabelFs(fontSizes, 20) : 20;
   const photoSize = fontSizes ? bodyValueFs(fontSizes, 140) : 140;
   const photoFs = fontSizes ? bodyValueFs(fontSizes, 48) : 48;
-  const flagW = fontSizes ? bodyValueFs(fontSizes, 60) : 60;
-  const flagH = fontSizes ? bodyValueFs(fontSizes, 38) : 38;
+  const { w: flagW, h: flagH } = computeFlagDimensions(fsTeamCode);
 
   return (
     <div
