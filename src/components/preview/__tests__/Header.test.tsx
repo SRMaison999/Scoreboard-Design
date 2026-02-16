@@ -53,4 +53,33 @@ describe('Header', () => {
     );
     expect(container.innerHTML).toContain('border-radius: 50%');
   });
+
+  it('les drapeaux ont la meme hauteur que fontSizeTeamName par defaut', () => {
+    const { container } = render(<Header {...baseProps} fontSizeTeamName={80} />);
+    const flagDivs = container.querySelectorAll('[style*="box-shadow"]');
+    const flagEl = flagDivs[0] as HTMLElement;
+    expect(flagEl.style.height).toBe('80px');
+    expect(flagEl.style.width).toBe('120px');
+  });
+
+  it('les drapeaux scalent quand fontSizeTeamName change', () => {
+    const { container, rerender } = render(<Header {...baseProps} fontSizeTeamName={80} />);
+    let flagDivs = container.querySelectorAll('[style*="box-shadow"]');
+    let flagEl = flagDivs[0] as HTMLElement;
+    expect(flagEl.style.height).toBe('80px');
+
+    rerender(<Header {...baseProps} fontSizeTeamName={120} />);
+    flagDivs = container.querySelectorAll('[style*="box-shadow"]');
+    flagEl = flagDivs[0] as HTMLElement;
+    expect(flagEl.style.height).toBe('120px');
+    expect(flagEl.style.width).toBe('180px');
+  });
+
+  it('les drapeaux sont petits quand fontSizeTeamName est petit', () => {
+    const { container } = render(<Header {...baseProps} fontSizeTeamName={40} />);
+    const flagDivs = container.querySelectorAll('[style*="box-shadow"]');
+    const flagEl = flagDivs[0] as HTMLElement;
+    expect(flagEl.style.height).toBe('40px');
+    expect(flagEl.style.width).toBe('60px');
+  });
 });
