@@ -124,6 +124,8 @@ export function ScoreboardCanvas({
     <div
       data-testid="scoreboard-canvas"
       style={{
+        '--canvas-w': `${w}px`,
+        '--canvas-h': `${h}px`,
         width: w,
         height: h,
         background: bg,
@@ -133,7 +135,7 @@ export function ScoreboardCanvas({
         flexDirection: 'column',
         fontFamily: ff(state.fontTeams),
         color: '#fff',
-      }}
+      } as React.CSSProperties}
     >
       {/* Média de fond (image ou vidéo) */}
       {state.backgroundMediaMode === 'image' && state.backgroundMediaUrl && (
