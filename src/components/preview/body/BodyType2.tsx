@@ -66,6 +66,7 @@ export function BodyType2({
         gridTemplateColumns: `1fr ${labelW}px 1fr`,
         gridTemplateRows: gridRows.join(' '),
         padding: `0 ${contentPad}px`,
+        overflow: 'hidden',
       }}
     >
       {stats.map((s, i) => {

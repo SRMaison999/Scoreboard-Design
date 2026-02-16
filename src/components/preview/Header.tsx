@@ -82,27 +82,48 @@ function ShootoutDisplay({ attempts, color }: { readonly attempts: readonly Shoo
   );
 }
 
-function TeamBadge({ code, logoMode, teamLogos }: { readonly code: string; readonly logoMode: LogoMode; readonly teamLogos: Record<string, string> }) {
+/**
+ * Calcule les dimensions du drapeau/logo proportionnellement
+ * a la taille de police des noms d'equipe.
+ * A fontSizeTeamName=80 (defaut), les dimensions sont 77x50.
+ */
+function computeBadgeSize(fontSizeTeamName: number): { flagW: number; flagH: number } {
+  const ratio = fontSizeTeamName / 80;
+  return {
+    flagW: Math.round(77 * ratio),
+    flagH: Math.round(50 * ratio),
+  };
+}
+
+function TeamBadge({ code, logoMode, teamLogos, fontSizeTeamName }: {
+  readonly code: string;
+  readonly logoMode: LogoMode;
+  readonly teamLogos: Record<string, string>;
+  readonly fontSizeTeamName: number;
+}) {
   const logoUrl = teamLogos[`team-${code}`] ?? '';
   const showFlag = logoMode === 'flag' || logoMode === 'both' || !logoUrl;
   const showLogo = (logoMode === 'logo' || logoMode === 'both') && logoUrl;
+  const { flagW, flagH } = computeBadgeSize(fontSizeTeamName);
 
   if (showLogo && !showFlag) {
-    const logoStyle: CSSProperties = { width: 77, height: 50, objectFit: 'contain', flexShrink: 0 };
+    const logoStyle: CSSProperties = { width: flagW, height: flagH, objectFit: 'contain', flexShrink: 0 };
     return <img src={logoUrl} alt="" style={logoStyle} />;
   }
 
   if (showLogo && showFlag) {
-    const logoStyle: CSSProperties = { width: 50, height: 50, objectFit: 'contain', flexShrink: 0 };
+    const smallW = Math.round(flagW * 0.65);
+    const smallH = Math.round(flagH * 0.68);
+    const logoStyle: CSSProperties = { width: flagH, height: flagH, objectFit: 'contain', flexShrink: 0 };
     return (
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-        <Flag code={code} w={50} h={34} />
+        <Flag code={code} w={smallW} h={smallH} />
         <img src={logoUrl} alt="" style={logoStyle} />
       </div>
     );
   }
 
-  return <Flag code={code} />;
+  return <Flag code={code} w={flagW} h={flagH} />;
 }
 
 const EMPTY_LOGOS: Record<string, string> = {};
@@ -139,7 +160,7 @@ export function Header({
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-            <TeamBadge code={team1} logoMode={logoMode} teamLogos={teamLogos} />
+            <TeamBadge code={team1} logoMode={logoMode} teamLogos={teamLogos} fontSizeTeamName={fontSizeTeamName} />
             {showShootout && <ShootoutDisplay attempts={shootoutLeft} color={c('teamName')} />}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -155,7 +176,7 @@ export function Header({
             {showTimeouts && <TimeoutDots count={timeoutsRight} maxTimeouts={maxTimeouts} />}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-            <TeamBadge code={team2} logoMode={logoMode} teamLogos={teamLogos} />
+            <TeamBadge code={team2} logoMode={logoMode} teamLogos={teamLogos} fontSizeTeamName={fontSizeTeamName} />
             {showShootout && <ShootoutDisplay attempts={shootoutRight} color={c('teamName')} />}
           </div>
         </div>

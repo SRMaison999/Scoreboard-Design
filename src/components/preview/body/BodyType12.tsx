@@ -105,6 +105,9 @@ export function BodyType12({
               letterSpacing: 2,
               textTransform: 'uppercase',
               color: col('statVal'),
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
             }}
           >
             {player.name}

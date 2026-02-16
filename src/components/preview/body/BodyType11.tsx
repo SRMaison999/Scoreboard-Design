@@ -52,6 +52,7 @@ export function BodyType11({
         padding: `20px ${pad + 20}px`,
         gap: 12,
         fontFamily: ff(fontBody),
+        overflow: 'hidden',
       }}
     >
       {/* Titre */}

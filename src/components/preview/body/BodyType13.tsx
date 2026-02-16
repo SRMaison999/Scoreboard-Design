@@ -94,7 +94,7 @@ export function BodyType13({
             borderBottom: '1px solid rgba(255,255,255,0.06)',
           }}
         >
-          <div style={{ width: dateColW, fontSize: fsDate, color: col('statLabel'), flexShrink: 0 }}>
+          <div style={{ width: dateColW, fontSize: fsDate, color: col('statLabel'), flexShrink: 0, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
             {match.date}
           </div>
           <div
