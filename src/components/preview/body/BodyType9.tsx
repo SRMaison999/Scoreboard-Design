@@ -1,10 +1,12 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
+import { bodyTitleFs, bodyValueFs, bodyLabelFs } from '@/utils/fontScale';
 import { PhotoCircle } from '@/components/preview/PhotoCircle';
 import { playerPhotoKey } from '@/types/playerPhoto';
 import type { HeadToHeadData } from '@/types/bodyTypes/headToHead';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
+import type { FontSizeConfig } from '@/types/fontSizes';
 
 interface BodyType9Props {
   readonly headToHeadData: HeadToHeadData;
@@ -12,6 +14,7 @@ interface BodyType9Props {
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
+  readonly fontSizes?: FontSizeConfig;
   readonly playerPhotos?: Record<string, string>;
 }
 
@@ -21,6 +24,7 @@ export function BodyType9({
   colors,
   opacities,
   fontBody,
+  fontSizes,
   playerPhotos = {},
 }: BodyType9Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
@@ -28,6 +32,14 @@ export function BodyType9({
   const { title, playerLeft, playerRight, stats } = headToHeadData;
   const photoLeft = playerPhotos[playerPhotoKey(playerLeft.team, playerLeft.number)] ?? '';
   const photoRight = playerPhotos[playerPhotoKey(playerRight.team, playerRight.number)] ?? '';
+
+  const fsTitle = fontSizes ? bodyTitleFs(fontSizes, 28) : 28;
+  const fsPlayerName = fontSizes ? bodyValueFs(fontSizes, 32) : 32;
+  const fsPlayerInfo = fontSizes ? bodyLabelFs(fontSizes, 16) : 16;
+  const fsStatValue = fontSizes ? bodyValueFs(fontSizes, 26) : 26;
+  const fsStatLabel = fontSizes ? bodyLabelFs(fontSizes, 16) : 16;
+  const photoSize = fontSizes ? bodyValueFs(fontSizes, 64) : 64;
+  const photoFs = fontSizes ? bodyValueFs(fontSizes, 24) : 24;
 
   return (
     <div
@@ -45,7 +57,7 @@ export function BodyType9({
       {/* Titre */}
       <div
         style={{
-          fontSize: 28,
+          fontSize: fsTitle,
           fontWeight: 600,
           letterSpacing: 5,
           textTransform: 'uppercase',
@@ -68,34 +80,34 @@ export function BodyType9({
           <PhotoCircle
             photo={photoLeft}
             fallbackText={playerLeft.number}
-            size={64}
-            fontSize={24}
+            size={photoSize}
+            fontSize={photoFs}
             color={col('statVal')}
             fontFamily={ff(fontBody)}
           />
           <div>
-            <div style={{ fontSize: 32, fontWeight: 700, color: col('statVal'), letterSpacing: 2 }}>
+            <div style={{ fontSize: fsPlayerName, fontWeight: 700, color: col('statVal'), letterSpacing: 2 }}>
               {playerLeft.name}
             </div>
-            <div style={{ fontSize: 16, color: col('statLabel'), letterSpacing: 2 }}>
+            <div style={{ fontSize: fsPlayerInfo, color: col('statLabel'), letterSpacing: 2 }}>
               #{playerLeft.number} {playerLeft.team}
             </div>
           </div>
         </div>
         <div style={{ textAlign: 'right', display: 'flex', alignItems: 'center', gap: 16 }}>
           <div>
-            <div style={{ fontSize: 32, fontWeight: 700, color: col('statVal'), letterSpacing: 2 }}>
+            <div style={{ fontSize: fsPlayerName, fontWeight: 700, color: col('statVal'), letterSpacing: 2 }}>
               {playerRight.name}
             </div>
-            <div style={{ fontSize: 16, color: col('statLabel'), letterSpacing: 2 }}>
+            <div style={{ fontSize: fsPlayerInfo, color: col('statLabel'), letterSpacing: 2 }}>
               {playerRight.team} #{playerRight.number}
             </div>
           </div>
           <PhotoCircle
             photo={photoRight}
             fallbackText={playerRight.number}
-            size={64}
-            fontSize={24}
+            size={photoSize}
+            fontSize={photoFs}
             color={col('statVal')}
             fontFamily={ff(fontBody)}
           />
@@ -119,7 +131,7 @@ export function BodyType9({
             style={{
               flex: 1,
               textAlign: 'left',
-              fontSize: 26,
+              fontSize: fsStatValue,
               fontWeight: 700,
               fontVariantNumeric: 'tabular-nums',
               color: col('statVal'),
@@ -131,7 +143,7 @@ export function BodyType9({
             style={{
               flex: 1,
               textAlign: 'center',
-              fontSize: 16,
+              fontSize: fsStatLabel,
               fontWeight: 500,
               letterSpacing: 3,
               textTransform: 'uppercase',
@@ -144,7 +156,7 @@ export function BodyType9({
             style={{
               flex: 1,
               textAlign: 'right',
-              fontSize: 26,
+              fontSize: fsStatValue,
               fontWeight: 700,
               fontVariantNumeric: 'tabular-nums',
               color: col('statVal'),

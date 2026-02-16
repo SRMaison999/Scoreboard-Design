@@ -1,8 +1,10 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
+import { bodyTitleFs, bodyValueFs, bodyLabelFs } from '@/utils/fontScale';
 import type { ScheduleData, MatchStatus } from '@/types/bodyTypes/schedule';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
+import type { FontSizeConfig } from '@/types/fontSizes';
 
 interface BodyType13Props {
   readonly scheduleData: ScheduleData;
@@ -10,6 +12,7 @@ interface BodyType13Props {
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
+  readonly fontSizes?: FontSizeConfig;
 }
 
 function statusColor(status: MatchStatus): string {
@@ -32,10 +35,24 @@ export function BodyType13({
   colors,
   opacities,
   fontBody,
+  fontSizes,
 }: BodyType13Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const pad = showPenalties ? 10 : 40;
   const { title, matches } = scheduleData;
+
+  const fsTitle = fontSizes ? bodyTitleFs(fontSizes, 26) : 26;
+  const fsDate = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
+  const fsTime = fontSizes ? bodyValueFs(fontSizes, 16) : 16;
+  const fsTeams = fontSizes ? bodyValueFs(fontSizes, 20) : 20;
+  const fsScore = fontSizes ? bodyValueFs(fontSizes, 18) : 18;
+  const fsStatus = fontSizes ? bodyLabelFs(fontSizes, 12) : 12;
+  const fsVenue = fontSizes ? bodyLabelFs(fontSizes, 12) : 12;
+  const fsVs = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
+  const dateColW = fontSizes ? bodyLabelFs(fontSizes, 50) : 50;
+  const timeColW = fontSizes ? bodyValueFs(fontSizes, 46) : 46;
+  const statusColW = fontSizes ? bodyLabelFs(fontSizes, 50) : 50;
+  const venueColW = fontSizes ? bodyLabelFs(fontSizes, 110) : 110;
 
   return (
     <div
@@ -53,7 +70,7 @@ export function BodyType13({
       {/* Titre */}
       <div
         style={{
-          fontSize: 26,
+          fontSize: fsTitle,
           fontWeight: 600,
           letterSpacing: 5,
           textTransform: 'uppercase',
@@ -77,13 +94,13 @@ export function BodyType13({
             borderBottom: '1px solid rgba(255,255,255,0.06)',
           }}
         >
-          <div style={{ width: 50, fontSize: 14, color: col('statLabel'), flexShrink: 0 }}>
+          <div style={{ width: dateColW, fontSize: fsDate, color: col('statLabel'), flexShrink: 0 }}>
             {match.date}
           </div>
           <div
             style={{
-              width: 46,
-              fontSize: 16,
+              width: timeColW,
+              fontSize: fsTime,
               fontWeight: 600,
               fontVariantNumeric: 'tabular-nums',
               color: col('statVal'),
@@ -99,7 +116,7 @@ export function BodyType13({
               alignItems: 'center',
               justifyContent: 'center',
               gap: 10,
-              fontSize: 20,
+              fontSize: fsTeams,
               fontWeight: 700,
               letterSpacing: 2,
               textTransform: 'uppercase',
@@ -108,18 +125,18 @@ export function BodyType13({
           >
             <span>{match.teamLeft}</span>
             {match.status === 'finished' || match.status === 'live' ? (
-              <span style={{ fontSize: 18, fontVariantNumeric: 'tabular-nums' }}>
+              <span style={{ fontSize: fsScore, fontVariantNumeric: 'tabular-nums' }}>
                 {match.scoreLeft} - {match.scoreRight}
               </span>
             ) : (
-              <span style={{ fontSize: 14, color: col('statLabel') }}>vs</span>
+              <span style={{ fontSize: fsVs, color: col('statLabel') }}>vs</span>
             )}
             <span>{match.teamRight}</span>
           </div>
           <div
             style={{
-              width: 50,
-              fontSize: 12,
+              width: statusColW,
+              fontSize: fsStatus,
               fontWeight: 700,
               textAlign: 'center',
               color: statusColor(match.status),
@@ -132,8 +149,8 @@ export function BodyType13({
           {match.venue && (
             <div
               style={{
-                width: 110,
-                fontSize: 12,
+                width: venueColW,
+                fontSize: fsVenue,
                 color: col('statLabel'),
                 textAlign: 'right',
                 overflow: 'hidden',
