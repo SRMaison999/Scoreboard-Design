@@ -63,6 +63,7 @@ export function BodyType6({
         flexDirection: 'column',
         padding: `30px ${pad + 20}px`,
         fontFamily: ff(fontBody),
+        overflow: 'hidden',
       }}
     >
       {/* Titre */}
@@ -119,6 +120,7 @@ export function BodyType6({
               color: col('statVal'),
               borderBottom: '1px solid rgba(255,255,255,0.06)',
               background: row.highlighted ? 'rgba(76,175,80,0.12)' : 'transparent',
+              overflow: 'hidden',
             }}
           >
             <div
@@ -139,6 +141,9 @@ export function BodyType6({
                 width: teamW,
                 fontWeight: 700,
                 letterSpacing: 3,
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
               }}
             >
               {row.team}

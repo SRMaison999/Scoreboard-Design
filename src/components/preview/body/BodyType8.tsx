@@ -37,6 +37,7 @@ export function BodyType8({
         padding: `40px ${pad + 40}px`,
         gap: 12,
         fontFamily: ff(fontBody),
+        overflow: 'hidden',
       }}
     >
       {freeTextData.lines.map((line, i) => {

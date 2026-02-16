@@ -65,6 +65,7 @@ export function BodyType3({
         display: 'flex',
         flexDirection: 'column',
         padding: `40px ${contentPad + 20}px`,
+        overflow: 'hidden',
       }}
     >
       <div

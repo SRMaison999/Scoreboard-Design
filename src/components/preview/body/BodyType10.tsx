@@ -41,6 +41,9 @@ export function BodyType10({
   const fsTeam = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
   const fsDesc = fontSizes ? bodyValueFs(fontSizes, 16) : 16;
   const iconSize = fontSizes ? bodyValueFs(fontSizes, 30) : 30;
+  const periodColW = fontSizes ? bodyLabelFs(fontSizes, 40) : 40;
+  const timeColW = fontSizes ? bodyValueFs(fontSizes, 60) : 60;
+  const teamColW = fontSizes ? bodyLabelFs(fontSizes, 50) : 50;
 
   return (
     <div
@@ -99,7 +102,7 @@ export function BodyType10({
           >
             {EVENT_SYMBOLS[event.type]}
           </div>
-          <div style={{ fontSize: fsPeriod, color: col('statLabel'), width: 40, flexShrink: 0 }}>
+          <div style={{ fontSize: fsPeriod, color: col('statLabel'), width: periodColW, flexShrink: 0, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
             {event.period}
           </div>
           <div
@@ -108,8 +111,10 @@ export function BodyType10({
               fontWeight: 600,
               fontVariantNumeric: 'tabular-nums',
               color: col('statVal'),
-              width: 60,
+              width: timeColW,
               flexShrink: 0,
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
             }}
           >
             {event.time}
@@ -120,9 +125,12 @@ export function BodyType10({
               fontWeight: 500,
               letterSpacing: 2,
               color: col('statLabel'),
-              width: 50,
+              width: teamColW,
               flexShrink: 0,
               textTransform: 'uppercase',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
             }}
           >
             {event.team}

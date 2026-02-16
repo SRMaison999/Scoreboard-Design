@@ -52,6 +52,7 @@ export function BodyType1({
         gridTemplateColumns: `1fr ${labelW}px 1fr`,
         gridTemplateRows: gridRows.join(' '),
         padding: `0 ${contentPad}px`,
+        overflow: 'hidden',
       }}
     >
       {stats.map((s, i) => {
@@ -94,6 +95,8 @@ export function BodyType1({
               letterSpacing: 2,
               color: col('statVal'),
               textShadow: `0 0 16px ${col('statVal')}5a`,
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
             }}
           >
             {s.valLeft}
@@ -133,6 +136,8 @@ export function BodyType1({
               letterSpacing: 2,
               color: col('statVal'),
               textShadow: `0 0 16px ${col('statVal')}5a`,
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
             }}
           >
             {s.valRight}

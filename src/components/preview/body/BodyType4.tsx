@@ -56,6 +56,7 @@ export function BodyType4({
         padding: `20px ${pad + 20}px`,
         gap: 16,
         fontFamily: ff(fontBody),
+        overflow: 'hidden',
       }}
     >
       {/* GOAL! */}
