@@ -1,9 +1,11 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
+import { bodyTitleFs, bodyValueFs, bodyLabelFs } from '@/utils/fontScale';
 import { Flag } from '@/components/preview/Flag';
 import type { RosterData } from '@/types/bodyTypes/roster';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
+import type { FontSizeConfig } from '@/types/fontSizes';
 
 interface BodyType12Props {
   readonly rosterData: RosterData;
@@ -11,6 +13,7 @@ interface BodyType12Props {
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
+  readonly fontSizes?: FontSizeConfig;
 }
 
 export function BodyType12({
@@ -19,10 +22,19 @@ export function BodyType12({
   colors,
   opacities,
   fontBody,
+  fontSizes,
 }: BodyType12Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const pad = showPenalties ? 10 : 40;
   const { title, team, coach, players } = rosterData;
+
+  const fsTitle = fontSizes ? bodyTitleFs(fontSizes, 26) : 26;
+  const fsCoach = fontSizes ? bodyLabelFs(fontSizes, 16) : 16;
+  const fsPlayerNum = fontSizes ? bodyValueFs(fontSizes, 20) : 20;
+  const fsPlayerName = fontSizes ? bodyValueFs(fontSizes, 20) : 20;
+  const fsPosition = fontSizes ? bodyLabelFs(fontSizes, 16) : 16;
+  const numColW = fontSizes ? bodyValueFs(fontSizes, 40) : 40;
+  const posColW = fontSizes ? bodyLabelFs(fontSizes, 40) : 40;
 
   return (
     <div
@@ -42,7 +54,7 @@ export function BodyType12({
         <Flag code={team} w={44} h={28} />
         <div
           style={{
-            fontSize: 26,
+            fontSize: fsTitle,
             fontWeight: 600,
             letterSpacing: 5,
             textTransform: 'uppercase',
@@ -53,9 +65,9 @@ export function BodyType12({
         </div>
       </div>
 
-      {/* Entraîneur */}
+      {/* Entraineur */}
       {coach && (
-        <div style={{ fontSize: 16, color: col('statLabel'), letterSpacing: 3, opacity: 0.7, marginBottom: 4 }}>
+        <div style={{ fontSize: fsCoach, color: col('statLabel'), letterSpacing: 3, opacity: 0.7, marginBottom: 4 }}>
           Coach : {coach}
         </div>
       )}
@@ -75,8 +87,8 @@ export function BodyType12({
         >
           <div
             style={{
-              width: 40,
-              fontSize: 20,
+              width: numColW,
+              fontSize: fsPlayerNum,
               fontWeight: 700,
               fontVariantNumeric: 'tabular-nums',
               color: col('statVal'),
@@ -88,7 +100,7 @@ export function BodyType12({
           <div
             style={{
               flex: 1,
-              fontSize: 20,
+              fontSize: fsPlayerName,
               fontWeight: 600,
               letterSpacing: 2,
               textTransform: 'uppercase',
@@ -99,8 +111,8 @@ export function BodyType12({
           </div>
           <div
             style={{
-              width: 40,
-              fontSize: 16,
+              width: posColW,
+              fontSize: fsPosition,
               fontWeight: 500,
               color: col('statLabel'),
               textAlign: 'center',

@@ -1,10 +1,12 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
+import { bodyTitleFs, bodyValueFs, bodyLabelFs } from '@/utils/fontScale';
 import { Flag } from '@/components/preview/Flag';
 import { PhotoCircle } from '@/components/preview/PhotoCircle';
 import type { GoalData } from '@/types/bodyTypes/goal';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
+import type { FontSizeConfig } from '@/types/fontSizes';
 
 interface BodyType4Props {
   readonly goalData: GoalData;
@@ -14,6 +16,7 @@ interface BodyType4Props {
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
+  readonly fontSizes?: FontSizeConfig;
 }
 
 export function BodyType4({
@@ -24,12 +27,23 @@ export function BodyType4({
   colors,
   opacities,
   fontBody,
+  fontSizes,
 }: BodyType4Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const pad = showPenalties ? 10 : 40;
   const scoringTeam = goalData.scoringTeamSide === 'left' ? team1 : team2;
   const hasAssist1 = goalData.assist1Name.trim() !== '';
   const hasAssist2 = goalData.assist2Name.trim() !== '';
+
+  const fsTitleGoal = fontSizes ? bodyTitleFs(fontSizes, 72) : 72;
+  const fsTeamCode = fontSizes ? bodyLabelFs(fontSizes, 36) : 36;
+  const fsScorerName = fontSizes ? bodyValueFs(fontSizes, 40) : 40;
+  const fsStats = fontSizes ? bodyLabelFs(fontSizes, 22) : 22;
+  const fsAssist1 = fontSizes ? bodyLabelFs(fontSizes, 24) : 24;
+  const fsAssist2 = fontSizes ? bodyLabelFs(fontSizes, 22) : 22;
+  const fsTime = fontSizes ? bodyLabelFs(fontSizes, 20) : 20;
+  const photoSize = fontSizes ? bodyValueFs(fontSizes, 140) : 140;
+  const photoFs = fontSizes ? bodyValueFs(fontSizes, 48) : 48;
 
   return (
     <div
@@ -47,7 +61,7 @@ export function BodyType4({
       {/* GOAL! */}
       <div
         style={{
-          fontSize: 72,
+          fontSize: fsTitleGoal,
           fontWeight: 900,
           letterSpacing: 12,
           textTransform: 'uppercase',
@@ -63,7 +77,7 @@ export function BodyType4({
         <Flag code={scoringTeam} w={60} h={38} />
         <div
           style={{
-            fontSize: 36,
+            fontSize: fsTeamCode,
             fontWeight: 700,
             letterSpacing: 6,
             color: col('statVal'),
@@ -77,8 +91,8 @@ export function BodyType4({
       <PhotoCircle
         photo={goalData.scorerPhoto}
         fallbackText={goalData.scorerNumber}
-        size={140}
-        fontSize={48}
+        size={photoSize}
+        fontSize={photoFs}
         color={col('statVal')}
         fontFamily={ff(fontBody)}
       />
@@ -86,7 +100,7 @@ export function BodyType4({
       {/* Nom du buteur */}
       <div
         style={{
-          fontSize: 40,
+          fontSize: fsScorerName,
           fontWeight: 700,
           letterSpacing: 4,
           textTransform: 'uppercase',
@@ -97,7 +111,7 @@ export function BodyType4({
       </div>
 
       {/* Stats du buteur */}
-      <div style={{ display: 'flex', gap: 30, fontSize: 22, color: col('statLabel') }}>
+      <div style={{ display: 'flex', gap: 30, fontSize: fsStats, color: col('statLabel') }}>
         {goalData.goalCountMatch && (
           <span>{goalData.goalCountMatch}e but du match</span>
         )}
@@ -108,12 +122,12 @@ export function BodyType4({
 
       {/* Assists */}
       {hasAssist1 && (
-        <div style={{ fontSize: 24, color: col('statLabel'), letterSpacing: 2 }}>
+        <div style={{ fontSize: fsAssist1, color: col('statLabel'), letterSpacing: 2 }}>
           Assist : #{goalData.assist1Number} {goalData.assist1Name}
         </div>
       )}
       {hasAssist2 && (
-        <div style={{ fontSize: 22, color: col('statLabel'), letterSpacing: 2, opacity: 0.8 }}>
+        <div style={{ fontSize: fsAssist2, color: col('statLabel'), letterSpacing: 2, opacity: 0.8 }}>
           Assist 2 : #{goalData.assist2Number} {goalData.assist2Name}
         </div>
       )}
@@ -121,7 +135,7 @@ export function BodyType4({
       {/* Temps et periode */}
       <div
         style={{
-          fontSize: 20,
+          fontSize: fsTime,
           color: col('statLabel'),
           opacity: 0.7,
           letterSpacing: 3,

@@ -1,5 +1,6 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
+import { computeStatGap, computeLabelColumnWidth } from '@/utils/fontScale';
 import { FONT_SIZES } from '@/constants/fontSizes';
 import type { StatLine } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
@@ -32,7 +33,8 @@ export function BodyType1({
   const fsLabel = fontSizes?.statLabel || autoFs.label;
   const fsTitle = fontSizes?.title || 30;
   const contentPad = showPenalties ? 10 : 40;
-  const labelW = showPenalties ? 240 : 300;
+  const labelW = computeLabelColumnWidth(fsLabel, showPenalties);
+  const statGap = computeStatGap(fsVal, fsLabel);
 
   const gridRows: string[] = [];
   for (let i = 0; i < n; i++) {
@@ -85,7 +87,7 @@ export function BodyType1({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'flex-end',
-              paddingRight: 40,
+              paddingRight: statGap,
               fontSize: fsVal,
               fontWeight: 700,
               fontFamily: ff(fontBody),
@@ -124,7 +126,7 @@ export function BodyType1({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'flex-start',
-              paddingLeft: 40,
+              paddingLeft: statGap,
               fontSize: fsVal,
               fontWeight: 700,
               fontFamily: ff(fontBody),

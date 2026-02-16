@@ -1,8 +1,10 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
+import { bodyTitleFs, bodyValueFs, bodyLabelFs } from '@/utils/fontScale';
 import type { TimelineData, TimelineEventType } from '@/types/bodyTypes/timeline';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
+import type { FontSizeConfig } from '@/types/fontSizes';
 
 interface BodyType10Props {
   readonly timelineData: TimelineData;
@@ -10,6 +12,7 @@ interface BodyType10Props {
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
+  readonly fontSizes?: FontSizeConfig;
 }
 
 const EVENT_SYMBOLS: Record<TimelineEventType, string> = {
@@ -25,10 +28,19 @@ export function BodyType10({
   colors,
   opacities,
   fontBody,
+  fontSizes,
 }: BodyType10Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const pad = showPenalties ? 10 : 40;
   const { title, events } = timelineData;
+
+  const fsTitle = fontSizes ? bodyTitleFs(fontSizes, 26) : 26;
+  const fsIcon = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
+  const fsPeriod = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
+  const fsTime = fontSizes ? bodyValueFs(fontSizes, 18) : 18;
+  const fsTeam = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
+  const fsDesc = fontSizes ? bodyValueFs(fontSizes, 16) : 16;
+  const iconSize = fontSizes ? bodyValueFs(fontSizes, 30) : 30;
 
   return (
     <div
@@ -46,7 +58,7 @@ export function BodyType10({
       {/* Titre */}
       <div
         style={{
-          fontSize: 26,
+          fontSize: fsTitle,
           fontWeight: 600,
           letterSpacing: 5,
           textTransform: 'uppercase',
@@ -57,7 +69,7 @@ export function BodyType10({
         {title}
       </div>
 
-      {/* Lignes d'événements */}
+      {/* Lignes d'evenements */}
       {events.map((event, i) => (
         <div
           key={`tl-${i}`}
@@ -72,14 +84,14 @@ export function BodyType10({
         >
           <div
             style={{
-              width: 30,
-              height: 30,
+              width: iconSize,
+              height: iconSize,
               borderRadius: '50%',
               background: event.type === 'goal' ? 'rgba(255,215,0,0.25)' : 'rgba(255,255,255,0.08)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 14,
+              fontSize: fsIcon,
               fontWeight: 700,
               color: col('statVal'),
               flexShrink: 0,
@@ -87,12 +99,12 @@ export function BodyType10({
           >
             {EVENT_SYMBOLS[event.type]}
           </div>
-          <div style={{ fontSize: 14, color: col('statLabel'), width: 40, flexShrink: 0 }}>
+          <div style={{ fontSize: fsPeriod, color: col('statLabel'), width: 40, flexShrink: 0 }}>
             {event.period}
           </div>
           <div
             style={{
-              fontSize: 18,
+              fontSize: fsTime,
               fontWeight: 600,
               fontVariantNumeric: 'tabular-nums',
               color: col('statVal'),
@@ -104,7 +116,7 @@ export function BodyType10({
           </div>
           <div
             style={{
-              fontSize: 14,
+              fontSize: fsTeam,
               fontWeight: 500,
               letterSpacing: 2,
               color: col('statLabel'),
@@ -118,7 +130,7 @@ export function BodyType10({
           <div
             style={{
               flex: 1,
-              fontSize: 16,
+              fontSize: fsDesc,
               color: col('statVal'),
               textTransform: 'uppercase',
               letterSpacing: 1,

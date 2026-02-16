@@ -1,10 +1,12 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
+import { computeStatGap } from '@/utils/fontScale';
 import { FONT_SIZES } from '@/constants/fontSizes';
 import { PhotoCircle } from '@/components/preview/PhotoCircle';
 import type { PlayerStat } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
+import type { FontSizeConfig } from '@/types/fontSizes';
 
 interface BodyType3Props {
   readonly playerStats: readonly PlayerStat[];
@@ -14,6 +16,7 @@ interface BodyType3Props {
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
+  readonly fontSizes?: FontSizeConfig;
   readonly playerPhotos?: Record<string, string>;
 }
 
@@ -41,13 +44,19 @@ export function BodyType3({
   colors,
   opacities,
   fontBody,
+  fontSizes,
   playerPhotos = {},
 }: BodyType3Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const n = playerStats.length;
-  const fs = FONT_SIZES[Math.min(Math.max(n, 1), 8)] ?? FONT_SIZES[1]!;
+  const autoFs = FONT_SIZES[Math.min(Math.max(n, 1), 8)] ?? FONT_SIZES[1]!;
+  const fsVal = fontSizes?.statValue || autoFs.val;
+  const fsLabel = fontSizes?.statLabel || autoFs.label;
+  const fsTitle = fontSizes?.title || 30;
   const contentPad = showPenalties ? 10 : 40;
-  const rowFs = fs.val * 0.55;
+  const rowFs = fsVal * 0.55;
+  const rowLabelFs = fsLabel * 0.55;
+  const gridGap = computeStatGap(rowFs, rowLabelFs);
 
   return (
     <div
@@ -61,7 +70,7 @@ export function BodyType3({
       <div
         style={{
           textAlign: 'center',
-          fontSize: 30,
+          fontSize: fsTitle,
           fontWeight: 600,
           letterSpacing: 5,
           fontFamily: ff(fontBody),
@@ -83,7 +92,7 @@ export function BodyType3({
             ? 'auto auto auto auto'
             : 'auto auto auto',
           gridTemplateRows: `repeat(${playerStats.length}, 1fr)`,
-          gap: '0 35px',
+          gap: `0 ${gridGap}px`,
           alignItems: 'center',
           justifyContent: 'center',
         }}
@@ -95,7 +104,7 @@ export function BodyType3({
             <div
               key={`lb-${i}`}
               style={{
-                fontSize: rowFs,
+                fontSize: rowLabelFs,
                 fontWeight: 500,
                 letterSpacing: 3,
                 textTransform: 'uppercase',

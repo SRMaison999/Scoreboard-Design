@@ -1,10 +1,12 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
+import { bodyTitleFs, bodyValueFs, bodyLabelFs } from '@/utils/fontScale';
 import { Flag } from '@/components/preview/Flag';
 import { PhotoCircle } from '@/components/preview/PhotoCircle';
 import type { PlayerCardData } from '@/types/bodyTypes/playerCard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
+import type { FontSizeConfig } from '@/types/fontSizes';
 
 interface BodyType5Props {
   readonly playerCardData: PlayerCardData;
@@ -12,6 +14,7 @@ interface BodyType5Props {
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
+  readonly fontSizes?: FontSizeConfig;
 }
 
 export function BodyType5({
@@ -20,10 +23,20 @@ export function BodyType5({
   colors,
   opacities,
   fontBody,
+  fontSizes,
 }: BodyType5Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const pad = showPenalties ? 10 : 40;
   const { title, subtitle, playerName, playerNumber, playerTeam, playerPhoto, stats } = playerCardData;
+
+  const fsTitle = fontSizes ? bodyTitleFs(fontSizes, 30) : 30;
+  const fsSubtitle = fontSizes ? bodyLabelFs(fontSizes, 20) : 20;
+  const fsPlayerName = fontSizes ? bodyValueFs(fontSizes, 40) : 40;
+  const fsTeamCode = fontSizes ? bodyLabelFs(fontSizes, 22) : 22;
+  const fsStatValue = fontSizes ? bodyValueFs(fontSizes, 36) : 36;
+  const fsStatLabel = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
+  const photoSize = fontSizes ? bodyValueFs(fontSizes, 180) : 180;
+  const photoFs = fontSizes ? bodyValueFs(fontSizes, 56) : 56;
 
   return (
     <div
@@ -41,7 +54,7 @@ export function BodyType5({
       {/* Titre */}
       <div
         style={{
-          fontSize: 30,
+          fontSize: fsTitle,
           fontWeight: 600,
           letterSpacing: 5,
           textTransform: 'uppercase',
@@ -52,7 +65,7 @@ export function BodyType5({
       </div>
 
       {subtitle && (
-        <div style={{ fontSize: 20, color: col('statLabel'), letterSpacing: 3, opacity: 0.7 }}>
+        <div style={{ fontSize: fsSubtitle, color: col('statLabel'), letterSpacing: 3, opacity: 0.7 }}>
           {subtitle}
         </div>
       )}
@@ -62,8 +75,8 @@ export function BodyType5({
         <PhotoCircle
           photo={playerPhoto}
           fallbackText={playerNumber}
-          size={180}
-          fontSize={56}
+          size={photoSize}
+          fontSize={photoFs}
           color={col('statVal')}
           fontFamily={ff(fontBody)}
         />
@@ -72,7 +85,7 @@ export function BodyType5({
       {/* Nom + equipe */}
       <div
         style={{
-          fontSize: 40,
+          fontSize: fsPlayerName,
           fontWeight: 700,
           letterSpacing: 4,
           textTransform: 'uppercase',
@@ -83,7 +96,7 @@ export function BodyType5({
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <Flag code={playerTeam} w={50} h={32} />
-        <span style={{ fontSize: 22, letterSpacing: 4, color: col('statLabel') }}>
+        <span style={{ fontSize: fsTeamCode, letterSpacing: 4, color: col('statLabel') }}>
           {playerTeam}
         </span>
       </div>
@@ -103,7 +116,7 @@ export function BodyType5({
             <div key={`st-${i}`} style={{ textAlign: 'center' }}>
               <div
                 style={{
-                  fontSize: 36,
+                  fontSize: fsStatValue,
                   fontWeight: 700,
                   color: col('statVal'),
                   fontVariantNumeric: 'tabular-nums',
@@ -114,7 +127,7 @@ export function BodyType5({
               </div>
               <div
                 style={{
-                  fontSize: 14,
+                  fontSize: fsStatLabel,
                   fontWeight: 500,
                   letterSpacing: 2,
                   textTransform: 'uppercase',

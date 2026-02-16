@@ -1,8 +1,10 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
+import { bodyTitleFs, bodyValueFs, bodyLabelFs } from '@/utils/fontScale';
 import type { BarChartData } from '@/types/bodyTypes/barChart';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
+import type { FontSizeConfig } from '@/types/fontSizes';
 
 interface BodyType11Props {
   readonly barChartData: BarChartData;
@@ -12,6 +14,7 @@ interface BodyType11Props {
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
+  readonly fontSizes?: FontSizeConfig;
 }
 
 function formatValue(value: number, format: 'percent' | 'absolute'): string {
@@ -26,10 +29,18 @@ export function BodyType11({
   colors,
   opacities,
   fontBody,
+  fontSizes,
 }: BodyType11Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const pad = showPenalties ? 10 : 40;
   const { title, rows } = barChartData;
+
+  const fsTitle = fontSizes ? bodyTitleFs(fontSizes, 26) : 26;
+  const fsTeam = fontSizes ? bodyValueFs(fontSizes, 18) : 18;
+  const fsRowLabel = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
+  const fsRowValue = fontSizes ? bodyValueFs(fontSizes, 20) : 20;
+  const barH = fontSizes ? bodyValueFs(fontSizes, 18) : 18;
+  const valueColW = fontSizes ? bodyValueFs(fontSizes, 55) : 55;
 
   return (
     <div
@@ -46,7 +57,7 @@ export function BodyType11({
       {/* Titre */}
       <div
         style={{
-          fontSize: 26,
+          fontSize: fsTitle,
           fontWeight: 600,
           letterSpacing: 5,
           textTransform: 'uppercase',
@@ -56,10 +67,10 @@ export function BodyType11({
         {title}
       </div>
 
-      {/* Noms d'équipes */}
+      {/* Noms d'equipes */}
       <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', padding: '0 10px' }}>
-        <div style={{ fontSize: 18, fontWeight: 700, color: col('statVal'), letterSpacing: 3 }}>{team1}</div>
-        <div style={{ fontSize: 18, fontWeight: 700, color: col('statVal'), letterSpacing: 3 }}>{team2}</div>
+        <div style={{ fontSize: fsTeam, fontWeight: 700, color: col('statVal'), letterSpacing: 3 }}>{team1}</div>
+        <div style={{ fontSize: fsTeam, fontWeight: 700, color: col('statVal'), letterSpacing: 3 }}>{team2}</div>
       </div>
 
       {/* Barres */}
@@ -73,7 +84,7 @@ export function BodyType11({
             <div
               style={{
                 textAlign: 'center',
-                fontSize: 14,
+                fontSize: fsRowLabel,
                 fontWeight: 500,
                 letterSpacing: 3,
                 textTransform: 'uppercase',
@@ -86,9 +97,9 @@ export function BodyType11({
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <div
                 style={{
-                  width: 55,
+                  width: valueColW,
                   textAlign: 'right',
-                  fontSize: 20,
+                  fontSize: fsRowValue,
                   fontWeight: 700,
                   fontVariantNumeric: 'tabular-nums',
                   color: col('statVal'),
@@ -96,7 +107,7 @@ export function BodyType11({
               >
                 {formatValue(row.valueLeft, row.format)}
               </div>
-              <div style={{ flex: 1, display: 'flex', gap: 3, height: 18 }}>
+              <div style={{ flex: 1, display: 'flex', gap: 3, height: barH }}>
                 <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
                   <div
                     style={{
@@ -120,9 +131,9 @@ export function BodyType11({
               </div>
               <div
                 style={{
-                  width: 55,
+                  width: valueColW,
                   textAlign: 'left',
-                  fontSize: 20,
+                  fontSize: fsRowValue,
                   fontWeight: 700,
                   fontVariantNumeric: 'tabular-nums',
                   color: col('statVal'),

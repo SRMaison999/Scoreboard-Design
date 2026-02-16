@@ -1,5 +1,6 @@
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
+import { computeLabelColumnWidth } from '@/utils/fontScale';
 import { FONT_SIZES } from '@/constants/fontSizes';
 import type { StatLine } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
@@ -34,7 +35,7 @@ export function BodyType2({
   const fsLabel = fontSizes?.statLabel || autoFs.label;
   const fsTitle = fontSizes?.title || 30;
   const contentPad = showPenalties ? 10 : 40;
-  const labelW = showPenalties ? 240 : 300;
+  const labelW = computeLabelColumnWidth(fsLabel, showPenalties);
 
   const gridRows: string[] = [];
   for (let i = 0; i < n; i++) {
