@@ -1,6 +1,5 @@
 import { hexToRgba } from '@/utils/color';
-import { ff } from '@/utils/font';
-import { computeLabelColumnWidth } from '@/utils/fontScale';
+import { ff, scaleFontSize } from '@/utils/font';
 import { FONT_SIZES } from '@/constants/fontSizes';
 import type { StatLine } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
@@ -31,11 +30,12 @@ export function BodyType2({
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const n = stats.length;
   const autoFs = FONT_SIZES[Math.min(Math.max(n, 1), 8)] ?? FONT_SIZES[1]!;
-  const fsVal = fontSizes?.statValue || autoFs.val;
-  const fsLabel = fontSizes?.statLabel || autoFs.label;
-  const fsTitle = fontSizes?.title || 30;
+  const scale = fontSizes?.bodyScale2 ?? 100;
+  const fsVal = scaleFontSize(fontSizes?.statValue || autoFs.val, scale);
+  const fsLabel = scaleFontSize(fontSizes?.statLabel || autoFs.label, scale);
+  const fsTitle = scaleFontSize(fontSizes?.title || 30, scale);
   const contentPad = showPenalties ? 10 : 40;
-  const labelW = computeLabelColumnWidth(fsLabel, showPenalties);
+  const labelW = showPenalties ? 240 : 300;
 
   const gridRows: string[] = [];
   for (let i = 0; i < n; i++) {
@@ -66,7 +66,6 @@ export function BodyType2({
         gridTemplateColumns: `1fr ${labelW}px 1fr`,
         gridTemplateRows: gridRows.join(' '),
         padding: `0 ${contentPad}px`,
-        overflow: 'hidden',
       }}
     >
       {stats.map((s, i) => {

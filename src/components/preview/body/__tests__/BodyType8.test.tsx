@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { BodyType8 } from '@/components/preview/body/BodyType8';
 import { DEFAULT_FREE_TEXT_DATA } from '@/types/bodyTypes/freeText';
 import { DEFAULT_STATE } from '@/data/defaultState';
+import { DEFAULT_FONT_SIZES } from '@/types/fontSizes';
 
 const baseProps = {
   freeTextData: DEFAULT_FREE_TEXT_DATA,
@@ -38,5 +39,19 @@ describe('BodyType8', () => {
     };
     const { container } = render(<BodyType8 {...props} />);
     expect(container.firstChild).toBeInTheDocument();
+  });
+
+  it('applique le body scale aux tailles de police', () => {
+    const scaledFontSizes = { ...DEFAULT_FONT_SIZES, bodyScale8: 200 };
+    render(<BodyType8 {...baseProps} fontSizes={scaledFontSizes} />);
+    const bienvenue = screen.getByText('BIENVENUE');
+    expect(bienvenue.style.fontSize).toBe('120px');
+  });
+
+  it('réduit les tailles avec un body scale inférieur à 100', () => {
+    const scaledFontSizes = { ...DEFAULT_FONT_SIZES, bodyScale8: 50 };
+    render(<BodyType8 {...baseProps} fontSizes={scaledFontSizes} />);
+    const bienvenue = screen.getByText('BIENVENUE');
+    expect(bienvenue.style.fontSize).toBe('30px');
   });
 });

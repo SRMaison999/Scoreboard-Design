@@ -1,6 +1,5 @@
 import { hexToRgba } from '@/utils/color';
-import { ff } from '@/utils/font';
-import { computeStatGap, computeLabelColumnWidth } from '@/utils/fontScale';
+import { ff, scaleFontSize } from '@/utils/font';
 import { FONT_SIZES } from '@/constants/fontSizes';
 import type { StatLine } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
@@ -29,12 +28,12 @@ export function BodyType1({
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const n = stats.length;
   const autoFs = FONT_SIZES[Math.min(Math.max(n, 1), 8)] ?? FONT_SIZES[1]!;
-  const fsVal = fontSizes?.statValue || autoFs.val;
-  const fsLabel = fontSizes?.statLabel || autoFs.label;
-  const fsTitle = fontSizes?.title || 30;
+  const scale = fontSizes?.bodyScale1 ?? 100;
+  const fsVal = scaleFontSize(fontSizes?.statValue || autoFs.val, scale);
+  const fsLabel = scaleFontSize(fontSizes?.statLabel || autoFs.label, scale);
+  const fsTitle = scaleFontSize(fontSizes?.title || 30, scale);
   const contentPad = showPenalties ? 10 : 40;
-  const labelW = computeLabelColumnWidth(fsLabel, showPenalties);
-  const statGap = computeStatGap(fsVal, fsLabel);
+  const labelW = showPenalties ? 240 : 300;
 
   const gridRows: string[] = [];
   for (let i = 0; i < n; i++) {
@@ -52,7 +51,6 @@ export function BodyType1({
         gridTemplateColumns: `1fr ${labelW}px 1fr`,
         gridTemplateRows: gridRows.join(' '),
         padding: `0 ${contentPad}px`,
-        overflow: 'hidden',
       }}
     >
       {stats.map((s, i) => {
@@ -88,15 +86,13 @@ export function BodyType1({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'flex-end',
-              paddingRight: statGap,
+              paddingRight: 40,
               fontSize: fsVal,
               fontWeight: 700,
               fontFamily: ff(fontBody),
               letterSpacing: 2,
               color: col('statVal'),
               textShadow: `0 0 16px ${col('statVal')}5a`,
-              overflow: 'hidden',
-              whiteSpace: 'nowrap',
             }}
           >
             {s.valLeft}
@@ -129,15 +125,13 @@ export function BodyType1({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'flex-start',
-              paddingLeft: statGap,
+              paddingLeft: 40,
               fontSize: fsVal,
               fontWeight: 700,
               fontFamily: ff(fontBody),
               letterSpacing: 2,
               color: col('statVal'),
               textShadow: `0 0 16px ${col('statVal')}5a`,
-              overflow: 'hidden',
-              whiteSpace: 'nowrap',
             }}
           >
             {s.valRight}

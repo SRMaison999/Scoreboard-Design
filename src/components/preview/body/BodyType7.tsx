@@ -1,6 +1,5 @@
 import { hexToRgba } from '@/utils/color';
-import { ff } from '@/utils/font';
-import { bodyTitleFs, bodyValueFs, bodyLabelFs, computeFlagDimensions } from '@/utils/fontScale';
+import { ff, scaleFontSize } from '@/utils/font';
 import { Flag } from '@/components/preview/Flag';
 import type { FinalScoreData } from '@/types/bodyTypes/finalScore';
 import type { ColorMap, OpacityMap } from '@/types/colors';
@@ -18,6 +17,7 @@ interface BodyType7Props {
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
   readonly fontSizes?: FontSizeConfig;
+  readonly flagOverrides?: Record<string, string>;
 }
 
 export function BodyType7({
@@ -31,18 +31,12 @@ export function BodyType7({
   opacities,
   fontBody,
   fontSizes,
+  flagOverrides,
 }: BodyType7Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
+  const sc = fontSizes?.bodyScale7 ?? 100;
   const pad = showPenalties ? 10 : 40;
   const { title, periodScores, showGwg, gwgPlayer, gwgTeam, gwgTime, overtimeNote } = finalScoreData;
-
-  const fsTitle = fontSizes ? bodyTitleFs(fontSizes, 32) : 32;
-  const fsTeamName = fontSizes ? bodyValueFs(fontSizes, 48) : 48;
-  const fsScore = fontSizes ? bodyValueFs(fontSizes, 90) : 90;
-  const fsOvertime = fontSizes ? bodyLabelFs(fontSizes, 22) : 22;
-  const fsPeriodSummary = fontSizes ? bodyLabelFs(fontSizes, 20) : 20;
-  const fsGwg = fontSizes ? bodyLabelFs(fontSizes, 20) : 20;
-  const { w: flagW, h: flagH } = computeFlagDimensions(fsTeamName);
 
   const periodSummary = periodScores
     .map((ps) => `${ps.scoreLeft}-${ps.scoreRight}`)
@@ -59,13 +53,12 @@ export function BodyType7({
         padding: `20px ${pad + 20}px`,
         gap: 20,
         fontFamily: ff(fontBody),
-        overflow: 'hidden',
       }}
     >
       {/* Titre */}
       <div
         style={{
-          fontSize: fsTitle,
+          fontSize: scaleFontSize(32, sc),
           fontWeight: 600,
           letterSpacing: 8,
           textTransform: 'uppercase',
@@ -85,10 +78,10 @@ export function BodyType7({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-          <Flag code={team1} w={flagW} h={flagH} />
+          <Flag code={team1} w={70} h={44} flagOverrides={flagOverrides} />
           <span
             style={{
-              fontSize: fsTeamName,
+              fontSize: scaleFontSize(48, sc),
               fontWeight: 700,
               letterSpacing: 4,
               color: col('statVal'),
@@ -99,7 +92,7 @@ export function BodyType7({
         </div>
         <div
           style={{
-            fontSize: fsScore,
+            fontSize: scaleFontSize(90, sc),
             fontWeight: 900,
             color: col('statVal'),
             fontVariantNumeric: 'tabular-nums',
@@ -112,7 +105,7 @@ export function BodyType7({
         <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
           <span
             style={{
-              fontSize: fsTeamName,
+              fontSize: scaleFontSize(48, sc),
               fontWeight: 700,
               letterSpacing: 4,
               color: col('statVal'),
@@ -120,20 +113,20 @@ export function BodyType7({
           >
             {team2}
           </span>
-          <Flag code={team2} w={flagW} h={flagH} />
+          <Flag code={team2} w={70} h={44} flagOverrides={flagOverrides} />
         </div>
       </div>
 
       {/* Note prolongation */}
       {overtimeNote && (
-        <div style={{ fontSize: fsOvertime, fontWeight: 600, color: col('statLabel'), letterSpacing: 4 }}>
+        <div style={{ fontSize: scaleFontSize(22, sc), fontWeight: 600, color: col('statLabel'), letterSpacing: 4 }}>
           ({overtimeNote})
         </div>
       )}
 
       {/* Scores par periode */}
       {periodScores.length > 0 && (
-        <div style={{ fontSize: fsPeriodSummary, color: col('statLabel'), letterSpacing: 3, opacity: 0.7 }}>
+        <div style={{ fontSize: scaleFontSize(20, sc), color: col('statLabel'), letterSpacing: 3, opacity: 0.7 }}>
           {periodSummary}
         </div>
       )}
@@ -142,7 +135,7 @@ export function BodyType7({
       {showGwg && gwgPlayer && (
         <div
           style={{
-            fontSize: fsGwg,
+            fontSize: scaleFontSize(20, sc),
             color: col('statLabel'),
             letterSpacing: 2,
             marginTop: 8,

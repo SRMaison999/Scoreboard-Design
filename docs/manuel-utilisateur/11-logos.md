@@ -1,46 +1,68 @@
-# Gestion des logos
+# Gestion des logos et drapeaux
 
-La section Logos permet d'ajouter des logos d'equipe, de competition et de sponsor/diffuseur sur le scoreboard.
+La section Logos permet d'ajouter des logos d'\u00e9quipe, de comp\u00e9tition et de sponsor/diffuseur sur le scoreboard, ainsi que de personnaliser les drapeaux de pays.
 
 ---
 
 ## Types de logos
 
-L'application supporte trois types de logos :
+L'application supporte quatre types de logos :
 
 | Type | Description | Affichage |
 |------|-------------|-----------|
-| Equipe | Logo de chaque equipe (remplace ou accompagne le drapeau) | Dans l'en-tete, a cote du nom d'equipe |
-| Competition | Logo du tournoi ou de la competition | En superposition sur le canvas (position configurable) |
+| \u00c9quipe | Logo de chaque \u00e9quipe (remplace ou accompagne le drapeau) | Dans l'en-t\u00eate, \u00e0 c\u00f4t\u00e9 du nom d'\u00e9quipe |
+| Comp\u00e9tition | Logo du tournoi ou de la comp\u00e9tition | En superposition sur le canvas (position configurable) |
 | Sponsor | Logo du sponsor ou diffuseur | En superposition sur le canvas (position configurable) |
+| Drapeaux | Remplacement personnalis\u00e9 des drapeaux embarqu\u00e9s | Dans l'en-t\u00eate et les body types concern\u00e9s |
+
+---
+
+## Drapeaux
+
+### Drapeaux embarqu\u00e9s
+
+L'application int\u00e8gre 31 drapeaux SVG correspondant aux nations de hockey (codes NOC). Ces drapeaux sont affich\u00e9s automatiquement dans l'en-t\u00eate du scoreboard et dans certains body types (goal, fiche joueur, classement, score final, roster).
+
+### Remplacer un drapeau
+
+1. Dans le panneau \u00e9diteur, ouvrir la section **Logos**
+2. S\u00e9lectionner l'onglet **Drapeaux**
+3. Choisir le code NOC du drapeau \u00e0 remplacer dans la liste d\u00e9roulante
+4. Cliquer sur **Remplacer un drapeau** et s\u00e9lectionner un fichier image (PNG, JPEG ou WebP)
+
+Le drapeau personnalis\u00e9 remplace le SVG embarqu\u00e9 partout dans le scoreboard (en-t\u00eate et body types).
+
+### Restaurer un drapeau
+
+Pour revenir au drapeau SVG embarqu\u00e9, supprimer le drapeau personnalis\u00e9 en cliquant sur l'ic\u00f4ne de corbeille dans la liste.
 
 ---
 
 ## Ajouter un logo
 
-1. Dans le panneau editeur, ouvrir la section **Logos**
-2. Selectionner l'onglet du type de logo souhaite (Equipe, Competition, Sponsor)
-3. Pour les logos d'equipe : selectionner le code equipe dans la liste deroulante
-4. Pour les logos de competition/sponsor : saisir un identifiant et un nom
-5. Cliquer sur **Ajouter un logo** et selectionner un fichier image (PNG, JPEG ou WebP)
+1. Dans le panneau \u00e9diteur, ouvrir la section **Logos**
+2. S\u00e9lectionner l'onglet du type de logo souhait\u00e9 (\u00c9quipe, Comp\u00e9tition, Sponsor)
+3. Pour les logos d'\u00e9quipe : s\u00e9lectionner le code \u00e9quipe dans la liste d\u00e9roulante
+4. Pour les logos de comp\u00e9tition/sponsor : saisir un identifiant et un nom
+5. Cliquer sur **Ajouter un logo** et s\u00e9lectionner un fichier image (PNG, JPEG ou WebP)
 
-Le logo est automatiquement redimensionne (maximum 300 pixels) tout en conservant ses proportions.
+Le logo est automatiquement redimensionn\u00e9 (maximum 300 pixels) tout en conservant ses proportions.
 
 ---
 
-## Mode d'affichage des logos d'equipe
+## Mode d'affichage des logos d'\u00e9quipe
 
-L'onglet Equipe propose un selecteur de mode d'affichage :
+L'onglet \u00c9quipe propose un s\u00e9lecteur de mode d'affichage :
 
 | Mode | Comportement |
 |------|-------------|
-| Drapeau | Affiche uniquement le drapeau CSS (comportement par defaut) |
-| Logo | Affiche uniquement le logo uploade (fallback au drapeau si aucun logo) |
-| Les deux | Affiche le drapeau et le logo cote a cote |
+| Drapeau | Affiche uniquement le drapeau SVG (comportement par d\u00e9faut) |
+| Logo | Affiche uniquement le logo upload\u00e9 (fallback au drapeau si aucun logo) |
+| Les deux | Affiche le drapeau et le logo c\u00f4te \u00e0 c\u00f4te |
 
 ---
 
-## Logos de competition et sponsor
+## Logos de comp\u00e9tition et sponsor
 
 ### Activation
 
@@ -52,27 +74,27 @@ Six positions sont disponibles :
 
 | Position | Description |
 |----------|-------------|
-| Haut gauche | Coin superieur gauche |
-| Haut centre | Centre superieur |
-| Haut droite | Coin superieur droit |
-| Bas gauche | Coin inferieur gauche |
-| Bas centre | Centre inferieur |
-| Bas droite | Coin inferieur droit |
+| Haut gauche | Coin sup\u00e9rieur gauche |
+| Haut centre | Centre sup\u00e9rieur |
+| Haut droite | Coin sup\u00e9rieur droit |
+| Bas gauche | Coin inf\u00e9rieur gauche |
+| Bas centre | Centre inf\u00e9rieur |
+| Bas droite | Coin inf\u00e9rieur droit |
 
 ### Taille
 
-La taille maximale (en pixels) peut etre ajustee. La valeur par defaut est de 80 pixels pour les logos de competition et 60 pixels pour les logos de sponsor.
+La taille maximale (en pixels) peut \u00eatre ajust\u00e9e. La valeur par d\u00e9faut est de 80 pixels pour les logos de comp\u00e9tition et 60 pixels pour les logos de sponsor.
 
 ---
 
 ## Supprimer un logo
 
-Cliquer sur l'icone de corbeille a droite du logo dans la liste pour le supprimer.
+Cliquer sur l'ic\u00f4ne de corbeille \u00e0 droite du logo dans la liste pour le supprimer.
 
 ---
 
 ## Persistance
 
-Les logos sont stockes dans IndexedDB et persistent entre les sessions. Ils sont independants des templates : un logo uploade reste disponible quel que soit le template charge.
+Les logos et drapeaux personnalis\u00e9s sont stock\u00e9s dans IndexedDB et persistent entre les sessions. Ils sont ind\u00e9pendants des templates : un logo upload\u00e9 reste disponible quel que soit le template charg\u00e9.
 
-Les parametres d'affichage (mode, position, taille, activation) font partie du state du scoreboard et sont sauvegardes avec les templates.
+Les param\u00e8tres d'affichage (mode, position, taille, activation) font partie du state du scoreboard et sont sauvegard\u00e9s avec les templates.

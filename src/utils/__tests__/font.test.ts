@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { ff } from '@/utils/font';
+import { ff, scaleFontSize } from '@/utils/font';
 
 describe('ff', () => {
   it('retourne la font-family pour oswald', () => {
@@ -12,5 +12,32 @@ describe('ff', () => {
 
   it('retourne la font-family pour orbitron', () => {
     expect(ff('orbitron')).toBe("'Orbitron', sans-serif");
+  });
+});
+
+describe('scaleFontSize', () => {
+  it('retourne la base inchangée à 100%', () => {
+    expect(scaleFontSize(30, 100)).toBe(30);
+  });
+
+  it('double la taille à 200%', () => {
+    expect(scaleFontSize(30, 200)).toBe(60);
+  });
+
+  it('divise par deux à 50%', () => {
+    expect(scaleFontSize(30, 50)).toBe(15);
+  });
+
+  it('arrondit correctement les résultats non entiers', () => {
+    expect(scaleFontSize(33, 75)).toBe(25);
+    expect(scaleFontSize(10, 33)).toBe(3);
+  });
+
+  it('retourne 0 pour une base de 0', () => {
+    expect(scaleFontSize(0, 150)).toBe(0);
+  });
+
+  it('retourne 0 pour un scale de 0%', () => {
+    expect(scaleFontSize(30, 0)).toBe(0);
   });
 });

@@ -1,6 +1,5 @@
 import { hexToRgba } from '@/utils/color';
-import { ff } from '@/utils/font';
-import { bodyTitleFs, bodyValueFs, bodyLabelFs, computeFlagDimensions } from '@/utils/fontScale';
+import { ff, scaleFontSize } from '@/utils/font';
 import { Flag } from '@/components/preview/Flag';
 import { PhotoCircle } from '@/components/preview/PhotoCircle';
 import type { GoalData } from '@/types/bodyTypes/goal';
@@ -17,6 +16,7 @@ interface BodyType4Props {
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
   readonly fontSizes?: FontSizeConfig;
+  readonly flagOverrides?: Record<string, string>;
 }
 
 export function BodyType4({
@@ -28,23 +28,14 @@ export function BodyType4({
   opacities,
   fontBody,
   fontSizes,
+  flagOverrides,
 }: BodyType4Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
+  const sc = fontSizes?.bodyScale4 ?? 100;
   const pad = showPenalties ? 10 : 40;
   const scoringTeam = goalData.scoringTeamSide === 'left' ? team1 : team2;
   const hasAssist1 = goalData.assist1Name.trim() !== '';
   const hasAssist2 = goalData.assist2Name.trim() !== '';
-
-  const fsTitleGoal = fontSizes ? bodyTitleFs(fontSizes, 72) : 72;
-  const fsTeamCode = fontSizes ? bodyLabelFs(fontSizes, 36) : 36;
-  const fsScorerName = fontSizes ? bodyValueFs(fontSizes, 40) : 40;
-  const fsStats = fontSizes ? bodyLabelFs(fontSizes, 22) : 22;
-  const fsAssist1 = fontSizes ? bodyLabelFs(fontSizes, 24) : 24;
-  const fsAssist2 = fontSizes ? bodyLabelFs(fontSizes, 22) : 22;
-  const fsTime = fontSizes ? bodyLabelFs(fontSizes, 20) : 20;
-  const photoSize = fontSizes ? bodyValueFs(fontSizes, 140) : 140;
-  const photoFs = fontSizes ? bodyValueFs(fontSizes, 48) : 48;
-  const { w: flagW, h: flagH } = computeFlagDimensions(fsTeamCode);
 
   return (
     <div
@@ -57,13 +48,12 @@ export function BodyType4({
         padding: `20px ${pad + 20}px`,
         gap: 16,
         fontFamily: ff(fontBody),
-        overflow: 'hidden',
       }}
     >
       {/* GOAL! */}
       <div
         style={{
-          fontSize: fsTitleGoal,
+          fontSize: scaleFontSize(72, sc),
           fontWeight: 900,
           letterSpacing: 12,
           textTransform: 'uppercase',
@@ -76,10 +66,10 @@ export function BodyType4({
 
       {/* Equipe + drapeau */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-        <Flag code={scoringTeam} w={flagW} h={flagH} />
+        <Flag code={scoringTeam} w={60} h={38} flagOverrides={flagOverrides} />
         <div
           style={{
-            fontSize: fsTeamCode,
+            fontSize: scaleFontSize(36, sc),
             fontWeight: 700,
             letterSpacing: 6,
             color: col('statVal'),
@@ -93,8 +83,8 @@ export function BodyType4({
       <PhotoCircle
         photo={goalData.scorerPhoto}
         fallbackText={goalData.scorerNumber}
-        size={photoSize}
-        fontSize={photoFs}
+        size={scaleFontSize(140, sc)}
+        fontSize={scaleFontSize(48, sc)}
         color={col('statVal')}
         fontFamily={ff(fontBody)}
       />
@@ -102,7 +92,7 @@ export function BodyType4({
       {/* Nom du buteur */}
       <div
         style={{
-          fontSize: fsScorerName,
+          fontSize: scaleFontSize(40, sc),
           fontWeight: 700,
           letterSpacing: 4,
           textTransform: 'uppercase',
@@ -113,7 +103,7 @@ export function BodyType4({
       </div>
 
       {/* Stats du buteur */}
-      <div style={{ display: 'flex', gap: 30, fontSize: fsStats, color: col('statLabel') }}>
+      <div style={{ display: 'flex', gap: 30, fontSize: scaleFontSize(22, sc), color: col('statLabel') }}>
         {goalData.goalCountMatch && (
           <span>{goalData.goalCountMatch}e but du match</span>
         )}
@@ -124,12 +114,12 @@ export function BodyType4({
 
       {/* Assists */}
       {hasAssist1 && (
-        <div style={{ fontSize: fsAssist1, color: col('statLabel'), letterSpacing: 2 }}>
+        <div style={{ fontSize: scaleFontSize(24, sc), color: col('statLabel'), letterSpacing: 2 }}>
           Assist : #{goalData.assist1Number} {goalData.assist1Name}
         </div>
       )}
       {hasAssist2 && (
-        <div style={{ fontSize: fsAssist2, color: col('statLabel'), letterSpacing: 2, opacity: 0.8 }}>
+        <div style={{ fontSize: scaleFontSize(22, sc), color: col('statLabel'), letterSpacing: 2, opacity: 0.8 }}>
           Assist 2 : #{goalData.assist2Number} {goalData.assist2Name}
         </div>
       )}
@@ -137,7 +127,7 @@ export function BodyType4({
       {/* Temps et periode */}
       <div
         style={{
-          fontSize: fsTime,
+          fontSize: scaleFontSize(20, sc),
           color: col('statLabel'),
           opacity: 0.7,
           letterSpacing: 3,

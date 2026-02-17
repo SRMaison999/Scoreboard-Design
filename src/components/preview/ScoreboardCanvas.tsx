@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Header } from './Header';
 import { ClockOverlay } from './ClockOverlay';
 import { PenaltyColumn } from './PenaltyColumn';
@@ -43,9 +44,10 @@ interface BodyProps {
   readonly fontBody: FontId;
   readonly fontSizes: FontSizeConfig;
   readonly playerPhotos: Record<string, string>;
+  readonly flagOverrides: Record<string, string>;
 }
 
-function BodyRenderer({ state, colors, opacities, fontBody, fontSizes, playerPhotos }: BodyProps) {
+function BodyRenderer({ state, colors, opacities, fontBody, fontSizes, playerPhotos, flagOverrides }: BodyProps) {
   const shared = { showPenalties: state.showPenalties, colors, opacities, fontBody, fontSizes };
 
   switch (state.bodyType) {
@@ -54,13 +56,13 @@ function BodyRenderer({ state, colors, opacities, fontBody, fontSizes, playerPho
     case 3:
       return <BodyType3 playerStats={state.playerStats} titleCenter={state.titleCenter} showPlayerPhoto={state.showPlayerPhoto} playerPhotos={playerPhotos} {...shared} />;
     case 4:
-      return <BodyType4 goalData={state.goalData} team1={state.team1} team2={state.team2} {...shared} />;
+      return <BodyType4 goalData={state.goalData} team1={state.team1} team2={state.team2} flagOverrides={flagOverrides} {...shared} />;
     case 5:
-      return <BodyType5 playerCardData={state.playerCardData} {...shared} />;
+      return <BodyType5 playerCardData={state.playerCardData} flagOverrides={flagOverrides} {...shared} />;
     case 6:
-      return <BodyType6 standingsData={state.standingsData} {...shared} />;
+      return <BodyType6 standingsData={state.standingsData} flagOverrides={flagOverrides} {...shared} />;
     case 7:
-      return <BodyType7 finalScoreData={state.finalScoreData} team1={state.team1} team2={state.team2} score1={state.score1} score2={state.score2} {...shared} />;
+      return <BodyType7 finalScoreData={state.finalScoreData} team1={state.team1} team2={state.team2} score1={state.score1} score2={state.score2} flagOverrides={flagOverrides} {...shared} />;
     case 8:
       return <BodyType8 freeTextData={state.freeTextData} {...shared} />;
     case 9:
@@ -70,7 +72,7 @@ function BodyRenderer({ state, colors, opacities, fontBody, fontSizes, playerPho
     case 11:
       return <BodyType11 barChartData={state.barChartData} team1={state.team1} team2={state.team2} {...shared} />;
     case 12:
-      return <BodyType12 rosterData={state.rosterData} {...shared} />;
+      return <BodyType12 rosterData={state.rosterData} flagOverrides={flagOverrides} {...shared} />;
     case 13:
       return <BodyType13 scheduleData={state.scheduleData} {...shared} />;
     default:
@@ -114,6 +116,16 @@ export function ScoreboardCanvas({
   const { colors, opacities, fontSizes } = state;
   const col = (key: keyof typeof colors) =>
     hexToRgba(colors[key], opacities[key] ?? 0);
+
+  const flagOverrides = useMemo(() => {
+    const result: Record<string, string> = {};
+    for (const [key, value] of Object.entries(logos)) {
+      if (key.startsWith('flag-')) {
+        result[key] = value;
+      }
+    }
+    return result;
+  }, [logos]);
 
   const bg =
     state.bgMode === 'uniform'
@@ -194,6 +206,7 @@ export function ScoreboardCanvas({
           shootoutRight={state.shootoutRight}
           logoMode={state.logoMode}
           teamLogos={logos}
+          flagOverrides={flagOverrides}
           scorePopLeft={scorePopLeft}
           scorePopRight={scorePopRight}
         />
@@ -226,7 +239,7 @@ export function ScoreboardCanvas({
           <PenaltyColumn side="left" penalties={state.penaltiesLeft} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} flash={penaltyFlashLeft} clockTenthsThreshold={state.clockTenthsThreshold} />
         )}
 
-        <BodyRenderer state={state} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizes={fontSizes} playerPhotos={playerPhotos} />
+        <BodyRenderer state={state} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizes={fontSizes} playerPhotos={playerPhotos} flagOverrides={flagOverrides} />
 
         {state.showPenalties && (
           <PenaltyColumn side="right" penalties={state.penaltiesRight} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} flash={penaltyFlashRight} clockTenthsThreshold={state.clockTenthsThreshold} />

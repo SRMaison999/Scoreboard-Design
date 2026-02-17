@@ -16,6 +16,8 @@
   [data-testid="scoreboard-canvas"],
   [data-testid="scoreboard-canvas"] * {
     visibility: visible;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   /* Neutraliser les transforms et overflow des conteneurs parents

@@ -72,7 +72,7 @@ A l'interieur de chaque sous-onglet, les sections peuvent etre repliees en cliqu
 ### Sous-onglet Polices
 
 - **Polices** : 3 zones de police independantes (equipes, horloge, corps)
-- **Tailles de police** : controle granulaire de chaque element textuel
+- **Tailles de police** : controle granulaire de chaque element textuel, avec mise a l'echelle proportionnelle par type de corps (50-200%)
 
 ### Sous-onglet Couleurs
 
@@ -128,7 +128,7 @@ A l'interieur de chaque sous-onglet, les sections peuvent etre repliees en cliqu
 
 CAN, USA, RUS, SWE, FIN, CZE, SVK, SUI, GER, DEN, NOR, LAT, AUT, FRA, BLR, KAZ, SLO, HUN, GBR, POL, ITA, JPN, KOR, CHN, ROU, CRO, UKR, EST, LTU, SRB, BUL
 
-Chaque equipe est accompagnee de son drapeau, rendu en CSS (sans images externes).
+Chaque \u00e9quipe est accompagn\u00e9e de son drapeau SVG embarqu\u00e9 dans l'application. Les drapeaux peuvent \u00eatre remplac\u00e9s par des images personnalis\u00e9es via l'onglet **Drapeaux** de la section Logos.
 
 ## Scores
 

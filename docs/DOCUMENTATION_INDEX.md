@@ -18,7 +18,7 @@
 | [manuel-utilisateur/01-introduction.md](./manuel-utilisateur/01-introduction.md) | Presentation de l'application et prise en main |
 | [manuel-utilisateur/02-editeur.md](./manuel-utilisateur/02-editeur.md) | Guide complet du panneau editeur |
 | [manuel-utilisateur/03-body-types.md](./manuel-utilisateur/03-body-types.md) | Les 13 types d'affichage disponibles |
-| [manuel-utilisateur/04-personnalisation.md](./manuel-utilisateur/04-personnalisation.md) | Couleurs, polices, dimensions, presets |
+| [manuel-utilisateur/04-personnalisation.md](./manuel-utilisateur/04-personnalisation.md) | Couleurs, polices, dimensions, presets, mise a l'echelle par corps |
 | [manuel-utilisateur/05-horloge-et-phases.md](./manuel-utilisateur/05-horloge-et-phases.md) | Configuration de l'horloge, des phases et du mode demo |
 | [manuel-utilisateur/06-templates.md](./manuel-utilisateur/06-templates.md) | Sauvegarde, chargement, import et export de templates |
 | [manuel-utilisateur/07-mode-operateur.md](./manuel-utilisateur/07-mode-operateur.md) | Mode operateur live et raccourcis clavier |

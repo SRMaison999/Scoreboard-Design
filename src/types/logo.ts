@@ -1,4 +1,4 @@
-export type LogoType = 'team' | 'competition' | 'sponsor';
+export type LogoType = 'team' | 'competition' | 'sponsor' | 'flag';
 
 export type LogoPosition =
   | 'top-left'

@@ -8,3 +8,11 @@ export function ff(id: FontId): string {
   if (!found && !fallback) return 'sans-serif';
   return (found ?? fallback!).family;
 }
+
+/**
+ * Applique un facteur d'échelle en pourcentage à une taille de police de base.
+ * Un scalePercent de 100 retourne la base inchangée.
+ */
+export function scaleFontSize(base: number, scalePercent: number): number {
+  return Math.round(base * scalePercent / 100);
+}

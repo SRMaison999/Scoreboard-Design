@@ -20,6 +20,7 @@ const TAB_OPTIONS: { value: LogoType; label: string }[] = [
   { value: 'team', label: L.logoTeamTab },
   { value: 'competition', label: L.logoCompetitionTab },
   { value: 'sponsor', label: L.logoSponsorTab },
+  { value: 'flag', label: L.logoFlagTab },
 ];
 
 const LOGO_MODE_OPTIONS = [
@@ -60,7 +61,7 @@ export function LogoSection() {
       const file = e.target.files?.[0];
       if (!file || !key) return;
       void addLogo(tab, key, name, file);
-      if (tab !== 'team') { setKey(''); setName(''); }
+      if (tab !== 'team' && tab !== 'flag') { setKey(''); setName(''); }
       if (inputRef.current) inputRef.current.value = '';
     },
     [tab, key, name, addLogo],
@@ -86,7 +87,7 @@ export function LogoSection() {
             <button
               key={t.value}
               type="button"
-              onClick={() => { setTab(t.value); setKey(t.value === 'team' ? 'CAN' : ''); setName(''); }}
+              onClick={() => { setTab(t.value); setKey(t.value === 'team' || t.value === 'flag' ? 'CAN' : ''); setName(''); }}
               className={`flex-1 text-[10px] py-1 rounded cursor-pointer ${
                 tab === t.value
                   ? 'bg-blue-600 text-white'
@@ -120,7 +121,7 @@ export function LogoSection() {
       {loading && <div className="text-xs text-gray-500">...</div>}
 
       {!loading && filtered.length === 0 && (
-        <div className="text-xs text-gray-500">{L.logoEmpty}</div>
+        <div className="text-xs text-gray-500">{tab === 'flag' ? L.logoFlagEmpty : L.logoEmpty}</div>
       )}
 
       {filtered.length > 0 && (
@@ -169,6 +170,19 @@ interface LogoUploadFormProps {
 }
 
 function LogoUploadForm({ tab, logoKey, name, onKeyChange, onNameChange, onAddClick, disabled }: LogoUploadFormProps) {
+  if (tab === 'flag') {
+    return (
+      <>
+        <div className="w-24">
+          <Select label={L.logoTeamCode} options={TEAM_OPTIONS} value={logoKey} onChange={onKeyChange} />
+        </div>
+        <Button variant="add" onClick={onAddClick} disabled={disabled}>
+          {L.logoFlagAdd}
+        </Button>
+      </>
+    );
+  }
+
   return (
     <>
       <div className="flex gap-1.5">
@@ -208,6 +222,8 @@ function LogoDisplaySettings({
   tab, logoMode, showCompetitionLogo, competitionLogoPosition, competitionLogoSize,
   showSponsorLogo, sponsorLogoPosition, sponsorLogoSize, update,
 }: LogoDisplaySettingsProps) {
+  if (tab === 'flag') return null;
+
   if (tab === 'team') {
     return (
       <div className="pt-1 border-t border-gray-800">

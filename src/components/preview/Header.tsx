@@ -1,7 +1,7 @@
+import { useMemo } from 'react';
 import { Flag } from './Flag';
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
-import { computeFlagDimensions } from '@/utils/fontScale';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
 import type { ShootoutAttempt } from '@/types/bodyTypes/shootout';
@@ -26,6 +26,7 @@ interface HeaderProps {
   readonly shootoutRight?: readonly ShootoutAttempt[];
   readonly logoMode?: LogoMode;
   readonly teamLogos?: Record<string, string>;
+  readonly flagOverrides?: Record<string, string>;
   readonly scorePopLeft?: boolean;
   readonly scorePopRight?: boolean;
 }
@@ -83,38 +84,56 @@ function ShootoutDisplay({ attempts, color }: { readonly attempts: readonly Shoo
   );
 }
 
-function TeamBadge({ code, logoMode, teamLogos, fontSizeTeamName }: {
+const FLAG_ASPECT = 1.54;
+
+/** Measure the actual capital letter height using Canvas 2D text metrics. */
+function measureCapHeight(fontFamily: string, fontSize: number, fontWeight: number, text: string): number {
+  if (typeof document === 'undefined') return Math.round(fontSize * 0.72);
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return Math.round(fontSize * 0.72);
+  ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+  const metrics = ctx.measureText(text);
+  const ascent = metrics.actualBoundingBoxAscent ?? 0;
+  const descent = metrics.actualBoundingBoxDescent ?? 0;
+  const measured = ascent + descent;
+  return measured > 0 ? Math.round(measured) : Math.round(fontSize * 0.72);
+}
+
+function TeamBadge({ code, logoMode, teamLogos, flagOverrides, flagHeight }: {
   readonly code: string;
   readonly logoMode: LogoMode;
   readonly teamLogos: Record<string, string>;
-  readonly fontSizeTeamName: number;
+  readonly flagOverrides: Record<string, string>;
+  readonly flagHeight: number;
 }) {
   const logoUrl = teamLogos[`team-${code}`] ?? '';
   const showFlag = logoMode === 'flag' || logoMode === 'both' || !logoUrl;
   const showLogo = (logoMode === 'logo' || logoMode === 'both') && logoUrl;
-  const { w: flagW, h: flagH } = computeFlagDimensions(fontSizeTeamName);
+  const flagW = Math.round(flagHeight * FLAG_ASPECT);
 
   if (showLogo && !showFlag) {
-    const logoStyle: CSSProperties = { width: flagW, height: flagH, objectFit: 'contain', flexShrink: 0 };
+    const logoStyle: CSSProperties = { width: flagW, height: flagHeight, objectFit: 'contain', flexShrink: 0 };
     return <img src={logoUrl} alt="" style={logoStyle} />;
   }
 
   if (showLogo && showFlag) {
-    const smallH = Math.round(flagH * 0.7);
-    const smallW = Math.round(smallH * 1.5);
-    const logoStyle: CSSProperties = { width: flagH, height: flagH, objectFit: 'contain', flexShrink: 0 };
+    const smallH = Math.round(flagHeight * 0.68);
+    const smallW = Math.round(smallH * FLAG_ASPECT);
+    const logoStyle: CSSProperties = { width: flagHeight, height: flagHeight, objectFit: 'contain', flexShrink: 0 };
     return (
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-        <Flag code={code} w={smallW} h={smallH} />
+        <Flag code={code} w={smallW} h={smallH} flagOverrides={flagOverrides} />
         <img src={logoUrl} alt="" style={logoStyle} />
       </div>
     );
   }
 
-  return <Flag code={code} w={flagW} h={flagH} />;
+  return <Flag code={code} w={flagW} h={flagHeight} flagOverrides={flagOverrides} />;
 }
 
 const EMPTY_LOGOS: Record<string, string> = {};
+const EMPTY_FLAG_OVERRIDES: Record<string, string> = {};
 
 export function Header({
   team1, team2, score1, score2,
@@ -123,11 +142,22 @@ export function Header({
   showTimeouts = false, timeoutsLeft = 0, timeoutsRight = 0,
   showShootout = false, shootoutLeft = [], shootoutRight = [],
   logoMode = 'flag', teamLogos = EMPTY_LOGOS,
+  flagOverrides = EMPTY_FLAG_OVERRIDES,
   scorePopLeft = false, scorePopRight = false,
 }: HeaderProps) {
   const c = (key: keyof ColorMap) => col(colors, opacities, key);
   const hasScoreBox = !!colors.scoreBox;
   const maxTimeouts = 1;
+  const fontFamily = ff(fontTeams);
+
+  const flagH1 = useMemo(
+    () => measureCapHeight(fontFamily, fontSizeTeamName, 700, team1),
+    [fontFamily, fontSizeTeamName, team1],
+  );
+  const flagH2 = useMemo(
+    () => measureCapHeight(fontFamily, fontSizeTeamName, 700, team2),
+    [fontFamily, fontSizeTeamName, team2],
+  );
 
   const baseScoreStyle: React.CSSProperties = {
     fontSize: fontSizeScore, fontWeight: 700, minWidth: 75, textAlign: 'center',
@@ -140,16 +170,15 @@ export function Header({
 
   const teamStyle: React.CSSProperties = {
     fontSize: fontSizeTeamName, fontWeight: 700, letterSpacing: 6,
-    lineHeight: 1,
     textShadow: '0 3px 15px rgba(0,0,0,0.5)', color: c('teamName'),
   };
 
   return (
-    <div style={{ fontFamily: ff(fontTeams) }}>
+    <div style={{ fontFamily }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-            <TeamBadge code={team1} logoMode={logoMode} teamLogos={teamLogos} fontSizeTeamName={fontSizeTeamName} />
+            <TeamBadge code={team1} logoMode={logoMode} teamLogos={teamLogos} flagOverrides={flagOverrides} flagHeight={flagH1} />
             {showShootout && <ShootoutDisplay attempts={shootoutLeft} color={c('teamName')} />}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -165,7 +194,7 @@ export function Header({
             {showTimeouts && <TimeoutDots count={timeoutsRight} maxTimeouts={maxTimeouts} />}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-            <TeamBadge code={team2} logoMode={logoMode} teamLogos={teamLogos} fontSizeTeamName={fontSizeTeamName} />
+            <TeamBadge code={team2} logoMode={logoMode} teamLogos={teamLogos} flagOverrides={flagOverrides} flagHeight={flagH2} />
             {showShootout && <ShootoutDisplay attempts={shootoutRight} color={c('teamName')} />}
           </div>
         </div>

@@ -1,6 +1,5 @@
 import { hexToRgba } from '@/utils/color';
-import { ff } from '@/utils/font';
-import { bodyTitleFs, bodyValueFs, bodyLabelFs } from '@/utils/fontScale';
+import { ff, scaleFontSize } from '@/utils/font';
 import type { TimelineData, TimelineEventType } from '@/types/bodyTypes/timeline';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
@@ -32,18 +31,8 @@ export function BodyType10({
 }: BodyType10Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const pad = showPenalties ? 10 : 40;
+  const sc = fontSizes?.bodyScale10 ?? 100;
   const { title, events } = timelineData;
-
-  const fsTitle = fontSizes ? bodyTitleFs(fontSizes, 26) : 26;
-  const fsIcon = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
-  const fsPeriod = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
-  const fsTime = fontSizes ? bodyValueFs(fontSizes, 18) : 18;
-  const fsTeam = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
-  const fsDesc = fontSizes ? bodyValueFs(fontSizes, 16) : 16;
-  const iconSize = fontSizes ? bodyValueFs(fontSizes, 30) : 30;
-  const periodColW = fontSizes ? bodyLabelFs(fontSizes, 40) : 40;
-  const timeColW = fontSizes ? bodyValueFs(fontSizes, 60) : 60;
-  const teamColW = fontSizes ? bodyLabelFs(fontSizes, 50) : 50;
 
   return (
     <div
@@ -61,7 +50,7 @@ export function BodyType10({
       {/* Titre */}
       <div
         style={{
-          fontSize: fsTitle,
+          fontSize: scaleFontSize(26, sc),
           fontWeight: 600,
           letterSpacing: 5,
           textTransform: 'uppercase',
@@ -72,7 +61,7 @@ export function BodyType10({
         {title}
       </div>
 
-      {/* Lignes d'evenements */}
+      {/* Lignes d'événements */}
       {events.map((event, i) => (
         <div
           key={`tl-${i}`}
@@ -87,14 +76,14 @@ export function BodyType10({
         >
           <div
             style={{
-              width: iconSize,
-              height: iconSize,
+              width: 30,
+              height: 30,
               borderRadius: '50%',
               background: event.type === 'goal' ? 'rgba(255,215,0,0.25)' : 'rgba(255,255,255,0.08)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: fsIcon,
+              fontSize: scaleFontSize(14, sc),
               fontWeight: 700,
               color: col('statVal'),
               flexShrink: 0,
@@ -102,35 +91,30 @@ export function BodyType10({
           >
             {EVENT_SYMBOLS[event.type]}
           </div>
-          <div style={{ fontSize: fsPeriod, color: col('statLabel'), width: periodColW, flexShrink: 0, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
+          <div style={{ fontSize: scaleFontSize(14, sc), color: col('statLabel'), width: 40, flexShrink: 0 }}>
             {event.period}
           </div>
           <div
             style={{
-              fontSize: fsTime,
+              fontSize: scaleFontSize(18, sc),
               fontWeight: 600,
               fontVariantNumeric: 'tabular-nums',
               color: col('statVal'),
-              width: timeColW,
+              width: 60,
               flexShrink: 0,
-              overflow: 'hidden',
-              whiteSpace: 'nowrap',
             }}
           >
             {event.time}
           </div>
           <div
             style={{
-              fontSize: fsTeam,
+              fontSize: scaleFontSize(14, sc),
               fontWeight: 500,
               letterSpacing: 2,
               color: col('statLabel'),
-              width: teamColW,
+              width: 50,
               flexShrink: 0,
               textTransform: 'uppercase',
-              overflow: 'hidden',
-              whiteSpace: 'nowrap',
-              textOverflow: 'ellipsis',
             }}
           >
             {event.team}
@@ -138,7 +122,7 @@ export function BodyType10({
           <div
             style={{
               flex: 1,
-              fontSize: fsDesc,
+              fontSize: scaleFontSize(16, sc),
               color: col('statVal'),
               textTransform: 'uppercase',
               letterSpacing: 1,

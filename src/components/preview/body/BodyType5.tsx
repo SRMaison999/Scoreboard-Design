@@ -1,6 +1,5 @@
 import { hexToRgba } from '@/utils/color';
-import { ff } from '@/utils/font';
-import { bodyTitleFs, bodyValueFs, bodyLabelFs, computeFlagDimensions } from '@/utils/fontScale';
+import { ff, scaleFontSize } from '@/utils/font';
 import { Flag } from '@/components/preview/Flag';
 import { PhotoCircle } from '@/components/preview/PhotoCircle';
 import type { PlayerCardData } from '@/types/bodyTypes/playerCard';
@@ -15,6 +14,7 @@ interface BodyType5Props {
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
   readonly fontSizes?: FontSizeConfig;
+  readonly flagOverrides?: Record<string, string>;
 }
 
 export function BodyType5({
@@ -24,20 +24,12 @@ export function BodyType5({
   opacities,
   fontBody,
   fontSizes,
+  flagOverrides,
 }: BodyType5Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
+  const sc = fontSizes?.bodyScale5 ?? 100;
   const pad = showPenalties ? 10 : 40;
   const { title, subtitle, playerName, playerNumber, playerTeam, playerPhoto, stats } = playerCardData;
-
-  const fsTitle = fontSizes ? bodyTitleFs(fontSizes, 30) : 30;
-  const fsSubtitle = fontSizes ? bodyLabelFs(fontSizes, 20) : 20;
-  const fsPlayerName = fontSizes ? bodyValueFs(fontSizes, 40) : 40;
-  const fsTeamCode = fontSizes ? bodyLabelFs(fontSizes, 22) : 22;
-  const fsStatValue = fontSizes ? bodyValueFs(fontSizes, 36) : 36;
-  const fsStatLabel = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
-  const photoSize = fontSizes ? bodyValueFs(fontSizes, 180) : 180;
-  const photoFs = fontSizes ? bodyValueFs(fontSizes, 56) : 56;
-  const { w: flagW, h: flagH } = computeFlagDimensions(fsTeamCode);
 
   return (
     <div
@@ -50,13 +42,12 @@ export function BodyType5({
         padding: `20px ${pad + 20}px`,
         gap: 14,
         fontFamily: ff(fontBody),
-        overflow: 'hidden',
       }}
     >
       {/* Titre */}
       <div
         style={{
-          fontSize: fsTitle,
+          fontSize: scaleFontSize(30, sc),
           fontWeight: 600,
           letterSpacing: 5,
           textTransform: 'uppercase',
@@ -67,7 +58,7 @@ export function BodyType5({
       </div>
 
       {subtitle && (
-        <div style={{ fontSize: fsSubtitle, color: col('statLabel'), letterSpacing: 3, opacity: 0.7 }}>
+        <div style={{ fontSize: scaleFontSize(20, sc), color: col('statLabel'), letterSpacing: 3, opacity: 0.7 }}>
           {subtitle}
         </div>
       )}
@@ -77,8 +68,8 @@ export function BodyType5({
         <PhotoCircle
           photo={playerPhoto}
           fallbackText={playerNumber}
-          size={photoSize}
-          fontSize={photoFs}
+          size={scaleFontSize(180, sc)}
+          fontSize={scaleFontSize(56, sc)}
           color={col('statVal')}
           fontFamily={ff(fontBody)}
         />
@@ -87,7 +78,7 @@ export function BodyType5({
       {/* Nom + equipe */}
       <div
         style={{
-          fontSize: fsPlayerName,
+          fontSize: scaleFontSize(40, sc),
           fontWeight: 700,
           letterSpacing: 4,
           textTransform: 'uppercase',
@@ -97,8 +88,8 @@ export function BodyType5({
         {playerName}
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <Flag code={playerTeam} w={flagW} h={flagH} />
-        <span style={{ fontSize: fsTeamCode, letterSpacing: 4, color: col('statLabel') }}>
+        <Flag code={playerTeam} w={50} h={32} flagOverrides={flagOverrides} />
+        <span style={{ fontSize: scaleFontSize(22, sc), letterSpacing: 4, color: col('statLabel') }}>
           {playerTeam}
         </span>
       </div>
@@ -118,7 +109,7 @@ export function BodyType5({
             <div key={`st-${i}`} style={{ textAlign: 'center' }}>
               <div
                 style={{
-                  fontSize: fsStatValue,
+                  fontSize: scaleFontSize(36, sc),
                   fontWeight: 700,
                   color: col('statVal'),
                   fontVariantNumeric: 'tabular-nums',
@@ -129,7 +120,7 @@ export function BodyType5({
               </div>
               <div
                 style={{
-                  fontSize: fsStatLabel,
+                  fontSize: scaleFontSize(14, sc),
                   fontWeight: 500,
                   letterSpacing: 2,
                   textTransform: 'uppercase',

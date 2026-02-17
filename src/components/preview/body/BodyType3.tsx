@@ -1,6 +1,5 @@
 import { hexToRgba } from '@/utils/color';
-import { ff } from '@/utils/font';
-import { computeStatGap } from '@/utils/fontScale';
+import { ff, scaleFontSize } from '@/utils/font';
 import { FONT_SIZES } from '@/constants/fontSizes';
 import { PhotoCircle } from '@/components/preview/PhotoCircle';
 import type { PlayerStat } from '@/types/scoreboard';
@@ -49,14 +48,10 @@ export function BodyType3({
 }: BodyType3Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const n = playerStats.length;
-  const autoFs = FONT_SIZES[Math.min(Math.max(n, 1), 8)] ?? FONT_SIZES[1]!;
-  const fsVal = fontSizes?.statValue || autoFs.val;
-  const fsLabel = fontSizes?.statLabel || autoFs.label;
-  const fsTitle = fontSizes?.title || 30;
+  const fs = FONT_SIZES[Math.min(Math.max(n, 1), 8)] ?? FONT_SIZES[1]!;
   const contentPad = showPenalties ? 10 : 40;
-  const rowFs = fsVal * 0.55;
-  const rowLabelFs = fsLabel * 0.55;
-  const gridGap = computeStatGap(rowFs, rowLabelFs);
+  const sc = fontSizes?.bodyScale3 ?? 100;
+  const rowFs = scaleFontSize(Math.round(fs.val * 0.55), sc);
 
   return (
     <div
@@ -65,13 +60,12 @@ export function BodyType3({
         display: 'flex',
         flexDirection: 'column',
         padding: `40px ${contentPad + 20}px`,
-        overflow: 'hidden',
       }}
     >
       <div
         style={{
           textAlign: 'center',
-          fontSize: fsTitle,
+          fontSize: scaleFontSize(30, sc),
           fontWeight: 600,
           letterSpacing: 5,
           fontFamily: ff(fontBody),
@@ -93,7 +87,7 @@ export function BodyType3({
             ? 'auto auto auto auto'
             : 'auto auto auto',
           gridTemplateRows: `repeat(${playerStats.length}, 1fr)`,
-          gap: `0 ${gridGap}px`,
+          gap: '0 35px',
           alignItems: 'center',
           justifyContent: 'center',
         }}
@@ -105,7 +99,7 @@ export function BodyType3({
             <div
               key={`lb-${i}`}
               style={{
-                fontSize: rowLabelFs,
+                fontSize: rowFs,
                 fontWeight: 500,
                 letterSpacing: 3,
                 textTransform: 'uppercase',

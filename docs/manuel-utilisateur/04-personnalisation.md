@@ -80,6 +80,41 @@ Chaque element textuel a un slider de taille individuel :
 | Temps de penalite | 30-80px |
 | Numeros de penalite | 30-80px |
 
+### Mise a l'echelle du corps
+
+En plus des tailles individuelles ci-dessus, un **slider de mise a l'echelle** permet d'ajuster proportionnellement toutes les tailles de texte du corps actif. Ce slider est contextuel : il affiche le nom du type de corps actuellement selectionne.
+
+| Parametre | Valeur |
+|-----------|--------|
+| Plage | 50% - 200% |
+| Pas | 5% |
+| Defaut | 100% |
+
+Chaque type de corps (1 a 13) possede son propre facteur d'echelle independant. Modifier le slider pour un type de corps n'affecte pas les autres.
+
+**Exemples d'utilisation :**
+- A 100% (defaut), les tailles sont celles d'origine
+- A 150%, tous les textes du corps sont agrandis de 50%
+- A 75%, tous les textes du corps sont reduits de 25%
+
+Les 13 types de corps concernes :
+
+| Type | Nom |
+|------|-----|
+| 1 | Stats centrees |
+| 2 | Stats gauche/droite |
+| 3 | Stats joueur |
+| 4 | Celebration de but |
+| 5 | Fiche joueur |
+| 6 | Classement |
+| 7 | Score final |
+| 8 | Texte libre |
+| 9 | Face a face |
+| 10 | Chronologie |
+| 11 | Diagramme en barres |
+| 12 | Liste de joueurs |
+| 13 | Calendrier |
+
 ## Dimensions du template
 
 ### Presets de resolution

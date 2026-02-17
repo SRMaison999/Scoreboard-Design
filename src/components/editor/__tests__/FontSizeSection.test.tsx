@@ -47,4 +47,26 @@ describe('FontSizeSection', () => {
     fireEvent.change(teamNameSlider, { target: { value: '60' } });
     expect(useScoreboardStore.getState().fontSizes.teamName).toBe(60);
   });
+
+  it('affiche le slider de mise à l échelle du corps', async () => {
+    render(<FontSizeSection />);
+    await openSection();
+    expect(screen.getByText(/Mise à l\u2019échelle/i)).toBeInTheDocument();
+  });
+
+  it('affiche la valeur du body scale en pourcentage', async () => {
+    render(<FontSizeSection />);
+    await openSection();
+    expect(screen.getByText('100%')).toBeInTheDocument();
+  });
+
+  it('met à jour le body scale via slider', async () => {
+    render(<FontSizeSection />);
+    await openSection();
+    const sliders = screen.getAllByRole('slider');
+    const bodyScaleSlider = sliders[sliders.length - 3]!;
+    fireEvent.change(bodyScaleSlider, { target: { value: '150' } });
+    const state = useScoreboardStore.getState();
+    expect(state.fontSizes.bodyScale1).toBe(150);
+  });
 });

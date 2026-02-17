@@ -1,6 +1,5 @@
 import { hexToRgba } from '@/utils/color';
-import { ff } from '@/utils/font';
-import { bodyTitleFs, bodyValueFs, bodyLabelFs } from '@/utils/fontScale';
+import { ff, scaleFontSize } from '@/utils/font';
 import type { ScheduleData, MatchStatus } from '@/types/bodyTypes/schedule';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
@@ -39,20 +38,8 @@ export function BodyType13({
 }: BodyType13Props) {
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const pad = showPenalties ? 10 : 40;
+  const sc = fontSizes?.bodyScale13 ?? 100;
   const { title, matches } = scheduleData;
-
-  const fsTitle = fontSizes ? bodyTitleFs(fontSizes, 26) : 26;
-  const fsDate = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
-  const fsTime = fontSizes ? bodyValueFs(fontSizes, 16) : 16;
-  const fsTeams = fontSizes ? bodyValueFs(fontSizes, 20) : 20;
-  const fsScore = fontSizes ? bodyValueFs(fontSizes, 18) : 18;
-  const fsStatus = fontSizes ? bodyLabelFs(fontSizes, 12) : 12;
-  const fsVenue = fontSizes ? bodyLabelFs(fontSizes, 12) : 12;
-  const fsVs = fontSizes ? bodyLabelFs(fontSizes, 14) : 14;
-  const dateColW = fontSizes ? bodyLabelFs(fontSizes, 50) : 50;
-  const timeColW = fontSizes ? bodyValueFs(fontSizes, 46) : 46;
-  const statusColW = fontSizes ? bodyLabelFs(fontSizes, 50) : 50;
-  const venueColW = fontSizes ? bodyLabelFs(fontSizes, 110) : 110;
 
   return (
     <div
@@ -70,7 +57,7 @@ export function BodyType13({
       {/* Titre */}
       <div
         style={{
-          fontSize: fsTitle,
+          fontSize: scaleFontSize(26, sc),
           fontWeight: 600,
           letterSpacing: 5,
           textTransform: 'uppercase',
@@ -94,13 +81,13 @@ export function BodyType13({
             borderBottom: '1px solid rgba(255,255,255,0.06)',
           }}
         >
-          <div style={{ width: dateColW, fontSize: fsDate, color: col('statLabel'), flexShrink: 0, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
+          <div style={{ width: 50, fontSize: scaleFontSize(14, sc), color: col('statLabel'), flexShrink: 0 }}>
             {match.date}
           </div>
           <div
             style={{
-              width: timeColW,
-              fontSize: fsTime,
+              width: 46,
+              fontSize: scaleFontSize(16, sc),
               fontWeight: 600,
               fontVariantNumeric: 'tabular-nums',
               color: col('statVal'),
@@ -116,7 +103,7 @@ export function BodyType13({
               alignItems: 'center',
               justifyContent: 'center',
               gap: 10,
-              fontSize: fsTeams,
+              fontSize: scaleFontSize(20, sc),
               fontWeight: 700,
               letterSpacing: 2,
               textTransform: 'uppercase',
@@ -125,18 +112,18 @@ export function BodyType13({
           >
             <span>{match.teamLeft}</span>
             {match.status === 'finished' || match.status === 'live' ? (
-              <span style={{ fontSize: fsScore, fontVariantNumeric: 'tabular-nums' }}>
+              <span style={{ fontSize: scaleFontSize(18, sc), fontVariantNumeric: 'tabular-nums' }}>
                 {match.scoreLeft} - {match.scoreRight}
               </span>
             ) : (
-              <span style={{ fontSize: fsVs, color: col('statLabel') }}>vs</span>
+              <span style={{ fontSize: scaleFontSize(14, sc), color: col('statLabel') }}>vs</span>
             )}
             <span>{match.teamRight}</span>
           </div>
           <div
             style={{
-              width: statusColW,
-              fontSize: fsStatus,
+              width: 50,
+              fontSize: scaleFontSize(12, sc),
               fontWeight: 700,
               textAlign: 'center',
               color: statusColor(match.status),
@@ -149,8 +136,8 @@ export function BodyType13({
           {match.venue && (
             <div
               style={{
-                width: venueColW,
-                fontSize: fsVenue,
+                width: 110,
+                fontSize: scaleFontSize(12, sc),
                 color: col('statLabel'),
                 textAlign: 'right',
                 overflow: 'hidden',

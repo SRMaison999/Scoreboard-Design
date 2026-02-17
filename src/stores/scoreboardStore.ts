@@ -196,7 +196,7 @@ export const useScoreboardStore = create<ScoreboardStore>()(
     })),
     {
       name: 'scoreboard-state',
-      version: 5,
+      version: 6,
       migrate: (persisted: unknown) => {
         const state = persisted as Record<string, unknown>;
         if (state['logoMode'] === undefined) {
@@ -220,6 +220,14 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         }
         if (state['clockTenthsThreshold'] === undefined) {
           state['clockTenthsThreshold'] = 10;
+        }
+        if (state['fontSizes'] && typeof state['fontSizes'] === 'object') {
+          const fs = state['fontSizes'] as Record<string, unknown>;
+          for (let i = 1; i <= 13; i++) {
+            if (fs[`bodyScale${i}`] === undefined) {
+              fs[`bodyScale${i}`] = 100;
+            }
+          }
         }
         return state as unknown as ScoreboardState & ScoreboardActions;
       },
