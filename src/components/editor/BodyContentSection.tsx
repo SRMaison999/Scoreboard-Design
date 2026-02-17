@@ -10,6 +10,7 @@ import { TimelineSection } from './TimelineSection';
 import { BarChartSection } from './BarChartSection';
 import { RosterSection } from './RosterSection';
 import { ScheduleSection } from './ScheduleSection';
+import { CustomFieldsSection } from './CustomFieldsSection';
 
 export function BodyContentSection({ bodyType }: { readonly bodyType: number }) {
   switch (bodyType) {
@@ -24,6 +25,7 @@ export function BodyContentSection({ bodyType }: { readonly bodyType: number }) 
     case 11: return <BarChartSection />;
     case 12: return <RosterSection />;
     case 13: return <ScheduleSection />;
+    case 14: return <CustomFieldsSection />;
     default: return <StatsSection />;
   }
 }

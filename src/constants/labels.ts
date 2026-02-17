@@ -361,6 +361,7 @@ export const EDITOR_LABELS = {
   bodyScaleName11: 'Barres comparatives',
   bodyScaleName12: 'Composition d\u2019équipe',
   bodyScaleName13: 'Calendrier',
+  bodyScaleName14: 'Layout libre',
 
   /* Templates */
   templates: 'Templates',

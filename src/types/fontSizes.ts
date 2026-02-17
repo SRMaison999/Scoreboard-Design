@@ -26,6 +26,7 @@ export interface FontSizeConfig {
   bodyScale11: number;
   bodyScale12: number;
   bodyScale13: number;
+  bodyScale14: number;
 }
 
 export type FontSizeKey = keyof FontSizeConfig;
@@ -64,6 +65,7 @@ export const FONT_SIZE_RANGES: Readonly<Record<FontSizeKey, FontSizeRange>> = {
   bodyScale11: BODY_SCALE_RANGE,
   bodyScale12: BODY_SCALE_RANGE,
   bodyScale13: BODY_SCALE_RANGE,
+  bodyScale14: BODY_SCALE_RANGE,
 };
 
 export const DEFAULT_FONT_SIZES: FontSizeConfig = {
@@ -89,4 +91,5 @@ export const DEFAULT_FONT_SIZES: FontSizeConfig = {
   bodyScale11: 100,
   bodyScale12: 100,
   bodyScale13: 100,
+  bodyScale14: 100,
 };

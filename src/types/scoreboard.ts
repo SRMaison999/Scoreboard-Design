@@ -15,8 +15,9 @@ import type { BackgroundMediaMode } from './media';
 import type { FontSizeConfig } from './fontSizes';
 import type { LogoMode, LogoPosition } from './logo';
 import type { AnimationConfig } from './animation';
+import type { CustomFieldsData } from './customField';
 
-export type BodyTypeId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
+export type BodyTypeId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14;
 
 export type BgMode = 'uniform' | 'gradient';
 
@@ -160,4 +161,7 @@ export interface ScoreboardState {
   /* Animations */
   scoreboardVisible: boolean;
   animationConfig: AnimationConfig;
+
+  /* Type 14 : Layout libre (champs personnalisés) */
+  customFieldsData: CustomFieldsData;
 }

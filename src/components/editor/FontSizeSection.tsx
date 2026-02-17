@@ -74,6 +74,7 @@ const BODY_SCALE_NAMES: Record<BodyTypeId, string> = {
   11: EDITOR_LABELS.bodyScaleName11,
   12: EDITOR_LABELS.bodyScaleName12,
   13: EDITOR_LABELS.bodyScaleName13,
+  14: EDITOR_LABELS.bodyScaleName14,
 };
 
 function bodyScaleKey(bt: BodyTypeId): FontSizeKey {

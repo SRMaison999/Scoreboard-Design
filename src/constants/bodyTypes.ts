@@ -14,4 +14,5 @@ export const BODY_TYPES: readonly BodyTypeOption[] = [
   { id: 11, label: 'Barres comparatives' },
   { id: 12, label: "Composition d'équipe (Roster)" },
   { id: 13, label: 'Calendrier / Programme' },
+  { id: 14, label: 'Layout libre (champs personnalisés)' },
 ] as const;
