@@ -1,7 +1,22 @@
 import { toPng } from 'html-to-image';
 
 /**
- * Capture un élément HTML en image PNG et déclenche le téléchargement.
+ * Extrait les proprietes de fond calculees d'un element pour garantir
+ * que html-to-image les reproduit fidellement (gradients inclus).
+ */
+function extractBackgroundStyle(element: HTMLElement): Partial<CSSStyleDeclaration> {
+  const cs = window.getComputedStyle(element);
+  return {
+    backgroundImage: cs.backgroundImage,
+    backgroundColor: cs.backgroundColor,
+    backgroundSize: cs.backgroundSize,
+    backgroundPosition: cs.backgroundPosition,
+    backgroundRepeat: cs.backgroundRepeat,
+  };
+}
+
+/**
+ * Capture un element HTML en image PNG et declenche le telechargement.
  */
 export async function captureScreenshot(
   element: HTMLElement,
@@ -11,7 +26,7 @@ export async function captureScreenshot(
     width: element.scrollWidth,
     height: element.scrollHeight,
     pixelRatio: 1,
-    backgroundColor: undefined,
+    style: extractBackgroundStyle(element),
   });
 
   const link = document.createElement('a');
@@ -21,7 +36,7 @@ export async function captureScreenshot(
 }
 
 /**
- * Génère le nom de fichier pour le screenshot.
+ * Genere le nom de fichier pour le screenshot.
  * Format : scoreboard_{team1}vs{team2}_{timestamp}.png
  */
 export function buildScreenshotFilename(team1: string, team2: string): string {
@@ -40,7 +55,7 @@ export async function copyScreenshotToClipboard(
     width: element.scrollWidth,
     height: element.scrollHeight,
     pixelRatio: 1,
-    backgroundColor: undefined,
+    style: extractBackgroundStyle(element),
   });
 
   const response = await fetch(dataUrl);
