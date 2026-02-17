@@ -1,36 +1,126 @@
 # Manuel utilisateur - Panneau editeur
 
-Le panneau editeur est la colonne de gauche de l'application. Il contient tous les controles pour configurer le scoreboard, organises en sections depliables.
+Le panneau editeur est la colonne de gauche de l'application. Il contient tous les controles pour configurer le scoreboard.
 
-## Organisation
+## Navigation
 
-Les sections sont regroupees en trois categories :
+La navigation est organisee sur deux niveaux :
 
-### Contenu
+### Rail d'icones (navigation principale)
+
+Un rail vertical d'icones sur le bord gauche permet de basculer entre 5 groupes :
+
+| Icone | Groupe | Description |
+|-------|--------|-------------|
+| Fichier | **Contenu** | Equipes, scores, body type, penalites, medias |
+| Palette | **Apparence** | Dimensions, polices, couleurs, fond |
+| Horloge | **Horloge** | Temps de jeu, phases, demo |
+| Film | **Animations** | Animations d'entree/sortie, export video/GIF |
+| Radio | **Integrations** | Scores en direct, multi-scoreboard, sync, broadcast |
+
+Survoler une icone affiche une infobulle avec le nom du groupe.
+
+### Sous-onglets (navigation secondaire)
+
+A l'interieur de chaque groupe, des sous-onglets horizontaux permettent d'acceder aux differentes sections :
+
+- **Contenu** : General | Equipes | Match | Medias
+- **Apparence** : Style | Polices | Couleurs
+- **Horloge** : pas de sous-onglets (section unique)
+- **Animations** : Animations | Export
+- **Integrations** : Live | Multi | Sync | Broadcast
+
+### Sections depliables
+
+A l'interieur de chaque sous-onglet, les sections peuvent etre repliees en cliquant sur leur titre. L'indicateur `v` (ouvert) ou `>` (ferme) indique l'etat.
+
+---
+
+## Groupe Contenu
+
+### Sous-onglet General
+
+- **Type de corps** : choix du type d'affichage (1-13 : stats, classement, fiche joueur, etc.)
+- **Afficher les penalites** : active/desactive les colonnes de penalites
+
+### Sous-onglet Equipes
 
 - **En-tete** : selection des equipes (31 nations), saisie des scores
-- **Titres** : texte(s) affiche(s) dans le corps du scoreboard (selon le type)
-- **Section specifique au body type** : contenu variable selon le type d'affichage choisi (stats, classement, fiche joueur, etc.)
+- **Titres** : texte(s) affiche(s) dans le corps du scoreboard (selon le type, visible pour les types 1-3)
+- **Section specifique au body type** : contenu variable selon le type d'affichage choisi
+
+### Sous-onglet Match
+
 - **Temps morts** : activation et compteur de temps morts par equipe
 - **Tirs au but** : activation et saisie des tentatives
 - **Penalites** : ajout/suppression de penalites pour chaque equipe (temps + numero)
 
-### Apparence
+### Sous-onglet Medias
 
-- **General** : choix du type d'affichage (1-13), affichage des penalites
-- **Dimensions** : taille du canvas (presets ou personnalise)
-- **Arriere-plan** : mode uniforme ou degrade, couleurs, media de fond
+- **Photos des joueurs** : galerie de photos par equipe et numero
+- **Logos** : logos d'equipes, competition et sponsor avec positionnement
+
+---
+
+## Groupe Apparence
+
+### Sous-onglet Style
+
+- **Dimensions du template** : taille du canvas (presets HD/4K ou personnalise)
+- **Arriere-plan** : aucun, image ou video de fond
+
+### Sous-onglet Polices
+
 - **Polices** : 3 zones de police independantes (equipes, horloge, corps)
 - **Tailles de police** : controle granulaire de chaque element textuel
-- **Couleurs** : 14 canaux de couleur avec opacite individuelle + presets
 
-### Horloge
+### Sous-onglet Couleurs
 
-- **Horloge** : temps de jeu, cadre, visibilite, phase active, controles demo
+- **Couleurs** : 14 canaux de couleur avec opacite individuelle
+- **Presets** : schemas de couleurs predefinies
 
-## Sections depliables
+---
 
-Chaque section peut etre repliee en cliquant sur son titre. L'indicateur `v` (ouvert) ou `>` (ferme) indique l'etat.
+## Groupe Horloge
+
+- **Horloge** : temps de jeu, cadre, visibilite, phase active
+- **Phases et transitions** : gestion des phases du match
+- **Demo** : controles de timer pour tester
+
+---
+
+## Groupe Animations
+
+### Sous-onglet Animations
+
+- Animations d'entree et de sortie du scoreboard
+- Effets sur changement de score, penalites, horloge
+
+### Sous-onglet Export
+
+- Export video et GIF avec parametres de qualite
+
+---
+
+## Groupe Integrations
+
+### Sous-onglet Live
+
+- Connexion a une API de scores en temps reel
+
+### Sous-onglet Multi
+
+- Gestion de multi-scoreboards (bande basse, bug, ticker)
+
+### Sous-onglet Sync
+
+- Synchronisation multi-poste via WebSocket
+
+### Sous-onglet Broadcast
+
+- Integration CasparCG / Viz pour diffusion broadcast
+
+---
 
 ## Selection des equipes
 

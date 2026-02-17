@@ -255,6 +255,55 @@ import { Section } from '@/components/ui/Section';
 </Section>
 ```
 
+### IconRail
+
+Rail vertical d'icones pour la navigation principale du panneau editeur.
+
+```typescript
+import { IconRail } from '@/components/ui/IconRail';
+import { FileText, Palette } from 'lucide-react';
+import type { IconRailItem } from '@/types/editor';
+
+const ITEMS: readonly IconRailItem[] = [
+  { id: 'content', icon: FileText, label: 'Contenu' },
+  { id: 'appearance', icon: Palette, label: 'Apparence' },
+];
+
+<IconRail items={ITEMS} activeId="content" onSelect={(id) => setActive(id)} />
+```
+
+### SubTabs
+
+Barre horizontale de sous-onglets pour la navigation secondaire.
+
+```typescript
+import { SubTabs } from '@/components/ui/SubTabs';
+import type { SubTabItem } from '@/types/editor';
+
+const TABS: readonly SubTabItem[] = [
+  { id: 'style', label: 'Style' },
+  { id: 'fonts', label: 'Polices' },
+];
+
+<SubTabs tabs={TABS} activeId="style" onSelect={(id) => setActive(id)} />
+```
+
+Note : le composant ne rend rien si un seul onglet est fourni.
+
+### Tooltip
+
+Infobulle simple au survol.
+
+```typescript
+import { Tooltip } from '@/components/ui/Tooltip';
+
+<Tooltip text="Description" position="right">
+  <button>{/* contenu */}</button>
+</Tooltip>
+```
+
+Positions disponibles : `right` (defaut), `bottom`.
+
 ### ColorPicker
 
 ```typescript

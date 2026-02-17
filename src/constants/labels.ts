@@ -8,6 +8,28 @@ export const EDITOR_LABELS = {
   groupApparence: 'Apparence',
   groupHorloge: 'Horloge',
 
+  /* Navigation rail (tooltips) */
+  navContenu: 'Contenu',
+  navApparence: 'Apparence',
+  navHorloge: 'Horloge',
+  navAnimations: 'Animations',
+  navIntegrations: 'Intégrations',
+
+  /* Sous-onglets */
+  subTabGeneral: 'Général',
+  subTabEquipes: 'Équipes',
+  subTabMatch: 'Match',
+  subTabMedias: 'Médias',
+  subTabStyle: 'Style',
+  subTabPolices: 'Polices',
+  subTabCouleurs: 'Couleurs',
+  subTabAnimations: 'Animations',
+  subTabExport: 'Export',
+  subTabLive: 'Live',
+  subTabMulti: 'Multi',
+  subTabSync: 'Sync',
+  subTabBroadcast: 'Broadcast',
+
   /* Sections */
   sectionBodyType: 'Type de corps',
   sectionPenalties: 'Colonnes de pénalités',
