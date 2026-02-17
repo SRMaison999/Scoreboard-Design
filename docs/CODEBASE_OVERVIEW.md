@@ -363,7 +363,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 | `videoRecorder.ts` | `VideoRecorder` (classe) | Enregistrement video via MediaRecorder + html-to-image |
 | `gifEncoder.ts` | `exportGif()`, `downloadGif()` | Export GIF anime via gif.js |
 | `roster/csvParser.ts` | `parseCsv()` | Import CSV via PapaParse |
-| `roster/excelParser.ts` | `parseExcel()` | Import Excel via xlsx |
+| `roster/excelParser.ts` | `parseExcel()` | Import Excel via exceljs (async) |
 | `roster/jsonParser.ts` | `parseJsonRoster()` | Import JSON (array ou objet) |
 | `roster/rosterValidator.ts` | `validateAndMapRows()` | Validation et normalisation des rosters importes |
 | `roster/rosterExporter.ts` | `exportRosterCsv()`, `exportRosterJson()`, `exportRosterExcel()` | Export de rosters |
@@ -376,7 +376,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 
 **Setup** : `src/test/setup.ts`
 
-**Couverture** : 100+ fichiers de test, 591 tests.
+**Couverture** : 104 fichiers de test, 598 tests.
 
 | Categorie | Nombre | Exemples |
 |-----------|--------|----------|
