@@ -1,8 +1,12 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { extractState } from '@/utils/stateExtractor';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 
 describe('extractState', () => {
+  beforeEach(() => {
+    useScoreboardStore.getState().resetState();
+  });
+
   it('extrait uniquement les donn\u00e9es sans les actions', () => {
     const store = useScoreboardStore.getState();
     const state = extractState(store);

@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { DEFAULT_STATE } from '@/data/defaultState';
+import { CLEAN_CONTENT } from '@/data/cleanContent';
 import { DEFAULT_OPACITIES } from '@/constants/colors';
 import { DEFAULT_CUSTOM_FIELDS_DATA } from '@/types/customField';
 import { tickTimerDraft } from './timerActions';
@@ -20,6 +21,11 @@ import type { FontSizeKey } from '@/types/fontSizes';
 export type ScoreboardStore = ScoreboardState & ScoreboardActions;
 
 const MAX_LINES = 8;
+
+/* Detection du premier lancement (avant que persist ecrive en storage) */
+const IS_FIRST_LAUNCH = typeof window !== 'undefined'
+  && typeof window.localStorage !== 'undefined'
+  && window.localStorage.getItem('scoreboard-state') === null;
 
 export const useScoreboardStore = create<ScoreboardStore>()(
   persist(
@@ -227,6 +233,7 @@ export const useScoreboardStore = create<ScoreboardStore>()(
       /* Templates */
       loadState: (state) => set(() => structuredClone(state)),
       resetState: () => set(() => structuredClone(DEFAULT_STATE)),
+      clearContent: () => set((s) => { Object.assign(s, structuredClone(CLEAN_CONTENT)); }),
     })),
     {
       name: 'scoreboard-state',
@@ -271,3 +278,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
     },
   ),
 );
+
+/* Premier lancement : vider le contenu pour un ecran vierge */
+if (IS_FIRST_LAUNCH) {
+  useScoreboardStore.getState().clearContent();
+}
