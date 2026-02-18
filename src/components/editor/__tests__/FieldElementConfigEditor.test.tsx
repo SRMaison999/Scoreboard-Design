@@ -57,10 +57,42 @@ describe('FieldElementConfigEditor', () => {
     expect(screen.getByText(CUSTOM_FIELD_LABELS.configImageFit)).toBeInTheDocument();
   });
 
-  it('ne rend rien pour un type sans editeur specifique', () => {
+  it('affiche l editeur de header-block avec la checkbox horloge', () => {
+    const element: FieldElementConfig = {
+      type: 'header-block',
+      config: { showClock: true },
+    };
+    render(<FieldElementConfigEditor fieldId="f1" element={element} />);
+    expect(screen.getByText(CUSTOM_FIELD_LABELS.configShowClock)).toBeInTheDocument();
+    expect(screen.getByRole('checkbox')).toBeChecked();
+  });
+
+  it('affiche l editeur de header-block avec horloge desactivee', () => {
+    const element: FieldElementConfig = {
+      type: 'header-block',
+      config: { showClock: false },
+    };
+    render(<FieldElementConfigEditor fieldId="f1" element={element} />);
+    expect(screen.getByRole('checkbox')).not.toBeChecked();
+  });
+
+  it('affiche l editeur de clock-display avec les checkboxes', () => {
     const element: FieldElementConfig = {
       type: 'clock-display',
       config: { showPeriod: true, showBox: false },
+    };
+    render(<FieldElementConfigEditor fieldId="f1" element={element} />);
+    expect(screen.getByText(CUSTOM_FIELD_LABELS.configShowPeriod)).toBeInTheDocument();
+    expect(screen.getByText(CUSTOM_FIELD_LABELS.configShowBox)).toBeInTheDocument();
+    const checkboxes = screen.getAllByRole('checkbox');
+    expect(checkboxes[0]).toBeChecked();
+    expect(checkboxes[1]).not.toBeChecked();
+  });
+
+  it('ne rend rien pour un type sans editeur specifique', () => {
+    const element: FieldElementConfig = {
+      type: 'timeout-display',
+      config: {},
     };
     const { container } = render(<FieldElementConfigEditor fieldId="f1" element={element} />);
     expect(container.innerHTML).toBe('');

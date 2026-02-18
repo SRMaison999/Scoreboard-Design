@@ -8,20 +8,12 @@ import { Select } from '@/components/ui/Select';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import type { FieldElementConfig } from '@/types/customField';
+import { updateFieldElementConfig } from '@/utils/fieldConfig';
+import { ShapeEditor, SeparatorEditor, ImageEditor } from './FieldVisualEditors';
 
 interface FieldElementConfigEditorProps {
   readonly fieldId: string;
   readonly element: FieldElementConfig;
-}
-
-function updateConfig(
-  updateElement: (id: string, el: FieldElementConfig) => void,
-  fieldId: string,
-  element: FieldElementConfig,
-  patch: Record<string, unknown>,
-) {
-  const newConfig = { ...element.config, ...patch };
-  updateElement(fieldId, { ...element, config: newConfig } as FieldElementConfig);
 }
 
 function TextBlockEditor({ fieldId, element }: {
@@ -30,7 +22,7 @@ function TextBlockEditor({ fieldId, element }: {
 }) {
   const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
   const c = element.config;
-  const patch = (p: Record<string, unknown>) => updateConfig(updateElement, fieldId, element, p);
+  const patch = (p: Record<string, unknown>) => updateFieldElementConfig(updateElement, fieldId, element, p);
 
   return (
     <div className="flex flex-col gap-2">
@@ -111,7 +103,7 @@ function SideSelector({ fieldId, element }: {
     <Select
       label={CUSTOM_FIELD_LABELS.configSide}
       value={config.side}
-      onChange={(v) => updateConfig(updateElement, fieldId, element, { side: v })}
+      onChange={(v) => updateFieldElementConfig(updateElement, fieldId, element, { side: v })}
       options={[
         { value: 'left', label: CUSTOM_FIELD_LABELS.configSideLeft },
         { value: 'right', label: CUSTOM_FIELD_LABELS.configSideRight },
@@ -120,133 +112,50 @@ function SideSelector({ fieldId, element }: {
   );
 }
 
-function ShapeEditor({ fieldId, element }: {
+function HeaderBlockEditor({ fieldId, element }: {
   readonly fieldId: string;
-  readonly element: Extract<FieldElementConfig, { type: 'shape-block' }>;
+  readonly element: Extract<FieldElementConfig, { type: 'header-block' }>;
 }) {
   const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
   const c = element.config;
-  const patch = (p: Record<string, unknown>) => updateConfig(updateElement, fieldId, element, p);
 
   return (
-    <div className="flex flex-col gap-2">
-      <Select
-        label={CUSTOM_FIELD_LABELS.configShapeType}
-        value={c.shape}
-        onChange={(v) => patch({ shape: v })}
-        options={[
-          { value: 'rectangle', label: CUSTOM_FIELD_LABELS.configShapeRectangle },
-          { value: 'circle', label: CUSTOM_FIELD_LABELS.configShapeCircle },
-          { value: 'rounded-rect', label: CUSTOM_FIELD_LABELS.configShapeRounded },
-        ]}
+    <label className="flex items-center gap-2 text-[12px] text-gray-300">
+      <input
+        type="checkbox"
+        checked={c.showClock}
+        onChange={(e) => updateFieldElementConfig(updateElement, fieldId, element, { showClock: e.target.checked })}
       />
-      <div className="grid grid-cols-2 gap-2">
-        <div>
-          <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.configShapeFillColor}</label>
-          <input
-            type="color"
-            value={c.fillColor || '#ffffff'}
-            onChange={(e) => patch({ fillColor: e.target.value })}
-            className="w-full h-6 bg-gray-800 border border-gray-700 rounded cursor-pointer"
-          />
-        </div>
-        <div>
-          <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.configShapeBorderColor}</label>
-          <input
-            type="color"
-            value={c.borderColor || '#ffffff'}
-            onChange={(e) => patch({ borderColor: e.target.value })}
-            className="w-full h-6 bg-gray-800 border border-gray-700 rounded cursor-pointer"
-          />
-        </div>
-      </div>
-      {c.shape === 'rounded-rect' && (
-        <div>
-          <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.fieldBorderRadius}</label>
-          <input
-            type="number"
-            min={0}
-            max={100}
-            value={c.borderRadius}
-            onChange={(e) => patch({ borderRadius: Number(e.target.value) })}
-            className="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded px-2 py-0.5 text-[13px]"
-          />
-        </div>
-      )}
-    </div>
+      {CUSTOM_FIELD_LABELS.configShowClock}
+    </label>
   );
 }
 
-function SeparatorEditor({ fieldId, element }: {
+function ClockDisplayEditor({ fieldId, element }: {
   readonly fieldId: string;
-  readonly element: Extract<FieldElementConfig, { type: 'separator-line' }>;
+  readonly element: Extract<FieldElementConfig, { type: 'clock-display' }>;
 }) {
   const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
   const c = element.config;
-  const patch = (p: Record<string, unknown>) => updateConfig(updateElement, fieldId, element, p);
 
   return (
     <div className="flex flex-col gap-2">
-      <Select
-        label={CUSTOM_FIELD_LABELS.configSeparatorOrientation}
-        value={c.orientation}
-        onChange={(v) => patch({ orientation: v })}
-        options={[
-          { value: 'horizontal', label: CUSTOM_FIELD_LABELS.configSeparatorHorizontal },
-          { value: 'vertical', label: CUSTOM_FIELD_LABELS.configSeparatorVertical },
-        ]}
-      />
-      <div className="grid grid-cols-2 gap-2">
-        <div>
-          <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.configSeparatorThickness}</label>
-          <input
-            type="number"
-            min={1}
-            max={20}
-            value={c.thickness}
-            onChange={(e) => patch({ thickness: Number(e.target.value) })}
-            className="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded px-2 py-0.5 text-[13px]"
-          />
-        </div>
-        <div>
-          <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.configSeparatorColor}</label>
-          <input
-            type="color"
-            value={c.lineColor || '#ffffff'}
-            onChange={(e) => patch({ lineColor: e.target.value })}
-            className="w-full h-6 bg-gray-800 border border-gray-700 rounded cursor-pointer"
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ImageEditor({ fieldId, element }: {
-  readonly fieldId: string;
-  readonly element: Extract<FieldElementConfig, { type: 'image-block' }>;
-}) {
-  const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
-  const c = element.config;
-  const patch = (p: Record<string, unknown>) => updateConfig(updateElement, fieldId, element, p);
-
-  return (
-    <div className="flex flex-col gap-2">
-      <InputField
-        label={CUSTOM_FIELD_LABELS.configImageSrc}
-        value={c.src}
-        onChange={(v) => patch({ src: v })}
-      />
-      <Select
-        label={CUSTOM_FIELD_LABELS.configImageFit}
-        value={c.objectFit}
-        onChange={(v) => patch({ objectFit: v })}
-        options={[
-          { value: 'cover', label: CUSTOM_FIELD_LABELS.configImageCover },
-          { value: 'contain', label: CUSTOM_FIELD_LABELS.configImageContain },
-          { value: 'fill', label: CUSTOM_FIELD_LABELS.configImageFill },
-        ]}
-      />
+      <label className="flex items-center gap-2 text-[12px] text-gray-300">
+        <input
+          type="checkbox"
+          checked={c.showPeriod}
+          onChange={(e) => updateFieldElementConfig(updateElement, fieldId, element, { showPeriod: e.target.checked })}
+        />
+        {CUSTOM_FIELD_LABELS.configShowPeriod}
+      </label>
+      <label className="flex items-center gap-2 text-[12px] text-gray-300">
+        <input
+          type="checkbox"
+          checked={c.showBox}
+          onChange={(e) => updateFieldElementConfig(updateElement, fieldId, element, { showBox: e.target.checked })}
+        />
+        {CUSTOM_FIELD_LABELS.configShowBox}
+      </label>
     </div>
   );
 }
@@ -260,6 +169,10 @@ export function FieldElementConfigEditor({ fieldId, element }: FieldElementConfi
     case 'flag-display':
     case 'penalty-column':
       return <SideSelector fieldId={fieldId} element={element} />;
+    case 'header-block':
+      return <HeaderBlockEditor fieldId={fieldId} element={element} />;
+    case 'clock-display':
+      return <ClockDisplayEditor fieldId={fieldId} element={element} />;
     case 'shape-block':
       return <ShapeEditor fieldId={fieldId} element={element} />;
     case 'separator-line':
