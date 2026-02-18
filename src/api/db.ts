@@ -2,11 +2,13 @@ import Dexie from 'dexie';
 import type { ScoreboardTemplate } from '@/types/template';
 import type { PlayerPhoto } from '@/types/playerPhoto';
 import type { LogoEntry } from '@/types/logo';
+import type { FieldPreset } from '@/types/fieldPreset';
 
 class ScoreboardDatabase extends Dexie {
   templates!: Dexie.Table<ScoreboardTemplate, string>;
   playerPhotos!: Dexie.Table<PlayerPhoto, string>;
   logos!: Dexie.Table<LogoEntry, string>;
+  fieldPresets!: Dexie.Table<FieldPreset, string>;
 
   constructor() {
     super('scoreboard-editor');
@@ -21,6 +23,12 @@ class ScoreboardDatabase extends Dexie {
       templates: 'id, name, created, modified',
       playerPhotos: 'id, team, number, playerName',
       logos: 'id, logoType, key, name',
+    });
+    this.version(4).stores({
+      templates: 'id, name, created, modified',
+      playerPhotos: 'id, team, number, playerName',
+      logos: 'id, logoType, key, name',
+      fieldPresets: 'id, name, scope, created, modified',
     });
   }
 }
