@@ -3,7 +3,13 @@ import type { ManualChapter } from '@/types/userManual';
 export const ch04: ManualChapter = {
   id: 'personnalisation',
   title: 'Personnalisation',
-  content: `## Couleurs
+  content: `## Emplacement
+
+Les options de personnalisation se trouvent dans le **panneau gauche**, onglet **Apparence** (ic\u00f4ne de palette, 2e ic\u00f4ne du rail de navigation). Cet onglet contient trois sous-onglets : **Style** (dimensions, presets), **Polices** (choix des polices) et **Couleurs** (14 canaux de couleur et opacit\u00e9).
+
+## Couleurs
+
+**Emplacement** : panneau gauche > onglet **Apparence** > sous-onglet **Couleurs**.
 
 ### 14 canaux de couleur
 
@@ -44,6 +50,8 @@ Chaque couleur poss\u00e8de un slider d'opacit\u00e9 (0-100).
 
 ## Polices
 
+**Emplacement** : panneau gauche > onglet **Apparence** > sous-onglet **Polices**.
+
 ### 3 zones de police
 
 | Zone | \u00c9l\u00e9ments concern\u00e9s | Police par d\u00e9faut |
@@ -55,6 +63,8 @@ Chaque couleur poss\u00e8de un slider d'opacit\u00e9 (0-100).
 25 polices professionnelles sont disponibles, organis\u00e9es par cat\u00e9gories (Sport, Condens\u00e9, Moderne, Display, Monospace, Serif).
 
 ## Dimensions du template
+
+**Emplacement** : panneau gauche > onglet **Apparence** > sous-onglet **Style**.
 
 ### Presets de r\u00e9solution
 

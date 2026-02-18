@@ -3,7 +3,11 @@ import type { ManualChapter } from '@/types/userManual';
 export const ch03: ManualChapter = {
   id: 'body-types',
   title: "Types d'affichage",
-  content: `Le scoreboard propose 14 types d'affichage diff\u00e9rents pour le corps du scoreboard.
+  content: `## Emplacement
+
+Le s\u00e9lecteur de type d'affichage se trouve dans le **panneau gauche**, onglet **Contenu** (1re ic\u00f4ne du rail, ic\u00f4ne de document) > sous-onglet **G\u00e9n\u00e9ral** > section **Type d'affichage**. Les donn\u00e9es sp\u00e9cifiques \u00e0 chaque type se configurent dans les sous-onglets **\u00c9quipes** et **Match** du m\u00eame onglet.
+
+Le scoreboard propose 14 types d'affichage diff\u00e9rents pour le corps du scoreboard.
 
 ## Type 1 : Stats sym\u00e9triques
 

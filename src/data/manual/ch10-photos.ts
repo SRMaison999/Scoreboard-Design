@@ -3,18 +3,23 @@ import type { ManualChapter } from '@/types/userManual';
 export const ch10: ManualChapter = {
   id: 'photos',
   title: 'Photos des joueurs',
-  content: `## Pr\u00e9sentation
+  content: `## Emplacement
+
+La gestion des photos se trouve dans le **panneau gauche**, onglet **Contenu** (1re ic\u00f4ne du rail, ic\u00f4ne de document) > sous-onglet **M\u00e9dias** > section **Photos des joueurs**.
+
+## Pr\u00e9sentation
 
 Le Scoreboard Editor permet d'associer des photos aux joueurs. Ces photos sont affich\u00e9es automatiquement dans les types d'affichage qui les supportent (stats joueur et face-\u00e0-face). Les photos sont stock\u00e9es localement via IndexedDB.
 
 ## Ajouter une photo
 
-1. Ouvrir la section **Photos des joueurs** (groupe Contenu)
-2. S\u00e9lectionner l'**\u00e9quipe** du joueur dans le menu d\u00e9roulant
-3. Saisir le **num\u00e9ro** du joueur
-4. Optionnel : saisir le **nom** du joueur
-5. Cliquer sur **Ajouter une photo**
-6. S\u00e9lectionner un fichier image (PNG, JPEG, WebP)
+1. Ouvrir l'onglet **Contenu** > sous-onglet **M\u00e9dias**
+2. Dans la section **Photos des joueurs** :
+3. S\u00e9lectionner l'**\u00e9quipe** du joueur dans le menu d\u00e9roulant
+4. Saisir le **num\u00e9ro** du joueur
+5. Optionnel : saisir le **nom** du joueur
+6. Cliquer sur **Ajouter une photo**
+7. S\u00e9lectionner un fichier image (PNG, JPEG, WebP)
 
 La photo est automatiquement recadr\u00e9e en carr\u00e9 et compress\u00e9e en WebP.
 
