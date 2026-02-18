@@ -152,3 +152,80 @@ Configuration :
 - Matchs avec date, heure, equipes, lieu
 - Statut : a venir, en cours, termine
 - Scores pour les matchs termines
+
+## Type 14 : Layout libre (champs personnalisés)
+
+Canvas entièrement libre où l'utilisateur compose son propre scoreboard en plaçant, déplaçant et redimensionnant des éléments visuels individuels.
+
+Idéal pour : créer un affichage sur mesure qui ne correspond à aucun des 13 types prédéfinis.
+
+### Concept
+
+Contrairement aux types 1-13 qui imposent un agencement fixe, le Layout libre offre un canvas vierge. L'utilisateur y dépose des éléments depuis une bibliothèque, puis les positionne librement par glisser-déposer et les redimensionne via des poignées dans les coins.
+
+### Mode pleine page
+
+Quand activé, le header (drapeaux, noms d'équipes, scores, horloge) est masqué. Le canvas entier est alors disponible pour les champs personnalisés. Ce mode est utile pour créer un scoreboard complètement personnalisé, en plaçant chaque élément exactement où on le souhaite.
+
+### Bibliothèque d'éléments
+
+La bibliothèque propose des éléments répartis en 6 catégories :
+
+| Catégorie | Éléments |
+|-----------|----------|
+| **Match** | Score, Horloge, Période, Nom d'équipe, Drapeau, Temps morts, Tirs au but |
+| **Texte** | Bloc de texte |
+| **Données** | Ligne de stat, Barre comparative |
+| **Joueurs** | Photo joueur |
+| **Médias** | Image, Forme (rectangle, cercle, arrondi), Séparateur (ligne) |
+| **Composés** | Header complet, Colonne de pénalités, Types 1-13 intégrés |
+
+Un champ de recherche permet de filtrer les éléments. Cliquer sur un élément l'ajoute au canvas avec des dimensions par défaut.
+
+### Interaction sur le canvas
+
+- **Sélection** : cliquer sur un champ pour le sélectionner (bordure bleue). Cliquer sur le fond du canvas pour désélectionner.
+- **Déplacement** : glisser-déposer un champ sélectionné pour le repositionner.
+- **Redimensionnement** : tirer une des 4 poignées dans les coins du champ sélectionné.
+- **Verrouillage** : un champ verrouillé ne peut être ni déplacé ni redimensionné (curseur interdit).
+
+### Grille et guides
+
+- **Afficher les guides** : superpose une grille en pointillés sur le canvas pour faciliter l'alignement visuel.
+- **Taille de la grille** : configurable (8px par défaut).
+- **Aimanter à la grille** : les champs s'alignent automatiquement sur les intersections de la grille lors du déplacement.
+
+### Panneau de propriétés
+
+Quand un champ est sélectionné, le panneau de propriétés affiche :
+
+- **Nom** : label personnalisable du champ
+- **Position** : X et Y en pixels
+- **Taille** : largeur et hauteur en pixels
+- **Ordre (Z)** : position dans l'empilement des couches
+- **Visibilité** et **verrouillage**
+- **Style** : couleur de fond, opacité du fond, couleur de bordure, épaisseur de bordure, rayon de bordure, marge interne
+- **Configuration de l'élément** : paramètres spécifiques selon le type (voir ci-dessous)
+- **Supprimer** / **Dupliquer**
+
+### Configuration par type d'élément
+
+| Type | Paramètres configurables |
+|------|------------------------|
+| Bloc de texte | Contenu, taille de police, épaisseur, alignement (gauche/centre/droite), casse (normal/majuscules), espacement |
+| Score | Côté (gauche = équipe 1, droite = équipe 2) |
+| Nom d'équipe | Côté (gauche/droite) |
+| Drapeau | Côté (gauche/droite) |
+| Colonne de pénalités | Côté (gauche/droite) |
+| Forme | Type (rectangle, cercle, arrondi), couleur de remplissage, couleur de bordure, rayon (pour arrondi) |
+| Séparateur | Orientation (horizontale/verticale), épaisseur, couleur |
+| Image | URL source, ajustement (couvrir, contenir, étirer) |
+
+### Panneau des couches
+
+La liste des champs affiche tous les éléments dans l'ordre des couches (Z-index). Pour chaque champ :
+
+- **Flèches haut/bas** : réordonner les couches (quel champ passe devant/derrière)
+- **Œil** : basculer la visibilité
+- **Cadenas** : basculer le verrouillage
+- Cliquer sur le nom sélectionne le champ sur le canvas
