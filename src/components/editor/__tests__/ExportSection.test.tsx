@@ -45,4 +45,14 @@ describe('ExportSection', () => {
     renderAndOpen();
     expect(screen.getByText(EDITOR_LABELS.exportVideoFps)).toBeInTheDocument();
   });
+
+  it('affiche le bouton de generation de specs', () => {
+    renderAndOpen();
+    expect(screen.getByText(EDITOR_LABELS.exportSpecsButton)).toBeInTheDocument();
+  });
+
+  it('affiche le titre de la section specs', () => {
+    renderAndOpen();
+    expect(screen.getByText(EDITOR_LABELS.exportSpecsTitle)).toBeInTheDocument();
+  });
 });

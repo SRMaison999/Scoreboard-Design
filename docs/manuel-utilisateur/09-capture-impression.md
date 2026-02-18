@@ -41,3 +41,30 @@ Le bouton Imprimer dans la barre d'outils ouvre le dialogue d'impression du navi
 - Activer l'option "Couleurs d'arriere-plan" dans les parametres d'impression du navigateur
 - Format A3 recommande pour une meilleure lisibilite
 - Utile pour l'archivage papier ou l'affichage physique dans les vestiaires
+
+## Specifications techniques (JSON)
+
+### Bouton "Generer les specs"
+
+Dans la section **Export** (onglet Animations > Export), le bouton "Generer les specs" telecharge un fichier JSON structuré contenant toutes les proprietes necessaires pour recreer l'ecran actuel.
+
+### Contenu du fichier
+
+Le fichier `.specs.json` contient :
+
+- **Canvas** : dimensions (largeur, hauteur)
+- **Fond** : mode (uniforme/degrade), couleurs, opacites
+- **Header** : equipes (code + nom du pays), scores, horloge, periode, penalites, temps morts, tirs au but
+- **Polices** : identifiant + famille CSS resolue pour chaque zone (equipes, horloge, corps)
+- **Tailles de police** : toutes les tailles configurees
+- **Couleurs** : toutes les couleurs de chaque element
+- **Body type** : type actif (1-14) avec son label et toutes les donnees specifiques (stats, classement, fiche joueur, etc.)
+- **Logos** : mode, positions et tailles des logos competition et sponsor
+- **Animations** : configuration complete des animations d'entree, sortie, score, penalites, horloge
+- **Visibilite** et **media de fond**
+
+### Usage
+
+Ce fichier est destine aux developpeurs qui doivent reproduire un ecran specifique. Il contient toutes les valeurs necessaires sans avoir a ouvrir l'editeur.
+
+Fonctionne pour **tous les body types** (1-14), pas uniquement le Layout libre.
