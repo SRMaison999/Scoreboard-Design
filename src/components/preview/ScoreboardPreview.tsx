@@ -39,7 +39,7 @@ export function ScoreboardPreview({ state }: ScoreboardPreviewProps) {
           flexShrink: 0,
         }}
       >
-        <AnimatedScoreboard state={state} playerPhotos={playerPhotos} logos={logos} />
+        <AnimatedScoreboard state={state} playerPhotos={playerPhotos} logos={logos} canvasScale={scale} />
       </div>
     </div>
   );

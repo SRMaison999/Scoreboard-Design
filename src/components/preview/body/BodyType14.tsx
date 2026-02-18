@@ -1,40 +1,27 @@
 /**
  * Body Type 14 : Layout libre avec champs personnalisés.
  * Rend les champs positionnés librement sur un canvas absolu.
+ * En mode interactif (éditeur), permet le drag, resize et la sélection.
  */
 
+import { InteractiveField } from './InteractiveField';
 import { FieldElementRenderer } from './FieldElementRenderer';
-import { hexToRgba } from '@/utils/color';
+import { fieldBgStyle } from '@/utils/fieldStyle';
+import { useFieldDrag } from '@/hooks/useFieldDrag';
+import { useFieldResize } from '@/hooks/useFieldResize';
+import { useScoreboardStore } from '@/stores/scoreboardStore';
 import type { ScoreboardState } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
-import type { CustomField, FieldStyle } from '@/types/customField';
+import type { CustomField } from '@/types/customField';
 
 interface BodyType14Props {
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
+  readonly canvasScale?: number;
 }
 
-function fieldBgStyle(style: FieldStyle): React.CSSProperties {
-  const result: React.CSSProperties = {};
-
-  if (style.backgroundColor) {
-    result.backgroundColor = hexToRgba(style.backgroundColor, style.backgroundOpacity);
-  }
-  if (style.borderWidth > 0 && style.borderColor) {
-    result.border = `${style.borderWidth}px solid ${style.borderColor}`;
-  }
-  if (style.borderRadius > 0) {
-    result.borderRadius = `${style.borderRadius}px`;
-  }
-  if (style.padding > 0) {
-    result.padding = `${style.padding}px`;
-  }
-
-  return result;
-}
-
-function FieldRenderer({ field, state, colors, opacities }: {
+function StaticField({ field, state, colors, opacities }: {
   readonly field: CustomField;
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
@@ -68,9 +55,88 @@ function FieldRenderer({ field, state, colors, opacities }: {
   );
 }
 
-export function BodyType14({ state, colors, opacities }: BodyType14Props) {
+function GridOverlay({ gridSize }: { readonly gridSize: number }) {
+  return (
+    <div
+      data-testid="grid-overlay"
+      style={{
+        position: 'absolute',
+        inset: 0,
+        backgroundImage:
+          `linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), ` +
+          `linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)`,
+        backgroundSize: `${gridSize}px ${gridSize}px`,
+        pointerEvents: 'none',
+      }}
+    />
+  );
+}
+
+function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
+  readonly state: ScoreboardState;
+  readonly colors: ColorMap;
+  readonly opacities: OpacityMap;
+  readonly canvasScale: number;
+}) {
+  const selectedFieldId = useScoreboardStore((s) => s.customFieldsData.selectedFieldId);
+  const selectField = useScoreboardStore((s) => s.selectCustomField);
+  const { showGuides, gridSize } = state.customFieldsData;
+
+  const drag = useFieldDrag(canvasScale);
+  const resize = useFieldResize(canvasScale);
+
   const fields = state.customFieldsData.fields;
   const sorted = [...fields].sort((a, b) => a.zIndex - b.zIndex);
+
+  const handleBackgroundClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      selectField(null);
+    }
+  };
+
+  return (
+    <div
+      data-testid="body-type-14"
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        flex: 1,
+      }}
+      onClick={handleBackgroundClick}
+    >
+      {showGuides && <GridOverlay gridSize={gridSize} />}
+
+      {sorted.map((field) => (
+        <InteractiveField
+          key={field.id}
+          field={field}
+          state={state}
+          colors={colors}
+          opacities={opacities}
+          isSelected={selectedFieldId === field.id}
+          drag={drag}
+          resize={resize}
+        />
+      ))}
+    </div>
+  );
+}
+
+export function BodyType14({ state, colors, opacities, canvasScale }: BodyType14Props) {
+  const fields = state.customFieldsData.fields;
+  const sorted = [...fields].sort((a, b) => a.zIndex - b.zIndex);
+
+  if (canvasScale !== undefined) {
+    return (
+      <InteractiveCanvas
+        state={state}
+        colors={colors}
+        opacities={opacities}
+        canvasScale={canvasScale}
+      />
+    );
+  }
 
   return (
     <div
@@ -83,7 +149,7 @@ export function BodyType14({ state, colors, opacities }: BodyType14Props) {
       }}
     >
       {sorted.map((field) => (
-        <FieldRenderer
+        <StaticField
           key={field.id}
           field={field}
           state={state}

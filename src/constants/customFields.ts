@@ -58,6 +58,7 @@ export const CUSTOM_FIELD_LABELS = {
   fieldBorderWidth: 'Épaisseur de bordure',
   fieldBorderRadius: 'Rayon de bordure',
   fieldPadding: 'Marge interne',
+  fieldBgOpacity: 'Opacité du fond',
 
   /* Couches */
   layersTitle: 'Couches',

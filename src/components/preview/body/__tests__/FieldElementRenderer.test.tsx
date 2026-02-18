@@ -86,13 +86,40 @@ describe('FieldElementRenderer', () => {
     expect(screen.getByText('Image')).toBeInTheDocument();
   });
 
-  it('rend un placeholder pour un type non implémenté', () => {
+  it('rend un flag-display avec le composant Flag', () => {
     const element: FieldElementConfig = {
       type: 'flag-display',
       config: { side: 'left' },
     };
+    const { container } = render(<FieldElementRenderer element={element} {...defaultProps} />);
+    expect(container.firstChild).toBeInTheDocument();
+  });
+
+  it('rend un placeholder pour un type compose', () => {
+    const element: FieldElementConfig = {
+      type: 'body-type-1',
+      config: { bodyTypeId: 1 },
+    };
     render(<FieldElementRenderer element={element} {...defaultProps} />);
-    expect(screen.getByText('flag-display')).toBeInTheDocument();
+    expect(screen.getByText('body-type-1')).toBeInTheDocument();
+  });
+
+  it('rend un timeout-display', () => {
+    const element: FieldElementConfig = {
+      type: 'timeout-display',
+      config: {},
+    };
+    render(<FieldElementRenderer element={element} {...defaultProps} />);
+    expect(screen.getByText(DEFAULT_STATE.team1)).toBeInTheDocument();
+  });
+
+  it('rend un shootout-display', () => {
+    const element: FieldElementConfig = {
+      type: 'shootout-display',
+      config: {},
+    };
+    render(<FieldElementRenderer element={element} {...defaultProps} />);
+    expect(screen.getByText(DEFAULT_STATE.team1)).toBeInTheDocument();
   });
 
   it('rend un shape-block sans erreur', () => {

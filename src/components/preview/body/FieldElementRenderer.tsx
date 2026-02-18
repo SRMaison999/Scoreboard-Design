@@ -3,8 +3,16 @@
  * Dispatche vers le bon composant en fonction du type d'élément.
  */
 
+import {
+  ScoreElement,
+  ClockElement,
+  PeriodElement,
+  TeamNameElement,
+  FlagElement,
+  TimeoutElement,
+  ShootoutElement,
+} from './FieldMatchElements';
 import { hexToRgba } from '@/utils/color';
-import { ff } from '@/utils/font';
 import type { ScoreboardState } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FieldElementConfig } from '@/types/customField';
@@ -16,84 +24,6 @@ interface FieldElementRendererProps {
   readonly opacities: OpacityMap;
   readonly width: number;
   readonly height: number;
-}
-
-function col(colors: ColorMap, opacities: OpacityMap, key: keyof ColorMap): string {
-  return hexToRgba(colors[key], opacities[key] ?? 0);
-}
-
-function ScoreElement({ state, colors, opacities, element }: {
-  readonly state: ScoreboardState;
-  readonly colors: ColorMap;
-  readonly opacities: OpacityMap;
-  readonly element: { readonly config: { readonly side: string } };
-}) {
-  const score = element.config.side === 'left' ? state.score1 : state.score2;
-  return (
-    <div style={{
-      width: '100%', height: '100%',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontSize: state.fontSizes.score, fontWeight: 700,
-      fontFamily: ff(state.fontTeams), color: col(colors, opacities, 'score'),
-    }}>
-      {score}
-    </div>
-  );
-}
-
-function ClockElement({ state, colors, opacities }: {
-  readonly state: ScoreboardState;
-  readonly colors: ColorMap;
-  readonly opacities: OpacityMap;
-}) {
-  return (
-    <div style={{
-      width: '100%', height: '100%',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontSize: state.fontSizes.clockTime, fontWeight: 700,
-      fontFamily: ff(state.fontClock), color: col(colors, opacities, 'time'),
-    }}>
-      {state.time}
-    </div>
-  );
-}
-
-function PeriodElement({ state, colors, opacities }: {
-  readonly state: ScoreboardState;
-  readonly colors: ColorMap;
-  readonly opacities: OpacityMap;
-}) {
-  return (
-    <div style={{
-      width: '100%', height: '100%',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontSize: state.fontSizes.period, fontWeight: 600,
-      fontFamily: ff(state.fontClock), color: col(colors, opacities, 'period'),
-      textTransform: 'uppercase', letterSpacing: 2,
-    }}>
-      {state.period}
-    </div>
-  );
-}
-
-function TeamNameElement({ state, colors, opacities, element }: {
-  readonly state: ScoreboardState;
-  readonly colors: ColorMap;
-  readonly opacities: OpacityMap;
-  readonly element: { readonly config: { readonly side: string } };
-}) {
-  const name = element.config.side === 'left' ? state.team1 : state.team2;
-  return (
-    <div style={{
-      width: '100%', height: '100%',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontSize: state.fontSizes.teamName, fontWeight: 700,
-      fontFamily: ff(state.fontTeams), color: col(colors, opacities, 'teamName'),
-      letterSpacing: 4, textTransform: 'uppercase',
-    }}>
-      {name}
-    </div>
-  );
 }
 
 function TextBlockElement({ element }: {
@@ -201,6 +131,8 @@ export function FieldElementRenderer({
   state,
   colors,
   opacities,
+  width,
+  height,
 }: FieldElementRendererProps) {
   switch (element.type) {
     case 'score-display':
@@ -211,6 +143,12 @@ export function FieldElementRenderer({
       return <PeriodElement state={state} colors={colors} opacities={opacities} />;
     case 'team-name':
       return <TeamNameElement state={state} colors={colors} opacities={opacities} element={element} />;
+    case 'flag-display':
+      return <FlagElement state={state} element={element} width={width} height={height} />;
+    case 'timeout-display':
+      return <TimeoutElement state={state} />;
+    case 'shootout-display':
+      return <ShootoutElement state={state} />;
     case 'text-block':
       return <TextBlockElement element={element} />;
     case 'shape-block':

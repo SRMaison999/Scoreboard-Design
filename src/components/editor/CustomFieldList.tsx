@@ -1,9 +1,9 @@
 /**
  * Liste des champs (couches) pour le constructeur de champs personnalisés.
- * Affiche les champs triés par z-index avec sélection et actions.
+ * Affiche les champs triés par z-index avec sélection, réordonnancement et actions.
  */
 
-import { Trash2, Eye, EyeOff, Lock, Unlock } from 'lucide-react';
+import { Trash2, Eye, EyeOff, Lock, Unlock, ChevronUp, ChevronDown } from 'lucide-react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import { cn } from '@/lib/utils';
@@ -14,6 +14,7 @@ export function CustomFieldList() {
   const selectField = useScoreboardStore((s) => s.selectCustomField);
   const removeField = useScoreboardStore((s) => s.removeCustomField);
   const updateProp = useScoreboardStore((s) => s.updateCustomFieldProp);
+  const reorderField = useScoreboardStore((s) => s.reorderCustomField);
 
   const sorted = [...fields].sort((a, b) => b.zIndex - a.zIndex);
 
@@ -25,13 +26,29 @@ export function CustomFieldList() {
     );
   }
 
+  const handleMoveUp = (e: React.MouseEvent, fieldId: string, currentZ: number) => {
+    e.stopPropagation();
+    const above = sorted.find((f) => f.zIndex > currentZ);
+    if (above) {
+      reorderField(fieldId, above.zIndex + 1);
+    }
+  };
+
+  const handleMoveDown = (e: React.MouseEvent, fieldId: string, currentZ: number) => {
+    e.stopPropagation();
+    const below = sorted.find((f) => f.zIndex < currentZ);
+    if (below) {
+      reorderField(fieldId, Math.max(0, below.zIndex - 1));
+    }
+  };
+
   return (
     <div className="flex flex-col gap-0.5">
-      {sorted.map((field) => (
+      {sorted.map((field, idx) => (
         <div
           key={field.id}
           className={cn(
-            'flex items-center gap-1.5 rounded px-2 py-1 cursor-pointer text-[12px]',
+            'flex items-center gap-1 rounded px-2 py-1 cursor-pointer text-[12px]',
             selectedId === field.id
               ? 'bg-sky-900/40 text-sky-300 border border-sky-600/40'
               : 'text-gray-300 hover:bg-gray-800 border border-transparent',
@@ -46,9 +63,29 @@ export function CustomFieldList() {
 
           <button
             type="button"
+            className="p-0.5 hover:text-sky-300 flex-shrink-0 disabled:opacity-30 disabled:cursor-not-allowed"
+            onClick={(e) => handleMoveUp(e, field.id, field.zIndex)}
+            disabled={idx === 0}
+            title={CUSTOM_FIELD_LABELS.layerMoveUp}
+          >
+            <ChevronUp size={12} className="flex-shrink-0" />
+          </button>
+
+          <button
+            type="button"
+            className="p-0.5 hover:text-sky-300 flex-shrink-0 disabled:opacity-30 disabled:cursor-not-allowed"
+            onClick={(e) => handleMoveDown(e, field.id, field.zIndex)}
+            disabled={idx === sorted.length - 1}
+            title={CUSTOM_FIELD_LABELS.layerMoveDown}
+          >
+            <ChevronDown size={12} className="flex-shrink-0" />
+          </button>
+
+          <button
+            type="button"
             className="p-0.5 hover:text-sky-300 flex-shrink-0"
             onClick={(e) => { e.stopPropagation(); updateProp(field.id, 'visible', !field.visible); }}
-            title={field.visible ? CUSTOM_FIELD_LABELS.fieldVisible : CUSTOM_FIELD_LABELS.fieldVisible}
+            title={CUSTOM_FIELD_LABELS.fieldVisible}
           >
             {field.visible
               ? <Eye size={12} className="flex-shrink-0" />
@@ -60,7 +97,7 @@ export function CustomFieldList() {
             type="button"
             className="p-0.5 hover:text-sky-300 flex-shrink-0"
             onClick={(e) => { e.stopPropagation(); updateProp(field.id, 'locked', !field.locked); }}
-            title={field.locked ? CUSTOM_FIELD_LABELS.fieldLocked : CUSTOM_FIELD_LABELS.fieldLocked}
+            title={CUSTOM_FIELD_LABELS.fieldLocked}
           >
             {field.locked
               ? <Lock size={12} className="flex-shrink-0 text-amber-400" />

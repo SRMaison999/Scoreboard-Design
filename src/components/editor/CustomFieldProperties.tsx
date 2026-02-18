@@ -7,6 +7,7 @@ import { InputField } from '@/components/ui/InputField';
 import { Button } from '@/components/ui/Button';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
+import { FieldElementConfigEditor } from './FieldElementConfigEditor';
 
 interface CustomFieldPropertiesProps {
   readonly fieldId: string;
@@ -115,6 +116,21 @@ export function CustomFieldProperties({ fieldId }: CustomFieldPropertiesProps) {
         </div>
       </div>
 
+      <div>
+        <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.fieldBgOpacity}</label>
+        <div className="flex items-center gap-2">
+          <input
+            type="range"
+            min={0}
+            max={100}
+            value={field.style.backgroundOpacity}
+            onChange={(e) => updateStyle(fieldId, { backgroundOpacity: Number(e.target.value) })}
+            className="flex-1 accent-sky-300"
+          />
+          <span className="text-[11px] text-gray-400 w-8 text-right">{field.style.backgroundOpacity}%</span>
+        </div>
+      </div>
+
       <div className="grid grid-cols-3 gap-2">
         <div>
           <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.fieldBorderWidth}</label>
@@ -150,6 +166,12 @@ export function CustomFieldProperties({ fieldId }: CustomFieldPropertiesProps) {
           />
         </div>
       </div>
+
+      {/* Configuration spécifique à l'élément */}
+      <div className="text-[10px] text-gray-500 uppercase tracking-wider border-t border-gray-800 pt-1 mt-1">
+        {field.element.type}
+      </div>
+      <FieldElementConfigEditor fieldId={fieldId} element={field.element} />
 
       <div className="flex gap-2 mt-2">
         <Button variant="ghost" onClick={() => duplicateField(fieldId)}>
