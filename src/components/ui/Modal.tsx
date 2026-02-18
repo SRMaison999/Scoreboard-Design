@@ -1,9 +1,21 @@
 import { type ReactNode, useEffect, useCallback } from 'react';
+import { cn } from '@/lib/utils';
+
+type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
+
+const SIZE_CLASSES: Record<ModalSize, string> = {
+  sm: 'max-w-sm',
+  md: 'max-w-lg',
+  lg: 'max-w-3xl',
+  xl: 'max-w-5xl',
+  full: 'max-w-[90vw] max-h-[90vh]',
+};
 
 interface ModalProps {
   readonly open: boolean;
   readonly onClose: () => void;
   readonly children: ReactNode;
+  readonly size?: ModalSize;
 }
 
 interface ModalSubProps {
@@ -11,7 +23,7 @@ interface ModalSubProps {
   readonly className?: string;
 }
 
-export function Modal({ open, onClose, children }: ModalProps) {
+export function Modal({ open, onClose, children, size = 'md' }: ModalProps) {
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -36,7 +48,10 @@ export function Modal({ open, onClose, children }: ModalProps) {
       aria-modal="true"
     >
       <div
-        className="bg-gray-900 border border-gray-700 rounded-lg shadow-xl max-w-lg w-full mx-4"
+        className={cn(
+          'bg-gray-900 border border-gray-700 rounded-lg shadow-xl w-full mx-4',
+          SIZE_CLASSES[size],
+        )}
         onClick={(e) => e.stopPropagation()}
       >
         {children}
