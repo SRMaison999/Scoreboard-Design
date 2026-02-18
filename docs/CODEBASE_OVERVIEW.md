@@ -425,7 +425,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 | Composants | 50+ | editeur, body types, UI, operateur, overlays, sections integration |
 | Hooks | 10+ | useTimer, useScaling, useOperatorKeyboard, useOutputSync, useFontLoader, useFontSelectGroups, usePlayerPhotos, useLogos, useAnimationTriggers, useExportConfig |
 | Stores | 10 | scoreboardStore, templateStore, photoStore, logoStore, presetStore, frameStore, liveDataStore, multiScoreboardStore, syncStore, broadcastStore |
-| Utilitaires | 14+ | color, time, font, screenshot, image, animation, videoRecorder, gifEncoder, fieldContainment, csvParser, excelParser, jsonParser, rosterValidator, rosterExporter |
+| Utilitaires | 15+ | color, time, font, screenshot, image, animation, videoRecorder, gifEncoder, specGenerator, fieldContainment, csvParser, excelParser, jsonParser, rosterValidator, rosterExporter |
 | Integration | 2 | App, OutputWindow |
 
 Verification avant commit : `npm run type-check && npm run lint && npm run test:run`
