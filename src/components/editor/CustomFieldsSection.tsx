@@ -1,15 +1,21 @@
 /**
  * Section éditeur pour le constructeur de champs personnalisés (Type 14).
- * Contient les options du canvas, la bibliothèque et la liste des champs.
+ * Contient les options du canvas, la bibliothèque, la liste des champs et les presets.
  */
 
+import { useState } from 'react';
+import { Save, FolderOpen } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
+import { Button } from '@/components/ui/Button';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import { CustomFieldLibrary } from './CustomFieldLibrary';
 import { CustomFieldList } from './CustomFieldList';
 import { CustomFieldProperties } from './CustomFieldProperties';
+import { SavePresetModal } from './SavePresetModal';
+import { LoadPresetModal } from './LoadPresetModal';
 import { GRID_SIZE_OPTIONS } from '@/types/customField';
+import type { PresetScope } from '@/types/fieldPreset';
 
 export function CustomFieldsSection() {
   const fullPageMode = useScoreboardStore((s) => s.customFieldsData.fullPageMode);
@@ -17,8 +23,23 @@ export function CustomFieldsSection() {
   const showGuides = useScoreboardStore((s) => s.customFieldsData.showGuides);
   const gridSize = useScoreboardStore((s) => s.customFieldsData.gridSize);
   const selectedFieldId = useScoreboardStore((s) => s.customFieldsData.selectedFieldId);
+  const fieldsCount = useScoreboardStore((s) => s.customFieldsData.fields.length);
   const updateOption = useScoreboardStore((s) => s.updateCustomFieldsOption);
   const updateGridSize = useScoreboardStore((s) => s.updateCustomFieldsGridSize);
+
+  const [saveOpen, setSaveOpen] = useState(false);
+  const [loadOpen, setLoadOpen] = useState(false);
+  const [saveScope, setSaveScope] = useState<PresetScope>('layout');
+
+  const handleOpenSaveField = () => {
+    setSaveScope('field');
+    setSaveOpen(true);
+  };
+
+  const handleOpenSaveLayout = () => {
+    setSaveScope('layout');
+    setSaveOpen(true);
+  };
 
   return (
     <>
@@ -72,6 +93,37 @@ export function CustomFieldsSection() {
         </label>
       </Section>
 
+      <Section title={CUSTOM_FIELD_LABELS.sectionPresets} defaultOpen={false}>
+        <div className="flex flex-col gap-1.5">
+          <Button
+            variant="ghost"
+            className="flex items-center gap-2 w-full justify-start"
+            onClick={handleOpenSaveField}
+            disabled={!selectedFieldId}
+          >
+            <Save size={14} className="flex-shrink-0" />
+            {CUSTOM_FIELD_LABELS.presetSaveField}
+          </Button>
+          <Button
+            variant="ghost"
+            className="flex items-center gap-2 w-full justify-start"
+            onClick={handleOpenSaveLayout}
+            disabled={fieldsCount === 0}
+          >
+            <Save size={14} className="flex-shrink-0" />
+            {CUSTOM_FIELD_LABELS.presetSaveLayout}
+          </Button>
+          <Button
+            variant="ghost"
+            className="flex items-center gap-2 w-full justify-start"
+            onClick={() => setLoadOpen(true)}
+          >
+            <FolderOpen size={14} className="flex-shrink-0" />
+            {CUSTOM_FIELD_LABELS.presetLoad}
+          </Button>
+        </div>
+      </Section>
+
       <CustomFieldLibrary />
 
       <Section title={CUSTOM_FIELD_LABELS.layersTitle} defaultOpen>
@@ -83,6 +135,16 @@ export function CustomFieldsSection() {
           <CustomFieldProperties fieldId={selectedFieldId} />
         </Section>
       )}
+
+      <SavePresetModal
+        open={saveOpen}
+        onClose={() => setSaveOpen(false)}
+        defaultScope={saveScope}
+      />
+      <LoadPresetModal
+        open={loadOpen}
+        onClose={() => setLoadOpen(false)}
+      />
     </>
   );
 }
