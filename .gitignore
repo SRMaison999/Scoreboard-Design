@@ -8,3 +8,4 @@ dist/
 .idea/
 coverage/
 release/
+*.tsbuildinfo
