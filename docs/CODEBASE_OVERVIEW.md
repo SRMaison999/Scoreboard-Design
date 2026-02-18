@@ -161,6 +161,22 @@ Integration CasparCG / Viz : streaming de donnees vers des systemes broadcast ex
 - `incrementFramesSent()` : compteur de frames envoyees
 - `resetBroadcast()` : reinitialisation complete
 
+### 2.10 `usePresetStore`
+
+**Fichier** : `src/stores/presetStore.ts`
+
+Gestion des presets de champs personnalises et de layouts, persistes dans IndexedDB (table `fieldPresets`).
+
+**State** : `presets: FieldPreset[]`, `loading: boolean`
+
+**Actions** :
+- `fetchPresets()` : charge depuis IndexedDB, tri par date de modification
+- `saveFieldPreset(name, field)` : sauvegarde un champ individuel
+- `saveLayoutPreset(name, layout)` : sauvegarde un ecran complet (tous les champs + options)
+- `renamePreset(id, name)` / `deletePreset(id)`
+- `exportPreset(id)` : telecharge en `.preset.json`
+- `importPreset(file)` : importe depuis un fichier JSON
+
 ---
 
 ## 3. Hooks
@@ -169,7 +185,7 @@ Integration CasparCG / Viz : streaming de donnees vers des systemes broadcast ex
 |------|---------|------|
 | `useTimer` | `src/hooks/useTimer.ts` | Intervalle 100ms pour le decompte de l'horloge et des penalites |
 | `useScaling` | `src/hooks/useScaling.ts` | `ResizeObserver` + calcul du facteur `scale` pour le preview |
-| `useFontLoader` | `src/hooks/useFontLoader.ts` | Injection du `<link>` Google Fonts dans le `<head>` |
+| `useFontLoader` | `src/hooks/useFontLoader.ts` | Injection du `<link>` Google Fonts dans le `<head>` (25 polices) |
 | `useOutputSyncSender` | `src/hooks/useOutputSync.ts` | Envoie le state via `BroadcastChannel` (cote editeur/operateur) |
 | `useOutputSyncReceiver` | `src/hooks/useOutputSync.ts` | Recoit le state via `BroadcastChannel` (cote sortie) |
 | `useOperatorKeyboard` | `src/hooks/useOperatorKeyboard.ts` | Raccourcis clavier du mode operateur |
@@ -182,6 +198,7 @@ Integration CasparCG / Viz : streaming de donnees vers des systemes broadcast ex
 | `useBroadcast` | `src/hooks/useBroadcast.ts` | Streaming de donnees vers CasparCG / Viz |
 | `useFieldDrag` | `src/hooks/useFieldDrag.ts` | Drag (déplacement) des champs personnalisés avec compensation de scale |
 | `useFieldResize` | `src/hooks/useFieldResize.ts` | Resize (redimensionnement) des champs personnalisés avec compensation de scale |
+| `useFontSelectGroups` | `src/hooks/useFontSelectGroups.ts` | Construit les groupes de polices par categorie pour le composant Select |
 
 ---
 
@@ -406,8 +423,8 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 |-----------|--------|----------|
 | API | 8 | frameExport, frameRecorder, frameDelta, frameConverters, liveDataClient, liveDataMapper, syncClient, broadcastStreamer |
 | Composants | 50+ | editeur, body types, UI, operateur, overlays, sections integration |
-| Hooks | 9 | useTimer, useScaling, useOperatorKeyboard, useOutputSync, useFontLoader, usePlayerPhotos, useLogos, useAnimationTriggers, useExportConfig |
-| Stores | 8 | scoreboardStore, templateStore, photoStore, logoStore, liveDataStore, multiScoreboardStore, syncStore, broadcastStore |
+| Hooks | 10+ | useTimer, useScaling, useOperatorKeyboard, useOutputSync, useFontLoader, useFontSelectGroups, usePlayerPhotos, useLogos, useAnimationTriggers, useExportConfig |
+| Stores | 10 | scoreboardStore, templateStore, photoStore, logoStore, presetStore, frameStore, liveDataStore, multiScoreboardStore, syncStore, broadcastStore |
 | Utilitaires | 13+ | color, time, font, screenshot, image, animation, videoRecorder, gifEncoder, csvParser, excelParser, jsonParser, rosterValidator, rosterExporter |
 | Integration | 2 | App, OutputWindow |
 

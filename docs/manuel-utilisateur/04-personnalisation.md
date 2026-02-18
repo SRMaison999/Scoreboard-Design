@@ -58,11 +58,18 @@ Deux modes disponibles :
 | Horloge | Horloge, periode | Barlow Condensed |
 | Corps | Titres, stats, penalites | Barlow Condensed |
 
-### 10 polices disponibles
+### 25 polices disponibles
 
-Oswald, Barlow Condensed, Bebas Neue, Teko, Anton, Rajdhani, Russo One, Orbitron, Saira Condensed, Chakra Petch.
+Les polices sont organisees par categories dans le selecteur :
 
-Toutes sont des polices professionnelles adaptees a l'affichage sportif, chargees automatiquement depuis Google Fonts.
+- **Sport / Impact** : Oswald, Bebas Neue, Anton, Russo One, Archivo Black, Black Ops One, Bungee
+- **Condensed** : Barlow Condensed, Saira Condensed, Roboto Condensed, Fjalla One, Teko
+- **Modernes** : Montserrat, Inter, Poppins, Rajdhani, Chakra Petch
+- **Display** : Righteous, Audiowide, Exo 2, Orbitron
+- **Monospace** : Share Tech Mono, JetBrains Mono
+- **Serif** : Playfair Display, Bitter
+
+Toutes sont des polices professionnelles chargees automatiquement depuis Google Fonts. Le selecteur affiche chaque police dans son propre rendu pour faciliter le choix.
 
 ## Tailles de police
 

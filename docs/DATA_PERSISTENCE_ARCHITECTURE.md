@@ -79,6 +79,8 @@ Le `ScoreboardState` complet : equipes, scores, couleurs, opacites, polices, tai
 class ScoreboardDatabase extends Dexie {
   templates!: Dexie.Table<ScoreboardTemplate, string>;
   playerPhotos!: Dexie.Table<PlayerPhoto, string>;
+  logos!: Dexie.Table<LogoEntry, string>;
+  fieldPresets!: Dexie.Table<FieldPreset, string>;
 
   constructor() {
     super('scoreboard-editor');
@@ -94,6 +96,12 @@ class ScoreboardDatabase extends Dexie {
       playerPhotos: 'id, team, number, playerName',
       logos: 'id, logoType, key, name'
     });
+    this.version(4).stores({
+      templates: 'id, name, created, modified',
+      playerPhotos: 'id, team, number, playerName',
+      logos: 'id, logoType, key, name',
+      fieldPresets: 'id, name, scope, created, modified'
+    });
   }
 }
 ```
@@ -101,8 +109,8 @@ class ScoreboardDatabase extends Dexie {
 | Propriete | Valeur |
 |-----------|--------|
 | Nom de la base | `scoreboard-editor` |
-| Version du schema | 3 |
-| Tables | `templates`, `playerPhotos`, `logos` |
+| Version du schema | 4 |
+| Tables | `templates`, `playerPhotos`, `logos`, `fieldPresets` |
 
 **Table `templates`** :
 | Cle primaire | `id` |
@@ -113,6 +121,37 @@ class ScoreboardDatabase extends Dexie {
 | Cle primaire | `id` (format `TEAM-NUMBER`, ex: `CAN-11`) |
 |---|---|
 | Index | `team`, `number`, `playerName` |
+
+**Table `fieldPresets`** :
+| Cle primaire | `id` (format `preset-{timestamp}-{random}`) |
+|---|---|
+| Index | `name`, `scope`, `created`, `modified` |
+
+### Structure d'un preset de champ
+
+```typescript
+interface FieldPreset {
+  id: string;         // ex: "preset-1707932400000-a8f3b2c"
+  name: string;       // nom choisi par l'utilisateur
+  scope: 'field' | 'layout';  // champ unique ou ecran complet
+  created: string;    // ISO 8601
+  modified: string;   // ISO 8601
+  field?: CustomField;       // present quand scope = 'field'
+  layout?: CustomFieldsData; // present quand scope = 'layout'
+}
+```
+
+**Store** : `usePresetStore` dans `src/stores/presetStore.ts`
+
+| Operation | Methode du store | Requete Dexie |
+|-----------|-----------------|---------------|
+| Lister | `fetchPresets()` | `db.fieldPresets.orderBy('modified').reverse().toArray()` |
+| Sauvegarder un champ | `saveFieldPreset(name, field)` | `db.fieldPresets.add(preset)` |
+| Sauvegarder un layout | `saveLayoutPreset(name, layout)` | `db.fieldPresets.add(preset)` |
+| Renommer | `renamePreset(id, name)` | `db.fieldPresets.update(id, {...})` |
+| Supprimer | `deletePreset(id)` | `db.fieldPresets.delete(id)` |
+| Exporter | `exportPreset(id)` | Telecharge en `.preset.json` |
+| Importer | `importPreset(file)` | Parse + `db.fieldPresets.add(preset)` |
 
 ### Structure d'un template
 

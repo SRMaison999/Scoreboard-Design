@@ -229,3 +229,31 @@ La liste des champs affiche tous les éléments dans l'ordre des couches (Z-inde
 - **Œil** : basculer la visibilité
 - **Cadenas** : basculer le verrouillage
 - Cliquer sur le nom sélectionne le champ sur le canvas
+
+### Presets (sauvegarde et chargement)
+
+Le systeme de presets permet de sauvegarder et reutiliser des constructions dans le Layout libre.
+
+**Sauvegarder un preset :**
+
+La section "Presets" dans le panneau editeur propose deux options :
+
+- **Sauvegarder le champ** : sauvegarde le champ actuellement selectionne (element, position, dimensions, style). Le bouton est grise si aucun champ n'est selectionne.
+- **Sauvegarder l'ecran** : sauvegarde l'integralite du layout (tous les champs places sur le canvas + les options du canvas comme le mode pleine page, la grille et les guides). Le bouton est grise si le canvas est vide.
+
+Une modale s'ouvre pour choisir le type de preset et saisir un nom.
+
+**Charger un preset :**
+
+Le bouton "Charger un preset" ouvre une modale listant tous les presets sauvegardes, separes en deux sections (champs individuels et ecrans complets).
+
+Deux modes de chargement sont disponibles :
+
+- **Remplacer** : le layout actuel est entierement remplace par le contenu du preset
+- **Ajouter** : les champs du preset sont ajoutes au layout existant (dans la limite de 50 champs)
+
+**Gestion des presets :**
+
+- **Exporter** : telecharge le preset au format `.preset.json` (partage entre utilisateurs)
+- **Importer** : charge un fichier `.preset.json` exporte par un autre utilisateur
+- **Supprimer** : supprime definitivement un preset de la bibliotheque
