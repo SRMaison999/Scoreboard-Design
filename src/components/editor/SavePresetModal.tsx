@@ -2,12 +2,13 @@
  * Modale de sauvegarde d'un preset de champ ou de layout.
  */
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
 import { usePresetStore } from '@/stores/presetStore';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
+import { getContainedFields, toRelativePositions } from '@/utils/fieldContainment';
 import type { PresetScope } from '@/types/fieldPreset';
 
 interface SavePresetModalProps {
@@ -28,6 +29,12 @@ export function SavePresetModal({ open, onClose, defaultScope }: SavePresetModal
   const saveLayoutPreset = usePresetStore((s) => s.saveLayoutPreset);
 
   const selectedField = fields.find((f) => f.id === selectedFieldId);
+
+  const containedFields = useMemo(
+    () => (selectedField ? getContainedFields(selectedField, fields) : []),
+    [selectedField, fields],
+  );
+
   const canSaveField = scope === 'field' && !!selectedField;
   const canSaveLayout = scope === 'layout' && fields.length > 0;
   const canSave = name.trim().length > 0 && (canSaveField || canSaveLayout);
@@ -37,7 +44,10 @@ export function SavePresetModal({ open, onClose, defaultScope }: SavePresetModal
     setSaving(true);
     try {
       if (scope === 'field' && selectedField) {
-        await saveFieldPreset(name.trim(), selectedField);
+        const relativeChildren = containedFields.length > 0
+          ? toRelativePositions(selectedField, containedFields)
+          : undefined;
+        await saveFieldPreset(name.trim(), selectedField, relativeChildren);
       } else {
         await saveLayoutPreset(name.trim(), customFieldsData);
       }
@@ -97,6 +107,11 @@ export function SavePresetModal({ open, onClose, defaultScope }: SavePresetModal
           {scope === 'field' && selectedField && (
             <p className="text-[12px] text-gray-400">
               {selectedField.label} ({selectedField.element.type})
+              {containedFields.length > 0 && (
+                <span className="ml-1 text-sky-400">
+                  + {containedFields.length} {CUSTOM_FIELD_LABELS.presetChildrenCount}
+                </span>
+              )}
             </p>
           )}
           {scope === 'layout' && fields.length > 0 && (

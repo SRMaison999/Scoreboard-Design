@@ -142,6 +142,7 @@ export const CUSTOM_FIELD_LABELS = {
   presetRename: 'Renommer',
   presetNoFieldSelected: 'S\u00e9lectionnez un champ pour le sauvegarder',
   presetNoFields: 'Ajoutez des champs au canvas pour sauvegarder un \u00e9cran',
+  presetChildrenCount: '\u00e9l\u00e9ment(s) contenu(s) inclus',
   presetLoadReplace: 'Remplacer le layout actuel',
   presetLoadMerge: 'Ajouter au layout actuel',
   presetFieldCount: 'champ(s)',

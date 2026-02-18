@@ -11,6 +11,7 @@ import { usePresetStore } from '@/stores/presetStore';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import { FIELD_MAX_FIELDS } from '@/types/customField';
+import { toAbsolutePositions } from '@/utils/fieldContainment';
 import type { FieldPreset } from '@/types/fieldPreset';
 
 interface LoadPresetModalProps {
@@ -35,9 +36,13 @@ function PresetRow({
     ? CUSTOM_FIELD_LABELS.presetScopeField
     : CUSTOM_FIELD_LABELS.presetScopeLayout;
 
+  const childCount = preset.children?.length ?? 0;
+  const fieldDetail = childCount > 0
+    ? `${preset.field?.element.type ?? ''} + ${childCount} ${CUSTOM_FIELD_LABELS.presetChildrenCount}`
+    : preset.field?.element.type ?? '';
   const detail = preset.scope === 'layout' && preset.layout
     ? `${preset.layout.fields.length} ${CUSTOM_FIELD_LABELS.presetFieldCount}`
-    : preset.field?.element.type ?? '';
+    : fieldDetail;
 
   return (
     <div className="flex items-center gap-2 py-1.5 px-2 rounded hover:bg-gray-800 group">
@@ -97,6 +102,16 @@ export function LoadPresetModal({ open, onClose }: LoadPresetModalProps) {
     if (fields.length >= FIELD_MAX_FIELDS) return;
     const f = preset.field;
     addField(f.element, f.x, f.y, f.width, f.height);
+
+    if (preset.children && preset.children.length > 0) {
+      const absoluteChildren = toAbsolutePositions(f, preset.children);
+      const remaining = FIELD_MAX_FIELDS - fields.length - 1;
+      const toAdd = absoluteChildren.slice(0, remaining);
+      for (const child of toAdd) {
+        addField(child.element, child.x, child.y, child.width, child.height);
+      }
+    }
+
     onClose();
   };
 
