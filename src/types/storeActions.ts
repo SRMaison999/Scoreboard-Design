@@ -7,6 +7,7 @@ import type { ShootoutResult } from './bodyTypes/shootout';
 import type { RosterData, RosterPlayer } from './bodyTypes/roster';
 import type { RosterImportMode } from './rosterImport';
 import type { FontSizeKey } from './fontSizes';
+import type { CustomField, FieldElementConfig, FieldStyle } from './customField';
 
 export interface ScoreboardActions {
   /* Actions generiques */
@@ -111,6 +112,20 @@ export interface ScoreboardActions {
 
   /* Tailles de police */
   updateFontSize: (key: FontSizeKey, value: number) => void;
+
+  /* Custom Fields (type 14) */
+  addCustomField: (element: FieldElementConfig, x: number, y: number, width: number, height: number) => void;
+  removeCustomField: (fieldId: string) => void;
+  updateCustomFieldPosition: (fieldId: string, x: number, y: number) => void;
+  updateCustomFieldSize: (fieldId: string, width: number, height: number) => void;
+  updateCustomFieldElement: (fieldId: string, element: FieldElementConfig) => void;
+  updateCustomFieldStyle: (fieldId: string, style: Partial<FieldStyle>) => void;
+  updateCustomFieldProp: (fieldId: string, key: keyof CustomField, value: unknown) => void;
+  duplicateCustomField: (fieldId: string) => void;
+  reorderCustomField: (fieldId: string, newZIndex: number) => void;
+  selectCustomField: (fieldId: string | null) => void;
+  updateCustomFieldsOption: (key: 'fullPageMode' | 'snapToGrid' | 'showGuides', value: boolean) => void;
+  updateCustomFieldsGridSize: (size: number) => void;
 
   /* Templates */
   loadState: (state: ScoreboardState) => void;

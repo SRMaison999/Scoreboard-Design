@@ -13,6 +13,7 @@ import { DEFAULT_SCHEDULE_DATA } from '@/types/bodyTypes/schedule';
 import { DEFAULT_FONT_SIZES } from '@/types/fontSizes';
 import { DEFAULT_TEMPLATE_WIDTH, DEFAULT_TEMPLATE_HEIGHT } from '@/constants/resolutions';
 import { DEFAULT_ANIMATION_CONFIG } from '@/types/animation';
+import { DEFAULT_CUSTOM_FIELDS_DATA } from '@/types/customField';
 import type { ScoreboardState } from '@/types/scoreboard';
 
 export const DEFAULT_STATE: ScoreboardState = {
@@ -104,4 +105,6 @@ export const DEFAULT_STATE: ScoreboardState = {
 
   scoreboardVisible: true,
   animationConfig: { ...DEFAULT_ANIMATION_CONFIG },
+
+  customFieldsData: structuredClone(DEFAULT_CUSTOM_FIELDS_DATA),
 };

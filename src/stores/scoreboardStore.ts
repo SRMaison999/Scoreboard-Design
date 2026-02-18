@@ -3,7 +3,15 @@ import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { DEFAULT_STATE } from '@/data/defaultState';
 import { DEFAULT_OPACITIES } from '@/constants/colors';
+import { DEFAULT_CUSTOM_FIELDS_DATA } from '@/types/customField';
 import { tickTimerDraft } from './timerActions';
+import {
+  addCustomFieldDraft, removeCustomFieldDraft,
+  updateCustomFieldPositionDraft, updateCustomFieldSizeDraft,
+  updateCustomFieldElementDraft, updateCustomFieldStyleDraft,
+  updateCustomFieldPropDraft, duplicateCustomFieldDraft,
+  reorderCustomFieldDraft,
+} from './customFieldActions';
 import type { ScoreboardState, PenaltySide } from '@/types/scoreboard';
 import type { ColorKey, ColorPreset } from '@/types/colors';
 import type { ScoreboardActions } from '@/types/storeActions';
@@ -190,13 +198,39 @@ export const useScoreboardStore = create<ScoreboardStore>()(
       updateFontSize: (key: FontSizeKey, value: number) =>
         set((s) => { s.fontSizes[key] = value; }),
 
+      /* Custom Fields (type 14) */
+      addCustomField: (element, x, y, width, height) =>
+        set((s) => { addCustomFieldDraft(s, element, x, y, width, height); }),
+      removeCustomField: (fieldId) =>
+        set((s) => { removeCustomFieldDraft(s, fieldId); }),
+      updateCustomFieldPosition: (fieldId, x, y) =>
+        set((s) => { updateCustomFieldPositionDraft(s, fieldId, x, y); }),
+      updateCustomFieldSize: (fieldId, width, height) =>
+        set((s) => { updateCustomFieldSizeDraft(s, fieldId, width, height); }),
+      updateCustomFieldElement: (fieldId, element) =>
+        set((s) => { updateCustomFieldElementDraft(s, fieldId, element); }),
+      updateCustomFieldStyle: (fieldId, style) =>
+        set((s) => { updateCustomFieldStyleDraft(s, fieldId, style); }),
+      updateCustomFieldProp: (fieldId, key, value) =>
+        set((s) => { updateCustomFieldPropDraft(s, fieldId, key, value); }),
+      duplicateCustomField: (fieldId) =>
+        set((s) => { duplicateCustomFieldDraft(s, fieldId); }),
+      reorderCustomField: (fieldId, newZIndex) =>
+        set((s) => { reorderCustomFieldDraft(s, fieldId, newZIndex); }),
+      selectCustomField: (fieldId) =>
+        set((s) => { s.customFieldsData.selectedFieldId = fieldId; }),
+      updateCustomFieldsOption: (key, value) =>
+        set((s) => { (s.customFieldsData as Record<string, unknown>)[key] = value; }),
+      updateCustomFieldsGridSize: (size) =>
+        set((s) => { s.customFieldsData.gridSize = size; }),
+
       /* Templates */
       loadState: (state) => set(() => structuredClone(state)),
       resetState: () => set(() => structuredClone(DEFAULT_STATE)),
     })),
     {
       name: 'scoreboard-state',
-      version: 6,
+      version: 7,
       migrate: (persisted: unknown) => {
         const state = persisted as Record<string, unknown>;
         if (state['logoMode'] === undefined) {
@@ -223,11 +257,14 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         }
         if (state['fontSizes'] && typeof state['fontSizes'] === 'object') {
           const fs = state['fontSizes'] as Record<string, unknown>;
-          for (let i = 1; i <= 13; i++) {
+          for (let i = 1; i <= 14; i++) {
             if (fs[`bodyScale${i}`] === undefined) {
               fs[`bodyScale${i}`] = 100;
             }
           }
+        }
+        if (state['customFieldsData'] === undefined) {
+          state['customFieldsData'] = structuredClone(DEFAULT_CUSTOM_FIELDS_DATA);
         }
         return state as unknown as ScoreboardState & ScoreboardActions;
       },

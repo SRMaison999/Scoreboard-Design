@@ -16,6 +16,7 @@ import { BodyType10 } from './body/BodyType10';
 import { BodyType11 } from './body/BodyType11';
 import { BodyType12 } from './body/BodyType12';
 import { BodyType13 } from './body/BodyType13';
+import { BodyType14 } from './body/BodyType14';
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
 import type { ScoreboardState } from '@/types/scoreboard';
@@ -35,6 +36,7 @@ interface ScoreboardCanvasProps {
   readonly penaltyFlashLeft?: boolean;
   readonly penaltyFlashRight?: boolean;
   readonly clockPulse?: boolean;
+  readonly canvasScale?: number;
 }
 
 interface BodyProps {
@@ -45,9 +47,10 @@ interface BodyProps {
   readonly fontSizes: FontSizeConfig;
   readonly playerPhotos: Record<string, string>;
   readonly flagOverrides: Record<string, string>;
+  readonly canvasScale?: number;
 }
 
-function BodyRenderer({ state, colors, opacities, fontBody, fontSizes, playerPhotos, flagOverrides }: BodyProps) {
+function BodyRenderer({ state, colors, opacities, fontBody, fontSizes, playerPhotos, flagOverrides, canvasScale }: BodyProps) {
   const shared = { showPenalties: state.showPenalties, colors, opacities, fontBody, fontSizes };
 
   switch (state.bodyType) {
@@ -75,6 +78,8 @@ function BodyRenderer({ state, colors, opacities, fontBody, fontSizes, playerPho
       return <BodyType12 rosterData={state.rosterData} flagOverrides={flagOverrides} {...shared} />;
     case 13:
       return <BodyType13 scheduleData={state.scheduleData} {...shared} />;
+    case 14:
+      return <BodyType14 state={state} colors={colors} opacities={opacities} canvasScale={canvasScale} />;
     default:
       return <BodyType1 stats={state.stats} titleCenter={state.titleCenter} {...shared} />;
   }
@@ -110,6 +115,7 @@ export function ScoreboardCanvas({
   penaltyFlashLeft = false,
   penaltyFlashRight = false,
   clockPulse = false,
+  canvasScale,
 }: ScoreboardCanvasProps) {
   const w = width ?? state.templateWidth;
   const h = height ?? state.templateHeight;
@@ -187,6 +193,8 @@ export function ScoreboardCanvas({
         }}
       />
 
+      {/* En mode pleine page (type 14), le header et les pénalités sont masqués */}
+      {!(state.bodyType === 14 && state.customFieldsData.fullPageMode) && (
       <div style={{ position: 'relative', zIndex: 1, flexShrink: 0, padding: '14px 96px 10px' }}>
         <Header
           team1={state.team1}
@@ -226,6 +234,7 @@ export function ScoreboardCanvas({
           clockTenthsThreshold={state.clockTenthsThreshold}
         />
       </div>
+      )}
 
       {state.showCompetitionLogo && (
         <CompetitionLogoRenderer logos={logos} position={state.competitionLogoPosition} size={state.competitionLogoSize} />
@@ -234,17 +243,23 @@ export function ScoreboardCanvas({
         <SponsorLogoRenderer logos={logos} position={state.sponsorLogoPosition} size={state.sponsorLogoSize} />
       )}
 
-      <div style={{ flex: 1, display: 'flex', position: 'relative', zIndex: 1 }}>
-        {state.showPenalties && (
-          <PenaltyColumn side="left" penalties={state.penaltiesLeft} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} flash={penaltyFlashLeft} clockTenthsThreshold={state.clockTenthsThreshold} />
-        )}
+      {state.bodyType === 14 && state.customFieldsData.fullPageMode ? (
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
+          <BodyType14 state={state} colors={colors} opacities={opacities} canvasScale={canvasScale} />
+        </div>
+      ) : (
+        <div style={{ flex: 1, display: 'flex', position: 'relative', zIndex: 1 }}>
+          {state.showPenalties && (
+            <PenaltyColumn side="left" penalties={state.penaltiesLeft} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} flash={penaltyFlashLeft} clockTenthsThreshold={state.clockTenthsThreshold} />
+          )}
 
-        <BodyRenderer state={state} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizes={fontSizes} playerPhotos={playerPhotos} flagOverrides={flagOverrides} />
+          <BodyRenderer state={state} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizes={fontSizes} playerPhotos={playerPhotos} flagOverrides={flagOverrides} canvasScale={canvasScale} />
 
-        {state.showPenalties && (
-          <PenaltyColumn side="right" penalties={state.penaltiesRight} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} flash={penaltyFlashRight} clockTenthsThreshold={state.clockTenthsThreshold} />
-        )}
-      </div>
+          {state.showPenalties && (
+            <PenaltyColumn side="right" penalties={state.penaltiesRight} colors={colors} opacities={opacities} fontBody={state.fontBody} fontSizePenaltyTime={fontSizes.penaltyTime} fontSizePenaltyNumber={fontSizes.penaltyNumber} flash={penaltyFlashRight} clockTenthsThreshold={state.clockTenthsThreshold} />
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -277,6 +277,7 @@ describe('scoreboardStore', () => {
         sponsorLogoSize: s.sponsorLogoSize,
         scoreboardVisible: s.scoreboardVisible,
         animationConfig: { ...s.animationConfig },
+        customFieldsData: structuredClone(s.customFieldsData),
       };
       useScoreboardStore.getState().loadState(plainState);
       expect(useScoreboardStore.getState().team1).toBe('USA');

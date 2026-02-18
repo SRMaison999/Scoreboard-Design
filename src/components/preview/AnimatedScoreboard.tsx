@@ -15,6 +15,7 @@ interface AnimatedScoreboardProps {
   readonly height?: number;
   readonly playerPhotos?: Record<string, string>;
   readonly logos?: Record<string, string>;
+  readonly canvasScale?: number;
 }
 
 /**
@@ -27,6 +28,7 @@ export function AnimatedScoreboard({
   height,
   playerPhotos,
   logos,
+  canvasScale,
 }: AnimatedScoreboardProps) {
   const { animationConfig: config } = state;
   const timeSeconds = parseTimeToSeconds(state.time);
@@ -73,6 +75,7 @@ export function AnimatedScoreboard({
         penaltyFlashLeft={flags.penaltyFlashLeft}
         penaltyFlashRight={flags.penaltyFlashRight}
         clockPulse={flags.clockPulse}
+        canvasScale={canvasScale}
       />
     </div>
   );

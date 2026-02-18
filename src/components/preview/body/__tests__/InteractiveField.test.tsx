@@ -1,0 +1,225 @@
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { InteractiveField } from '../InteractiveField';
+import { fieldBgStyle } from '@/utils/fieldStyle';
+import { DEFAULT_STATE } from '@/data/defaultState';
+import { DEFAULT_COLORS, DEFAULT_OPACITIES } from '@/constants/colors';
+import type { CustomField, FieldElementConfig } from '@/types/customField';
+import type { DragHandlers, ResizeHandlers } from '../InteractiveField';
+
+function makeField(overrides?: Partial<CustomField>): CustomField {
+  return {
+    id: 'test-field',
+    label: 'Champ test',
+    x: 100,
+    y: 50,
+    width: 200,
+    height: 80,
+    zIndex: 1,
+    locked: false,
+    visible: true,
+    element: {
+      type: 'text-block',
+      config: {
+        content: 'Texte test',
+        fontSize: 24,
+        fontWeight: 600,
+        textAlign: 'center',
+        textTransform: 'none',
+        letterSpacing: 0,
+      },
+    } as FieldElementConfig,
+    style: {
+      backgroundColor: '',
+      backgroundOpacity: 0,
+      borderColor: '',
+      borderWidth: 0,
+      borderRadius: 0,
+      padding: 0,
+    },
+    ...overrides,
+  };
+}
+
+function makeDrag(): DragHandlers {
+  return {
+    onPointerDown: vi.fn(),
+    onPointerMove: vi.fn(),
+    onPointerUp: vi.fn(),
+  };
+}
+
+function makeResize(): ResizeHandlers {
+  return {
+    onResizeStart: vi.fn(),
+    onResizeMove: vi.fn(),
+    onResizeEnd: vi.fn(),
+  };
+}
+
+describe('InteractiveField', () => {
+  it('rend le contenu du champ', () => {
+    render(
+      <InteractiveField
+        field={makeField()}
+        state={DEFAULT_STATE}
+        colors={DEFAULT_COLORS}
+        opacities={DEFAULT_OPACITIES}
+        isSelected={false}
+        drag={makeDrag()}
+        resize={makeResize()}
+      />,
+    );
+    expect(screen.getByText('Texte test')).toBeInTheDocument();
+  });
+
+  it('ne rend rien si le champ est invisible', () => {
+    const { container } = render(
+      <InteractiveField
+        field={makeField({ visible: false })}
+        state={DEFAULT_STATE}
+        colors={DEFAULT_COLORS}
+        opacities={DEFAULT_OPACITIES}
+        isSelected={false}
+        drag={makeDrag()}
+        resize={makeResize()}
+      />,
+    );
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('affiche la bordure de selection quand selectionne', () => {
+    render(
+      <InteractiveField
+        field={makeField()}
+        state={DEFAULT_STATE}
+        colors={DEFAULT_COLORS}
+        opacities={DEFAULT_OPACITIES}
+        isSelected={true}
+        drag={makeDrag()}
+        resize={makeResize()}
+      />,
+    );
+    expect(screen.getByTestId('selection-border')).toBeInTheDocument();
+  });
+
+  it('masque la bordure de selection quand non selectionne', () => {
+    render(
+      <InteractiveField
+        field={makeField()}
+        state={DEFAULT_STATE}
+        colors={DEFAULT_COLORS}
+        opacities={DEFAULT_OPACITIES}
+        isSelected={false}
+        drag={makeDrag()}
+        resize={makeResize()}
+      />,
+    );
+    expect(screen.queryByTestId('selection-border')).not.toBeInTheDocument();
+  });
+
+  it('affiche 4 poignees de resize quand selectionne et non verrouille', () => {
+    render(
+      <InteractiveField
+        field={makeField()}
+        state={DEFAULT_STATE}
+        colors={DEFAULT_COLORS}
+        opacities={DEFAULT_OPACITIES}
+        isSelected={true}
+        drag={makeDrag()}
+        resize={makeResize()}
+      />,
+    );
+    expect(screen.getByTestId('resize-handle-top-left')).toBeInTheDocument();
+    expect(screen.getByTestId('resize-handle-top-right')).toBeInTheDocument();
+    expect(screen.getByTestId('resize-handle-bottom-left')).toBeInTheDocument();
+    expect(screen.getByTestId('resize-handle-bottom-right')).toBeInTheDocument();
+  });
+
+  it('masque les poignees de resize quand verrouille', () => {
+    render(
+      <InteractiveField
+        field={makeField({ locked: true })}
+        state={DEFAULT_STATE}
+        colors={DEFAULT_COLORS}
+        opacities={DEFAULT_OPACITIES}
+        isSelected={true}
+        drag={makeDrag()}
+        resize={makeResize()}
+      />,
+    );
+    expect(screen.queryByTestId('resize-handle-top-left')).not.toBeInTheDocument();
+  });
+
+  it('appelle onPointerDown du drag au clic', () => {
+    const drag = makeDrag();
+    render(
+      <InteractiveField
+        field={makeField()}
+        state={DEFAULT_STATE}
+        colors={DEFAULT_COLORS}
+        opacities={DEFAULT_OPACITIES}
+        isSelected={false}
+        drag={drag}
+        resize={makeResize()}
+      />,
+    );
+    fireEvent.pointerDown(screen.getByTestId('interactive-field-test-field'));
+    expect(drag.onPointerDown).toHaveBeenCalled();
+  });
+
+  it('ne declenche pas le drag si verrouille', () => {
+    const drag = makeDrag();
+    render(
+      <InteractiveField
+        field={makeField({ locked: true })}
+        state={DEFAULT_STATE}
+        colors={DEFAULT_COLORS}
+        opacities={DEFAULT_OPACITIES}
+        isSelected={false}
+        drag={drag}
+        resize={makeResize()}
+      />,
+    );
+    fireEvent.pointerDown(screen.getByTestId('interactive-field-test-field'));
+    expect(drag.onPointerDown).not.toHaveBeenCalled();
+  });
+});
+
+describe('fieldBgStyle', () => {
+  it('retourne un objet vide pour un style par defaut', () => {
+    const result = fieldBgStyle({
+      backgroundColor: '',
+      backgroundOpacity: 0,
+      borderColor: '',
+      borderWidth: 0,
+      borderRadius: 0,
+      padding: 0,
+    });
+    expect(result).toEqual({});
+  });
+
+  it('applique la couleur de fond avec opacite', () => {
+    const result = fieldBgStyle({
+      backgroundColor: '#ff0000',
+      backgroundOpacity: 50,
+      borderColor: '',
+      borderWidth: 0,
+      borderRadius: 0,
+      padding: 0,
+    });
+    expect(result.backgroundColor).toBeDefined();
+  });
+
+  it('applique la bordure quand epaisseur > 0', () => {
+    const result = fieldBgStyle({
+      backgroundColor: '',
+      backgroundOpacity: 0,
+      borderColor: '#0000ff',
+      borderWidth: 2,
+      borderRadius: 0,
+      padding: 0,
+    });
+    expect(result.border).toContain('2px solid');
+  });
+});
