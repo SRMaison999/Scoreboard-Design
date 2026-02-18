@@ -3,12 +3,14 @@ import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { useTimer } from '@/hooks/useTimer';
 import { useFontLoader } from '@/hooks/useFontLoader';
 import { useOutputSyncSender } from '@/hooks/useOutputSync';
+import { useUserManual } from '@/hooks/useUserManual';
 import { EditorPanel } from '@/components/editor/EditorPanel';
 import { ScoreboardPreview } from '@/components/preview/ScoreboardPreview';
 import { TemplateManager } from '@/components/editor/TemplateManager';
+import { UserManual } from '@/components/common/UserManual';
 import { EDITOR_LABELS } from '@/constants/labels';
 import { captureScreenshot, buildScreenshotFilename } from '@/utils/screenshot';
-import { Camera, Printer, Radio } from 'lucide-react';
+import { Camera, Printer, Radio, BookOpen } from 'lucide-react';
 import '@/styles/index.css';
 import '@/styles/print.css';
 
@@ -18,6 +20,7 @@ export function App() {
   useOutputSyncSender();
 
   const state = useScoreboardStore();
+  const manual = useUserManual();
 
   const handleOpenOutput = () => {
     window.open('/output', 'scoreboard-output', 'width=1920,height=1080');
@@ -79,6 +82,14 @@ export function App() {
           >
             {EDITOR_LABELS.openOutput}
           </button>
+          <button
+            type="button"
+            onClick={manual.open}
+            className={toolbarBtnClass}
+          >
+            <BookOpen size={14} className="flex-shrink-0" />
+            {EDITOR_LABELS.userManual}
+          </button>
           </div>
         </div>
 
@@ -86,6 +97,13 @@ export function App() {
           <ScoreboardPreview state={state} />
         </div>
       </div>
+
+      <UserManual
+        open={manual.isOpen}
+        onClose={manual.close}
+        activeChapterIndex={manual.activeChapterIndex}
+        onChapterSelect={manual.goToChapter}
+      />
     </div>
   );
 }

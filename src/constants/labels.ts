@@ -548,4 +548,11 @@ export const EDITOR_LABELS = {
   broadcastExportInterval: 'Intervalle (ms)',
   broadcastHttpApi: 'API HTTP',
   broadcastHttpPort: 'Port HTTP',
+
+  /* Manuel utilisateur */
+  userManual: 'Manuel',
+  userManualTitle: 'Manuel utilisateur',
+  userManualClose: 'Fermer',
+  userManualChapter: 'Chapitre',
+  userManualTableOfContents: 'Table des mati\u00e8res',
 } as const;
