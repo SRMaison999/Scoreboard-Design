@@ -1,23 +1,42 @@
 import { type SelectHTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
 
-interface SelectOption {
+export interface SelectOption {
   readonly value: string;
   readonly label: string;
   readonly style?: React.CSSProperties;
 }
 
+export interface SelectOptionGroup {
+  readonly label: string;
+  readonly options: readonly SelectOption[];
+}
+
 interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'onChange'> {
   readonly label?: string;
   readonly options: readonly SelectOption[];
+  readonly groups?: readonly SelectOptionGroup[];
   readonly value: string;
   readonly onChange: (value: string) => void;
   readonly placeholder?: string;
 }
 
+function OptionList({ options }: { readonly options: readonly SelectOption[] }) {
+  return (
+    <>
+      {options.map((o) => (
+        <option key={o.value} value={o.value} style={o.style}>
+          {o.label}
+        </option>
+      ))}
+    </>
+  );
+}
+
 export function Select({
   label,
   options,
+  groups,
   value,
   onChange,
   placeholder,
@@ -39,11 +58,13 @@ export function Select({
         {...props}
       >
         {placeholder && <option value="">{placeholder}</option>}
-        {options.map((o) => (
-          <option key={o.value} value={o.value} style={o.style}>
-            {o.label}
-          </option>
-        ))}
+        {groups
+          ? groups.map((g) => (
+              <optgroup key={g.label} label={g.label}>
+                <OptionList options={g.options} />
+              </optgroup>
+            ))
+          : <OptionList options={options} />}
       </select>
     </div>
   );

@@ -4,13 +4,8 @@ import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { FONT_OPTIONS } from '@/constants/fonts';
 import { EDITOR_LABELS } from '@/constants/labels';
 import { ff } from '@/utils/font';
+import { useFontSelectGroups } from '@/hooks/useFontSelectGroups';
 import type { FontId, FontZone } from '@/types/fonts';
-
-const FONT_SELECT_OPTIONS = FONT_OPTIONS.map((o) => ({
-  value: o.id,
-  label: o.label,
-  style: { fontFamily: o.family } as React.CSSProperties,
-}));
 
 interface FontZoneConfig {
   readonly key: FontZone;
@@ -29,6 +24,8 @@ export function FontSection() {
   const fontBody = useScoreboardStore((s) => s.fontBody);
   const update = useScoreboardStore((s) => s.update);
 
+  const fontGroups = useFontSelectGroups();
+
   const fontValues: Record<FontZone, FontId> = {
     fontTeams,
     fontClock,
@@ -41,7 +38,12 @@ export function FontSection() {
         <Select
           key={zone.key}
           label={zone.label}
-          options={FONT_SELECT_OPTIONS}
+          options={FONT_OPTIONS.map((o) => ({
+            value: o.id,
+            label: o.label,
+            style: { fontFamily: o.family },
+          }))}
+          groups={fontGroups}
           value={fontValues[zone.key]}
           onChange={(v) => update(zone.key, v as FontId)}
           style={{ fontFamily: ff(fontValues[zone.key]) }}

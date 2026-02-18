@@ -13,6 +13,18 @@ describe('ff', () => {
   it('retourne la font-family pour orbitron', () => {
     expect(ff('orbitron')).toBe("'Orbitron', sans-serif");
   });
+
+  it('retourne la font-family pour montserrat', () => {
+    expect(ff('montserrat')).toBe("'Montserrat', sans-serif");
+  });
+
+  it('retourne la font-family pour jetbrains-mono', () => {
+    expect(ff('jetbrains-mono')).toBe("'JetBrains Mono', monospace");
+  });
+
+  it('retourne la font-family pour playfair', () => {
+    expect(ff('playfair')).toBe("'Playfair Display', serif");
+  });
 });
 
 describe('scaleFontSize', () => {
