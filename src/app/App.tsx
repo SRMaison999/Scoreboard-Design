@@ -22,13 +22,16 @@ export function App() {
   const state = useScoreboardStore();
   const manual = useUserManual();
 
+  const isElectron = 'electronAPI' in window;
+
   const handleOpenOutput = () => {
-    window.open('/output', 'scoreboard-output', 'width=1920,height=1080');
+    const url = isElectron ? '#/output' : '/output';
+    window.open(url, 'scoreboard-output', 'width=1920,height=1080');
   };
 
   const handleOpenOperator = useCallback(() => {
-    window.location.href = '/operator';
-  }, []);
+    window.location.href = isElectron ? '#/operator' : '/operator';
+  }, [isElectron]);
 
   const handleScreenshot = useCallback(() => {
     const el = document.querySelector<HTMLElement>('[data-testid="scoreboard-canvas"]');
