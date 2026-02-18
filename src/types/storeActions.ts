@@ -130,4 +130,5 @@ export interface ScoreboardActions {
   /* Templates */
   loadState: (state: ScoreboardState) => void;
   resetState: () => void;
+  clearContent: () => void;
 }
