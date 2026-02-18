@@ -449,7 +449,7 @@ export const EDITOR_LABELS = {
   animEasingEaseInOut: 'Ease-in-out',
 
   /* Export vid\u00e9o/GIF */
-  sectionExport: 'Export vid\u00e9o / GIF',
+  sectionExport: 'Export',
   exportVideoFormat: 'Format vid\u00e9o',
   exportVideoFps: 'FPS vid\u00e9o',
   exportGifFps: 'FPS GIF',
@@ -466,6 +466,11 @@ export const EDITOR_LABELS = {
   exportVideoSuccess: 'Vid\u00e9o export\u00e9e',
   exportGifSuccess: 'GIF export\u00e9',
   exportError: 'Erreur lors de l\u2019export',
+
+  /* Specs techniques */
+  exportSpecsTitle: 'Sp\u00e9cifications techniques',
+  exportSpecsButton: 'G\u00e9n\u00e9rer les specs',
+  exportSpecsHint: 'T\u00e9l\u00e9charge un JSON d\u00e9crivant l\u2019\u00e9cran actuel',
 
   /* Import / Export roster */
   rosterImport: 'Importer',

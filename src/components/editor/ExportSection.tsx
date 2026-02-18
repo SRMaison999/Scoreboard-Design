@@ -1,9 +1,12 @@
 import { useCallback, useRef, useState } from 'react';
+import { FileCode } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { Select } from '@/components/ui/Select';
 import { EDITOR_LABELS } from '@/constants/labels';
 import { VideoRecorder } from '@/utils/videoRecorder';
 import { exportGif, downloadGif } from '@/utils/gifEncoder';
+import { generateSpec, downloadSpec } from '@/utils/specGenerator';
+import { extractState } from '@/utils/stateExtractor';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { useExportConfig } from '@/hooks/useExportConfig';
 import type { VideoFormat, GifQuality } from '@/types/animation';
@@ -144,6 +147,28 @@ export function ExportSection() {
             />
           </div>
         )}
+      </div>
+
+      {/* Specs techniques */}
+      <div className="bg-gray-800 rounded-md p-1.5 flex flex-col gap-1.5">
+        <div className="text-[11px] text-gray-400 font-medium">
+          {EDITOR_LABELS.exportSpecsTitle}
+        </div>
+        <button
+          type="button"
+          onClick={() => {
+            const state = extractState(useScoreboardStore.getState());
+            const spec = generateSpec(state);
+            downloadSpec(spec, team1, team2);
+          }}
+          className="w-full py-1.5 rounded-md text-sm font-medium bg-gray-700 border border-gray-600 text-gray-300 hover:bg-gray-600 transition-colors flex items-center justify-center gap-2"
+        >
+          <FileCode size={14} className="flex-shrink-0" />
+          {EDITOR_LABELS.exportSpecsButton}
+        </button>
+        <div className="text-[10px] text-gray-500">
+          {EDITOR_LABELS.exportSpecsHint}
+        </div>
       </div>
     </Section>
   );

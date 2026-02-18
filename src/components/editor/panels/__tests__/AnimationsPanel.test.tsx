@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { AnimationsPanel } from '@/components/editor/panels/AnimationsPanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
+import { EDITOR_LABELS } from '@/constants/labels';
 
 describe('AnimationsPanel', () => {
   beforeEach(() => {
@@ -32,6 +33,11 @@ describe('AnimationsPanel', () => {
     render(<AnimationsPanel />);
 
     await user.click(screen.getByRole('tab', { name: /Export/i }));
-    expect(screen.getByText(/Export vidéo/)).toBeInTheDocument();
+    /* La section Export est fermée par défaut ; on clique sur le titre de section pour l'ouvrir.
+       "Export" apparaît aussi comme onglet, donc on cible le span du titre de section. */
+    const sectionTitles = screen.getAllByText(EDITOR_LABELS.sectionExport);
+    const sectionTitle = sectionTitles.find((el) => el.tagName === 'SPAN');
+    if (sectionTitle) await user.click(sectionTitle);
+    expect(screen.getByText(EDITOR_LABELS.exportVideoFormat)).toBeInTheDocument();
   });
 });
