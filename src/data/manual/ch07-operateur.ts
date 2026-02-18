@@ -7,11 +7,14 @@ export const ch07: ManualChapter = {
 
 Le mode op\u00e9rateur est une interface simplifi\u00e9e con\u00e7ue pour le contr\u00f4le live du scoreboard pendant un match. Il remplace le panneau \u00e9diteur d\u00e9taill\u00e9 par des contr\u00f4les grands format, tactiles et rapides.
 
-## Acc\u00e8s
+## O\u00f9 trouver le bouton
 
-- Depuis l'\u00e9diteur : cliquer sur le bouton "Mode op\u00e9rateur" dans la barre d'outils
-- Acc\u00e8s direct : naviguer vers /operator
-- Retour \u00e0 l'\u00e9diteur : bouton "Retour \u00e0 l'\u00e9diteur" en haut du panneau
+Le bouton **Mode op\u00e9rateur** se trouve dans la **barre d'outils en haut \u00e0 droite** de l'\u00e9cran (3e bouton, avec l'ic\u00f4ne radio).
+
+### Acc\u00e8s alternatifs
+
+- Acc\u00e8s direct : naviguer vers /operator dans le navigateur
+- Retour \u00e0 l'\u00e9diteur : bouton "Retour \u00e0 l'\u00e9diteur" en haut du panneau op\u00e9rateur
 
 ## Contr\u00f4les disponibles
 

@@ -3,7 +3,15 @@ import type { ManualChapter } from '@/types/userManual';
 export const ch12: ManualChapter = {
   id: 'animations',
   title: 'Animations et export',
-  content: `## Animations du scoreboard
+  content: `## Emplacement
+
+Les r\u00e9glages d'animation et d'export se trouvent dans le **panneau gauche**, onglet **Animations** (ic\u00f4ne de film, 4e ic\u00f4ne du rail de navigation). Cet onglet contient deux sous-onglets : **Animations** (r\u00e9glages des animations) et **Export** (export vid\u00e9o, GIF et sp\u00e9cifications techniques).
+
+### Bouton G\u00e9n\u00e9rer les specs
+
+Le bouton **G\u00e9n\u00e9rer les specs** se trouve dans : panneau gauche > onglet **Animations** > sous-onglet **Export** > section **Sp\u00e9cifications techniques** (tout en bas de la page).
+
+## Animations du scoreboard
 
 ### Animation d'entr\u00e9e/sortie
 
@@ -32,14 +40,17 @@ Quand le temps restant descend sous un seuil configurable, l'horloge pulse pour 
 
 ## Export vid\u00e9o
 
-1. Ouvrir la section **Export vid\u00e9o / GIF**
-2. Choisir le **format vid\u00e9o** (WebM ou MP4)
-3. Configurer les **FPS** (10-60)
-4. Cliquer sur **D\u00e9marrer l'enregistrement**
-5. Manipuler le scoreboard normalement
-6. Cliquer sur **Arr\u00eater l'enregistrement**
+**Emplacement** : panneau gauche > onglet **Animations** > sous-onglet **Export** > section **Export vid\u00e9o / GIF**.
+
+1. Choisir le **format vid\u00e9o** (WebM ou MP4)
+2. Configurer les **FPS** (10-60)
+3. Cliquer sur **D\u00e9marrer l'enregistrement**
+4. Manipuler le scoreboard normalement
+5. Cliquer sur **Arr\u00eater l'enregistrement**
 
 ## Export GIF
+
+**Emplacement** : m\u00eame section que l'export vid\u00e9o (panneau gauche > Animations > Export).
 
 1. Configurer la **dur\u00e9e** du GIF (1-15 secondes)
 2. Configurer les **FPS** (5-30)

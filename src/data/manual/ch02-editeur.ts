@@ -7,9 +7,9 @@ export const ch02: ManualChapter = {
 
 ## Navigation
 
-### Rail d'ic\u00f4nes (navigation principale)
+### Rail d'ic\u00f4nes (bord gauche de l'\u00e9cran)
 
-Un rail vertical d'ic\u00f4nes sur le bord gauche permet de basculer entre 5 groupes :
+Un rail vertical d'ic\u00f4nes tout \u00e0 gauche permet de basculer entre 5 groupes :
 
 | Ic\u00f4ne | Groupe | Description |
 |-------|--------|-------------|
@@ -19,11 +19,13 @@ Un rail vertical d'ic\u00f4nes sur le bord gauche permet de basculer entre 5 gro
 | Film | **Animations** | Animations d'entr\u00e9e/sortie, export vid\u00e9o/GIF |
 | Radio | **Int\u00e9grations** | Scores en direct, multi-scoreboard, sync, broadcast |
 
-### Sous-onglets (navigation secondaire)
+### Sous-onglets (en haut du panneau \u00e9diteur)
+
+Les sous-onglets horizontaux apparaissent juste sous le titre du groupe :
 
 - **Contenu** : G\u00e9n\u00e9ral | \u00c9quipes | Match | M\u00e9dias
 - **Apparence** : Style | Polices | Couleurs
-- **Horloge** : section unique
+- **Horloge** : section unique (pas de sous-onglets)
 - **Animations** : Animations | Export
 - **Int\u00e9grations** : Live | Multi | Sync | Broadcast
 
@@ -31,7 +33,7 @@ Un rail vertical d'ic\u00f4nes sur le bord gauche permet de basculer entre 5 gro
 
 \u00c0 l'int\u00e9rieur de chaque sous-onglet, les sections peuvent \u00eatre repli\u00e9es en cliquant sur leur titre.
 
-## Groupe Contenu
+## Groupe Contenu (1\u00e8re ic\u00f4ne du rail)
 
 ### Sous-onglet G\u00e9n\u00e9ral
 
@@ -46,16 +48,16 @@ Un rail vertical d'ic\u00f4nes sur le bord gauche permet de basculer entre 5 gro
 
 ### Sous-onglet Match
 
-- **Temps morts** : activation et compteur de temps morts par \u00e9quipe
+- **Temps morts** : activation et compteur par \u00e9quipe
 - **Tirs au but** : activation et saisie des tentatives
 - **P\u00e9nalit\u00e9s** : ajout/suppression pour chaque \u00e9quipe
 
 ### Sous-onglet M\u00e9dias
 
 - **Photos des joueurs** : galerie de photos par \u00e9quipe et num\u00e9ro
-- **Logos** : logos d'\u00e9quipes, comp\u00e9tition et sponsor
+- **Logos** : logos d'\u00e9quipes, comp\u00e9tition et sponsor avec 4 onglets (voir chapitre 11)
 
-## Groupe Apparence
+## Groupe Apparence (2e ic\u00f4ne du rail)
 
 ### Sous-onglet Style
 
@@ -66,9 +68,45 @@ Un rail vertical d'ic\u00f4nes sur le bord gauche permet de basculer entre 5 gro
 
 - **Polices** : 3 zones de police ind\u00e9pendantes (\u00e9quipes, horloge, corps)
 - **Tailles de police** : contr\u00f4le granulaire de chaque \u00e9l\u00e9ment textuel
+- **Mise \u00e0 l'\u00e9chelle** : slider proportionnel par type de corps
 
 ### Sous-onglet Couleurs
 
 - **Couleurs** : 14 canaux de couleur avec opacit\u00e9 individuelle
-- **Presets** : sch\u00e9mas de couleurs pr\u00e9d\u00e9finies`,
+- **Presets** : sch\u00e9mas de couleurs pr\u00e9d\u00e9finies (5 th\u00e8mes)
+
+## Groupe Horloge (3e ic\u00f4ne du rail)
+
+Section unique contenant l'horloge, les phases et le mode d\u00e9mo (voir chapitre 5).
+
+## Groupe Animations (4e ic\u00f4ne du rail)
+
+### Sous-onglet Animations
+
+- Animations d'entr\u00e9e et de sortie du scoreboard
+- Effets sur changement de score, p\u00e9nalit\u00e9s, horloge
+
+### Sous-onglet Export
+
+- **Export vid\u00e9o** : enregistrement en WebM ou MP4
+- **Export GIF** : g\u00e9n\u00e9ration de GIF anim\u00e9
+- **Sp\u00e9cifications techniques** : bouton "G\u00e9n\u00e9rer les specs" (t\u00e9l\u00e9charge un JSON)
+
+## Groupe Int\u00e9grations (5e ic\u00f4ne du rail)
+
+### Sous-onglet Live
+
+- Connexion \u00e0 une API de scores en temps r\u00e9el
+
+### Sous-onglet Multi
+
+- Gestion de multi-scoreboards (bande basse, bug, ticker)
+
+### Sous-onglet Sync
+
+- Synchronisation multi-poste via WebSocket
+
+### Sous-onglet Broadcast
+
+- Int\u00e9gration CasparCG / Viz pour diffusion broadcast`,
 };

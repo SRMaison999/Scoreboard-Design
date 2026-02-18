@@ -35,14 +35,19 @@ L'\u00e9diteur se divise en deux zones :
 - **Panneau lat\u00e9ral gauche** : tous les contr\u00f4les de configuration, organis\u00e9s en sections d\u00e9pliables
 - **Zone de preview droite** : aper\u00e7u en temps r\u00e9el du scoreboard
 
-### Barre d'outils
+### Barre d'outils (en haut \u00e0 droite de l'\u00e9cran)
 
-En haut de l'\u00e9cran :
+| Bouton | Emplacement | Action |
+|--------|-------------|--------|
+| Capture | Barre d'outils, 1er bouton | Capture le scoreboard en image PNG |
+| Imprimer | Barre d'outils, 2e bouton | Ouvre le dialogue d'impression |
+| Mode op\u00e9rateur | Barre d'outils, 3e bouton | Bascule vers l'interface live |
+| Ouvrir la sortie | Barre d'outils, 4e bouton | Ouvre la fen\u00eatre de sortie broadcast |
+| Manuel | Barre d'outils, 5e bouton | Ouvre ce manuel utilisateur |
 
-- **Screenshot** : capture le scoreboard en image PNG haute r\u00e9solution
-- **Imprimer** : ouvre le dialogue d'impression du navigateur
-- **Mode op\u00e9rateur** : bascule vers l'interface de contr\u00f4le live
-- **Ouvrir la sortie** : ouvre le scoreboard dans une fen\u00eatre s\u00e9par\u00e9e
+### Gestionnaire de templates (en haut \u00e0 gauche de l'\u00e9cran)
+
+Le gestionnaire de templates se trouve dans la barre d'outils, \u00e0 gauche. Il permet de sauvegarder, charger, renommer, dupliquer, supprimer, exporter et importer des templates.
 
 ### Sauvegarde automatique
 

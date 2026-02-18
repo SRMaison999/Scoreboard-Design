@@ -5,7 +5,7 @@ import type { ScoreboardStore } from '@/stores/scoreboardStore';
 const STATE_KEYS: readonly (keyof ScoreboardState)[] = [
   'bodyType', 'bgMode', 'showPenalties',
   'team1', 'team2', 'score1', 'score2',
-  'time', 'period', 'showClock', 'clockBoxMode',
+  'time', 'period', 'showClock', 'clockBoxMode', 'clockTenthsThreshold',
   'periodOptions', 'demoRunning',
   'titleCenter', 'titleLeft', 'titleRight',
   'fontTeams', 'fontClock', 'fontBody',
@@ -18,6 +18,10 @@ const STATE_KEYS: readonly (keyof ScoreboardState)[] = [
   'showShootout', 'shootoutLeft', 'shootoutRight',
   'backgroundMediaMode', 'backgroundMediaUrl',
   'templateWidth', 'templateHeight', 'fontSizes',
+  'logoMode', 'showCompetitionLogo', 'competitionLogoPosition', 'competitionLogoSize',
+  'showSponsorLogo', 'sponsorLogoPosition', 'sponsorLogoSize',
+  'scoreboardVisible', 'animationConfig',
+  'customFieldsData',
 ];
 
 export function extractState(store: ScoreboardStore): ScoreboardState {

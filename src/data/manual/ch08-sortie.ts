@@ -7,9 +7,9 @@ export const ch08: ManualChapter = {
 
 La fen\u00eatre de sortie affiche le scoreboard dans une fen\u00eatre s\u00e9par\u00e9e, sans interface \u00e9diteur. Cette fen\u00eatre est con\u00e7ue pour \u00eatre captur\u00e9e par un logiciel de diffusion (OBS, vMix, Wirecast).
 
-## Ouvrir la fen\u00eatre de sortie
+## O\u00f9 trouver le bouton
 
-Cliquer sur le bouton "Ouvrir la sortie" dans la barre d'outils.
+Le bouton **Ouvrir la sortie** se trouve dans la **barre d'outils en haut \u00e0 droite** de l'\u00e9cran (4e bouton).
 
 ## Synchronisation
 

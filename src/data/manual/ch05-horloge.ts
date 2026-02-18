@@ -3,7 +3,11 @@ import type { ManualChapter } from '@/types/userManual';
 export const ch05: ManualChapter = {
   id: 'horloge',
   title: 'Horloge et phases',
-  content: `## Horloge
+  content: `## Emplacement
+
+Les controles de l'horloge et des phases se trouvent dans le **panneau gauche**, onglet **Horloge** (icone d'horloge, 3e icone du rail de navigation).
+
+## Horloge
 
 ### Affichage
 

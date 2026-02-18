@@ -5,9 +5,9 @@ export const ch09: ManualChapter = {
   title: 'Capture et impression',
   content: `## Screenshot (capture d'\u00e9cran)
 
-### Bouton Screenshot
+### O\u00f9 trouver le bouton
 
-Le bouton Screenshot dans la barre d'outils capture le scoreboard en image PNG haute r\u00e9solution.
+Le bouton **Capture** se trouve dans la **barre d'outils en haut \u00e0 droite** de l'\u00e9cran (1er bouton, avec l'ic\u00f4ne appareil photo).
 
 ### Caract\u00e9ristiques
 
@@ -18,9 +18,9 @@ Le bouton Screenshot dans la barre d'outils capture le scoreboard en image PNG h
 
 ## Impression
 
-### Bouton Imprimer
+### O\u00f9 trouver le bouton
 
-Le bouton Imprimer dans la barre d'outils ouvre le dialogue d'impression du navigateur.
+Le bouton **Imprimer** se trouve dans la **barre d'outils en haut \u00e0 droite** de l'\u00e9cran (2e bouton, avec l'ic\u00f4ne imprimante).
 
 ### Mise en page
 
@@ -36,5 +36,11 @@ Le bouton Imprimer dans la barre d'outils ouvre le dialogue d'impression du navi
 
 ## Sp\u00e9cifications techniques (JSON)
 
-Le bouton "G\u00e9n\u00e9rer les specs" (section Export) t\u00e9l\u00e9charge un fichier JSON structur\u00e9 contenant toutes les propri\u00e9t\u00e9s n\u00e9cessaires pour recr\u00e9er l'\u00e9cran actuel. Ce fichier est destin\u00e9 aux d\u00e9veloppeurs qui doivent reproduire un \u00e9cran sp\u00e9cifique.`,
+### O\u00f9 trouver le bouton
+
+Le bouton **G\u00e9n\u00e9rer les specs** se trouve dans le panneau \u00e9diteur : **Animations** (4e ic\u00f4ne du rail) > sous-onglet **Export** > section **Sp\u00e9cifications techniques** (en bas de la section).
+
+### Fonctionnement
+
+Ce bouton t\u00e9l\u00e9charge un fichier JSON structur\u00e9 contenant toutes les propri\u00e9t\u00e9s n\u00e9cessaires pour recr\u00e9er l'\u00e9cran actuel : canvas, fond, header, polices, tailles, couleurs, body type, logos, animations et m\u00e9dia de fond. Ce fichier est destin\u00e9 aux d\u00e9veloppeurs.`,
 };

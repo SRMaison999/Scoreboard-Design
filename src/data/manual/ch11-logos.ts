@@ -3,7 +3,11 @@ import type { ManualChapter } from '@/types/userManual';
 export const ch11: ManualChapter = {
   id: 'logos',
   title: 'Logos et drapeaux',
-  content: `## Types de logos
+  content: `## Emplacement
+
+La gestion des logos se trouve dans le **panneau gauche**, onglet **Contenu** (1re ic\u00f4ne du rail, ic\u00f4ne de document) > sous-onglet **M\u00e9dias** > section **Logos et drapeaux** (sous la section Photos des joueurs).
+
+## Types de logos
 
 L'application supporte quatre types de logos :
 
@@ -20,10 +24,11 @@ L'application int\u00e8gre 31 drapeaux SVG correspondant aux nations de hockey. 
 
 ## Ajouter un logo
 
-1. Ouvrir la section **Logos**
-2. S\u00e9lectionner l'onglet du type souhait\u00e9
-3. Pour les logos d'\u00e9quipe : s\u00e9lectionner le code \u00e9quipe
-4. Cliquer sur **Ajouter un logo** et s\u00e9lectionner un fichier image
+1. Ouvrir l'onglet **Contenu** > sous-onglet **M\u00e9dias**
+2. Dans la section **Logos et drapeaux** :
+3. S\u00e9lectionner l'onglet du type souhait\u00e9 (\u00c9quipes, Comp\u00e9tition, Sponsor, Drapeaux)
+4. Pour les logos d'\u00e9quipe : s\u00e9lectionner le code \u00e9quipe
+5. Cliquer sur **Ajouter un logo** et s\u00e9lectionner un fichier image
 
 ## Mode d'affichage des logos d'\u00e9quipe
 
