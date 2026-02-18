@@ -97,23 +97,26 @@ Chaque type de corps (1 a 13) possede son propre facteur d'echelle independant. 
 - A 150%, tous les textes du corps sont agrandis de 50%
 - A 75%, tous les textes du corps sont reduits de 25%
 
-Les 13 types de corps concernes :
+Les 14 types de corps concernés :
 
 | Type | Nom |
 |------|-----|
-| 1 | Stats centrees |
+| 1 | Stats centrées |
 | 2 | Stats gauche/droite |
 | 3 | Stats joueur |
-| 4 | Celebration de but |
+| 4 | Célébration de but |
 | 5 | Fiche joueur |
 | 6 | Classement |
 | 7 | Score final |
 | 8 | Texte libre |
-| 9 | Face a face |
+| 9 | Face à face |
 | 10 | Chronologie |
 | 11 | Diagramme en barres |
 | 12 | Liste de joueurs |
 | 13 | Calendrier |
+| 14 | Layout libre |
+
+Le type 14 (Layout libre) n'utilise pas la mise à l'échelle proportionnelle. Chaque élément possède sa propre taille configurable individuellement dans le panneau de propriétés (voir chapitre 3, Type 14).
 
 ## Dimensions du template
 

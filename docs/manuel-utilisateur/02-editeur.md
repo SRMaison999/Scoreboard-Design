@@ -40,8 +40,15 @@ A l'interieur de chaque sous-onglet, les sections peuvent etre repliees en cliqu
 
 ### Sous-onglet General
 
-- **Type de corps** : choix du type d'affichage (1-13 : stats, classement, fiche joueur, etc.)
+- **Type de corps** : choix du type d'affichage (1-13 : stats, classement, fiche joueur, etc. ou 14 : Layout libre)
 - **Afficher les penalites** : active/desactive les colonnes de penalites
+
+Quand le type 14 (Layout libre) est sélectionné, une section dédiée apparaît avec :
+- **Mode pleine page** : masque le header pour utiliser tout le canvas
+- **Grille et guides** : affichage d'une grille d'alignement, aimantation, taille configurable
+- **Bibliothèque** : palette de 25+ éléments à glisser sur le canvas (voir chapitre 3, Type 14)
+- **Couches** : liste des champs avec réordonnancement, visibilité et verrouillage
+- **Propriétés** : panneau de configuration du champ sélectionné (position, taille, style, config élément)
 
 ### Sous-onglet Equipes
 

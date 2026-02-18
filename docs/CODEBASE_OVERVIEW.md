@@ -41,6 +41,8 @@ State principal de l'application. Contient toutes les donnees du scoreboard : eq
 - `nextPhase` : avancer a la phase suivante
 - `loadState/resetState` : charger/reinitialiser
 - Actions specifiques par body type (updateGoalField, addRosterPlayer, etc.)
+- `addCustomField/updateCustomField/removeCustomField` : champs personnalisés (Body Type 14)
+- `selectField/reorderField` : sélection et réordonnancement des couches
 
 ### 2.2 `useTemplateStore`
 
@@ -178,6 +180,8 @@ Integration CasparCG / Viz : streaming de donnees vers des systemes broadcast ex
 | `useLiveData` | `src/hooks/useLiveData.ts` | Connexion a une API de scores temps reel (WebSocket/polling) |
 | `useSync` | `src/hooks/useSync.ts` | Synchronisation multi-poste via WebSocket |
 | `useBroadcast` | `src/hooks/useBroadcast.ts` | Streaming de donnees vers CasparCG / Viz |
+| `useFieldDrag` | `src/hooks/useFieldDrag.ts` | Drag (déplacement) des champs personnalisés avec compensation de scale |
+| `useFieldResize` | `src/hooks/useFieldResize.ts` | Resize (redimensionnement) des champs personnalisés avec compensation de scale |
 
 ---
 
@@ -250,6 +254,13 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 
 **TemplateManager** gere la sauvegarde/chargement/import/export de templates via modale.
 
+**Composants du constructeur de champs personnalisés (Body Type 14)** :
+- `CustomFieldsSection.tsx` : section principale regroupant bibliothèque, liste et propriétés
+- `CustomFieldLibrary.tsx` : palette d'éléments avec icônes Lucide et recherche
+- `CustomFieldList.tsx` : liste des couches avec réordonnancement, visibilité, verrouillage
+- `CustomFieldProperties.tsx` : panneau de propriétés du champ sélectionné (position, taille, style)
+- `FieldElementConfigEditor.tsx` : éditeurs de configuration spécifiques par type d'élément
+
 ### 5.3 Preview (`src/components/preview/`)
 
 **ScoreboardPreview.tsx** : conteneur avec scaling automatique via `useScaling`. Utilise `AnimatedScoreboard` pour les animations.
@@ -264,7 +275,7 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 - `PenaltyColumn` (gauche et droite) : penalites actives
 - `CompetitionLogoRenderer` / `SponsorLogoRenderer` : logos en overlay
 
-**13 body types** dans `src/components/preview/body/` :
+**14 body types** dans `src/components/preview/body/` :
 
 | Type | Composant | Description |
 |------|-----------|-------------|
@@ -281,6 +292,15 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 | 11 | BodyType11 | Barres comparatives |
 | 12 | BodyType12 | Roster / composition |
 | 13 | BodyType13 | Calendrier / prochains matchs |
+| 14 | BodyType14 | Layout libre (champs personnalisés) |
+
+**Sous-composants du Body Type 14** :
+
+| Fichier | Rôle |
+|---------|------|
+| `InteractiveField.tsx` | Champ interactif avec sélection, drag et resize (poignées de coins) |
+| `FieldElementRenderer.tsx` | Rendu visuel d'un élément selon son type (switch/dispatch) |
+| `FieldMatchElements.tsx` | Renderers des éléments match : score, horloge, période, nom d'équipe, drapeau, temps morts, tirs au but |
 
 ### 5.4 Operateur (`src/components/operator/`)
 
@@ -328,6 +348,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 | `multiScoreboard.ts` | `OverlayType`, `OverlayInstance`, `TickerItem`, `MultiScoreboardConfig` |
 | `sync.ts` | `SyncRole`, `SyncPeer`, `SyncMessage`, `SyncConfig` |
 | `broadcast.ts` | `BroadcastStatus`, `BroadcastConfig`, `DEFAULT_BROADCAST_CONFIG` |
+| `customField.ts` | `CustomField`, `FieldElementConfig`, `FieldStyle`, `LibraryElement`, `LibraryCategory` |
 
 ---
 
@@ -342,7 +363,8 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 | `fonts.ts` | FONT_OPTIONS, FONT_LINK (Google Fonts URL) |
 | `fontSizes.ts` | FONT_SIZES (tailles auto par nombre de lignes) |
 | `phases.ts` | Phases de match par defaut |
-| `bodyTypes.ts` | Definitions des 13 body types |
+| `bodyTypes.ts` | Definitions des 13 body types prédéfinis |
+| `customFields.ts` | Bibliothèque d'éléments (25+), labels et catégories du constructeur de champs |
 | `resolutions.ts` | Presets de resolution (Full HD, 4K, 720p, etc.) |
 | `nations.ts` | 31 nations de hockey avec codes NOC |
 
@@ -367,6 +389,8 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 | `roster/jsonParser.ts` | `parseJsonRoster()` | Import JSON (array ou objet) |
 | `roster/rosterValidator.ts` | `validateAndMapRows()` | Validation et normalisation des rosters importes |
 | `roster/rosterExporter.ts` | `exportRosterCsv()`, `exportRosterJson()`, `exportRosterExcel()` | Export de rosters |
+| `fieldStyle.ts` | `fieldBgStyle()` | Conversion style de champ (fond, bordure, padding) en CSSProperties |
+| `fontScale.ts` | `scaleFontSizes()` | Mise à l'échelle proportionnelle des tailles de police par body type |
 
 ---
 
@@ -376,7 +400,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 
 **Setup** : `src/test/setup.ts`
 
-**Couverture** : 100+ fichiers de test, 591 tests.
+**Couverture** : 130 fichiers de test, 797 tests.
 
 | Categorie | Nombre | Exemples |
 |-----------|--------|----------|
