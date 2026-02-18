@@ -238,7 +238,7 @@ Le systeme de presets permet de sauvegarder et reutiliser des constructions dans
 
 La section "Presets" dans le panneau editeur propose deux options :
 
-- **Sauvegarder le champ** : sauvegarde le champ actuellement selectionne (element, position, dimensions, style). Le bouton est grise si aucun champ n'est selectionne.
+- **Sauvegarder le champ** : sauvegarde le champ actuellement selectionne (element, position, dimensions, style). Si d'autres champs sont visuellement places a l'interieur du champ selectionne (par exemple des elements dans un header), ils sont automatiquement inclus dans le preset. La modale indique le nombre d'elements contenus detectes. Le bouton est grise si aucun champ n'est selectionne.
 - **Sauvegarder l'ecran** : sauvegarde l'integralite du layout (tous les champs places sur le canvas + les options du canvas comme le mode pleine page, la grille et les guides). Le bouton est grise si le canvas est vide.
 
 Une modale s'ouvre pour choisir le type de preset et saisir un nom.

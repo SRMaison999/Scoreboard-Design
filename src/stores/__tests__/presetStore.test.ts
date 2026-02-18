@@ -108,4 +108,61 @@ describe('presetStore', () => {
     await usePresetStore.getState().fetchPresets();
     expect(usePresetStore.getState().presets).toHaveLength(2);
   });
+
+  it('sauvegarde un preset de champ avec des enfants', async () => {
+    const store = usePresetStore.getState();
+    const child1: CustomField = {
+      ...MOCK_FIELD,
+      id: 'child-1',
+      label: 'Enfant 1',
+      x: 10,
+      y: 10,
+    };
+    const child2: CustomField = {
+      ...MOCK_FIELD,
+      id: 'child-2',
+      label: 'Enfant 2',
+      x: 50,
+      y: 50,
+    };
+    await store.saveFieldPreset('Avec enfants', MOCK_FIELD, [child1, child2]);
+    const { presets } = usePresetStore.getState();
+    expect(presets).toHaveLength(1);
+    expect(presets[0]!.children).toHaveLength(2);
+    expect(presets[0]!.children![0]!.id).toBe('child-1');
+    expect(presets[0]!.children![1]!.id).toBe('child-2');
+  });
+
+  it('sauvegarde un preset de champ sans enfants (children undefined)', async () => {
+    const store = usePresetStore.getState();
+    await store.saveFieldPreset('Sans enfants', MOCK_FIELD);
+    const { presets } = usePresetStore.getState();
+    expect(presets[0]!.children).toBeUndefined();
+  });
+
+  it('importe un preset avec des enfants', async () => {
+    const store = usePresetStore.getState();
+    const child: CustomField = {
+      ...MOCK_FIELD,
+      id: 'child-imp',
+      label: 'Enfant import\u00e9',
+      x: 20,
+      y: 30,
+    };
+    const content = JSON.stringify({
+      version: '1.0',
+      name: 'Import avec enfants',
+      scope: 'field',
+      created: new Date().toISOString(),
+      modified: new Date().toISOString(),
+      field: MOCK_FIELD,
+      children: [child],
+    });
+    const file = new File([content], 'test.preset.json', { type: 'application/json' });
+    await store.importPreset(file);
+    const { presets } = usePresetStore.getState();
+    expect(presets).toHaveLength(1);
+    expect(presets[0]!.children).toHaveLength(1);
+    expect(presets[0]!.children![0]!.label).toBe('Enfant import\u00e9');
+  });
 });

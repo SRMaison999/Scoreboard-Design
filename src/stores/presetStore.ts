@@ -16,7 +16,7 @@ interface PresetStore {
   loading: boolean;
 
   fetchPresets: () => Promise<void>;
-  saveFieldPreset: (name: string, field: CustomField) => Promise<FieldPreset>;
+  saveFieldPreset: (name: string, field: CustomField, children?: readonly CustomField[]) => Promise<FieldPreset>;
   saveLayoutPreset: (name: string, layout: CustomFieldsData) => Promise<FieldPreset>;
   renamePreset: (id: string, name: string) => Promise<void>;
   deletePreset: (id: string) => Promise<void>;
@@ -52,6 +52,7 @@ function toFileFormat(preset: FieldPreset): PresetFileFormat {
     created: preset.created,
     modified: preset.modified,
     field: preset.field ? structuredClone(preset.field) : undefined,
+    children: preset.children ? structuredClone(preset.children) as CustomField[] : undefined,
     layout: preset.layout ? structuredClone(preset.layout) : undefined,
   };
 }
@@ -61,6 +62,7 @@ function buildPreset(
   scope: PresetScope,
   field?: CustomField,
   layout?: CustomFieldsData,
+  children?: readonly CustomField[],
 ): FieldPreset {
   const now = nowIso();
   return {
@@ -70,6 +72,7 @@ function buildPreset(
     created: now,
     modified: now,
     field: field ? structuredClone(field) : undefined,
+    children: children && children.length > 0 ? structuredClone(children) as CustomField[] : undefined,
     layout: layout ? structuredClone(layout) : undefined,
   };
 }
@@ -94,8 +97,8 @@ export const usePresetStore = create<PresetStore>((set, get) => ({
     set({ presets, loading: false });
   },
 
-  saveFieldPreset: async (name, field) => {
-    const preset = buildPreset(name, 'field', field);
+  saveFieldPreset: async (name, field, children) => {
+    const preset = buildPreset(name, 'field', field, undefined, children);
     await db.fieldPresets.add(preset);
     await get().fetchPresets();
     return preset;
@@ -140,6 +143,7 @@ export const usePresetStore = create<PresetStore>((set, get) => ({
       throw new Error('Format de preset invalide');
     }
     const now = nowIso();
+    const parsedChildren = (parsed as unknown as Record<string, unknown>).children as readonly CustomField[] | undefined;
     const preset: FieldPreset = {
       id: generateId(),
       name: parsed.name,
@@ -147,6 +151,9 @@ export const usePresetStore = create<PresetStore>((set, get) => ({
       created: parsed.created ?? now,
       modified: now,
       field: parsed.field ? structuredClone(parsed.field) : undefined,
+      children: parsedChildren && parsedChildren.length > 0
+        ? structuredClone(parsedChildren) as CustomField[]
+        : undefined,
       layout: parsed.layout ? structuredClone(parsed.layout) : undefined,
     };
     await db.fieldPresets.add(preset);

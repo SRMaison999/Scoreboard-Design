@@ -137,16 +137,24 @@ interface FieldPreset {
   created: string;    // ISO 8601
   modified: string;   // ISO 8601
   field?: CustomField;       // present quand scope = 'field'
+  children?: CustomField[];  // champs enfants (positions relatives au parent)
   layout?: CustomFieldsData; // present quand scope = 'layout'
 }
 ```
+
+Quand un champ est sauvegarde, les elements visuellement contenus dans ses bornes
+(au moins 50% de recouvrement) sont automatiquement inclus comme `children` avec
+des positions relatives au coin superieur gauche du parent. Au chargement, les
+enfants sont recrees avec des positions absolues recalculees. Ce mecanisme est gere
+par `src/utils/fieldContainment.ts` (fonctions `getContainedFields`,
+`toRelativePositions`, `toAbsolutePositions`).
 
 **Store** : `usePresetStore` dans `src/stores/presetStore.ts`
 
 | Operation | Methode du store | Requete Dexie |
 |-----------|-----------------|---------------|
 | Lister | `fetchPresets()` | `db.fieldPresets.orderBy('modified').reverse().toArray()` |
-| Sauvegarder un champ | `saveFieldPreset(name, field)` | `db.fieldPresets.add(preset)` |
+| Sauvegarder un champ | `saveFieldPreset(name, field, children?)` | `db.fieldPresets.add(preset)` |
 | Sauvegarder un layout | `saveLayoutPreset(name, layout)` | `db.fieldPresets.add(preset)` |
 | Renommer | `renamePreset(id, name)` | `db.fieldPresets.update(id, {...})` |
 | Supprimer | `deletePreset(id)` | `db.fieldPresets.delete(id)` |
