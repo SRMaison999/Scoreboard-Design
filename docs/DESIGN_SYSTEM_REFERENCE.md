@@ -97,24 +97,68 @@ L'editeur utilise un theme sombre base sur les tokens Tailwind.
 
 ## 3. Polices
 
-### Polices du scoreboard
+### Polices du scoreboard (25 polices)
 
-Definies dans `src/constants/fonts.ts`. Chargees via Google Fonts.
+Definies dans `src/constants/fonts.ts`. Chargees via Google Fonts. Organisees en 6 categories.
+
+**Sport / Impact** :
 
 | ID | Label | Famille CSS |
 |----|-------|-------------|
 | `oswald` | Oswald | `'Oswald', sans-serif` |
-| `barlow` | Barlow Condensed | `'Barlow Condensed', sans-serif` |
 | `bebas` | Bebas Neue | `'Bebas Neue', sans-serif` |
-| `teko` | Teko | `'Teko', sans-serif` |
 | `anton` | Anton | `'Anton', sans-serif` |
-| `rajdhani` | Rajdhani | `'Rajdhani', sans-serif` |
 | `russo` | Russo One | `'Russo One', sans-serif` |
-| `orbitron` | Orbitron | `'Orbitron', sans-serif` |
+| `archivo-black` | Archivo Black | `'Archivo Black', sans-serif` |
+| `black-ops-one` | Black Ops One | `'Black Ops One', sans-serif` |
+| `bungee` | Bungee | `'Bungee', sans-serif` |
+
+**Condensed** :
+
+| ID | Label | Famille CSS |
+|----|-------|-------------|
+| `barlow` | Barlow Condensed | `'Barlow Condensed', sans-serif` |
 | `saira` | Saira Condensed | `'Saira Condensed', sans-serif` |
+| `roboto-condensed` | Roboto Condensed | `'Roboto Condensed', sans-serif` |
+| `fjalla-one` | Fjalla One | `'Fjalla One', sans-serif` |
+| `teko` | Teko | `'Teko', sans-serif` |
+
+**Modernes** :
+
+| ID | Label | Famille CSS |
+|----|-------|-------------|
+| `montserrat` | Montserrat | `'Montserrat', sans-serif` |
+| `inter` | Inter | `'Inter', sans-serif` |
+| `poppins` | Poppins | `'Poppins', sans-serif` |
+| `rajdhani` | Rajdhani | `'Rajdhani', sans-serif` |
 | `chakra` | Chakra Petch | `'Chakra Petch', sans-serif` |
 
-Graisses disponibles : 400, 500, 600, 700.
+**Display** :
+
+| ID | Label | Famille CSS |
+|----|-------|-------------|
+| `righteous` | Righteous | `'Righteous', sans-serif` |
+| `audiowide` | Audiowide | `'Audiowide', sans-serif` |
+| `exo2` | Exo 2 | `'Exo 2', sans-serif` |
+| `orbitron` | Orbitron | `'Orbitron', sans-serif` |
+
+**Monospace** :
+
+| ID | Label | Famille CSS |
+|----|-------|-------------|
+| `share-tech-mono` | Share Tech Mono | `'Share Tech Mono', monospace` |
+| `jetbrains-mono` | JetBrains Mono | `'JetBrains Mono', monospace` |
+
+**Serif** :
+
+| ID | Label | Famille CSS |
+|----|-------|-------------|
+| `playfair` | Playfair Display | `'Playfair Display', serif` |
+| `bitter` | Bitter | `'Bitter', serif` |
+
+Graisses disponibles : 400, 500, 600, 700 (variable selon la police).
+
+Les categories sont definies dans `FONT_CATEGORY_LABELS` et l'ordre d'affichage dans `FONT_CATEGORY_ORDER`. Le selecteur de polices dans l'editeur utilise des `<optgroup>` pour regrouper par categorie.
 
 Trois zones de police independantes :
 

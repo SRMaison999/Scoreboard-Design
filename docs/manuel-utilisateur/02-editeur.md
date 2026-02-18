@@ -47,6 +47,7 @@ Quand le type 14 (Layout libre) est sélectionné, une section dédiée apparaî
 - **Mode pleine page** : masque le header pour utiliser tout le canvas
 - **Grille et guides** : affichage d'une grille d'alignement, aimantation, taille configurable
 - **Bibliothèque** : palette de 25+ éléments à glisser sur le canvas (voir chapitre 3, Type 14)
+- **Presets** : sauvegarde et chargement de champs individuels ou d'ecrans complets (voir chapitre 3, Type 14)
 - **Couches** : liste des champs avec réordonnancement, visibilité et verrouillage
 - **Propriétés** : panneau de configuration du champ sélectionné (position, taille, style, config élément)
 
