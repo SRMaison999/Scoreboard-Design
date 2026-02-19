@@ -41,7 +41,7 @@ describe('ContentPanel', () => {
     render(<ContentPanel />);
 
     await user.click(screen.getByRole('tab', { name: /Général/i }));
-    expect(screen.getByText(/Type de corps/)).toBeInTheDocument();
+    expect(screen.getByText(/Colonnes de pénalités/)).toBeInTheDocument();
   });
 
   it('affiche le contenu Médias au clic sur l\u2019onglet Médias', async () => {

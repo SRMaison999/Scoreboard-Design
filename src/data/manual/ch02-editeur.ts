@@ -23,6 +23,7 @@ Un rail vertical d'ic\u00f4nes tout \u00e0 gauche permet de basculer entre 5 gro
 
 Les sous-onglets horizontaux apparaissent juste sous le titre du groupe :
 
+- **Modes** : grille de boutons pour choisir le type d\u2019affichage
 - **Contenu** : G\u00e9n\u00e9ral | \u00c9quipes | Match | M\u00e9dias
 - **Apparence** : Style | Polices | Couleurs
 - **Horloge** : section unique (pas de sous-onglets)
@@ -31,13 +32,16 @@ Les sous-onglets horizontaux apparaissent juste sous le titre du groupe :
 
 ### Sections d\u00e9pliables
 
-\u00c0 l'int\u00e9rieur de chaque sous-onglet, les sections peuvent \u00eatre repli\u00e9es en cliquant sur leur titre.
+\u00c0 l\u2019int\u00e9rieur de chaque sous-onglet, les sections peuvent \u00eatre repli\u00e9es en cliquant sur leur titre.
 
-## Groupe Contenu (1\u00e8re ic\u00f4ne du rail)
+## Panneau Modes (1\u00e8re ic\u00f4ne du rail)
+
+Grille de boutons pour choisir le type d\u2019affichage du corps du scoreboard. Le Layout libre est propos\u00e9 en premier.
+
+## Groupe Contenu (2\u00e8me ic\u00f4ne du rail)
 
 ### Sous-onglet G\u00e9n\u00e9ral
 
-- **Type de corps** : choix du type d'affichage (1-14)
 - **Afficher les p\u00e9nalit\u00e9s** : active/d\u00e9sactive les colonnes de p\u00e9nalit\u00e9s
 
 ### Sous-onglet \u00c9quipes

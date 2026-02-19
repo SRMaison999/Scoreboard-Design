@@ -9,6 +9,7 @@ export const EDITOR_LABELS = {
   groupHorloge: 'Horloge',
 
   /* Navigation rail (tooltips) */
+  navModes: 'Modes',
   navContenu: 'Contenu',
   navApparence: 'Apparence',
   navHorloge: 'Horloge',
@@ -31,7 +32,8 @@ export const EDITOR_LABELS = {
   subTabBroadcast: 'Broadcast',
 
   /* Sections */
-  sectionBodyType: 'Type de corps',
+  sectionBodyType: 'Type d\u2019affichage',
+  sectionModes: 'Modes',
   sectionPenalties: 'Colonnes de pénalités',
   sectionHeader: 'Header',
   sectionClock: 'Horloge',

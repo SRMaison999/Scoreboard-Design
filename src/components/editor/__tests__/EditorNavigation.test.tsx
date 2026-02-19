@@ -15,8 +15,9 @@ describe('EditorNavigation', () => {
     useScoreboardStore.getState().resetState();
   });
 
-  it('affiche le rail avec 5 onglets', () => {
+  it('affiche le rail avec 6 onglets', () => {
     render(<EditorNavigation />);
+    expect(screen.getByLabelText('Modes')).toBeInTheDocument();
     expect(screen.getByLabelText('Contenu')).toBeInTheDocument();
     expect(screen.getByLabelText('Apparence')).toBeInTheDocument();
     expect(screen.getByLabelText('Horloge')).toBeInTheDocument();

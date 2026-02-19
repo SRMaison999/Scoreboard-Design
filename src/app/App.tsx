@@ -47,7 +47,7 @@ export function App() {
     window.print();
   }, []);
 
-  const toolbarBtnClass = 'bg-blue-950 border border-blue-600 text-blue-300 rounded-md px-3 py-1 cursor-pointer text-sm flex items-center gap-1.5';
+  const toolbarBtnClass = 'bg-blue-950 border border-blue-600 text-blue-300 rounded-md px-3 py-1 cursor-pointer text-sm flex items-center justify-center gap-1.5 flex-1 min-w-0 whitespace-nowrap';
 
   return (
     <div className="flex h-screen bg-gray-950 text-gray-200 font-[family-name:var(--font-barlow)] overflow-hidden">
@@ -55,48 +55,48 @@ export function App() {
       {showPropertiesPanel && <PropertiesPanel />}
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="flex items-center justify-between gap-2 px-4 py-2 border-b border-gray-800">
+        <div className="flex items-center gap-2 px-4 py-2 border-b border-gray-800">
           <TemplateManager />
-          <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={handleScreenshot}
-            className={toolbarBtnClass}
-          >
-            <Camera size={14} className="flex-shrink-0" />
-            {EDITOR_LABELS.screenshot}
-          </button>
-          <button
-            type="button"
-            onClick={handlePrint}
-            className={toolbarBtnClass}
-          >
-            <Printer size={14} className="flex-shrink-0" />
-            {EDITOR_LABELS.print}
-          </button>
-          <button
-            type="button"
-            onClick={handleOpenOperator}
-            className={toolbarBtnClass}
-          >
-            <Radio size={14} className="flex-shrink-0" />
-            {EDITOR_LABELS.operatorTitle}
-          </button>
-          <button
-            type="button"
-            onClick={handleOpenOutput}
-            className={toolbarBtnClass}
-          >
-            {EDITOR_LABELS.openOutput}
-          </button>
-          <button
-            type="button"
-            onClick={manual.open}
-            className={toolbarBtnClass}
-          >
-            <BookOpen size={14} className="flex-shrink-0" />
-            {EDITOR_LABELS.userManual}
-          </button>
+          <div className="flex flex-wrap items-center justify-end gap-2 flex-1">
+            <button
+              type="button"
+              onClick={handleScreenshot}
+              className={toolbarBtnClass}
+            >
+              <Camera size={14} className="flex-shrink-0" />
+              {EDITOR_LABELS.screenshot}
+            </button>
+            <button
+              type="button"
+              onClick={handlePrint}
+              className={toolbarBtnClass}
+            >
+              <Printer size={14} className="flex-shrink-0" />
+              {EDITOR_LABELS.print}
+            </button>
+            <button
+              type="button"
+              onClick={handleOpenOperator}
+              className={toolbarBtnClass}
+            >
+              <Radio size={14} className="flex-shrink-0" />
+              {EDITOR_LABELS.operatorTitle}
+            </button>
+            <button
+              type="button"
+              onClick={handleOpenOutput}
+              className={toolbarBtnClass}
+            >
+              {EDITOR_LABELS.openOutput}
+            </button>
+            <button
+              type="button"
+              onClick={manual.open}
+              className={toolbarBtnClass}
+            >
+              <BookOpen size={14} className="flex-shrink-0" />
+              {EDITOR_LABELS.userManual}
+            </button>
           </div>
         </div>
 
