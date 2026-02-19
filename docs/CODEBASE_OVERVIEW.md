@@ -198,7 +198,10 @@ Gestion des presets de champs personnalises et de layouts, persistes dans Indexe
 | `useBroadcast` | `src/hooks/useBroadcast.ts` | Streaming de donnees vers CasparCG / Viz |
 | `useFieldDrag` | `src/hooks/useFieldDrag.ts` | Drag (déplacement) des champs personnalisés avec compensation de scale |
 | `useFieldResize` | `src/hooks/useFieldResize.ts` | Resize (redimensionnement) des champs personnalisés avec compensation de scale |
+| `useFieldFontSize` | `src/hooks/useFieldFontSize.ts` | Contrôle de taille de police sur le canvas (barre flottante + Ctrl+molette) |
 | `useFontSelectGroups` | `src/hooks/useFontSelectGroups.ts` | Construit les groupes de polices par categorie pour le composant Select |
+| `useUserManual` | `src/hooks/useUserManual.ts` | État du manuel utilisateur intégré (ouverture, chapitre actif) |
+| `useCustomFieldKeyboard` | `src/hooks/useCustomFieldKeyboard.ts` | Raccourcis clavier du Layout libre (Suppr, Ctrl+D, flèches) |
 
 ---
 
@@ -272,10 +275,11 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 **TemplateManager** gere la sauvegarde/chargement/import/export de templates via modale.
 
 **Composants du constructeur de champs personnalisés (Body Type 14)** :
-- `CustomFieldsSection.tsx` : section principale regroupant bibliothèque, liste et propriétés
+- `CustomFieldsSection.tsx` : section principale regroupant bibliothèque, couches et presets
 - `CustomFieldLibrary.tsx` : palette d'éléments avec icônes Lucide et recherche
 - `CustomFieldList.tsx` : liste des couches avec réordonnancement, visibilité, verrouillage
-- `CustomFieldProperties.tsx` : panneau de propriétés du champ sélectionné (position, taille, style)
+- `PropertiesPanel.tsx` : panneau de propriétés en deuxième colonne (300 px), s'ouvre quand un champ est sélectionné
+- `CustomFieldProperties.tsx` : contenu du panneau de propriétés (position, taille, style, alignement)
 - `FieldElementConfigEditor.tsx` : éditeurs de configuration spécifiques par type d'élément
 
 ### 5.3 Preview (`src/components/preview/`)
@@ -316,6 +320,7 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 | Fichier | Rôle |
 |---------|------|
 | `InteractiveField.tsx` | Champ interactif avec sélection, drag et resize (poignées de coins) |
+| `FieldFontToolbar.tsx` | Barre flottante de contrôle de taille de police au-dessus du champ sélectionné |
 | `FieldElementRenderer.tsx` | Rendu visuel d'un élément selon son type (switch/dispatch) |
 | `FieldMatchElements.tsx` | Renderers des éléments match : score, horloge, période, nom d'équipe, drapeau, temps morts, tirs au but |
 
@@ -417,7 +422,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 
 **Setup** : `src/test/setup.ts`
 
-**Couverture** : 130 fichiers de test, 797 tests.
+**Couverture** : 149 fichiers de test, 983 tests.
 
 | Categorie | Nombre | Exemples |
 |-----------|--------|----------|
