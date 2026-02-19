@@ -100,6 +100,7 @@ export const CUSTOM_FIELD_LABELS = {
   configPhotoSquare: 'Carré',
   configImageSrc: 'Source image',
   configImageFit: 'Ajustement',
+  configImageBrowse: 'Parcourir...',
   configImageCover: 'Couvrir',
   configImageContain: 'Contenir',
   configImageFill: 'Étirer',
