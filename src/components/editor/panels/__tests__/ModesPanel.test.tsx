@@ -24,9 +24,12 @@ describe('ModesPanel', () => {
 
   it('le Layout libre est le premier bouton affiché', () => {
     render(<ModesPanel />);
-    const firstButton = screen.getByTestId(`mode-btn-${BODY_TYPES[0].id}`);
-    expect(firstButton).toHaveTextContent(BODY_TYPES[0].label);
-    expect(BODY_TYPES[0].id).toBe(14);
+    expect(BODY_TYPES.length).toBeGreaterThan(0);
+    const firstId = BODY_TYPES[0]!.id;
+    const firstLabel = BODY_TYPES[0]!.label;
+    const firstButton = screen.getByTestId(`mode-btn-${firstId}`);
+    expect(firstButton).toHaveTextContent(firstLabel);
+    expect(firstId).toBe(14);
   });
 
   it('change le bodyType au clic sur un bouton', () => {
