@@ -22,15 +22,16 @@ export type ScoreboardStore = ScoreboardState & ScoreboardActions;
 
 const MAX_LINES = 8;
 
-/* Detection du premier lancement (avant que persist ecrive en storage) */
-const IS_FIRST_LAUNCH = typeof window !== 'undefined'
-  && typeof window.localStorage !== 'undefined'
-  && window.localStorage.getItem('scoreboard-state') === null;
+/* Etat initial : valeurs techniques de DEFAULT_STATE + contenu vide (CLEAN_CONTENT) */
+const INITIAL_STATE: ScoreboardState = {
+  ...structuredClone(DEFAULT_STATE),
+  ...structuredClone(CLEAN_CONTENT),
+};
 
 export const useScoreboardStore = create<ScoreboardStore>()(
   persist(
     immer((set) => ({
-      ...structuredClone(DEFAULT_STATE),
+      ...structuredClone(INITIAL_STATE),
 
       update: (key, value) =>
         set((s) => { (s as Record<string, unknown>)[key] = value; }),
@@ -237,7 +238,7 @@ export const useScoreboardStore = create<ScoreboardStore>()(
     })),
     {
       name: 'scoreboard-state',
-      version: 7,
+      version: 8,
       migrate: (persisted: unknown) => {
         const state = persisted as Record<string, unknown>;
         if (state['logoMode'] === undefined) {
@@ -273,13 +274,13 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         if (state['customFieldsData'] === undefined) {
           state['customFieldsData'] = structuredClone(DEFAULT_CUSTOM_FIELDS_DATA);
         }
+        /* v8 : vider le contenu pour un ecran vierge au demarrage */
+        const clean = structuredClone(CLEAN_CONTENT) as Record<string, unknown>;
+        for (const [key, value] of Object.entries(clean)) {
+          state[key] = value;
+        }
         return state as unknown as ScoreboardState & ScoreboardActions;
       },
     },
   ),
 );
-
-/* Premier lancement : vider le contenu pour un ecran vierge */
-if (IS_FIRST_LAUNCH) {
-  useScoreboardStore.getState().clearContent();
-}

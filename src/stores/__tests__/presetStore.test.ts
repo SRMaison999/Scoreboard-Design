@@ -14,6 +14,7 @@ const MOCK_FIELD: CustomField = {
   zIndex: 1,
   locked: false,
   visible: true,
+  lockAspectRatio: false,
   element: {
     type: 'text-block',
     config: { content: 'Test', fontSize: 24, fontWeight: 600, textAlign: 'center', textTransform: 'none', letterSpacing: 0 },

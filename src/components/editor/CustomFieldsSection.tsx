@@ -9,6 +9,7 @@ import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
+import { useCustomFieldKeyboard } from '@/hooks/useCustomFieldKeyboard';
 import { CustomFieldLibrary } from './CustomFieldLibrary';
 import { CustomFieldList } from './CustomFieldList';
 import { CustomFieldProperties } from './CustomFieldProperties';
@@ -18,6 +19,7 @@ import { GRID_SIZE_OPTIONS } from '@/types/customField';
 import type { PresetScope } from '@/types/fieldPreset';
 
 export function CustomFieldsSection() {
+  useCustomFieldKeyboard();
   const fullPageMode = useScoreboardStore((s) => s.customFieldsData.fullPageMode);
   const snapToGrid = useScoreboardStore((s) => s.customFieldsData.snapToGrid);
   const showGuides = useScoreboardStore((s) => s.customFieldsData.showGuides);

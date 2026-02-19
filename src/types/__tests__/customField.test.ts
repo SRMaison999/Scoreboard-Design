@@ -69,7 +69,7 @@ describe('customField types et constantes', () => {
   it('FieldElementConfig union accepte un score-display', () => {
     const config: FieldElementConfig = {
       type: 'score-display',
-      config: { side: 'left', showLabel: false },
+      config: { side: 'left', showLabel: false, fontSizeOverride: 0 },
     };
     expect(config.type).toBe('score-display');
   });
@@ -80,7 +80,7 @@ describe('customField types et constantes', () => {
       label: 'Test',
       x: 0, y: 0, width: 100, height: 80,
       zIndex: 1,
-      locked: false, visible: true,
+      locked: false, visible: true, lockAspectRatio: false,
       element: { type: 'text-block', config: { content: 'a', fontSize: 20, fontWeight: 400, textAlign: 'left', textTransform: 'none', letterSpacing: 0 } },
       style: { ...DEFAULT_FIELD_STYLE },
     };

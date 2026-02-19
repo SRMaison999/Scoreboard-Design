@@ -1,6 +1,6 @@
 /**
  * Hook pour le redimensionnement des champs sur le canvas.
- * Gère les 4 poignées de coin et les contraintes de taille.
+ * Gere les 4 poignees de coin, les contraintes de taille et le verrouillage de ratio.
  */
 
 import { useCallback, useRef } from 'react';
@@ -17,6 +17,8 @@ interface ResizeState {
   startY: number;
   startW: number;
   startH: number;
+  aspectRatio: number;
+  lockAspectRatio: boolean;
 }
 
 export function useFieldResize(scale: number) {
@@ -24,6 +26,7 @@ export function useFieldResize(scale: number) {
   const updateSize = useScoreboardStore((s) => s.updateCustomFieldSize);
   const snapToGrid = useScoreboardStore((s) => s.customFieldsData.snapToGrid);
   const gridSize = useScoreboardStore((s) => s.customFieldsData.gridSize);
+  const fields = useScoreboardStore((s) => s.customFieldsData.fields);
 
   const resizeRef = useRef<ResizeState | null>(null);
 
@@ -51,6 +54,8 @@ export function useFieldResize(scale: number) {
       const el = e.currentTarget as HTMLElement;
       el.setPointerCapture(e.pointerId);
 
+      const field = fields.find((f) => f.id === fieldId);
+
       resizeRef.current = {
         fieldId,
         handle,
@@ -60,9 +65,11 @@ export function useFieldResize(scale: number) {
         startY: fieldY,
         startW: fieldW,
         startH: fieldH,
+        aspectRatio: fieldW / Math.max(fieldH, 1),
+        lockAspectRatio: field?.lockAspectRatio ?? false,
       };
     },
-    [],
+    [fields],
   );
 
   const onResizeMove = useCallback(
@@ -95,6 +102,23 @@ export function useFieldResize(scale: number) {
 
       newW = Math.max(40, newW);
       newH = Math.max(40, newH);
+
+      /* Verrouillage de ratio d'aspect */
+      if (rs.lockAspectRatio) {
+        const absW = Math.abs(dx);
+        const absH = Math.abs(dy);
+        if (absW >= absH) {
+          newH = Math.max(40, Math.round(newW / rs.aspectRatio));
+          if (rs.handle.includes('top')) {
+            newY = rs.startY + rs.startH - newH;
+          }
+        } else {
+          newW = Math.max(40, Math.round(newH * rs.aspectRatio));
+          if (rs.handle.includes('left')) {
+            newX = rs.startX + rs.startW - newW;
+          }
+        }
+      }
 
       if (rs.handle.includes('left') && newX < 0) {
         newW = newW + newX;

@@ -18,6 +18,7 @@ function makeField(overrides?: Partial<CustomField>): CustomField {
     zIndex: 1,
     locked: false,
     visible: true,
+    lockAspectRatio: false,
     element: {
       type: 'text-block',
       config: {

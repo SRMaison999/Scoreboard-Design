@@ -22,14 +22,14 @@ describe('updateFieldElementConfig', () => {
     const updateElement = vi.fn();
     const element: FieldElementConfig = {
       type: 'clock-display',
-      config: { showPeriod: true, showBox: false },
+      config: { showPeriod: true, showBox: false, fontSizeOverride: 0 },
     };
 
     updateFieldElementConfig(updateElement, 'f2', element, { showBox: true });
 
     expect(updateElement).toHaveBeenCalledWith('f2', {
       type: 'clock-display',
-      config: { showPeriod: true, showBox: true },
+      config: { showPeriod: true, showBox: true, fontSizeOverride: 0 },
     });
   });
 });

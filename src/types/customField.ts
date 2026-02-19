@@ -67,16 +67,23 @@ export interface TextBlockConfig {
 export interface ScoreDisplayConfig {
   readonly side: 'left' | 'right';
   readonly showLabel: boolean;
+  readonly fontSizeOverride: number;
 }
 
 export interface ClockDisplayConfig {
   readonly showPeriod: boolean;
   readonly showBox: boolean;
+  readonly fontSizeOverride: number;
 }
 
 export interface TeamNameConfig {
   readonly side: 'left' | 'right';
   readonly showFlag: boolean;
+  readonly fontSizeOverride: number;
+}
+
+export interface PeriodDisplayConfig {
+  readonly fontSizeOverride: number;
 }
 
 export interface FlagDisplayConfig {
@@ -131,7 +138,6 @@ export interface HeaderBlockConfig {
 
 export type TimeoutDisplayConfig = Record<string, never>;
 export type ShootoutDisplayConfig = Record<string, never>;
-export type PeriodDisplayConfig = Record<string, never>;
 
 /**
  * Union discriminée des configurations d'éléments.
@@ -141,7 +147,7 @@ export type FieldElementConfig =
   | { readonly type: 'text-block'; readonly config: TextBlockConfig }
   | { readonly type: 'score-display'; readonly config: ScoreDisplayConfig }
   | { readonly type: 'clock-display'; readonly config: ClockDisplayConfig }
-  | { readonly type: 'period-display'; readonly config: PeriodDisplayConfig }
+  | { readonly type: 'period-display'; readonly config: PeriodDisplayConfig; }
   | { readonly type: 'team-name'; readonly config: TeamNameConfig }
   | { readonly type: 'flag-display'; readonly config: FlagDisplayConfig }
   | { readonly type: 'timeout-display'; readonly config: TimeoutDisplayConfig }
@@ -191,6 +197,7 @@ export interface CustomField {
   zIndex: number;
   locked: boolean;
   visible: boolean;
+  lockAspectRatio: boolean;
   element: FieldElementConfig;
   style: FieldStyle;
 }

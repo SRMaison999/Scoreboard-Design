@@ -1,13 +1,20 @@
 /**
- * Panneau de propriétés pour un champ sélectionné.
- * Permet de modifier position, taille, style et configuration de l'élément.
+ * Panneau de proprietes pour un champ selectionne.
+ * Permet de modifier position, taille, style, alignement et configuration.
  */
 
+import {
+  AlignStartVertical, AlignCenterVertical, AlignEndVertical,
+  AlignStartHorizontal, AlignCenterHorizontal, AlignEndHorizontal,
+  Ratio,
+} from 'lucide-react';
 import { InputField } from '@/components/ui/InputField';
 import { Button } from '@/components/ui/Button';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
+import { alignField } from '@/utils/fieldAlignment';
 import { FieldElementConfigEditor } from './FieldElementConfigEditor';
+import type { AlignmentAction } from '@/utils/fieldAlignment';
 
 interface CustomFieldPropertiesProps {
   readonly fieldId: string;
@@ -23,8 +30,15 @@ export function CustomFieldProperties({ fieldId }: CustomFieldPropertiesProps) {
   const updateStyle = useScoreboardStore((s) => s.updateCustomFieldStyle);
   const duplicateField = useScoreboardStore((s) => s.duplicateCustomField);
   const removeField = useScoreboardStore((s) => s.removeCustomField);
+  const canvasW = useScoreboardStore((s) => s.templateWidth);
+  const canvasH = useScoreboardStore((s) => s.templateHeight);
 
   if (!field) return null;
+
+  const handleAlign = (action: AlignmentAction) => {
+    const { x, y } = alignField(field, canvasW, canvasH, action);
+    updatePosition(fieldId, x, y);
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -33,6 +47,38 @@ export function CustomFieldProperties({ fieldId }: CustomFieldPropertiesProps) {
         value={field.label}
         onChange={(v) => updateProp(fieldId, 'label', v)}
       />
+
+      {/* Alignement */}
+      <div className="flex items-center gap-1 border-t border-gray-800 pt-1 mt-1">
+        <button type="button" className="p-1 hover:text-sky-300 text-gray-400" onClick={() => handleAlign('align-left')} title={CUSTOM_FIELD_LABELS.alignLeft}>
+          <AlignStartVertical size={14} className="flex-shrink-0" />
+        </button>
+        <button type="button" className="p-1 hover:text-sky-300 text-gray-400" onClick={() => handleAlign('align-center-h')} title={CUSTOM_FIELD_LABELS.alignCenterH}>
+          <AlignCenterVertical size={14} className="flex-shrink-0" />
+        </button>
+        <button type="button" className="p-1 hover:text-sky-300 text-gray-400" onClick={() => handleAlign('align-right')} title={CUSTOM_FIELD_LABELS.alignRight}>
+          <AlignEndVertical size={14} className="flex-shrink-0" />
+        </button>
+        <div className="w-px h-4 bg-gray-700 mx-1" />
+        <button type="button" className="p-1 hover:text-sky-300 text-gray-400" onClick={() => handleAlign('align-top')} title={CUSTOM_FIELD_LABELS.alignTop}>
+          <AlignStartHorizontal size={14} className="flex-shrink-0" />
+        </button>
+        <button type="button" className="p-1 hover:text-sky-300 text-gray-400" onClick={() => handleAlign('align-center-v')} title={CUSTOM_FIELD_LABELS.alignCenterV}>
+          <AlignCenterHorizontal size={14} className="flex-shrink-0" />
+        </button>
+        <button type="button" className="p-1 hover:text-sky-300 text-gray-400" onClick={() => handleAlign('align-bottom')} title={CUSTOM_FIELD_LABELS.alignBottom}>
+          <AlignEndHorizontal size={14} className="flex-shrink-0" />
+        </button>
+        <div className="w-px h-4 bg-gray-700 mx-1" />
+        <button
+          type="button"
+          className={`p-1 flex-shrink-0 ${field.lockAspectRatio ? 'text-sky-300' : 'text-gray-400 hover:text-sky-300'}`}
+          onClick={() => updateProp(fieldId, 'lockAspectRatio', !field.lockAspectRatio)}
+          title={CUSTOM_FIELD_LABELS.fieldLockAspectRatio}
+        >
+          <Ratio size={14} className="flex-shrink-0" />
+        </button>
+      </div>
 
       <div className="text-[10px] text-gray-500 uppercase tracking-wider border-t border-gray-800 pt-1 mt-1">
         {CUSTOM_FIELD_LABELS.fieldPosition}
@@ -167,7 +213,7 @@ export function CustomFieldProperties({ fieldId }: CustomFieldPropertiesProps) {
         </div>
       </div>
 
-      {/* Configuration spécifique à l'élément */}
+      {/* Configuration specifique a l'element */}
       <div className="text-[10px] text-gray-500 uppercase tracking-wider border-t border-gray-800 pt-1 mt-1">
         {field.element.type}
       </div>

@@ -26,7 +26,7 @@ describe('FieldElementRenderer', () => {
   it('rend un score-display avec le score de l\'état', () => {
     const element: FieldElementConfig = {
       type: 'score-display',
-      config: { side: 'left', showLabel: false },
+      config: { side: 'left', showLabel: false, fontSizeOverride: 0 },
     };
     render(<FieldElementRenderer element={element} {...defaultProps} />);
     expect(screen.getByText(DEFAULT_STATE.score1)).toBeInTheDocument();
@@ -35,7 +35,7 @@ describe('FieldElementRenderer', () => {
   it('rend un score-display côté droit', () => {
     const element: FieldElementConfig = {
       type: 'score-display',
-      config: { side: 'right', showLabel: false },
+      config: { side: 'right', showLabel: false, fontSizeOverride: 0 },
     };
     render(<FieldElementRenderer element={element} {...defaultProps} />);
     expect(screen.getByText(DEFAULT_STATE.score2)).toBeInTheDocument();
@@ -44,7 +44,7 @@ describe('FieldElementRenderer', () => {
   it('rend un clock-display avec le temps', () => {
     const element: FieldElementConfig = {
       type: 'clock-display',
-      config: { showPeriod: true, showBox: false },
+      config: { showPeriod: true, showBox: false, fontSizeOverride: 0 },
     };
     render(<FieldElementRenderer element={element} {...defaultProps} />);
     expect(screen.getByText(DEFAULT_STATE.time)).toBeInTheDocument();
@@ -53,7 +53,7 @@ describe('FieldElementRenderer', () => {
   it('rend un period-display avec la période', () => {
     const element: FieldElementConfig = {
       type: 'period-display',
-      config: {},
+      config: { fontSizeOverride: 0 },
     };
     render(<FieldElementRenderer element={element} {...defaultProps} />);
     expect(screen.getByText(DEFAULT_STATE.period)).toBeInTheDocument();
@@ -62,7 +62,7 @@ describe('FieldElementRenderer', () => {
   it('rend un team-name côté gauche', () => {
     const element: FieldElementConfig = {
       type: 'team-name',
-      config: { side: 'left', showFlag: true },
+      config: { side: 'left', showFlag: true, fontSizeOverride: 0 },
     };
     render(<FieldElementRenderer element={element} {...defaultProps} />);
     expect(screen.getByText(DEFAULT_STATE.team1)).toBeInTheDocument();
@@ -71,7 +71,7 @@ describe('FieldElementRenderer', () => {
   it('rend un team-name côté droit', () => {
     const element: FieldElementConfig = {
       type: 'team-name',
-      config: { side: 'right', showFlag: true },
+      config: { side: 'right', showFlag: true, fontSizeOverride: 0 },
     };
     render(<FieldElementRenderer element={element} {...defaultProps} />);
     expect(screen.getByText(DEFAULT_STATE.team2)).toBeInTheDocument();
