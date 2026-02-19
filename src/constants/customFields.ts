@@ -133,6 +133,16 @@ export const CUSTOM_FIELD_LABELS = {
   /* Raccourcis */
   keyboardShortcutsHint: 'Suppr, Ctrl+D, Fl\u00e8ches',
 
+  /* Panneau de propriétés secondaire */
+  propertiesPanelTitle: 'Propriétés',
+  propertiesPanelClose: 'Fermer le panneau',
+
+  /* Barre flottante taille de police */
+  fontToolbarLabel: 'Taille',
+  fontToolbarIncrease: 'Augmenter la taille de police',
+  fontToolbarDecrease: 'Diminuer la taille de police',
+  fontToolbarGlobalHint: 'Valeur globale',
+
   /* Presets */
   sectionPresets: 'Presets',
   presetSaveField: 'Sauvegarder le champ',

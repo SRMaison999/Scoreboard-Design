@@ -4,11 +4,14 @@
  * En mode interactif (éditeur), permet le drag, resize et la sélection.
  */
 
+import { useCallback } from 'react';
 import { InteractiveField } from './InteractiveField';
+import { FieldFontToolbar } from './FieldFontToolbar';
 import { FieldElementRenderer } from './FieldElementRenderer';
 import { fieldBgStyle } from '@/utils/fieldStyle';
 import { useFieldDrag } from '@/hooks/useFieldDrag';
 import { useFieldResize } from '@/hooks/useFieldResize';
+import { useFieldFontSize, hasEditableFontSize } from '@/hooks/useFieldFontSize';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import type { ScoreboardState } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
@@ -84,15 +87,32 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
 
   const drag = useFieldDrag(canvasScale);
   const resize = useFieldResize(canvasScale);
+  const { fontInfo, hasFontControl, increase, decrease, adjustFontSize } = useFieldFontSize();
 
   const fields = state.customFieldsData.fields;
   const sorted = [...fields].sort((a, b) => a.zIndex - b.zIndex);
+  const selectedField = selectedFieldId
+    ? fields.find((f) => f.id === selectedFieldId)
+    : undefined;
 
   const handleBackgroundClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       selectField(null);
     }
   };
+
+  const handleWheel = useCallback((e: React.WheelEvent) => {
+    if (!e.ctrlKey || !hasFontControl) return;
+    e.preventDefault();
+    const delta = e.deltaY < 0 ? 1 : -1;
+    const step = e.shiftKey ? 4 : 1;
+    adjustFontSize(delta * step);
+  }, [hasFontControl, adjustFontSize]);
+
+  const showToolbar = selectedField
+    && hasFontControl
+    && fontInfo
+    && hasEditableFontSize(selectedField.element.type);
 
   return (
     <div
@@ -104,6 +124,7 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
         flex: 1,
       }}
       onClick={handleBackgroundClick}
+      onWheel={handleWheel}
     >
       {showGuides && <GridOverlay gridSize={gridSize} />}
 
@@ -119,6 +140,19 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
           resize={resize}
         />
       ))}
+
+      {showToolbar && selectedField && fontInfo && (
+        <FieldFontToolbar
+          fontSize={fontInfo.value}
+          isGlobal={fontInfo.isGlobal}
+          fieldX={selectedField.x}
+          fieldY={selectedField.y}
+          fieldWidth={selectedField.width}
+          canvasScale={canvasScale}
+          onIncrease={increase}
+          onDecrease={decrease}
+        />
+      )}
     </div>
   );
 }
