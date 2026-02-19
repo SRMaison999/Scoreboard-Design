@@ -83,7 +83,9 @@ export function TeamNameElement({ state, colors, opacities, element }: {
   readonly opacities: OpacityMap;
   readonly element: { readonly config: { readonly side: string; readonly fontSizeOverride?: number } };
 }) {
-  const name = element.config.side === 'left' ? state.team1 : state.team2;
+  const isLeft = element.config.side === 'left';
+  const displayName = isLeft ? state.teamDisplayName1 : state.teamDisplayName2;
+  const name = displayName || (isLeft ? state.team1 : state.team2);
   const fontSize = resolveFontSize(element.config.fontSizeOverride, state.fontSizes.teamName);
   return (
     <div style={{

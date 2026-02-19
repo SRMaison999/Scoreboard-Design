@@ -12,6 +12,7 @@ describe('FieldElementConfigEditor', () => {
         content: 'Hello',
         fontSize: 24,
         fontWeight: 600,
+        fontFamily: '',
         textAlign: 'center',
         textTransform: 'none',
         letterSpacing: 0,

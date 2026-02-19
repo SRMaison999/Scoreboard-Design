@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
+import { initUndoRedoListener } from '@/stores/undoRedoStore';
 import { useTimer } from '@/hooks/useTimer';
 import { useFontLoader } from '@/hooks/useFontLoader';
 import { useOutputSyncSender } from '@/hooks/useOutputSync';
 import { useUserManual } from '@/hooks/useUserManual';
 import { EditorPanel } from '@/components/editor/EditorPanel';
-import { PropertiesPanel } from '@/components/editor/PropertiesPanel';
 import { ScoreboardPreview } from '@/components/preview/ScoreboardPreview';
 import { TemplateManager } from '@/components/editor/TemplateManager';
 import { UserManual } from '@/components/common/UserManual';
@@ -15,6 +15,9 @@ import { Camera, Printer, Radio, BookOpen } from 'lucide-react';
 import '@/styles/index.css';
 import '@/styles/print.css';
 
+/* Initialise l'écoute undo/redo une seule fois */
+initUndoRedoListener();
+
 export function App() {
   useFontLoader();
   useTimer();
@@ -22,8 +25,6 @@ export function App() {
 
   const state = useScoreboardStore();
   const manual = useUserManual();
-  const showPropertiesPanel = state.bodyType === 14
-    && state.customFieldsData.selectedFieldId !== null;
 
   const isElectron = 'electronAPI' in window;
 
@@ -52,7 +53,6 @@ export function App() {
   return (
     <div className="flex h-screen bg-gray-950 text-gray-200 font-[family-name:var(--font-barlow)] overflow-hidden">
       <EditorPanel />
-      {showPropertiesPanel && <PropertiesPanel />}
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <div className="flex items-center gap-2 px-4 py-2 border-b border-gray-800">

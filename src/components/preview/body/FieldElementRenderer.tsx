@@ -31,7 +31,8 @@ interface FieldElementRendererProps {
 function TextBlockElement({ element }: {
   readonly element: { readonly config: {
     readonly content: string; readonly fontSize: number;
-    readonly fontWeight: number; readonly textAlign: string;
+    readonly fontWeight: number; readonly fontFamily?: string;
+    readonly textAlign: string;
     readonly textTransform: string; readonly letterSpacing: number;
   } };
 }) {
@@ -41,6 +42,7 @@ function TextBlockElement({ element }: {
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', justifyContent: c.textAlign,
       fontSize: c.fontSize, fontWeight: c.fontWeight,
+      fontFamily: c.fontFamily || undefined,
       textAlign: c.textAlign as 'left' | 'center' | 'right',
       textTransform: c.textTransform as 'none' | 'uppercase' | 'lowercase',
       letterSpacing: c.letterSpacing, color: '#ffffff',

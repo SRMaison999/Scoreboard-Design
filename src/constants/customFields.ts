@@ -100,6 +100,7 @@ export const CUSTOM_FIELD_LABELS = {
   configPhotoSquare: 'Carré',
   configImageSrc: 'Source image',
   configImageFit: 'Ajustement',
+  configImageBrowse: 'Parcourir...',
   configImageCover: 'Couvrir',
   configImageContain: 'Contenir',
   configImageFill: 'Étirer',
@@ -115,12 +116,19 @@ export const CUSTOM_FIELD_LABELS = {
   configSeparatorThickness: 'Épaisseur',
   configSeparatorColor: 'Couleur',
 
+  /* Police de caractères */
+  configFontFamily: 'Police',
+  configFontFamilyGlobal: 'Police globale',
+
   /* Taille de police par champ */
   configFontSizeOverride: 'Taille de police',
   configFontSizeAutoHint: '0 = valeur globale',
 
-  /* Proportions */
+  /* Proportions et mise à l'échelle */
   fieldLockAspectRatio: 'Verrouiller les proportions',
+  fieldScaleContent: 'Mise à l\u2019échelle du contenu',
+  fieldScaleContentHint: 'Le contenu suit la taille du champ',
+  fieldResetScale: 'Réinitialiser l\u2019échelle',
 
   /* Alignement */
   alignLeft: 'Aligner \u00e0 gauche',
@@ -130,8 +138,13 @@ export const CUSTOM_FIELD_LABELS = {
   alignCenterV: 'Centrer verticalement',
   alignBottom: 'Aligner en bas',
 
+  /* Historique */
+  undoAction: 'Annuler',
+  redoAction: 'R\u00e9tablir',
+  undoRedoHint: 'Ctrl+Z / Ctrl+Y',
+
   /* Raccourcis */
-  keyboardShortcutsHint: 'Suppr, Ctrl+D, Fl\u00e8ches',
+  keyboardShortcutsHint: 'Suppr, Ctrl+D, Fl\u00e8ches, Ctrl+Z/Y',
 
   /* Panneau de propriétés secondaire */
   propertiesPanelTitle: 'Propriétés',
@@ -143,6 +156,12 @@ export const CUSTOM_FIELD_LABELS = {
   fontToolbarDecrease: 'Diminuer la taille de police',
   fontToolbarGlobalHint: 'Valeur globale',
   fontToolbarClickToEdit: 'Cliquer pour saisir une valeur',
+
+  /* Sélection de zone */
+  zoneSelectStart: 'Sélectionner une zone',
+  zoneSelectCancel: 'Annuler la sélection',
+  zoneSelectHint: 'Dessinez un rectangle sur le canvas pour capturer les champs',
+  zoneSelectNoFields: 'Aucun champ dans la zone sélectionnée',
 
   /* Presets */
   sectionPresets: 'Presets',

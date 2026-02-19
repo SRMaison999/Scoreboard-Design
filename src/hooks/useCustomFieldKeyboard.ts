@@ -5,6 +5,7 @@
 
 import { useEffect, useCallback } from 'react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
+import { useUndoRedoStore } from '@/stores/undoRedoStore';
 
 const MOVE_STEP = 1;
 const MOVE_STEP_SHIFT = 10;
@@ -17,14 +18,28 @@ export function useCustomFieldKeyboard() {
   const removeField = useScoreboardStore((s) => s.removeCustomField);
   const duplicateField = useScoreboardStore((s) => s.duplicateCustomField);
   const updatePosition = useScoreboardStore((s) => s.updateCustomFieldPosition);
+  const undo = useUndoRedoStore((s) => s.undo);
+  const redo = useUndoRedoStore((s) => s.redo);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (!selectedId) return;
-
       const target = e.target as HTMLElement;
       const isInput = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT';
       if (isInput) return;
+
+      /* Undo / Redo : toujours actifs, même sans champ sélectionné */
+      if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+        e.preventDefault();
+        undo();
+        return;
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
+        e.preventDefault();
+        redo();
+        return;
+      }
+
+      if (!selectedId) return;
 
       const field = fields.find((f) => f.id === selectedId);
       if (!field) return;
@@ -64,7 +79,7 @@ export function useCustomFieldKeyboard() {
           break;
       }
     },
-    [selectedId, fields, snapToGrid, gridSize, removeField, duplicateField, updatePosition],
+    [selectedId, fields, snapToGrid, gridSize, removeField, duplicateField, updatePosition, undo, redo],
   );
 
   useEffect(() => {

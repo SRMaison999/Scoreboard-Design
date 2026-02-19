@@ -24,7 +24,7 @@ describe('useFieldResize', () => {
   });
 
   it('onResizeMove ne fait rien sans resize actif', () => {
-    const element = { type: 'text-block' as const, config: { content: 'a', fontSize: 20, fontWeight: 400, textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
+    const element = { type: 'text-block' as const, config: { content: 'a', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
     useScoreboardStore.getState().addCustomField(element, 50, 50, 200, 100);
     const field = useScoreboardStore.getState().customFieldsData.fields[0];
 

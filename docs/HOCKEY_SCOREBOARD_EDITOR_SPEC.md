@@ -72,7 +72,11 @@ TO WARM UP (10:00) → WARM UP (20:00) → TO GAME (5:00)
 OVERTIME (5:00), OVERTIME 2 (5:00)
 ```
 
-#### 2.2.3 Corps — 3 modèles de layout
+#### 2.2.3 Corps — Modèles de layout
+
+Le Layout libre (Body Type 14 dans le code) est le mode principal, proposé en premier dans l'interface. Il offre un canvas entièrement libre pour composer des scoreboards sur mesure avec glisser-déposer, redimensionnement, bibliothèque d'éléments (25+), presets, historique undo/redo, sélection de police par champ, scaling proportionnel et sélection de zone. Voir la section 3.3.1 et le manuel utilisateur (chapitre 3) pour les détails complets.
+
+Les types prédéfinis 1-13 offrent des agencements fixes pour des cas d'utilisation courants :
 
 **Type 1 : Titre centré + lignes symétriques**
 
@@ -442,9 +446,60 @@ Technique de rendu des drapeaux :
 
 ### 3.3 Priorité basse — Fonctionnalités futures
 
-#### 3.3.1 Modèles de corps additionnels
+#### 3.3.1 Layout libre (Body Type 14 — Mode principal)
 
-Chaque type de corps est un composant indépendant (`BodyTypeN.tsx`) avec sa propre interface de données. Le système doit être conçu comme un **registre de plugins** : ajouter un nouveau type = ajouter un composant + une entrée dans le registre, sans toucher au reste du code.
+Le Layout libre est le mode principal de l'application. Il permet de composer un scoreboard entièrement sur mesure en plaçant des éléments visuels sur un canvas libre.
+
+**Fonctionnalités implémentées :**
+
+| Fonctionnalité | Description |
+|----------------|-------------|
+| Canvas libre | Placement, déplacement et redimensionnement d'éléments par glisser-déposer |
+| Bibliothèque d'éléments | 25+ éléments en 6 catégories (Match, Texte, Données, Joueurs, Médias, Composés) |
+| Mode pleine page | Masque le header pour utiliser tout le canvas |
+| Panneau de propriétés | Position, taille, style, configuration par type d'élément |
+| Police par champ | Chaque champ texte peut avoir sa propre police de caractères |
+| Scaling proportionnel | La taille de police s'ajuste automatiquement au redimensionnement |
+| Barre de police flottante | Boutons +/-, saisie directe, molette de souris |
+| Grille et guides | Grille en pointillés avec aimantation configurable |
+| Couches (Z-index) | Réordonnancement, visibilité, verrouillage |
+| Presets | Sauvegarde/chargement de champs individuels ou d'écrans complets |
+| Sélection de zone | Rectangle de sélection pour regrouper des champs |
+| Undo/redo | 50 niveaux d'historique (Ctrl+Z / Ctrl+Y) |
+| Noms d'équipes libres | Saisie libre en plus des codes NOC |
+| Sélection d'images | Sélecteur de fichier avec aperçu intégré |
+| Raccourcis clavier | Suppr, Ctrl+D, flèches, Ctrl+Z, Ctrl+Y |
+
+```typescript
+interface CustomFieldsData {
+  fields: CustomField[];
+  selectedFieldId: string | null;
+  showGrid: boolean;
+  snapToGrid: boolean;
+  gridSize: number;
+  fullPageMode: boolean;
+}
+
+interface CustomField {
+  id: string;
+  name: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  zIndex: number;
+  visible: boolean;
+  locked: boolean;
+  style: FieldStyle;
+  element: FieldElementConfig;
+}
+```
+
+Le Layout libre est implémenté dans `BodyType14.tsx` avec les sous-composants `InteractiveField`, `FieldFontToolbar`, `FieldElementRenderer` et `FieldMatchElements`.
+
+#### 3.3.2 Modèles de corps prédéfinis (Types 1-13)
+
+Chaque type de corps est un composant indépendant (`BodyTypeN.tsx`) avec sa propre interface de données. Le système est conçu comme un **registre de plugins** : ajouter un nouveau type = ajouter un composant + une entrée dans le registre, sans toucher au reste du code.
 
 **Type 4 : Classement / Tableau (Standings)**
 
@@ -827,7 +882,7 @@ interface FreeTextData {
 }
 ```
 
-#### 3.3.2 Sérialisation et export de frame (Frame Data API)
+#### 3.3.3 Sérialisation et export de frame (Frame Data API)
 
 **Objectif :** Permettre à tout système externe de récupérer les données nécessaires pour recréer exactement chaque frame du scoreboard, indépendamment du moteur de rendu.
 
@@ -1105,7 +1160,7 @@ Le moteur de rendu peut être :
 - Un template CasparCG HTML
 - Un système propriétaire lisant le JSON
 
-#### 3.3.3 Animations et transitions
+#### 3.3.4 Animations et transitions
 
 | Animation | Usage |
 |-----------|-------|
@@ -1118,35 +1173,35 @@ Le moteur de rendu peut être :
 
 Configuration : durée, easing, direction.
 
-#### 3.3.4 Sons et alertes
+#### 3.3.5 Sons et alertes
 
 - Buzzer fin de période
 - Signal de but
 - Alerte pénalité
 - Sons configurables (upload audio)
 
-#### 3.3.5 Intégration données externes
+#### 3.3.6 Intégration données externes
 
 - API de scores en temps réel (IIHF, NHL)
 - Import de roster d'équipe (CSV, Excel, JSON)
 - Synchronisation multi-poste (WebSocket)
 - Contrôle distant (tablette opérateur → PC régie)
 
-#### 3.3.6 Multi-scoreboard
+#### 3.3.7 Multi-scoreboard
 
 - Afficher plusieurs scoreboards simultanément
 - Lower third (bande en bas d'écran)
 - Bug (logo + score permanent en coin)
 - Ticker défilant (résultats d'autres matchs)
 
-#### 3.3.7 Thèmes et branding
+#### 3.3.8 Thèmes et branding
 
 - Upload de logo (compétition, sponsors, diffuseur)
 - Placement configurable du logo (coins, centre)
 - Fond image/vidéo personnalisé (au lieu du dégradé)
 - Import de charte graphique complète (JSON)
 
-#### 3.3.8 Historique et undo/redo
+#### 3.3.9 Historique et undo/redo
 
 - Stack d'historique des modifications
 - Ctrl+Z / Ctrl+Y
@@ -1212,6 +1267,7 @@ src/
 │   │   ├── ClockOverlay.tsx       # Horloge superposée
 │   │   ├── body/                  # Registre de body types
 │   │   │   ├── BodyTypeRegistry.ts    # Registre dynamique
+│   │   │   ├── BodyType14.tsx         # Layout libre (mode principal)
 │   │   │   ├── BodyType1.tsx          # Symétrique
 │   │   │   ├── BodyType2.tsx          # Asymétrique
 │   │   │   ├── BodyType3.tsx          # Joueur/variable
@@ -1224,7 +1280,7 @@ src/
 │   │   │   ├── BodyType10.tsx         # Score final
 │   │   │   ├── BodyType11.tsx         # Calendrier
 │   │   │   ├── BodyType12.tsx         # Tirs au but
-│   │   │   └── BodyType13.tsx         # Texte libre
+│   │   │   └── BodyType13.tsx         # Calendrier
 │   │   ├── PenaltyColumn.tsx      # Colonne de pénalités
 │   │   └── Flag.tsx               # Rendu CSS/SVG des drapeaux
 │   │

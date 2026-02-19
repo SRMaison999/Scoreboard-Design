@@ -16,7 +16,10 @@ describe('FieldPreset types', () => {
       locked: false,
       visible: true,
       lockAspectRatio: false,
-      element: { type: 'text-block', config: { content: 'Test', fontSize: 24, fontWeight: 600, textAlign: 'center', textTransform: 'none', letterSpacing: 0 } },
+      scaleContent: true,
+      initialWidth: 200,
+      initialHeight: 100,
+      element: { type: 'text-block', config: { content: 'Test', fontSize: 24, fontWeight: 600, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0 } },
       style: DEFAULT_FIELD_STYLE,
     };
     const preset: FieldPreset = {
@@ -46,6 +49,7 @@ describe('FieldPreset types', () => {
         gridSize: 20,
         showGuides: true,
         selectedFieldId: null,
+        zoneSelectionActive: false,
       },
     };
     expect(preset.scope).toBe('layout');
@@ -72,6 +76,7 @@ describe('FieldPreset types', () => {
         gridSize: 20,
         showGuides: true,
         selectedFieldId: null,
+        zoneSelectionActive: false,
       },
     };
     expect(file.version).toBe('1.0');

@@ -66,6 +66,8 @@ export interface ScoreboardState {
 
   team1: string;
   team2: string;
+  teamDisplayName1: string;
+  teamDisplayName2: string;
   score1: string;
   score2: string;
 

@@ -299,8 +299,11 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 
 **14 body types** dans `src/components/preview/body/` :
 
+Le Layout libre (BodyType14) est le mode principal, proposé en premier dans l'interface.
+
 | Type | Composant | Description |
 |------|-----------|-------------|
+| 14 | BodyType14 | **Layout libre** (champs personnalises, mode principal) |
 | 1 | BodyType1 | Stats symetriques (valeur / label / valeur) |
 | 2 | BodyType2 | Stats asymetriques (2 titres) |
 | 3 | BodyType3 | Stats joueur avec photo |
@@ -314,7 +317,6 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 | 11 | BodyType11 | Barres comparatives |
 | 12 | BodyType12 | Roster / composition |
 | 13 | BodyType13 | Calendrier / prochains matchs |
-| 14 | BodyType14 | Layout libre (champs personnalisés) |
 
 **Sous-composants du Body Type 14** :
 
@@ -386,7 +388,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 | `fonts.ts` | FONT_OPTIONS, FONT_LINK (Google Fonts URL) |
 | `fontSizes.ts` | FONT_SIZES (tailles auto par nombre de lignes) |
 | `phases.ts` | Phases de match par defaut |
-| `bodyTypes.ts` | Definitions des 13 body types prédéfinis |
+| `bodyTypes.ts` | Definitions des 14 body types (Layout libre en premier) |
 | `customFields.ts` | Bibliothèque d'éléments (25+), labels et catégories du constructeur de champs |
 | `resolutions.ts` | Presets de resolution (Full HD, 4K, 720p, etc.) |
 | `nations.ts` | 31 nations de hockey avec codes NOC |
@@ -423,7 +425,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 
 **Setup** : `src/test/setup.ts`
 
-**Couverture** : 149 fichiers de test, 983 tests.
+**Couverture** : 151 fichiers de test, 997 tests.
 
 | Categorie | Nombre | Exemples |
 |-----------|--------|----------|

@@ -19,12 +19,16 @@ function makeField(overrides?: Partial<CustomField>): CustomField {
     locked: false,
     visible: true,
     lockAspectRatio: false,
+    scaleContent: true,
+    initialWidth: 200,
+    initialHeight: 80,
     element: {
       type: 'text-block',
       config: {
         content: 'Texte test',
         fontSize: 24,
         fontWeight: 600,
+        fontFamily: '',
         textAlign: 'center',
         textTransform: 'none',
         letterSpacing: 0,

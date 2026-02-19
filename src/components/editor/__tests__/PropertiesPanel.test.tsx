@@ -22,6 +22,7 @@ describe('PropertiesPanel', () => {
       config: {
         content: 'test', fontSize: 20, fontWeight: 400,
         textAlign: 'center' as const, textTransform: 'none' as const,
+        fontFamily: '',
         letterSpacing: 0,
       },
     };
@@ -37,6 +38,7 @@ describe('PropertiesPanel', () => {
       config: {
         content: 'test', fontSize: 20, fontWeight: 400,
         textAlign: 'center' as const, textTransform: 'none' as const,
+        fontFamily: '',
         letterSpacing: 0,
       },
     };
@@ -53,6 +55,7 @@ describe('PropertiesPanel', () => {
       config: {
         content: 'test', fontSize: 20, fontWeight: 400,
         textAlign: 'center' as const, textTransform: 'none' as const,
+        fontFamily: '',
         letterSpacing: 0,
       },
     };

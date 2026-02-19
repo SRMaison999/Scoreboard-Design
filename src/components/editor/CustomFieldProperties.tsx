@@ -30,6 +30,7 @@ export function CustomFieldProperties({ fieldId }: CustomFieldPropertiesProps) {
   const updateStyle = useScoreboardStore((s) => s.updateCustomFieldStyle);
   const duplicateField = useScoreboardStore((s) => s.duplicateCustomField);
   const removeField = useScoreboardStore((s) => s.removeCustomField);
+  const resetScale = useScoreboardStore((s) => s.resetCustomFieldScale);
   const canvasW = useScoreboardStore((s) => s.templateWidth);
   const canvasH = useScoreboardStore((s) => s.templateHeight);
 
@@ -126,6 +127,27 @@ export function CustomFieldProperties({ fieldId }: CustomFieldPropertiesProps) {
             className="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded px-2 py-0.5 text-[13px]"
           />
         </div>
+      </div>
+
+      <div className="flex items-center gap-2 mt-1">
+        <label className="flex items-center gap-2 cursor-pointer text-[12px] text-gray-300">
+          <input
+            type="checkbox"
+            checked={field.scaleContent}
+            onChange={(e) => updateProp(fieldId, 'scaleContent', e.target.checked)}
+            className="accent-sky-300"
+          />
+          {CUSTOM_FIELD_LABELS.fieldScaleContent}
+        </label>
+        {field.scaleContent && (
+          <Button
+            variant="ghost"
+            className="text-[11px] px-2 py-0.5"
+            onClick={() => resetScale(fieldId)}
+          >
+            {CUSTOM_FIELD_LABELS.fieldResetScale}
+          </Button>
+        )}
       </div>
 
       <div className="text-[10px] text-gray-500 uppercase tracking-wider border-t border-gray-800 pt-1 mt-1">

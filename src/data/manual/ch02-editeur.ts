@@ -23,7 +23,7 @@ Un rail vertical d'ic\u00f4nes tout \u00e0 gauche permet de basculer entre 5 gro
 
 Les sous-onglets horizontaux apparaissent juste sous le titre du groupe :
 
-- **Modes** : grille de boutons pour choisir le type d\u2019affichage
+- **Modes** : grille de boutons pour choisir le type d\u2019affichage (Layout libre en premier)
 - **Contenu** : G\u00e9n\u00e9ral | \u00c9quipes | Match | M\u00e9dias
 - **Apparence** : Style | Polices | Couleurs
 - **Horloge** : section unique (pas de sous-onglets)

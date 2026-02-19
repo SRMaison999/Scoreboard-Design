@@ -49,7 +49,7 @@ describe('useFieldFontSize', () => {
     const element = {
       type: 'text-block' as const,
       config: {
-        content: 'Test', fontSize: 30, fontWeight: 400,
+        content: 'Test', fontSize: 30, fontWeight: 400, fontFamily: '',
         textAlign: 'center' as const, textTransform: 'none' as const,
         letterSpacing: 0,
       },
@@ -65,7 +65,7 @@ describe('useFieldFontSize', () => {
     const element = {
       type: 'text-block' as const,
       config: {
-        content: 'Test', fontSize: 30, fontWeight: 400,
+        content: 'Test', fontSize: 30, fontWeight: 400, fontFamily: '',
         textAlign: 'center' as const, textTransform: 'none' as const,
         letterSpacing: 0,
       },
@@ -87,7 +87,7 @@ describe('useFieldFontSize', () => {
     const element = {
       type: 'text-block' as const,
       config: {
-        content: 'Test', fontSize: 30, fontWeight: 400,
+        content: 'Test', fontSize: 30, fontWeight: 400, fontFamily: '',
         textAlign: 'center' as const, textTransform: 'none' as const,
         letterSpacing: 0,
       },
@@ -136,7 +136,7 @@ describe('useFieldFontSize', () => {
     const element = {
       type: 'text-block' as const,
       config: {
-        content: 'Test', fontSize: 30, fontWeight: 400,
+        content: 'Test', fontSize: 30, fontWeight: 400, fontFamily: '',
         textAlign: 'center' as const, textTransform: 'none' as const,
         letterSpacing: 0,
       },
@@ -157,7 +157,7 @@ describe('useFieldFontSize', () => {
     const element = {
       type: 'text-block' as const,
       config: {
-        content: 'Test', fontSize: 30, fontWeight: 400,
+        content: 'Test', fontSize: 30, fontWeight: 400, fontFamily: '',
         textAlign: 'center' as const, textTransform: 'none' as const,
         letterSpacing: 0,
       },

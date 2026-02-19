@@ -9,6 +9,8 @@ import type { ScoreboardState } from '@/types/scoreboard';
 export const CLEAN_CONTENT: Partial<ScoreboardState> = {
   team1: '',
   team2: '',
+  teamDisplayName1: '',
+  teamDisplayName2: '',
   score1: '0',
   score2: '0',
   period: '',

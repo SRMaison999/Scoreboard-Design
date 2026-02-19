@@ -19,9 +19,12 @@ const MOCK_FIELD: CustomField = {
   locked: false,
   visible: true,
   lockAspectRatio: false,
+  scaleContent: true,
+  initialWidth: 200,
+  initialHeight: 100,
   element: {
     type: 'text-block',
-    config: { content: 'Preset', fontSize: 24, fontWeight: 600, textAlign: 'center', textTransform: 'none', letterSpacing: 0 },
+    config: { content: 'Preset', fontSize: 24, fontWeight: 600, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0 },
   },
   style: DEFAULT_FIELD_STYLE,
 };

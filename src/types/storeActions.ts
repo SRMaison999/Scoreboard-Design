@@ -122,9 +122,10 @@ export interface ScoreboardActions {
   updateCustomFieldStyle: (fieldId: string, style: Partial<FieldStyle>) => void;
   updateCustomFieldProp: (fieldId: string, key: keyof CustomField, value: unknown) => void;
   duplicateCustomField: (fieldId: string) => void;
+  resetCustomFieldScale: (fieldId: string) => void;
   reorderCustomField: (fieldId: string, newZIndex: number) => void;
   selectCustomField: (fieldId: string | null) => void;
-  updateCustomFieldsOption: (key: 'fullPageMode' | 'snapToGrid' | 'showGuides', value: boolean) => void;
+  updateCustomFieldsOption: (key: 'fullPageMode' | 'snapToGrid' | 'showGuides' | 'zoneSelectionActive', value: boolean) => void;
   updateCustomFieldsGridSize: (size: number) => void;
 
   /* Templates */
