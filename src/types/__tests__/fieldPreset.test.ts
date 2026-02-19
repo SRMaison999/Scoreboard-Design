@@ -49,6 +49,7 @@ describe('FieldPreset types', () => {
         gridSize: 20,
         showGuides: true,
         selectedFieldId: null,
+        zoneSelectionActive: false,
       },
     };
     expect(preset.scope).toBe('layout');
@@ -75,6 +76,7 @@ describe('FieldPreset types', () => {
         gridSize: 20,
         showGuides: true,
         selectedFieldId: null,
+        zoneSelectionActive: false,
       },
     };
     expect(file.version).toBe('1.0');

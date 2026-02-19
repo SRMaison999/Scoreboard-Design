@@ -40,6 +40,7 @@ function makeState(fields: CustomField[]): ScoreboardState {
       gridSize: 20,
       showGuides: true,
       selectedFieldId: null,
+      zoneSelectionActive: false,
     },
   };
 }

@@ -3,11 +3,12 @@
  * Contient les options du canvas, la bibliothèque, la liste des champs et les presets.
  */
 
-import { useState } from 'react';
-import { Save, FolderOpen } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Save, FolderOpen, Crosshair, X } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
+import { useZoneSelectionStore } from '@/stores/zoneSelectionStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import { useCustomFieldKeyboard } from '@/hooks/useCustomFieldKeyboard';
 import { CustomFieldLibrary } from './CustomFieldLibrary';
@@ -16,6 +17,7 @@ import { CustomFieldProperties } from './CustomFieldProperties';
 import { SavePresetModal } from './SavePresetModal';
 import { LoadPresetModal } from './LoadPresetModal';
 import { GRID_SIZE_OPTIONS } from '@/types/customField';
+import type { CustomField } from '@/types/customField';
 import type { PresetScope } from '@/types/fieldPreset';
 
 export function CustomFieldsSection() {
@@ -29,18 +31,44 @@ export function CustomFieldsSection() {
   const updateOption = useScoreboardStore((s) => s.updateCustomFieldsOption);
   const updateGridSize = useScoreboardStore((s) => s.updateCustomFieldsGridSize);
 
+  const zoneSelectionActive = useScoreboardStore((s) => s.customFieldsData.zoneSelectionActive);
+  const capturedFields = useZoneSelectionStore((s) => s.capturedFields);
+  const clearCapturedFields = useZoneSelectionStore((s) => s.clearCapturedFields);
+
   const [saveOpen, setSaveOpen] = useState(false);
   const [loadOpen, setLoadOpen] = useState(false);
   const [saveScope, setSaveScope] = useState<PresetScope>('layout');
+  const [zoneFields, setZoneFields] = useState<readonly CustomField[] | undefined>(undefined);
+
+  /* Ouvre la modale de sauvegarde quand des champs sont capturés par zone */
+  useEffect(() => {
+    if (capturedFields && capturedFields.length > 0) {
+      setZoneFields(capturedFields);
+      setSaveScope('layout');
+      setSaveOpen(true);
+      clearCapturedFields();
+    }
+  }, [capturedFields, clearCapturedFields]);
 
   const handleOpenSaveField = () => {
+    setZoneFields(undefined);
     setSaveScope('field');
     setSaveOpen(true);
   };
 
   const handleOpenSaveLayout = () => {
+    setZoneFields(undefined);
     setSaveScope('layout');
     setSaveOpen(true);
+  };
+
+  const handleToggleZoneSelection = () => {
+    updateOption('zoneSelectionActive', !zoneSelectionActive);
+  };
+
+  const handleCloseSaveModal = () => {
+    setSaveOpen(false);
+    setZoneFields(undefined);
   };
 
   return (
@@ -123,6 +151,28 @@ export function CustomFieldsSection() {
             <FolderOpen size={14} className="flex-shrink-0" />
             {CUSTOM_FIELD_LABELS.presetLoad}
           </Button>
+          <div className="border-t border-gray-700 my-1 pt-1">
+            <Button
+              variant={zoneSelectionActive ? 'primary' : 'ghost'}
+              className="flex items-center gap-2 w-full justify-start"
+              onClick={handleToggleZoneSelection}
+              disabled={fieldsCount === 0}
+            >
+              {zoneSelectionActive ? (
+                <X size={14} className="flex-shrink-0" />
+              ) : (
+                <Crosshair size={14} className="flex-shrink-0" />
+              )}
+              {zoneSelectionActive
+                ? CUSTOM_FIELD_LABELS.zoneSelectCancel
+                : CUSTOM_FIELD_LABELS.zoneSelectStart}
+            </Button>
+            {zoneSelectionActive && (
+              <p className="text-[11px] text-sky-400 mt-1">
+                {CUSTOM_FIELD_LABELS.zoneSelectHint}
+              </p>
+            )}
+          </div>
         </div>
       </Section>
 
@@ -140,8 +190,9 @@ export function CustomFieldsSection() {
 
       <SavePresetModal
         open={saveOpen}
-        onClose={() => setSaveOpen(false)}
+        onClose={handleCloseSaveModal}
         defaultScope={saveScope}
+        zoneFields={zoneFields}
       />
       <LoadPresetModal
         open={loadOpen}

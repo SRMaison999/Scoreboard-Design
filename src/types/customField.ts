@@ -215,6 +215,7 @@ export interface CustomFieldsData {
   gridSize: number;
   showGuides: boolean;
   selectedFieldId: string | null;
+  zoneSelectionActive: boolean;
 }
 
 /* --- Élément de la bibliothèque (pour le panneau) --- */
@@ -255,4 +256,5 @@ export const DEFAULT_CUSTOM_FIELDS_DATA: CustomFieldsData = {
   gridSize: 20,
   showGuides: true,
   selectedFieldId: null,
+  zoneSelectionActive: false,
 };

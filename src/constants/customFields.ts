@@ -152,6 +152,12 @@ export const CUSTOM_FIELD_LABELS = {
   fontToolbarGlobalHint: 'Valeur globale',
   fontToolbarClickToEdit: 'Cliquer pour saisir une valeur',
 
+  /* Sélection de zone */
+  zoneSelectStart: 'Sélectionner une zone',
+  zoneSelectCancel: 'Annuler la sélection',
+  zoneSelectHint: 'Dessinez un rectangle sur le canvas pour capturer les champs',
+  zoneSelectNoFields: 'Aucun champ dans la zone sélectionnée',
+
   /* Presets */
   sectionPresets: 'Presets',
   presetSaveField: 'Sauvegarder le champ',
