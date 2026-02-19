@@ -23,6 +23,8 @@ export const DEFAULT_STATE: ScoreboardState = {
 
   team1: 'SVK',
   team2: 'FIN',
+  teamDisplayName1: '',
+  teamDisplayName2: '',
   score1: '1',
   score2: '1',
 

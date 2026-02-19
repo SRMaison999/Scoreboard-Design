@@ -17,6 +17,8 @@ function selectState(store: ReturnType<typeof useScoreboardStore.getState>): Sco
     showPenalties: store.showPenalties,
     team1: store.team1,
     team2: store.team2,
+    teamDisplayName1: store.teamDisplayName1,
+    teamDisplayName2: store.teamDisplayName2,
     score1: store.score1,
     score2: store.score2,
     time: store.time,

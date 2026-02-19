@@ -273,6 +273,10 @@ export const useScoreboardStore = create<ScoreboardStore>()(
             }
           }
         }
+        if (state['teamDisplayName1'] === undefined) {
+          state['teamDisplayName1'] = '';
+          state['teamDisplayName2'] = '';
+        }
         if (state['customFieldsData'] === undefined) {
           state['customFieldsData'] = structuredClone(DEFAULT_CUSTOM_FIELDS_DATA);
         }

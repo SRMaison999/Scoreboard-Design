@@ -51,6 +51,9 @@ export const EDITOR_LABELS = {
   /* Champs */
   team1Label: 'Équipe 1',
   team2Label: 'Équipe 2',
+  teamDisplayName1Label: 'Nom affiché 1',
+  teamDisplayName2Label: 'Nom affiché 2',
+  teamDisplayNameHint: 'Si vide, le code pays est utilisé',
   score1Label: 'Score 1',
   score2Label: 'Score 2',
   showPenalties: 'Afficher les colonnes',
