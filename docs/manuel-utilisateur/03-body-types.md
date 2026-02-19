@@ -195,12 +195,13 @@ Un champ de recherche permet de filtrer les éléments. Cliquer sur un élément
 
 Pour les éléments textuels (score, horloge, période, nom d'équipe, bloc de texte), une **barre flottante** apparaît au-dessus du champ sélectionné. Elle affiche la taille de police actuelle et propose deux boutons :
 
-- **-** : diminue la taille de 1 px (maintenir Shift pour un pas de 4 px)
-- **+** : augmente la taille de 1 px (maintenir Shift pour un pas de 4 px)
+- **-** : diminue la taille de 1 px. **Maintenir le bouton enfoncé** pour une répétition accélérée.
+- **+** : augmente la taille de 1 px. **Maintenir le bouton enfoncé** pour une répétition accélérée.
+- **Cliquer sur la valeur** : ouvre un champ de saisie directe. Taper la taille souhaitée (8-300), puis appuyer sur Entrée pour valider ou Échap pour annuler.
 
 La valeur affichée apparaît en blanc si elle est propre au champ (override local), ou en gris si le champ utilise la taille globale. Cliquer sur + ou - crée automatiquement un override local.
 
-**Raccourci clavier** : Ctrl + molette de la souris ajuste également la taille de police du champ sélectionné (+1 px par cran, +4 px avec Shift).
+**Raccourci souris** : la molette de la souris sur un champ sélectionné ajuste directement la taille de police (+1 px par cran vers le haut, -1 px vers le bas).
 
 Si le champ est trop près du bord supérieur du canvas, la barre se repositionne en dessous du champ.
 

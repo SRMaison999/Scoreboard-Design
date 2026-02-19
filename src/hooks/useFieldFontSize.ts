@@ -1,6 +1,6 @@
 /**
  * Hook pour manipuler la taille de police d'un champ sélectionné.
- * Gère les boutons +/- de la barre flottante et Ctrl+molette sur le canvas.
+ * Gère les boutons +/- (avec répétition), la saisie directe et la molette.
  */
 
 import { useCallback } from 'react';
@@ -9,7 +9,6 @@ import { updateFieldElementConfig } from '@/utils/fieldConfig';
 import type { FieldElementConfig } from '@/types/customField';
 
 const FONT_STEP = 1;
-const FONT_STEP_SHIFT = 4;
 const FONT_MIN = 8;
 const FONT_MAX = 300;
 
@@ -42,7 +41,6 @@ function resolveFontSize(element: FieldElementConfig, state: {
     if (override > 0) {
       return { value: override, isGlobal: false };
     }
-    /* Retourne la valeur globale selon le type */
     switch (element.type) {
       case 'score-display':
         return { value: state.fontSizes.score, isGlobal: true };
@@ -57,6 +55,10 @@ function resolveFontSize(element: FieldElementConfig, state: {
   }
 
   return { value: 0, isGlobal: true };
+}
+
+function clampFontSize(value: number): number {
+  return Math.max(FONT_MIN, Math.min(FONT_MAX, value));
 }
 
 export function useFieldFontSize() {
@@ -75,12 +77,13 @@ export function useFieldFontSize() {
     ? resolveFontSize(selectedField.element, { fontSizes })
     : null;
 
+  /** Ajuste la taille de police d'un delta (+/-) */
   const adjustFontSize = useCallback((delta: number) => {
     if (!selectedField || !selectedFieldId) return;
     const element = selectedField.element;
 
     if (element.type === 'text-block') {
-      const newSize = Math.max(FONT_MIN, Math.min(FONT_MAX, element.config.fontSize + delta));
+      const newSize = clampFontSize(element.config.fontSize + delta);
       updateFieldElementConfig(updateElement, selectedFieldId, element, { fontSize: newSize });
       return;
     }
@@ -89,17 +92,33 @@ export function useFieldFontSize() {
       const config = element.config as { fontSizeOverride?: number };
       const current = config.fontSizeOverride ?? 0;
       const baseValue = current > 0 ? current : resolveFontSize(element, { fontSizes }).value;
-      const newSize = Math.max(FONT_MIN, Math.min(FONT_MAX, baseValue + delta));
+      const newSize = clampFontSize(baseValue + delta);
       updateFieldElementConfig(updateElement, selectedFieldId, element, { fontSizeOverride: newSize });
     }
   }, [selectedField, selectedFieldId, updateElement, fontSizes]);
 
-  const increase = useCallback((shift?: boolean) => {
-    adjustFontSize(shift ? FONT_STEP_SHIFT : FONT_STEP);
+  /** Définit une taille de police exacte (saisie directe) */
+  const setFontSize = useCallback((size: number) => {
+    if (!selectedField || !selectedFieldId) return;
+    const element = selectedField.element;
+    const clamped = clampFontSize(size);
+
+    if (element.type === 'text-block') {
+      updateFieldElementConfig(updateElement, selectedFieldId, element, { fontSize: clamped });
+      return;
+    }
+
+    if (OVERRIDE_TYPES.has(element.type)) {
+      updateFieldElementConfig(updateElement, selectedFieldId, element, { fontSizeOverride: clamped });
+    }
+  }, [selectedField, selectedFieldId, updateElement]);
+
+  const increase = useCallback(() => {
+    adjustFontSize(FONT_STEP);
   }, [adjustFontSize]);
 
-  const decrease = useCallback((shift?: boolean) => {
-    adjustFontSize(shift ? -FONT_STEP_SHIFT : -FONT_STEP);
+  const decrease = useCallback(() => {
+    adjustFontSize(-FONT_STEP);
   }, [adjustFontSize]);
 
   const hasFontControl = selectedField
@@ -111,6 +130,7 @@ export function useFieldFontSize() {
     hasFontControl,
     increase,
     decrease,
+    setFontSize,
     adjustFontSize,
   };
 }

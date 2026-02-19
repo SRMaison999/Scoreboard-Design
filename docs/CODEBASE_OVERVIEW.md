@@ -198,7 +198,8 @@ Gestion des presets de champs personnalises et de layouts, persistes dans Indexe
 | `useBroadcast` | `src/hooks/useBroadcast.ts` | Streaming de donnees vers CasparCG / Viz |
 | `useFieldDrag` | `src/hooks/useFieldDrag.ts` | Drag (déplacement) des champs personnalisés avec compensation de scale |
 | `useFieldResize` | `src/hooks/useFieldResize.ts` | Resize (redimensionnement) des champs personnalisés avec compensation de scale |
-| `useFieldFontSize` | `src/hooks/useFieldFontSize.ts` | Contrôle de taille de police sur le canvas (barre flottante + Ctrl+molette) |
+| `useFieldFontSize` | `src/hooks/useFieldFontSize.ts` | Contrôle de taille de police sur le canvas (barre flottante + molette) |
+| `usePressRepeat` | `src/hooks/usePressRepeat.ts` | Répétition accélérée au maintien d'un bouton (utilisé par la barre de police) |
 | `useFontSelectGroups` | `src/hooks/useFontSelectGroups.ts` | Construit les groupes de polices par categorie pour le composant Select |
 | `useUserManual` | `src/hooks/useUserManual.ts` | État du manuel utilisateur intégré (ouverture, chapitre actif) |
 | `useCustomFieldKeyboard` | `src/hooks/useCustomFieldKeyboard.ts` | Raccourcis clavier du Layout libre (Suppr, Ctrl+D, flèches) |
