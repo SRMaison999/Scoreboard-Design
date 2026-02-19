@@ -46,14 +46,32 @@ function StaticField({ field, state, colors, opacities }: {
         ...fieldBgStyle(field.style),
       }}
     >
-      <FieldElementRenderer
-        element={field.element}
-        state={state}
-        colors={colors}
-        opacities={opacities}
-        width={field.width}
-        height={field.height}
-      />
+      {field.scaleContent && field.initialWidth > 0 && field.initialHeight > 0 ? (
+        <div style={{
+          width: field.initialWidth,
+          height: field.initialHeight,
+          transform: `scale(${field.width / field.initialWidth}, ${field.height / field.initialHeight})`,
+          transformOrigin: 'top left',
+        }}>
+          <FieldElementRenderer
+            element={field.element}
+            state={state}
+            colors={colors}
+            opacities={opacities}
+            width={field.initialWidth}
+            height={field.initialHeight}
+          />
+        </div>
+      ) : (
+        <FieldElementRenderer
+          element={field.element}
+          state={state}
+          colors={colors}
+          opacities={opacities}
+          width={field.width}
+          height={field.height}
+        />
+      )}
     </div>
   );
 }

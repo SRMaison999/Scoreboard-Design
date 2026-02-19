@@ -13,6 +13,7 @@ function makeTextField(id: string, x: number, y: number): CustomField {
     x, y, width: 200, height: 80,
     zIndex: 1,
     locked: false, visible: true, lockAspectRatio: false,
+    scaleContent: true, initialWidth: 200, initialHeight: 80,
     element: {
       type: 'text-block',
       config: {

@@ -8,16 +8,21 @@ import { DEFAULT_FIELD_STYLE } from '@/types/customField';
 import type { CustomField } from '@/types/customField';
 
 function makeField(overrides: Partial<CustomField> & { id: string }): CustomField {
+  const w = overrides.width ?? 100;
+  const h = overrides.height ?? 100;
   return {
     label: 'Champ',
     x: 0,
     y: 0,
-    width: 100,
-    height: 100,
+    width: w,
+    height: h,
     zIndex: 1,
     locked: false,
     visible: true,
     lockAspectRatio: false,
+    scaleContent: true,
+    initialWidth: w,
+    initialHeight: h,
     element: {
       type: 'text-block',
       config: { content: '', fontSize: 20, fontWeight: 400, textAlign: 'center', textTransform: 'none', letterSpacing: 0 },

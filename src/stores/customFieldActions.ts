@@ -39,6 +39,9 @@ export function addCustomFieldDraft(
     locked: false,
     visible: true,
     lockAspectRatio: false,
+    scaleContent: true,
+    initialWidth: width,
+    initialHeight: height,
     element,
     style: { ...DEFAULT_FIELD_STYLE },
   };
@@ -138,12 +141,22 @@ export function duplicateCustomFieldDraft(s: Draft, fieldId: string): void {
     locked: field.locked,
     visible: field.visible,
     lockAspectRatio: field.lockAspectRatio,
+    scaleContent: field.scaleContent,
+    initialWidth: field.initialWidth,
+    initialHeight: field.initialHeight,
     element: JSON.parse(JSON.stringify(field.element)) as FieldElementConfig,
     style: { ...field.style },
   };
 
   s.customFieldsData.fields.push(copy);
   s.customFieldsData.selectedFieldId = copy.id;
+}
+
+export function resetCustomFieldScaleDraft(s: Draft, fieldId: string): void {
+  const field = findField(s, fieldId);
+  if (!field) return;
+  (field as { initialWidth: number }).initialWidth = field.width;
+  (field as { initialHeight: number }).initialHeight = field.height;
 }
 
 export function reorderCustomFieldDraft(

@@ -119,8 +119,11 @@ export const CUSTOM_FIELD_LABELS = {
   configFontSizeOverride: 'Taille de police',
   configFontSizeAutoHint: '0 = valeur globale',
 
-  /* Proportions */
+  /* Proportions et mise à l'échelle */
   fieldLockAspectRatio: 'Verrouiller les proportions',
+  fieldScaleContent: 'Mise à l\u2019échelle du contenu',
+  fieldScaleContentHint: 'Le contenu suit la taille du champ',
+  fieldResetScale: 'Réinitialiser l\u2019échelle',
 
   /* Alignement */
   alignLeft: 'Aligner \u00e0 gauche',

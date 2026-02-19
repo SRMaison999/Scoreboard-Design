@@ -198,6 +198,9 @@ export interface CustomField {
   locked: boolean;
   visible: boolean;
   lockAspectRatio: boolean;
+  scaleContent: boolean;
+  initialWidth: number;
+  initialHeight: number;
   element: FieldElementConfig;
   style: FieldStyle;
 }

@@ -81,6 +81,7 @@ describe('customField types et constantes', () => {
       x: 0, y: 0, width: 100, height: 80,
       zIndex: 1,
       locked: false, visible: true, lockAspectRatio: false,
+      scaleContent: true, initialWidth: 100, initialHeight: 80,
       element: { type: 'text-block', config: { content: 'a', fontSize: 20, fontWeight: 400, textAlign: 'left', textTransform: 'none', letterSpacing: 0 } },
       style: { ...DEFAULT_FIELD_STYLE },
     };
