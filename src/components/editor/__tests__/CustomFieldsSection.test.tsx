@@ -29,7 +29,7 @@ describe('CustomFieldsSection', () => {
   });
 
   it('affiche les propriétés du champ sélectionné dans le sidebar', () => {
-    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
+    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
     useScoreboardStore.getState().addCustomField(element, 50, 50, 200, 100);
     const firstField = useScoreboardStore.getState().customFieldsData.fields[0];
     if (!firstField) throw new Error('Le champ devrait exister');
@@ -39,7 +39,7 @@ describe('CustomFieldsSection', () => {
   });
 
   it('n\'affiche pas les propriétés quand aucun champ n\'est sélectionné', () => {
-    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
+    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
     useScoreboardStore.getState().addCustomField(element, 50, 50, 200, 100);
     useScoreboardStore.getState().selectCustomField(null);
     render(<CustomFieldsSection />);

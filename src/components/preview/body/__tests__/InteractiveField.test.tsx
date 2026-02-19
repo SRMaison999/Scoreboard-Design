@@ -28,6 +28,7 @@ function makeField(overrides?: Partial<CustomField>): CustomField {
         content: 'Texte test',
         fontSize: 24,
         fontWeight: 600,
+        fontFamily: '',
         textAlign: 'center',
         textTransform: 'none',
         letterSpacing: 0,

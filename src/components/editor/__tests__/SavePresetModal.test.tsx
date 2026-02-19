@@ -31,7 +31,7 @@ describe('SavePresetModal', () => {
   });
 
   it('le bouton sauvegarder est d\u00e9sactiv\u00e9 sans nom', () => {
-    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
+    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
     useScoreboardStore.getState().addCustomField(element, 50, 50, 200, 100);
     render(<SavePresetModal open onClose={() => {}} defaultScope="layout" />);
     const saveBtn = screen.getByText(CUSTOM_FIELD_LABELS.presetSave);
@@ -40,7 +40,7 @@ describe('SavePresetModal', () => {
 
   it('sauvegarde un preset layout avec un nom', async () => {
     const user = userEvent.setup();
-    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
+    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
     useScoreboardStore.getState().addCustomField(element, 50, 50, 200, 100);
 
     const onClose = vi.fn();

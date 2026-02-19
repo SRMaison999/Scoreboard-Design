@@ -18,7 +18,7 @@ function makeTextField(id: string, x: number, y: number): CustomField {
       type: 'text-block',
       config: {
         content: `Texte ${id}`,
-        fontSize: 24, fontWeight: 600,
+        fontSize: 24, fontWeight: 600, fontFamily: '',
         textAlign: 'center', textTransform: 'none', letterSpacing: 0,
       },
     } as FieldElementConfig,

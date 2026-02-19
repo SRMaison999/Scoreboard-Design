@@ -3,10 +3,13 @@
  * Affiche les controles adaptes au type du champ selectionne.
  */
 
+import { useMemo } from 'react';
 import { InputField } from '@/components/ui/InputField';
 import { Select } from '@/components/ui/Select';
+import type { SelectOptionGroup } from '@/components/ui/Select';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
+import { FONT_OPTIONS, FONT_CATEGORY_LABELS, FONT_CATEGORY_ORDER } from '@/constants/fonts';
 import type { FieldElementConfig } from '@/types/customField';
 import { updateFieldElementConfig } from '@/utils/fieldConfig';
 import { ShapeEditor, SeparatorEditor, ImageEditor } from './FieldVisualEditors';
@@ -40,6 +43,21 @@ function FontSizeOverrideInput({ fieldId, element }: {
   );
 }
 
+function useFontFamilyGroups(): readonly SelectOptionGroup[] {
+  return useMemo(() => {
+    return FONT_CATEGORY_ORDER.map((cat) => ({
+      label: FONT_CATEGORY_LABELS[cat],
+      options: FONT_OPTIONS
+        .filter((f) => f.category === cat)
+        .map((f) => ({
+          value: f.family,
+          label: f.label,
+          style: { fontFamily: f.family } as React.CSSProperties,
+        })),
+    }));
+  }, []);
+}
+
 function TextBlockEditor({ fieldId, element }: {
   readonly fieldId: string;
   readonly element: Extract<FieldElementConfig, { type: 'text-block' }>;
@@ -47,6 +65,7 @@ function TextBlockEditor({ fieldId, element }: {
   const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
   const c = element.config;
   const patch = (p: Record<string, unknown>) => updateFieldElementConfig(updateElement, fieldId, element, p);
+  const fontGroups = useFontFamilyGroups();
 
   return (
     <div className="flex flex-col gap-2">
@@ -79,6 +98,14 @@ function TextBlockEditor({ fieldId, element }: {
           ]}
         />
       </div>
+      <Select
+        label={CUSTOM_FIELD_LABELS.configFontFamily}
+        value={c.fontFamily}
+        onChange={(v) => patch({ fontFamily: v })}
+        options={[]}
+        groups={fontGroups}
+        placeholder={CUSTOM_FIELD_LABELS.configFontFamilyGlobal}
+      />
       <div className="grid grid-cols-2 gap-2">
         <Select
           label={CUSTOM_FIELD_LABELS.configTextAlign}

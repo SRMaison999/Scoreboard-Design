@@ -8,6 +8,7 @@ const TEXT_ELEMENT: FieldElementConfig = {
     content: 'Test',
     fontSize: 30,
     fontWeight: 600,
+    fontFamily: '',
     textAlign: 'center',
     textTransform: 'uppercase',
     letterSpacing: 2,

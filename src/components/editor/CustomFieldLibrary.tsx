@@ -44,7 +44,7 @@ function LibraryIcon({ name }: { readonly name: string }) {
 function defaultConfig(el: LibraryElement): FieldElementConfig {
   switch (el.type) {
     case 'text-block':
-      return { type: 'text-block', config: { content: 'Texte', fontSize: 30, fontWeight: 600, textAlign: 'center', textTransform: 'uppercase', letterSpacing: 2 } };
+      return { type: 'text-block', config: { content: 'Texte', fontSize: 30, fontWeight: 600, fontFamily: '', textAlign: 'center', textTransform: 'uppercase', letterSpacing: 2 } };
     case 'score-display':
       return { type: 'score-display', config: { side: 'left', showLabel: false, fontSizeOverride: 0 } };
     case 'clock-display':
@@ -81,7 +81,7 @@ function defaultConfig(el: LibraryElement): FieldElementConfig {
         const id = parseInt(bodyMatch[1], 10);
         return { type: el.type, config: { bodyTypeId: id } } as FieldElementConfig;
       }
-      return { type: 'text-block', config: { content: 'Texte', fontSize: 30, fontWeight: 600, textAlign: 'center', textTransform: 'uppercase', letterSpacing: 2 } };
+      return { type: 'text-block', config: { content: 'Texte', fontSize: 30, fontWeight: 600, fontFamily: '', textAlign: 'center', textTransform: 'uppercase', letterSpacing: 2 } };
     }
   }
 }

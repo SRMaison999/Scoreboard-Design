@@ -59,6 +59,7 @@ export interface TextBlockConfig {
   readonly content: string;
   readonly fontSize: number;
   readonly fontWeight: number;
+  readonly fontFamily: string;
   readonly textAlign: 'left' | 'center' | 'right';
   readonly textTransform: 'none' | 'uppercase' | 'lowercase';
   readonly letterSpacing: number;

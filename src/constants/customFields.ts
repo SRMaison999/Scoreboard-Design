@@ -115,6 +115,10 @@ export const CUSTOM_FIELD_LABELS = {
   configSeparatorThickness: 'Épaisseur',
   configSeparatorColor: 'Couleur',
 
+  /* Police de caractères */
+  configFontFamily: 'Police',
+  configFontFamilyGlobal: 'Police globale',
+
   /* Taille de police par champ */
   configFontSizeOverride: 'Taille de police',
   configFontSizeAutoHint: '0 = valeur globale',
