@@ -108,6 +108,7 @@ Les 14 types de corps concernés :
 
 | Type | Nom |
 |------|-----|
+| Layout libre | Composition sur mesure (en tête de liste) |
 | 1 | Stats centrées |
 | 2 | Stats gauche/droite |
 | 3 | Stats joueur |
@@ -121,9 +122,8 @@ Les 14 types de corps concernés :
 | 11 | Diagramme en barres |
 | 12 | Liste de joueurs |
 | 13 | Calendrier |
-| 14 | Layout libre |
 
-Le type 14 (Layout libre) n'utilise pas la mise à l'échelle proportionnelle. Chaque élément possède sa propre taille configurable individuellement dans le panneau de propriétés (voir chapitre 3, Type 14).
+Le Layout libre n'utilise pas la mise à l'échelle proportionnelle globale. Chaque élément possède sa propre taille configurable individuellement dans le panneau de propriétés (voir chapitre 3, Layout libre).
 
 ## Dimensions du template
 

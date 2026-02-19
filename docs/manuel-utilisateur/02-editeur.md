@@ -40,17 +40,18 @@ Survoler une icône affiche une infobulle avec le nom du groupe.
 
 ### Sous-onglet Général
 
-- **Type de corps** : choix du type d'affichage (1-13 : stats, classement, fiche joueur, etc. ou 14 : Layout libre)
 - **Afficher les pénalités** : active/désactive les colonnes de pénalités
 
-Quand le type 14 (Layout libre) est sélectionné, le panneau éditeur principal affiche :
+Le type d'affichage se choisit dans le panneau **Modes** (1re icône du rail). Le Layout libre est proposé en premier.
+
+Quand le Layout libre est sélectionné, le panneau éditeur principal affiche :
 - **Mode pleine page** : masque le header pour utiliser tout le canvas
 - **Grille et guides** : affichage d'une grille d'alignement, aimantation, taille configurable
-- **Bibliothèque** : palette de 25+ éléments à glisser sur le canvas (voir chapitre 3, Type 14)
-- **Presets** : sauvegarde et chargement de champs individuels ou d'écrans complets (voir chapitre 3, Type 14)
+- **Bibliothèque** : palette de 25+ éléments à glisser sur le canvas (voir chapitre 3, Layout libre)
+- **Presets** : sauvegarde et chargement de champs individuels ou d'écrans complets (voir chapitre 3, Layout libre)
 - **Couches** : liste des champs avec réordonnancement, visibilité et verrouillage
 
-Quand un champ est sélectionné sur le canvas, un **panneau de propriétés séparé** s'ouvre automatiquement en deuxième colonne (entre le panneau éditeur et la preview). Cela permet de consulter la bibliothèque et les couches tout en modifiant les propriétés d'un champ. Voir le chapitre 3 (Type 14 - Panneau de propriétés) pour le détail.
+Quand un champ est sélectionné sur le canvas, un **panneau de propriétés séparé** s'ouvre automatiquement en deuxième colonne (entre le panneau éditeur et la preview). Cela permet de consulter la bibliothèque et les couches tout en modifiant les propriétés d'un champ. Voir le chapitre 3 (Layout libre - Panneau de propriétés) pour le détail.
 
 ### Sous-onglet Équipes
 

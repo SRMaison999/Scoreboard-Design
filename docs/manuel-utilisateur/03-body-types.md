@@ -1,281 +1,556 @@
 # Manuel utilisateur - Types d'affichage
 
-Le scoreboard propose 14 types d'affichage différents pour le corps du scoreboard. Le type est sélectionné dans la section "Général" de l'éditeur.
+Le scoreboard propose 14 types d'affichage pour le corps du scoreboard. Le type est sélectionné dans le panneau **Modes** (1re icône du rail de navigation). Le **Layout libre** est proposé en premier car il offre la plus grande flexibilité de conception.
 
-## Type 1 : Stats symétriques
-
-Titre centré et lignes de statistiques avec valeur gauche / label central / valeur droite.
-
-Idéal pour : statistiques de match générales (tirs, mises en jeu, etc.)
-
-Configuration :
-- 1 titre centré
-- Jusqu'à 8 lignes de stats (valeur gauche, label, valeur droite)
-- Taille de police automatique selon le nombre de lignes
-
-## Type 2 : Stats asymétriques
-
-Deux titres (gauche et droite) avec des lignes de statistiques.
-
-Idéal pour : comparer deux catégories (ex : jeu de puissance vs infériorité numérique)
-
-Configuration :
-- 2 titres (gauche et droite)
-- Lignes de stats identiques au type 1
-
-## Type 3 : Stats joueur
-
-Titre centré avec des lignes variable / joueur / valeur, incluant une photo circulaire optionnelle.
-
-Idéal pour : leaders statistiques (meilleurs buteurs, passeurs, etc.)
-
-Configuration :
-- 1 titre centré
-- Lignes : label, numéro de joueur, nom, valeur
-- Option photo joueur (cercle avec image ou numéro en fallback)
-- Les photos sont chargées depuis la galerie de photos joueurs (voir chapitre 10)
-
-## Type 4 : But / Célébration
-
-Affichage d'un but marqué avec détails du buteur et des passeurs.
-
-Idéal pour : annonce de but en direct
-
-Configuration :
-- Équipe marqueuse (gauche ou droite)
-- Nom et numéro du buteur
-- Temps du but
-- Jusqu'à 2 passeurs (nom et numéro)
-- Type de but optionnel
-
-## Type 5 : Fiche joueur
-
-Grande fiche joueur avec photo, nom, numéro, équipe et statistiques.
-
-Idéal pour : joueur du match, MVP, présentation de joueur
-
-Configuration :
-- Titre configurable
-- Nom, numéro, équipe du joueur
-- Statistiques en colonnes (label + valeur)
-
-## Type 6 : Classement / Tableau
-
-Tableau de classement avec colonnes configurables.
-
-Idéal pour : classements de groupe, de tournoi
-
-Configuration :
-- Titre du classement
-- Équipes avec drapeaux et valeurs statistiques
-- Colonnes standards : MJ, V, D, VP, DP, BP, BC, PTS
-- Surlignage des équipes qualifiées/éliminées
-
-## Type 7 : Score final
-
-Affichage grand format du score final avec détails par période.
-
-Idéal pour : écran de fin de match
-
-Configuration :
-- Titre (Score final, Résultat, etc.)
-- Scores par période
-- But gagnant (joueur, équipe, temps)
-- Mention prolongation / tirs au but
-
-## Type 8 : Texte libre
-
-Zone de texte multiligne avec mise en forme.
-
-Idéal pour : messages, annonces, sponsors, informations
-
-Configuration :
-- Lignes de texte individuelles
-- Alignement par ligne (gauche, centre, droite)
-- Gras optionnel par ligne
-
-## Type 9 : Face-à-face joueurs
-
-Deux joueurs face à face avec comparaison statistique, avec photos circulaires.
-
-Idéal pour : comparaison de joueurs clés
-
-Configuration :
-- Titre
-- 2 joueurs (nom, numéro, équipe) avec photo circulaire
-- Lignes de comparaison (label + valeurs gauche/droite)
-- Les photos sont chargées depuis la galerie de photos joueurs (voir chapitre 10)
-
-## Type 10 : Chronologie
-
-Liste chronologique des événements du match.
-
-Idéal pour : résumé du match en temps réel
-
-Configuration :
-- Titre
-- Événements avec : période, temps, type, équipe, joueur, détail
-- Types : but, pénalité, temps mort, début/fin de période, tir au but
-- Score courant après chaque but
-
-## Type 11 : Barres comparatives
-
-Barres de progression horizontales face à face.
-
-Idéal pour : visualisation graphique des statistiques comparées
-
-Configuration :
-- Titre
-- Barres avec label, valeurs gauche/droite
-- Format pourcentage ou valeurs absolues
-
-## Type 12 : Roster / Composition
-
-Composition d'équipe avec positions et informations.
-
-Idéal pour : présentation des lineups
-
-Configuration :
-- Titre et équipe
-- Joueurs avec position, numéro, nom
-- Nom de l'entraîneur
-- Statistiques résumées
-
-## Type 13 : Calendrier / Prochains matchs
-
-Liste des matchs à venir ou terminés.
-
-Idéal pour : programme du tournoi
-
-Configuration :
-- Titre
-- Matchs avec date, heure, équipes, lieu
-- Statut : à venir, en cours, terminé
-- Scores pour les matchs terminés
+> **Note technique :** dans le code source, le Layout libre porte l'identifiant interne 14 (`bodyType: 14`). Son positionnement en tête de liste dans l'interface reflète son statut de mode principal.
 
 ---
 
-## Type 14 : Layout libre (champs personnalisés)
+## Layout libre (champs personnalisés)
 
 Canvas entièrement libre où l'utilisateur compose son propre scoreboard en plaçant, déplaçant et redimensionnant des éléments visuels individuels.
 
-Idéal pour : créer un affichage sur mesure qui ne correspond à aucun des 13 types prédéfinis.
+**Idéal pour :** créer un affichage sur mesure qui ne correspond à aucun des 13 types prédéfinis, concevoir des mises en page originales, assembler des éléments de différentes natures sur un même écran.
 
-### Concept
+### Concept général
 
-Contrairement aux types 1-13 qui imposent un agencement fixe, le Layout libre offre un canvas vierge. L'utilisateur y dépose des éléments depuis une bibliothèque, puis les positionne librement par glisser-déposer et les redimensionne via des poignées dans les coins.
+Contrairement aux types prédéfinis (1 à 13) qui imposent un agencement fixe, le Layout libre offre un canvas vierge. L'utilisateur y dépose des éléments depuis une bibliothèque, puis les positionne librement par glisser-déposer et les redimensionne via des poignées dans les coins. Chaque élément possède ses propres propriétés de style, de position et de taille.
+
+Le Layout libre est le mode par défaut au lancement de l'application. Il est conçu pour les designers broadcast qui ont besoin d'un contrôle total sur la disposition de chaque élément visuel.
 
 ### Mode pleine page
 
-Quand activé, le header (drapeaux, noms d'équipes, scores, horloge) est masqué. Le canvas entier est alors disponible pour les champs personnalisés. Ce mode est utile pour créer un scoreboard complètement personnalisé, en plaçant chaque élément exactement où on le souhaite.
+Quand activé, le header du scoreboard (drapeaux, noms d'équipes, scores, horloge) est masqué. Le canvas entier (1920x1080 par défaut) est alors disponible pour les champs personnalisés. Ce mode est indispensable pour créer un scoreboard complètement personnalisé, en plaçant chaque élément exactement où on le souhaite.
+
+**Activation :** case à cocher "Mode pleine page" dans la section principale du panneau éditeur, visible uniquement en mode Layout libre.
 
 ### Bibliothèque d'éléments
 
-La bibliothèque propose des éléments répartis en 6 catégories :
+La bibliothèque propose plus de 25 éléments répartis en 6 catégories :
 
-| Catégorie | Éléments |
-|-----------|----------|
-| **Match** | Score, Horloge, Période, Nom d'équipe, Drapeau, Temps morts, Tirs au but |
-| **Texte** | Bloc de texte |
-| **Données** | Ligne de stat, Barre comparative |
-| **Joueurs** | Photo joueur |
-| **Médias** | Image, Forme (rectangle, cercle, arrondi), Séparateur (ligne) |
-| **Composés** | Header complet, Colonne de pénalités, Types 1-13 intégrés |
+| Catégorie | Éléments disponibles | Description |
+|-----------|---------------------|-------------|
+| **Match** | Score, Horloge, Période, Nom d'équipe, Drapeau, Temps morts, Tirs au but | Éléments liés aux données du match en cours. Le score et l'horloge se mettent à jour automatiquement en mode opérateur. |
+| **Texte** | Bloc de texte | Zone de texte libre avec contenu, taille, graisse, alignement et casse configurables. |
+| **Données** | Ligne de stat, Barre comparative | Éléments de visualisation statistique. |
+| **Joueurs** | Photo joueur | Photo circulaire d'un joueur (depuis la galerie de photos). |
+| **Médias** | Image, Forme (rectangle, cercle, arrondi), Séparateur (ligne) | Éléments décoratifs et structurels pour habiller le scoreboard. |
+| **Composés** | Header complet, Colonne de pénalités, Types 1-13 intégrés | Blocs complets réutilisant les layouts prédéfinis comme éléments individuels. |
 
-Un champ de recherche permet de filtrer les éléments. Cliquer sur un élément l'ajoute au canvas avec des dimensions par défaut.
+Un **champ de recherche** en haut de la bibliothèque permet de filtrer les éléments par nom. Cliquer sur un élément l'ajoute immédiatement au canvas avec des dimensions par défaut.
 
 ### Interaction sur le canvas
 
-- **Sélection** : cliquer sur un champ pour le sélectionner (bordure bleue). Cliquer sur le fond du canvas pour désélectionner.
-- **Déplacement** : glisser-déposer un champ sélectionné pour le repositionner.
-- **Redimensionnement** : tirer une des 4 poignées dans les coins du champ sélectionné.
-- **Verrouillage** : un champ verrouillé ne peut être ni déplacé ni redimensionné (curseur interdit).
+#### Sélection
+- **Cliquer** sur un champ pour le sélectionner (bordure bleue pointillée).
+- **Cliquer sur le fond** du canvas pour désélectionner.
+- Le champ sélectionné affiche 4 poignées de redimensionnement dans ses coins.
+
+#### Déplacement
+- **Glisser-déposer** un champ sélectionné pour le repositionner.
+- Le déplacement tient compte du facteur de zoom du canvas (compensation automatique).
+- Si l'aimantation à la grille est activée, le champ s'aligne sur les intersections.
+
+#### Redimensionnement
+- **Tirer** l'une des 4 poignées dans les coins du champ sélectionné.
+- Le redimensionnement est proportionnel : la taille de police du champ s'ajuste automatiquement en fonction du ratio de redimensionnement.
+- La compensation de scale du canvas est appliquée automatiquement.
+
+#### Verrouillage
+- Un champ verrouillé (icône cadenas dans la liste des couches) ne peut être ni déplacé ni redimensionné.
+- Le curseur affiche une icône "interdit" au survol d'un champ verrouillé.
+- Le verrouillage protège les éléments déjà positionnés contre les modifications accidentelles.
+
+#### Raccourcis clavier
+
+| Raccourci | Action |
+|-----------|--------|
+| `Suppr` / `Delete` | Supprime le champ sélectionné |
+| `Ctrl+D` | Duplique le champ sélectionné |
+| Flèches directionnelles | Déplace le champ de 1 px dans la direction |
+| `Ctrl+Z` | Annuler la dernière action |
+| `Ctrl+Y` | Rétablir l'action annulée |
 
 ### Contrôle de la taille de police sur le canvas
 
-Pour les éléments textuels (score, horloge, période, nom d'équipe, bloc de texte), une **barre flottante** apparaît au-dessus du champ sélectionné. Elle affiche la taille de police actuelle et propose deux boutons :
+Pour les éléments textuels (score, horloge, période, nom d'équipe, bloc de texte), une **barre flottante** apparaît automatiquement au-dessus du champ sélectionné. Elle affiche la taille de police actuelle et propose des contrôles directs :
 
-- **-** : diminue la taille de 1 px. **Maintenir le bouton enfoncé** pour une répétition accélérée.
-- **+** : augmente la taille de 1 px. **Maintenir le bouton enfoncé** pour une répétition accélérée.
-- **Cliquer sur la valeur** : ouvre un champ de saisie directe. Taper la taille souhaitée (8-300), puis appuyer sur Entrée pour valider ou Échap pour annuler.
+| Contrôle | Action |
+|----------|--------|
+| Bouton **-** | Diminue la taille de 1 px. **Maintenir enfoncé** pour une répétition accélérée. |
+| Bouton **+** | Augmente la taille de 1 px. **Maintenir enfoncé** pour une répétition accélérée. |
+| **Clic sur la valeur** | Ouvre un champ de saisie directe. Taper la taille souhaitée (8-300), puis Entrée pour valider ou Échap pour annuler. |
+| **Molette de souris** | Sur un champ sélectionné, ajuste la taille de +1 px (molette haut) ou -1 px (molette bas). |
 
-La valeur affichée apparaît en blanc si elle est propre au champ (override local), ou en gris si le champ utilise la taille globale. Cliquer sur + ou - crée automatiquement un override local.
+**Indicateur visuel :** la valeur affichée apparaît en blanc si elle est propre au champ (override local), ou en gris si le champ utilise la taille globale. Cliquer sur + ou - crée automatiquement un override local.
 
-**Raccourci souris** : la molette de la souris sur un champ sélectionné ajuste directement la taille de police (+1 px par cran vers le haut, -1 px vers le bas).
+Si le champ est trop près du bord supérieur du canvas, la barre se repositionne automatiquement en dessous du champ.
 
-Si le champ est trop près du bord supérieur du canvas, la barre se repositionne en dessous du champ.
+### Sélection de police par champ
+
+Chaque champ texte peut avoir sa propre police de caractères, indépendante des autres champs et des 3 zones de police globales. Dans le panneau de propriétés du champ, un sélecteur de police permet de choisir parmi les 25 polices disponibles (organisées par catégorie). La police sélectionnée s'applique uniquement au champ concerné.
+
+### Sélection d'images
+
+Les champs de type Image disposent d'un **sélecteur de fichier** intégré au panneau de propriétés. Un bouton "Choisir une image" ouvre le dialogue de sélection du système. L'image sélectionnée s'affiche en aperçu miniature dans le panneau, et le champ sur le canvas affiche l'image choisie.
+
+### Scaling proportionnel au redimensionnement
+
+Quand un champ texte est redimensionné via les poignées, la taille de police s'ajuste proportionnellement. Par exemple, si un champ est élargi de 50%, la taille de police augmente de 50%. Ce comportement garantit que le texte reste visuellement cohérent après un redimensionnement.
+
+### Noms d'équipes libres
+
+Pour les champs "Nom d'équipe", le sélecteur propose à la fois les 31 codes NOC prédéfinis (CAN, USA, SUI...) et la possibilité de saisir un nom libre. Cela permet d'utiliser des noms personnalisés pour les ligues locales, les équipes de club ou tout autre contexte hors compétitions internationales.
 
 ### Grille et guides
 
-- **Afficher les guides** : superpose une grille en pointillés sur le canvas pour faciliter l'alignement visuel.
-- **Taille de la grille** : configurable (8 px par défaut).
-- **Aimanter à la grille** : les champs s'alignent automatiquement sur les intersections de la grille lors du déplacement.
+| Option | Description |
+|--------|-------------|
+| **Afficher les guides** | Superpose une grille en pointillés sur le canvas pour faciliter l'alignement visuel. |
+| **Taille de la grille** | Configurable (8 px par défaut). Les valeurs habituelles sont 8, 16, 24 ou 32 px. |
+| **Aimanter à la grille** | Les champs s'alignent automatiquement sur les intersections de la grille lors du déplacement. |
 
-### Panneau de propriétés (deuxième colonne)
+### Panneau de propriétés (sidebar)
 
-Quand un champ est sélectionné, un **panneau de propriétés séparé** s'ouvre automatiquement entre le panneau éditeur principal et la zone de preview. Ce panneau forme une deuxième colonne indépendante (300 px de large), ce qui permet de garder la bibliothèque et les couches toujours visibles dans le panneau principal.
+Quand un champ est sélectionné, ses propriétés apparaissent directement dans le panneau latéral gauche, sous la bibliothèque et les couches. Un **panneau de propriétés secondaire** (300 px de large) peut aussi s'ouvrir entre le panneau éditeur et la preview, ce qui permet de garder la bibliothèque et les couches toujours visibles.
 
 Le panneau de propriétés affiche :
 
-- **Nom** : label personnalisable du champ
-- **Alignement** : 6 boutons (gauche/centre/droite horizontal, haut/centre/bas vertical) + verrouillage des proportions
-- **Position** : X et Y en pixels
-- **Taille** : largeur et hauteur en pixels
-- **Ordre (Z)** : position dans l'empilement des couches
-- **Style** : couleur de fond, opacité du fond, couleur de bordure, épaisseur de bordure, rayon de bordure, marge interne
-- **Configuration de l'élément** : paramètres spécifiques selon le type (voir ci-dessous)
-- **Dupliquer** / **Supprimer**
+#### Identification
+- **Nom** : label personnalisable du champ (pour le repérer dans la liste des couches)
 
-Un bouton **X** en haut du panneau permet de le fermer (désélectionne le champ). Le panneau se ferme également en cliquant sur le fond du canvas.
+#### Alignement
+- **6 boutons d'alignement** : gauche/centre/droite (horizontal) + haut/centre/bas (vertical)
+- **Verrouillage des proportions** : maintient le ratio largeur/hauteur lors du redimensionnement
+
+#### Position et taille
+- **X, Y** : position en pixels sur le canvas
+- **Largeur, Hauteur** : dimensions en pixels
+- **Ordre (Z)** : position dans l'empilement des couches (quel champ passe devant/derrière)
+
+#### Style
+- **Couleur de fond** : couleur d'arrière-plan du champ
+- **Opacité du fond** : transparence de l'arrière-plan (0-100)
+- **Couleur de bordure** : couleur du contour
+- **Épaisseur de bordure** : largeur du contour en pixels
+- **Rayon de bordure** : arrondi des coins
+- **Marge interne** : espace entre le bord du champ et son contenu
+
+#### Configuration de l'élément
+Paramètres spécifiques selon le type d'élément (voir tableau ci-dessous).
+
+#### Actions
+- **Dupliquer** : crée une copie du champ avec un léger décalage
+- **Supprimer** : retire le champ du canvas
 
 ### Configuration par type d'élément
 
 | Type | Paramètres configurables |
 |------|------------------------|
-| Bloc de texte | Contenu, taille de police, épaisseur, alignement (gauche/centre/droite), casse (normal/majuscules), espacement |
-| Score | Côté (gauche = équipe 1, droite = équipe 2), taille de police |
-| Nom d'équipe | Côté (gauche/droite), taille de police |
-| Horloge | Afficher la période, afficher le cadre, taille de police |
-| Période | Taille de police |
-| Drapeau | Côté (gauche/droite) |
-| Colonne de pénalités | Côté (gauche/droite) |
-| Forme | Type (rectangle, cercle, arrondi), couleur de remplissage, couleur de bordure, rayon (pour arrondi) |
-| Séparateur | Orientation (horizontale/verticale), épaisseur, couleur |
-| Image | URL source, ajustement (couvrir, contenir, étirer) |
+| **Bloc de texte** | Contenu, taille de police, famille de police, épaisseur (graisse), alignement (gauche/centre/droite), casse (normal/majuscules), espacement des lettres |
+| **Score** | Côté (gauche = équipe 1, droite = équipe 2), taille de police, famille de police |
+| **Nom d'équipe** | Côté (gauche/droite), taille de police, famille de police, nom libre ou code NOC |
+| **Horloge** | Afficher la période, afficher le cadre, taille de police, famille de police |
+| **Période** | Taille de police, famille de police |
+| **Drapeau** | Côté (gauche/droite) |
+| **Colonne de pénalités** | Côté (gauche/droite) |
+| **Forme** | Type (rectangle, cercle, arrondi), couleur de remplissage, couleur de bordure, rayon (pour arrondi) |
+| **Séparateur** | Orientation (horizontale/verticale), épaisseur, couleur |
+| **Image** | Sélecteur de fichier avec aperçu, ajustement (couvrir, contenir, étirer) |
 
 ### Panneau des couches
 
-La liste des champs affiche tous les éléments dans l'ordre des couches (Z-index). Pour chaque champ :
+La liste des champs affiche tous les éléments dans l'ordre des couches (Z-index, le dernier de la liste étant au premier plan). Pour chaque champ :
 
-- **Flèches haut/bas** : réordonner les couches (quel champ passe devant/derrière)
-- **Oeil** : basculer la visibilité
-- **Cadenas** : basculer le verrouillage
-- Cliquer sur le nom sélectionne le champ sur le canvas
+| Contrôle | Action |
+|----------|--------|
+| **Flèches haut/bas** | Réordonner les couches (quel champ passe devant/derrière) |
+| **Icône oeil** | Basculer la visibilité (un champ invisible reste dans la liste mais n'apparaît pas sur le canvas) |
+| **Icône cadenas** | Basculer le verrouillage (empêche le déplacement et le redimensionnement accidentels) |
+| **Clic sur le nom** | Sélectionne le champ correspondant sur le canvas |
+
+### Sélection de zone
+
+L'outil de **sélection de zone** permet de dessiner un rectangle sur le canvas. Tous les champs entièrement inclus dans la zone dessinée sont automatiquement sélectionnés et regroupés. Ce regroupement peut ensuite être sauvegardé comme preset pour une réutilisation rapide.
+
+**Utilisation :**
+1. Activer l'outil de sélection de zone dans la barre d'outils
+2. Cliquer et glisser sur le canvas pour définir la zone
+3. Les champs inclus dans la zone sont surlignés
+4. Sauvegarder le groupe comme preset si désiré
 
 ### Presets (sauvegarde et chargement)
 
-Le système de presets permet de sauvegarder et réutiliser des constructions dans le Layout libre.
+Le système de presets permet de sauvegarder et réutiliser des constructions dans le Layout libre. Les presets sont persistés dans IndexedDB et disponibles entre les sessions.
 
-**Sauvegarder un preset :**
+#### Sauvegarder un preset
 
 La section "Presets" dans le panneau éditeur propose deux options :
 
-- **Sauvegarder le champ** : sauvegarde le champ actuellement sélectionné (élément, position, dimensions, style). Si d'autres champs sont visuellement placés à l'intérieur du champ sélectionné (par exemple des éléments dans un header), ils sont automatiquement inclus dans le preset. La modale indique le nombre d'éléments contenus détectés. Le bouton est grisé si aucun champ n'est sélectionné.
-- **Sauvegarder l'écran** : sauvegarde l'intégralité du layout (tous les champs placés sur le canvas + les options du canvas comme le mode pleine page, la grille et les guides). Le bouton est grisé si le canvas est vide.
+| Bouton | Action | Condition |
+|--------|--------|-----------|
+| **Sauvegarder le champ** | Sauvegarde le champ sélectionné (élément, position, dimensions, style). Si d'autres champs sont visuellement placés à l'intérieur du champ sélectionné, ils sont automatiquement inclus. La modale indique le nombre d'éléments contenus détectés. | Grisé si aucun champ n'est sélectionné. |
+| **Sauvegarder l'écran** | Sauvegarde l'intégralité du layout (tous les champs + options du canvas : mode pleine page, grille, guides). | Grisé si le canvas est vide. |
 
-Une modale s'ouvre pour choisir le type de preset et saisir un nom.
+Une modale s'ouvre pour choisir le type de preset et saisir un nom descriptif.
 
-**Charger un preset :**
+#### Charger un preset
 
 Le bouton "Charger un preset" ouvre une modale listant tous les presets sauvegardés, séparés en deux sections (champs individuels et écrans complets).
 
 Deux modes de chargement sont disponibles :
 
-- **Remplacer** : le layout actuel est entièrement remplacé par le contenu du preset
-- **Ajouter** : les champs du preset sont ajoutés au layout existant (dans la limite de 50 champs)
+| Mode | Comportement |
+|------|-------------|
+| **Remplacer** | Le layout actuel est entièrement remplacé par le contenu du preset. |
+| **Ajouter** | Les champs du preset sont ajoutés au layout existant (dans la limite de 50 champs au total). |
 
-**Gestion des presets :**
+#### Gestion des presets
 
-- **Exporter** : télécharge le preset au format `.preset.json` (partage entre utilisateurs)
-- **Importer** : charge un fichier `.preset.json` exporté par un autre utilisateur
-- **Supprimer** : supprime définitivement un preset de la bibliothèque
+| Action | Description |
+|--------|-------------|
+| **Exporter** | Télécharge le preset au format `.preset.json` pour le partager avec d'autres utilisateurs. |
+| **Importer** | Charge un fichier `.preset.json` exporté par un autre utilisateur. |
+| **Supprimer** | Supprime définitivement un preset de la bibliothèque. |
+
+### Historique undo/redo
+
+Chaque action effectuée dans le Layout libre (ajout, suppression, déplacement, redimensionnement, modification de propriété) est enregistrée dans un historique dédié de 50 niveaux.
+
+| Raccourci | Action |
+|-----------|--------|
+| `Ctrl+Z` | Annuler la dernière action (revenir en arrière) |
+| `Ctrl+Y` | Rétablir l'action annulée (avancer) |
+
+L'historique est propre au Layout libre et ne se mélange pas avec les modifications des autres parties du scoreboard. Il se réinitialise quand on change de type d'affichage.
+
+---
+
+## Type 1 : Stats symétriques
+
+Titre centré et lignes de statistiques avec valeur gauche / label central / valeur droite.
+
+**Idéal pour :** statistiques de match générales (tirs, mises en jeu, pourcentages, etc.)
+
+### Structure visuelle
+
+```
+            GAME STATISTICS
+  82%          GAME          91%
+  87%       TOURNAMENT       85%
+```
+
+### Configuration
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Titre centré** | 1 titre affiché sur toute la largeur du corps |
+| **Lignes de stats** | Jusqu'à 8 lignes, chacune avec : valeur gauche, label central, valeur droite |
+| **Taille de police** | Automatique selon le nombre de lignes (plus il y a de lignes, plus la police est petite) |
+| **Mise à l'échelle** | Slider de 50% à 200% pour ajuster globalement les tailles |
+
+### Mise en page
+
+- Grille CSS 3 colonnes : `1fr [labelW]px 1fr`
+- Les valeurs sont centrées dans leurs colonnes respectives
+- Le label est centré entre les deux colonnes de valeurs
+- L'espacement vertical s'adapte automatiquement au nombre de lignes
+
+### Cas d'utilisation
+
+- Statistiques de match (tirs au but, mises en jeu gagnées, temps de possession)
+- Comparaison de performances d'équipes sur un tournoi
+- Affichage de pourcentages face à face
+
+---
+
+## Type 2 : Stats asymétriques
+
+Deux titres (gauche et droite) avec des lignes de statistiques.
+
+**Idéal pour :** comparer deux catégories distinctes (jeu de puissance vs infériorité numérique, domicile vs extérieur)
+
+### Structure visuelle
+
+```
+POWER PLAY         PENALTY KILLING
+    82%     GAME     91%
+    87%   TOURNMT    85%
+```
+
+### Configuration
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Titre gauche** | Texte affiché dans la colonne gauche |
+| **Titre droit** | Texte affiché dans la colonne droite |
+| **Lignes de stats** | Identiques au Type 1 (valeur gauche, label, valeur droite) |
+| **Taille de police** | Automatique selon le nombre de lignes |
+
+### Différences avec le Type 1
+
+- Les deux titres sont positionnés dans les colonnes de valeurs (pas centrés)
+- Permet de comparer deux contextes différents côte à côte
+
+---
+
+## Type 3 : Stats joueur
+
+Titre centré avec des lignes variable / joueur / valeur, incluant une photo circulaire optionnelle.
+
+**Idéal pour :** leaders statistiques (meilleurs buteurs, passeurs, pointeurs, etc.)
+
+### Structure visuelle
+
+```
+           GAME STATISTICS
+
+GOALS     [11]  KOPITAR          12
+ASSISTS   [88]  PASTRNAK          8
+POINTS    [11]  KOPITAR          18
++/-       [81]  HOSSA            +6
+```
+
+### Configuration
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Titre centré** | 1 titre avec espace vertical dédié |
+| **Lignes** | Label (catégorie), numéro du joueur, nom du joueur, valeur |
+| **Photo joueur** | Option activable : cercle avec photo du joueur (ou numéro en fallback) |
+| **Source des photos** | Les photos sont chargées depuis la galerie de photos joueurs (voir chapitre 10) |
+
+### Mise en page
+
+- Grille auto-centrée : Variable | (Photo) | Nom Prénom | Valeur
+- Tous les textes à la même taille de police
+- Gap uniforme de 35px entre colonnes
+
+---
+
+## Type 4 : But / Célébration
+
+Affichage d'un but marqué avec détails du buteur et des passeurs.
+
+**Idéal pour :** annonce de but en direct, célébration de but
+
+### Configuration
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Équipe marqueuse** | Gauche ou droite |
+| **Buteur** | Nom et numéro du joueur |
+| **Temps du but** | Moment du but dans la période |
+| **Passeurs** | Jusqu'à 2 passeurs (nom et numéro chacun) |
+| **Type de but** | Optionnel (en supériorité numérique, en infériorité, filet désert, etc.) |
+
+### Cas d'utilisation
+
+- Annonce immédiate d'un but pendant le match
+- Récapitulatif des buts avec détails complets
+
+---
+
+## Type 5 : Fiche joueur
+
+Grande fiche joueur avec photo, nom, numéro, équipe et statistiques.
+
+**Idéal pour :** joueur du match, MVP, présentation de joueur
+
+### Configuration
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Titre** | Configurable ("Joueur du match", "MVP", "Meilleur joueur", etc.) |
+| **Joueur** | Nom, numéro, équipe |
+| **Photo** | Grande photo centrale (ou placeholder) |
+| **Statistiques** | Colonnes de statistiques (label + valeur) en bas |
+
+### Cas d'utilisation
+
+- Joueur du match à la fin d'une rencontre
+- Présentation de joueur avant le match
+- Meilleur joueur d'un tournoi
+
+---
+
+## Type 6 : Classement / Tableau
+
+Tableau de classement avec colonnes configurables.
+
+**Idéal pour :** classements de groupe, classements de tournoi, tableaux de poule
+
+### Configuration
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Titre** | Nom du classement |
+| **Équipes** | Lignes avec drapeaux, codes pays et valeurs statistiques |
+| **Colonnes** | Standards hockey : MJ, V, D, VP, DP, BP, BC, PTS. Entièrement configurables. |
+| **Surlignage** | Couleur de surlignage pour les équipes qualifiées (vert) ou éliminées (rouge) |
+
+### Structure visuelle
+
+```
+              GROUP A - STANDINGS
+#  [FLAG] TEAM    GP   W   L  OTW  OTL  GF  GA  PTS
+1  [CAN]  CAN      3   3   0   0    0   12   3   9
+2  [USA]  USA      3   2   0   1    0    8   5   7
+3  [SUI]  SUI      3   0   1   0    2    4   8   2
+4  [GER]  GER      3   0   2   0    1    3  11   1
+```
+
+---
+
+## Type 7 : Score final
+
+Affichage grand format du score final avec détails par période.
+
+**Idéal pour :** écran de fin de match, résultat officiel
+
+### Configuration
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Titre** | "Score final", "Résultat", etc. |
+| **Scores par période** | Détail de chaque période |
+| **But gagnant** | Joueur, équipe, temps du but décisif |
+| **Mention spéciale** | Prolongation, tirs au but, double prolongation |
+
+---
+
+## Type 8 : Texte libre
+
+Zone de texte multiligne avec mise en forme.
+
+**Idéal pour :** messages, annonces, sponsors, informations diverses
+
+### Configuration
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Lignes de texte** | Lignes individuelles avec contenu personnalisable |
+| **Alignement** | Par ligne : gauche, centre ou droite |
+| **Graisse** | Gras optionnel par ligne |
+
+### Cas d'utilisation
+
+- Messages sponsors pendant les intermissions
+- Annonces d'événements
+- Informations complémentaires (lieu, date, compétition)
+
+---
+
+## Type 9 : Face-à-face joueurs
+
+Deux joueurs face à face avec comparaison statistique et photos circulaires.
+
+**Idéal pour :** comparaison de joueurs clés, duel de gardiens, confrontation de capitaines
+
+### Configuration
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Titre** | Titre de la comparaison |
+| **Joueur gauche** | Nom, numéro, équipe + photo circulaire |
+| **Joueur droite** | Nom, numéro, équipe + photo circulaire |
+| **Lignes de comparaison** | Label + valeur gauche + valeur droite |
+| **Photos** | Chargées depuis la galerie de photos joueurs (voir chapitre 10) |
+
+---
+
+## Type 10 : Chronologie
+
+Liste chronologique des événements du match.
+
+**Idéal pour :** résumé du match en temps réel, déroulement chronologique
+
+### Configuration
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Titre** | Titre de la chronologie |
+| **Événements** | Période, temps, type, équipe, joueur, détail |
+| **Types d'événements** | But, pénalité, temps mort, début/fin de période, tir au but |
+| **Score courant** | Affiché automatiquement après chaque but |
+
+---
+
+## Type 11 : Barres comparatives
+
+Barres de progression horizontales face à face.
+
+**Idéal pour :** visualisation graphique des statistiques comparées
+
+### Structure visuelle
+
+```
+           GAME STATISTICS
+
+SHOTS ON GOAL
+████████████████████░░░░░  32        19  ░░░░░░░░░████████████
+                    CAN                   SUI
+```
+
+### Configuration
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Titre** | Titre de la section |
+| **Barres** | Label, valeur gauche, valeur droite |
+| **Format** | Pourcentage ou valeurs absolues |
+
+---
+
+## Type 12 : Composition d'équipe (Roster)
+
+Composition d'équipe avec positions et informations.
+
+**Idéal pour :** présentation des lineups, compositions d'avant-match
+
+### Configuration
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Titre** | Titre et équipe |
+| **Joueurs** | Position (G, D, AG, C, AD), numéro, nom |
+| **Entraîneur** | Nom de l'entraîneur |
+| **Statistiques** | Statistiques résumées de l'équipe |
+
+---
+
+## Type 13 : Calendrier / Prochains matchs
+
+Liste des matchs à venir ou terminés.
+
+**Idéal pour :** programme du tournoi, résultats de la journée
+
+### Configuration
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Titre** | Titre de la liste |
+| **Matchs** | Date, heure, équipes (avec drapeaux), lieu |
+| **Statut** | À venir, en cours, terminé |
+| **Scores** | Affichés pour les matchs terminés |
+
+---
+
+## Tableau récapitulatif
+
+| N° | Type | Usage principal | Complexité |
+|----|------|----------------|-----------|
+| - | **Layout libre** | Composition sur mesure | Avancé |
+| 1 | Stats symétriques | Statistiques de match | Simple |
+| 2 | Stats asymétriques | Comparaison de catégories | Simple |
+| 3 | Stats joueur | Leaders statistiques | Simple |
+| 4 | But / Célébration | Annonce de but | Simple |
+| 5 | Fiche joueur | MVP, joueur du match | Simple |
+| 6 | Classement | Tableau de poule | Moyen |
+| 7 | Score final | Résultat de match | Simple |
+| 8 | Texte libre | Messages, annonces | Simple |
+| 9 | Face-à-face | Duel de joueurs | Moyen |
+| 10 | Chronologie | Résumé du match | Moyen |
+| 11 | Barres comparatives | Visualisation de stats | Simple |
+| 12 | Composition | Lineups | Moyen |
+| 13 | Calendrier | Programme | Simple |
