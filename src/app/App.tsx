@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
+import { initUndoRedoListener } from '@/stores/undoRedoStore';
 import { useTimer } from '@/hooks/useTimer';
 import { useFontLoader } from '@/hooks/useFontLoader';
 import { useOutputSyncSender } from '@/hooks/useOutputSync';
@@ -13,6 +14,9 @@ import { captureScreenshot, buildScreenshotFilename } from '@/utils/screenshot';
 import { Camera, Printer, Radio, BookOpen } from 'lucide-react';
 import '@/styles/index.css';
 import '@/styles/print.css';
+
+/* Initialise l'écoute undo/redo une seule fois */
+initUndoRedoListener();
 
 export function App() {
   useFontLoader();

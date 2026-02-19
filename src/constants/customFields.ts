@@ -138,8 +138,13 @@ export const CUSTOM_FIELD_LABELS = {
   alignCenterV: 'Centrer verticalement',
   alignBottom: 'Aligner en bas',
 
+  /* Historique */
+  undoAction: 'Annuler',
+  redoAction: 'R\u00e9tablir',
+  undoRedoHint: 'Ctrl+Z / Ctrl+Y',
+
   /* Raccourcis */
-  keyboardShortcutsHint: 'Suppr, Ctrl+D, Fl\u00e8ches',
+  keyboardShortcutsHint: 'Suppr, Ctrl+D, Fl\u00e8ches, Ctrl+Z/Y',
 
   /* Panneau de propriétés secondaire */
   propertiesPanelTitle: 'Propriétés',

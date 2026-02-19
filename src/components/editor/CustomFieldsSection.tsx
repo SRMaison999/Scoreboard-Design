@@ -4,11 +4,12 @@
  */
 
 import { useState, useEffect } from 'react';
-import { Save, FolderOpen, Crosshair, X } from 'lucide-react';
+import { Save, FolderOpen, Crosshair, X, Undo2, Redo2 } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { useZoneSelectionStore } from '@/stores/zoneSelectionStore';
+import { useUndoRedoStore } from '@/stores/undoRedoStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import { useCustomFieldKeyboard } from '@/hooks/useCustomFieldKeyboard';
 import { CustomFieldLibrary } from './CustomFieldLibrary';
@@ -34,6 +35,10 @@ export function CustomFieldsSection() {
   const zoneSelectionActive = useScoreboardStore((s) => s.customFieldsData.zoneSelectionActive);
   const capturedFields = useZoneSelectionStore((s) => s.capturedFields);
   const clearCapturedFields = useZoneSelectionStore((s) => s.clearCapturedFields);
+  const canUndo = useUndoRedoStore((s) => s.canUndo);
+  const canRedo = useUndoRedoStore((s) => s.canRedo);
+  const undo = useUndoRedoStore((s) => s.undo);
+  const redo = useUndoRedoStore((s) => s.redo);
 
   const [saveOpen, setSaveOpen] = useState(false);
   const [loadOpen, setLoadOpen] = useState(false);
@@ -121,6 +126,30 @@ export function CustomFieldsSection() {
           />
           {CUSTOM_FIELD_LABELS.showGuides}
         </label>
+
+        <div className="flex items-center gap-1 mt-2 pt-2 border-t border-gray-800">
+          <Button
+            variant="ghost"
+            className="flex items-center gap-1 px-2 py-1"
+            onClick={undo}
+            disabled={!canUndo}
+            title={CUSTOM_FIELD_LABELS.undoRedoHint}
+          >
+            <Undo2 size={14} className="flex-shrink-0" />
+            <span className="text-[12px]">{CUSTOM_FIELD_LABELS.undoAction}</span>
+          </Button>
+          <Button
+            variant="ghost"
+            className="flex items-center gap-1 px-2 py-1"
+            onClick={redo}
+            disabled={!canRedo}
+            title={CUSTOM_FIELD_LABELS.undoRedoHint}
+          >
+            <Redo2 size={14} className="flex-shrink-0" />
+            <span className="text-[12px]">{CUSTOM_FIELD_LABELS.redoAction}</span>
+          </Button>
+          <span className="text-[10px] text-gray-600 ml-auto">{CUSTOM_FIELD_LABELS.undoRedoHint}</span>
+        </div>
       </Section>
 
       <Section title={CUSTOM_FIELD_LABELS.sectionPresets} defaultOpen={false}>
