@@ -132,7 +132,7 @@ describe('useFieldFontSize', () => {
     }
   });
 
-  it('shift increase applique un pas de 4', () => {
+  it('setFontSize définit une valeur exacte', () => {
     const element = {
       type: 'text-block' as const,
       config: {
@@ -144,12 +144,33 @@ describe('useFieldFontSize', () => {
     useScoreboardStore.getState().addCustomField(element, 0, 0, 200, 100);
 
     const { result } = renderHook(() => useFieldFontSize());
-    act(() => result.current.increase(true));
+    act(() => result.current.setFontSize(48));
 
     const fields = useScoreboardStore.getState().customFieldsData.fields;
     const field = fields[0]!;
     if (field.element.type === 'text-block') {
-      expect(field.element.config.fontSize).toBe(34);
+      expect(field.element.config.fontSize).toBe(48);
+    }
+  });
+
+  it('setFontSize clamp la valeur entre 8 et 300', () => {
+    const element = {
+      type: 'text-block' as const,
+      config: {
+        content: 'Test', fontSize: 30, fontWeight: 400,
+        textAlign: 'center' as const, textTransform: 'none' as const,
+        letterSpacing: 0,
+      },
+    };
+    useScoreboardStore.getState().addCustomField(element, 0, 0, 200, 100);
+
+    const { result } = renderHook(() => useFieldFontSize());
+    act(() => result.current.setFontSize(500));
+
+    const fields = useScoreboardStore.getState().customFieldsData.fields;
+    const field = fields[0]!;
+    if (field.element.type === 'text-block') {
+      expect(field.element.config.fontSize).toBe(300);
     }
   });
 });

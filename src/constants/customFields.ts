@@ -142,6 +142,7 @@ export const CUSTOM_FIELD_LABELS = {
   fontToolbarIncrease: 'Augmenter la taille de police',
   fontToolbarDecrease: 'Diminuer la taille de police',
   fontToolbarGlobalHint: 'Valeur globale',
+  fontToolbarClickToEdit: 'Cliquer pour saisir une valeur',
 
   /* Presets */
   sectionPresets: 'Presets',

@@ -2,9 +2,15 @@
  * Barre flottante de contrôle de taille de police.
  * Apparaît au-dessus du champ sélectionné sur le canvas.
  * Rendu dans le canvas (inline styles autorisés).
+ *
+ * - Maintenir +/- enfoncé : répétition accélérée
+ * - Cliquer sur la valeur : saisie directe au clavier
+ * - Molette sur le champ : ajuste la taille
  */
 
+import { useState, useRef, useCallback } from 'react';
 import { Minus, Plus } from 'lucide-react';
+import { usePressRepeat } from '@/hooks/usePressRepeat';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 
 interface FieldFontToolbarProps {
@@ -14,11 +20,11 @@ interface FieldFontToolbarProps {
   readonly fieldY: number;
   readonly fieldWidth: number;
   readonly canvasScale: number;
-  readonly onIncrease: (shift?: boolean) => void;
-  readonly onDecrease: (shift?: boolean) => void;
+  readonly onIncrease: () => void;
+  readonly onDecrease: () => void;
+  readonly onSetFontSize: (size: number) => void;
 }
 
-const TOOLBAR_HEIGHT = 28;
 const TOOLBAR_GAP = 6;
 
 export function FieldFontToolbar({
@@ -30,9 +36,49 @@ export function FieldFontToolbar({
   canvasScale,
   onIncrease,
   onDecrease,
+  onSetFontSize,
 }: FieldFontToolbarProps) {
+  const [editing, setEditing] = useState(false);
+  const [editValue, setEditValue] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+  const cancelledRef = useRef(false);
+
+  const incRepeat = usePressRepeat(onIncrease);
+  const decRepeat = usePressRepeat(onDecrease);
+
+  const startEdit = useCallback(() => {
+    setEditValue(String(Math.round(fontSize)));
+    setEditing(true);
+    cancelledRef.current = false;
+    requestAnimationFrame(() => {
+      inputRef.current?.select();
+    });
+  }, [fontSize]);
+
+  const commitEdit = useCallback(() => {
+    if (cancelledRef.current) {
+      cancelledRef.current = false;
+      return;
+    }
+    setEditing(false);
+    const parsed = parseInt(editValue, 10);
+    if (!isNaN(parsed) && parsed >= 8 && parsed <= 300) {
+      onSetFontSize(parsed);
+    }
+  }, [editValue, onSetFontSize]);
+
+  const handleEditKeyDown = useCallback((e: React.KeyboardEvent) => {
+    e.stopPropagation();
+    if (e.key === 'Enter') {
+      commitEdit();
+    } else if (e.key === 'Escape') {
+      cancelledRef.current = true;
+      setEditing(false);
+    }
+  }, [commitEdit]);
+
   /* Positionnement au-dessus du champ, centré horizontalement */
-  const toolbarTop = fieldY - (TOOLBAR_HEIGHT + TOOLBAR_GAP) / canvasScale;
+  const toolbarTop = fieldY - (28 + TOOLBAR_GAP) / canvasScale;
   const showBelow = toolbarTop < 0;
   const inverseScale = 1 / canvasScale;
 
@@ -40,6 +86,19 @@ export function FieldFontToolbar({
     ? fieldY - TOOLBAR_GAP / canvasScale
     : fieldY;
   const translateY = showBelow ? '8px' : `calc(-100% - ${TOOLBAR_GAP}px)`;
+
+  const btnStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 24,
+    height: 24,
+    border: 'none',
+    borderRadius: 4,
+    backgroundColor: 'transparent',
+    color: '#94a3b8',
+    cursor: 'pointer',
+  };
 
   return (
     <div
@@ -62,7 +121,7 @@ export function FieldFontToolbar({
           backgroundColor: 'rgba(15, 23, 42, 0.95)',
           border: '1px solid rgba(56, 189, 248, 0.5)',
           borderRadius: 6,
-          padding: '2px 4px',
+          padding: '2px 6px',
           boxShadow: '0 2px 8px rgba(0,0,0,0.4)',
           whiteSpace: 'nowrap',
         }}
@@ -70,62 +129,81 @@ export function FieldFontToolbar({
         <button
           type="button"
           title={CUSTOM_FIELD_LABELS.fontToolbarDecrease}
-          onClick={(e) => {
+          onPointerDown={(e) => {
             e.stopPropagation();
-            onDecrease(e.shiftKey);
+            e.preventDefault();
+            decRepeat.start();
           }}
-          onPointerDown={(e) => e.stopPropagation()}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 22,
-            height: 22,
-            border: 'none',
-            borderRadius: 4,
-            backgroundColor: 'transparent',
-            color: '#94a3b8',
-            cursor: 'pointer',
-          }}
+          onPointerUp={decRepeat.stop}
+          onPointerLeave={decRepeat.stop}
+          style={btnStyle}
         >
           <Minus size={12} />
         </button>
 
-        <span
-          style={{
-            fontSize: 11,
-            fontWeight: 600,
-            color: isGlobal ? '#64748b' : '#e2e8f0',
-            minWidth: 32,
-            textAlign: 'center',
-            fontFamily: 'monospace',
-            userSelect: 'none',
-          }}
-          title={isGlobal ? CUSTOM_FIELD_LABELS.fontToolbarGlobalHint : undefined}
-        >
-          {Math.round(fontSize)}
-        </span>
+        {editing ? (
+          <input
+            ref={inputRef}
+            data-testid="font-size-input"
+            type="number"
+            min={8}
+            max={300}
+            value={editValue}
+            onChange={(e) => setEditValue(e.target.value)}
+            onBlur={commitEdit}
+            onKeyDown={handleEditKeyDown}
+            onPointerDown={(e) => e.stopPropagation()}
+            style={{
+              width: 40,
+              fontSize: 11,
+              fontWeight: 600,
+              fontFamily: 'monospace',
+              textAlign: 'center',
+              color: '#e2e8f0',
+              backgroundColor: 'rgba(56, 189, 248, 0.15)',
+              border: '1px solid rgba(56, 189, 248, 0.5)',
+              borderRadius: 3,
+              padding: '1px 2px',
+              outline: 'none',
+            }}
+          />
+        ) : (
+          <span
+            data-testid="font-size-display"
+            onClick={(e) => {
+              e.stopPropagation();
+              startEdit();
+            }}
+            onPointerDown={(e) => e.stopPropagation()}
+            style={{
+              fontSize: 11,
+              fontWeight: 600,
+              color: isGlobal ? '#64748b' : '#e2e8f0',
+              minWidth: 36,
+              textAlign: 'center',
+              fontFamily: 'monospace',
+              userSelect: 'none',
+              cursor: 'text',
+              padding: '2px 4px',
+              borderRadius: 3,
+            }}
+            title={isGlobal ? CUSTOM_FIELD_LABELS.fontToolbarGlobalHint : CUSTOM_FIELD_LABELS.fontToolbarClickToEdit}
+          >
+            {Math.round(fontSize)}
+          </span>
+        )}
 
         <button
           type="button"
           title={CUSTOM_FIELD_LABELS.fontToolbarIncrease}
-          onClick={(e) => {
+          onPointerDown={(e) => {
             e.stopPropagation();
-            onIncrease(e.shiftKey);
+            e.preventDefault();
+            incRepeat.start();
           }}
-          onPointerDown={(e) => e.stopPropagation()}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 22,
-            height: 22,
-            border: 'none',
-            borderRadius: 4,
-            backgroundColor: 'transparent',
-            color: '#94a3b8',
-            cursor: 'pointer',
-          }}
+          onPointerUp={incRepeat.stop}
+          onPointerLeave={incRepeat.stop}
+          style={btnStyle}
         >
           <Plus size={12} />
         </button>

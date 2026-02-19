@@ -87,7 +87,7 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
 
   const drag = useFieldDrag(canvasScale);
   const resize = useFieldResize(canvasScale);
-  const { fontInfo, hasFontControl, increase, decrease, adjustFontSize } = useFieldFontSize();
+  const { fontInfo, hasFontControl, increase, decrease, setFontSize, adjustFontSize } = useFieldFontSize();
 
   const fields = state.customFieldsData.fields;
   const sorted = [...fields].sort((a, b) => a.zIndex - b.zIndex);
@@ -101,13 +101,17 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
     }
   };
 
-  const handleWheel = useCallback((e: React.WheelEvent) => {
-    if (!e.ctrlKey || !hasFontControl) return;
-    e.preventDefault();
+  /** Molette sur un champ sélectionné = ajuste la taille de police (sans Ctrl) */
+  const handleFieldWheel = useCallback((e: React.WheelEvent) => {
+    if (!hasFontControl || !selectedFieldId) return;
+    /* Vérifier que la molette est sur le champ sélectionné */
+    const target = e.target as HTMLElement;
+    const fieldEl = target.closest(`[data-field-id="${selectedFieldId}"]`);
+    if (!fieldEl) return;
+    e.stopPropagation();
     const delta = e.deltaY < 0 ? 1 : -1;
-    const step = e.shiftKey ? 4 : 1;
-    adjustFontSize(delta * step);
-  }, [hasFontControl, adjustFontSize]);
+    adjustFontSize(delta);
+  }, [hasFontControl, selectedFieldId, adjustFontSize]);
 
   const showToolbar = selectedField
     && hasFontControl
@@ -124,7 +128,7 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
         flex: 1,
       }}
       onClick={handleBackgroundClick}
-      onWheel={handleWheel}
+      onWheelCapture={handleFieldWheel}
     >
       {showGuides && <GridOverlay gridSize={gridSize} />}
 
@@ -151,6 +155,7 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
           canvasScale={canvasScale}
           onIncrease={increase}
           onDecrease={decrease}
+          onSetFontSize={setFontSize}
         />
       )}
     </div>
