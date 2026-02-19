@@ -26,6 +26,8 @@ export type ClockBoxMode = 'never' | 'always' | 'stopped' | 'running';
 export interface BodyTypeOption {
   readonly id: BodyTypeId;
   readonly label: string;
+  readonly description: string;
+  readonly category: 'custom' | 'stats' | 'match' | 'info';
 }
 
 export interface PeriodOption {
