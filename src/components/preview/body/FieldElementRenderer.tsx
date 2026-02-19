@@ -1,6 +1,6 @@
 /**
- * Renderer pour les éléments individuels des champs personnalisés.
- * Dispatche vers le bon composant en fonction du type d'élément.
+ * Renderer pour les elements individuels des champs personnalises.
+ * Dispatche vers le bon composant en fonction du type d'element.
  */
 
 import {
@@ -12,6 +12,8 @@ import {
   TimeoutElement,
   ShootoutElement,
 } from './FieldMatchElements';
+import { StatLineElement, BarCompareElement, PlayerPhotoElement } from './FieldDataElements';
+import { HeaderBlockElement, PenaltyColumnElement } from './FieldComposedElements';
 import { hexToRgba } from '@/utils/color';
 import type { ScoreboardState } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
@@ -138,9 +140,9 @@ export function FieldElementRenderer({
     case 'score-display':
       return <ScoreElement state={state} colors={colors} opacities={opacities} element={element} />;
     case 'clock-display':
-      return <ClockElement state={state} colors={colors} opacities={opacities} />;
+      return <ClockElement state={state} colors={colors} opacities={opacities} element={element} />;
     case 'period-display':
-      return <PeriodElement state={state} colors={colors} opacities={opacities} />;
+      return <PeriodElement state={state} colors={colors} opacities={opacities} element={element} />;
     case 'team-name':
       return <TeamNameElement state={state} colors={colors} opacities={opacities} element={element} />;
     case 'flag-display':
@@ -157,6 +159,16 @@ export function FieldElementRenderer({
       return <SeparatorElement element={element} />;
     case 'image-block':
       return <ImageElement element={element} />;
+    case 'stat-line':
+      return <StatLineElement state={state} colors={colors} opacities={opacities} element={element} />;
+    case 'bar-compare':
+      return <BarCompareElement state={state} colors={colors} opacities={opacities} element={element} />;
+    case 'player-photo':
+      return <PlayerPhotoElement element={element} width={width} height={height} />;
+    case 'header-block':
+      return <HeaderBlockElement state={state} colors={colors} opacities={opacities} />;
+    case 'penalty-column':
+      return <PenaltyColumnElement state={state} colors={colors} opacities={opacities} element={element} />;
     default:
       return <PlaceholderElement label={element.type} />;
   }

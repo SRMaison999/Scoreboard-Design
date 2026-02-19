@@ -1,6 +1,7 @@
 /**
- * Renderers pour les éléments "match" des champs personnalisés :
- * score, horloge, période, nom d'équipe, drapeau, temps morts, tirs au but.
+ * Renderers pour les elements "match" des champs personnalises :
+ * score, horloge, periode, nom d'equipe, drapeau, temps morts, tirs au but.
+ * Chaque element supporte un fontSizeOverride local (0 = utiliser la valeur globale).
  */
 
 import { Flag } from '@/components/preview/Flag';
@@ -13,18 +14,23 @@ function col(colors: ColorMap, opacities: OpacityMap, key: keyof ColorMap): stri
   return hexToRgba(colors[key], opacities[key] ?? 0);
 }
 
+function resolveFontSize(override: number | undefined, fallback: number): number {
+  return (override && override > 0) ? override : fallback;
+}
+
 export function ScoreElement({ state, colors, opacities, element }: {
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
-  readonly element: { readonly config: { readonly side: string } };
+  readonly element: { readonly config: { readonly side: string; readonly fontSizeOverride?: number } };
 }) {
   const score = element.config.side === 'left' ? state.score1 : state.score2;
+  const fontSize = resolveFontSize(element.config.fontSizeOverride, state.fontSizes.score);
   return (
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontSize: state.fontSizes.score, fontWeight: 700,
+      fontSize, fontWeight: 700,
       fontFamily: ff(state.fontTeams), color: col(colors, opacities, 'score'),
     }}>
       {score}
@@ -32,16 +38,18 @@ export function ScoreElement({ state, colors, opacities, element }: {
   );
 }
 
-export function ClockElement({ state, colors, opacities }: {
+export function ClockElement({ state, colors, opacities, element }: {
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
+  readonly element?: { readonly config: { readonly fontSizeOverride?: number } };
 }) {
+  const fontSize = resolveFontSize(element?.config.fontSizeOverride, state.fontSizes.clockTime);
   return (
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontSize: state.fontSizes.clockTime, fontWeight: 700,
+      fontSize, fontWeight: 700,
       fontFamily: ff(state.fontClock), color: col(colors, opacities, 'time'),
     }}>
       {state.time}
@@ -49,16 +57,18 @@ export function ClockElement({ state, colors, opacities }: {
   );
 }
 
-export function PeriodElement({ state, colors, opacities }: {
+export function PeriodElement({ state, colors, opacities, element }: {
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
+  readonly element?: { readonly config: { readonly fontSizeOverride?: number } };
 }) {
+  const fontSize = resolveFontSize(element?.config.fontSizeOverride, state.fontSizes.period);
   return (
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontSize: state.fontSizes.period, fontWeight: 600,
+      fontSize, fontWeight: 600,
       fontFamily: ff(state.fontClock), color: col(colors, opacities, 'period'),
       textTransform: 'uppercase', letterSpacing: 2,
     }}>
@@ -71,14 +81,15 @@ export function TeamNameElement({ state, colors, opacities, element }: {
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
-  readonly element: { readonly config: { readonly side: string } };
+  readonly element: { readonly config: { readonly side: string; readonly fontSizeOverride?: number } };
 }) {
   const name = element.config.side === 'left' ? state.team1 : state.team2;
+  const fontSize = resolveFontSize(element.config.fontSizeOverride, state.fontSizes.teamName);
   return (
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontSize: state.fontSizes.teamName, fontWeight: 700,
+      fontSize, fontWeight: 700,
       fontFamily: ff(state.fontTeams), color: col(colors, opacities, 'teamName'),
       letterSpacing: 4, textTransform: 'uppercase',
     }}>

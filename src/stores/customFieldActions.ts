@@ -38,6 +38,7 @@ export function addCustomFieldDraft(
     zIndex: maxZ + 1,
     locked: false,
     visible: true,
+    lockAspectRatio: false,
     element,
     style: { ...DEFAULT_FIELD_STYLE },
   };
@@ -136,6 +137,7 @@ export function duplicateCustomFieldDraft(s: Draft, fieldId: string): void {
     zIndex: maxZ + 1,
     locked: field.locked,
     visible: field.visible,
+    lockAspectRatio: field.lockAspectRatio,
     element: JSON.parse(JSON.stringify(field.element)) as FieldElementConfig,
     style: { ...field.style },
   };

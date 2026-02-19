@@ -115,6 +115,24 @@ export const CUSTOM_FIELD_LABELS = {
   configSeparatorThickness: 'Épaisseur',
   configSeparatorColor: 'Couleur',
 
+  /* Taille de police par champ */
+  configFontSizeOverride: 'Taille de police',
+  configFontSizeAutoHint: '0 = valeur globale',
+
+  /* Proportions */
+  fieldLockAspectRatio: 'Verrouiller les proportions',
+
+  /* Alignement */
+  alignLeft: 'Aligner \u00e0 gauche',
+  alignCenterH: 'Centrer horizontalement',
+  alignRight: 'Aligner \u00e0 droite',
+  alignTop: 'Aligner en haut',
+  alignCenterV: 'Centrer verticalement',
+  alignBottom: 'Aligner en bas',
+
+  /* Raccourcis */
+  keyboardShortcutsHint: 'Suppr, Ctrl+D, Fl\u00e8ches',
+
   /* Presets */
   sectionPresets: 'Presets',
   presetSaveField: 'Sauvegarder le champ',

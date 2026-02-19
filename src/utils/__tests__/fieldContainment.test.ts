@@ -17,6 +17,7 @@ function makeField(overrides: Partial<CustomField> & { id: string }): CustomFiel
     zIndex: 1,
     locked: false,
     visible: true,
+    lockAspectRatio: false,
     element: {
       type: 'text-block',
       config: { content: '', fontSize: 20, fontWeight: 400, textAlign: 'center', textTransform: 'none', letterSpacing: 0 },

@@ -24,7 +24,7 @@ describe('FieldElementConfigEditor', () => {
   it('affiche le selecteur de cote pour un score-display', () => {
     const element: FieldElementConfig = {
       type: 'score-display',
-      config: { side: 'left', showLabel: false },
+      config: { side: 'left', showLabel: false, fontSizeOverride: 0 },
     };
     render(<FieldElementConfigEditor fieldId="f1" element={element} />);
     expect(screen.getByText(CUSTOM_FIELD_LABELS.configSide)).toBeInTheDocument();
@@ -79,7 +79,7 @@ describe('FieldElementConfigEditor', () => {
   it('affiche l editeur de clock-display avec les checkboxes', () => {
     const element: FieldElementConfig = {
       type: 'clock-display',
-      config: { showPeriod: true, showBox: false },
+      config: { showPeriod: true, showBox: false, fontSizeOverride: 0 },
     };
     render(<FieldElementConfigEditor fieldId="f1" element={element} />);
     expect(screen.getByText(CUSTOM_FIELD_LABELS.configShowPeriod)).toBeInTheDocument();

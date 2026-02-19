@@ -46,13 +46,13 @@ function defaultConfig(el: LibraryElement): FieldElementConfig {
     case 'text-block':
       return { type: 'text-block', config: { content: 'Texte', fontSize: 30, fontWeight: 600, textAlign: 'center', textTransform: 'uppercase', letterSpacing: 2 } };
     case 'score-display':
-      return { type: 'score-display', config: { side: 'left', showLabel: false } };
+      return { type: 'score-display', config: { side: 'left', showLabel: false, fontSizeOverride: 0 } };
     case 'clock-display':
-      return { type: 'clock-display', config: { showPeriod: true, showBox: false } };
+      return { type: 'clock-display', config: { showPeriod: true, showBox: false, fontSizeOverride: 0 } };
     case 'period-display':
-      return { type: 'period-display', config: {} };
+      return { type: 'period-display', config: { fontSizeOverride: 0 } };
     case 'team-name':
-      return { type: 'team-name', config: { side: 'left', showFlag: true } };
+      return { type: 'team-name', config: { side: 'left', showFlag: true, fontSizeOverride: 0 } };
     case 'flag-display':
       return { type: 'flag-display', config: { side: 'left' } };
     case 'timeout-display':

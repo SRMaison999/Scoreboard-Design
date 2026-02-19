@@ -12,7 +12,7 @@ function makeTextField(id: string, x: number, y: number): CustomField {
     label: `Champ ${id}`,
     x, y, width: 200, height: 80,
     zIndex: 1,
-    locked: false, visible: true,
+    locked: false, visible: true, lockAspectRatio: false,
     element: {
       type: 'text-block',
       config: {

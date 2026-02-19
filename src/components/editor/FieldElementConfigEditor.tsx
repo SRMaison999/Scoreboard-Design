@@ -1,6 +1,6 @@
 /**
- * Éditeur de configuration spécifique par type d'élément.
- * Affiche les contrôles adaptés au type du champ sélectionné.
+ * Editeur de configuration specifique par type d'element.
+ * Affiche les controles adaptes au type du champ selectionne.
  */
 
 import { InputField } from '@/components/ui/InputField';
@@ -14,6 +14,30 @@ import { ShapeEditor, SeparatorEditor, ImageEditor } from './FieldVisualEditors'
 interface FieldElementConfigEditorProps {
   readonly fieldId: string;
   readonly element: FieldElementConfig;
+}
+
+function FontSizeOverrideInput({ fieldId, element }: {
+  readonly fieldId: string;
+  readonly element: FieldElementConfig;
+}) {
+  const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
+  const config = element.config as { fontSizeOverride?: number };
+  const value = config.fontSizeOverride ?? 0;
+
+  return (
+    <div>
+      <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.configFontSizeOverride}</label>
+      <input
+        type="number"
+        min={0}
+        max={300}
+        value={value}
+        onChange={(e) => updateFieldElementConfig(updateElement, fieldId, element, { fontSizeOverride: Number(e.target.value) })}
+        className="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded px-2 py-0.5 text-[13px]"
+      />
+      <p className="text-[10px] text-gray-600 mt-0.5">{CUSTOM_FIELD_LABELS.configFontSizeAutoHint}</p>
+    </div>
+  );
 }
 
 function TextBlockEditor({ fieldId, element }: {
@@ -156,6 +180,79 @@ function ClockDisplayEditor({ fieldId, element }: {
         />
         {CUSTOM_FIELD_LABELS.configShowBox}
       </label>
+      <FontSizeOverrideInput fieldId={fieldId} element={element} />
+    </div>
+  );
+}
+
+function StatLineEditor({ fieldId, element }: {
+  readonly fieldId: string;
+  readonly element: Extract<FieldElementConfig, { type: 'stat-line' }>;
+}) {
+  const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
+  const statsCount = useScoreboardStore((s) => s.stats.length);
+
+  return (
+    <div>
+      <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.configStatIndex}</label>
+      <input
+        type="number"
+        min={0}
+        max={Math.max(0, statsCount - 1)}
+        value={element.config.statIndex}
+        onChange={(e) => updateFieldElementConfig(updateElement, fieldId, element, { statIndex: Number(e.target.value) })}
+        className="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded px-2 py-0.5 text-[13px]"
+      />
+    </div>
+  );
+}
+
+function BarCompareEditor({ fieldId, element }: {
+  readonly fieldId: string;
+  readonly element: Extract<FieldElementConfig, { type: 'bar-compare' }>;
+}) {
+  const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
+  const rowsCount = useScoreboardStore((s) => s.barChartData.rows.length);
+
+  return (
+    <div>
+      <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.configBarIndex}</label>
+      <input
+        type="number"
+        min={0}
+        max={Math.max(0, rowsCount - 1)}
+        value={element.config.barIndex}
+        onChange={(e) => updateFieldElementConfig(updateElement, fieldId, element, { barIndex: Number(e.target.value) })}
+        className="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded px-2 py-0.5 text-[13px]"
+      />
+    </div>
+  );
+}
+
+function PlayerPhotoEditor({ fieldId, element }: {
+  readonly fieldId: string;
+  readonly element: Extract<FieldElementConfig, { type: 'player-photo' }>;
+}) {
+  const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
+  const c = element.config;
+  const patch = (p: Record<string, unknown>) => updateFieldElementConfig(updateElement, fieldId, element, p);
+
+  return (
+    <div className="flex flex-col gap-2">
+      <InputField
+        label={CUSTOM_FIELD_LABELS.configPhotoKey}
+        value={c.photoKey}
+        onChange={(v) => patch({ photoKey: v })}
+      />
+      <Select
+        label={CUSTOM_FIELD_LABELS.configPhotoShape}
+        value={c.shape}
+        onChange={(v) => patch({ shape: v })}
+        options={[
+          { value: 'circle', label: CUSTOM_FIELD_LABELS.configPhotoCircle },
+          { value: 'square', label: CUSTOM_FIELD_LABELS.configPhotoSquare },
+        ]}
+      />
     </div>
   );
 }
@@ -165,7 +262,19 @@ export function FieldElementConfigEditor({ fieldId, element }: FieldElementConfi
     case 'text-block':
       return <TextBlockEditor fieldId={fieldId} element={element} />;
     case 'score-display':
+      return (
+        <div className="flex flex-col gap-2">
+          <SideSelector fieldId={fieldId} element={element} />
+          <FontSizeOverrideInput fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'team-name':
+      return (
+        <div className="flex flex-col gap-2">
+          <SideSelector fieldId={fieldId} element={element} />
+          <FontSizeOverrideInput fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'flag-display':
     case 'penalty-column':
       return <SideSelector fieldId={fieldId} element={element} />;
@@ -173,6 +282,14 @@ export function FieldElementConfigEditor({ fieldId, element }: FieldElementConfi
       return <HeaderBlockEditor fieldId={fieldId} element={element} />;
     case 'clock-display':
       return <ClockDisplayEditor fieldId={fieldId} element={element} />;
+    case 'period-display':
+      return <FontSizeOverrideInput fieldId={fieldId} element={element} />;
+    case 'stat-line':
+      return <StatLineEditor fieldId={fieldId} element={element} />;
+    case 'bar-compare':
+      return <BarCompareEditor fieldId={fieldId} element={element} />;
+    case 'player-photo':
+      return <PlayerPhotoEditor fieldId={fieldId} element={element} />;
     case 'shape-block':
       return <ShapeEditor fieldId={fieldId} element={element} />;
     case 'separator-line':
