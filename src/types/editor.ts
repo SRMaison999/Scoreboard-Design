@@ -3,6 +3,7 @@ import type { LucideIcon } from 'lucide-react';
 
 /* Identifiants des onglets du rail principal */
 export type RailTabId =
+  | 'modes'
   | 'content'
   | 'appearance'
   | 'clock'
