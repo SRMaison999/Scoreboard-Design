@@ -76,7 +76,7 @@ src/
   components/
     ui/         -> Composants UI reutilisables (SOURCE DE VERITE)
     editor/     -> Panneau editeur (28 sections)
-    preview/    -> Zone de preview (ScoreboardCanvas, 13 body types)
+    preview/    -> Zone de preview (ScoreboardCanvas, 14 body types)
     operator/   -> Mode operateur live
     output/     -> Fenetre de sortie broadcast
   hooks/        -> Hooks custom (useTimer, useScaling, useOutputSync...)

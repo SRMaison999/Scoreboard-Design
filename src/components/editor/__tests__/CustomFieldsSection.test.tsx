@@ -28,16 +28,12 @@ describe('CustomFieldsSection', () => {
     expect(screen.getByText(CUSTOM_FIELD_LABELS.layersTitle)).toBeInTheDocument();
   });
 
-  it('n\'affiche pas les propriétés sans champ sélectionné', () => {
-    render(<CustomFieldsSection />);
-    expect(screen.queryByText(CUSTOM_FIELD_LABELS.fieldProperties)).not.toBeInTheDocument();
-  });
-
-  it('affiche les propriétés quand un champ est sélectionné', () => {
+  it('n\'affiche pas les propriétés dans le panneau principal (déplacé vers PropertiesPanel)', () => {
     const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
     useScoreboardStore.getState().addCustomField(element, 50, 50, 200, 100);
     render(<CustomFieldsSection />);
-    expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldProperties)).toBeInTheDocument();
+    /* Les propriétés sont maintenant dans le PropertiesPanel séparé */
+    expect(screen.queryByText(CUSTOM_FIELD_LABELS.fieldLabel)).not.toBeInTheDocument();
   });
 
   it('toggle le mode pleine page', async () => {
