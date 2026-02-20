@@ -21,12 +21,15 @@ export function Flag({ code, w = 77, h = 50, flagOverrides = EMPTY_OVERRIDES }: 
       overflow: 'hidden',
       boxShadow: '0 2px 12px rgba(0,0,0,0.4)',
       flexShrink: 0,
-      background: '#334155',
+      background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+      border: '1px solid rgba(148, 163, 184, 0.2)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      fontSize: 14,
-      color: '#94a3b8',
+      fontSize: Math.max(10, Math.min(14, Math.round(h * 0.22))),
+      fontWeight: 700,
+      letterSpacing: 1,
+      color: '#cbd5e1',
     };
     return <div style={fallback}>{code}</div>;
   }
