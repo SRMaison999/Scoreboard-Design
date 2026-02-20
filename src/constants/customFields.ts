@@ -25,7 +25,7 @@ export const CUSTOM_FIELD_LABELS = {
 
   /* Modes */
   fullPageMode: 'Mode pleine page',
-  fullPageModeHint: 'Masque le header pour utiliser tout le canvas',
+  fullPageModeHint: 'Les éléments peuvent couvrir tout le canvas',
   snapToGrid: 'Aimanter à la grille',
   showGuides: 'Afficher les guides',
   gridSize: 'Taille de la grille',

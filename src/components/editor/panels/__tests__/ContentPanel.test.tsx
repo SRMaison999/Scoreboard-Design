@@ -54,11 +54,11 @@ describe('ContentPanel', () => {
     expect(screen.getByText(/Photos des joueurs/)).toBeInTheDocument();
   });
 
-  it('masque le header en mode Layout libre pleine page', () => {
+  it('affiche le header en mode Layout libre pleine page', () => {
     useScoreboardStore.getState().update('bodyType', 14);
     useScoreboardStore.getState().updateCustomFieldsOption('fullPageMode', true);
     render(<ContentPanel />);
-    expect(screen.queryByText('Header')).not.toBeInTheDocument();
+    expect(screen.getByText('Header')).toBeInTheDocument();
   });
 
   it('affiche le header en mode Layout libre sans pleine page', () => {
