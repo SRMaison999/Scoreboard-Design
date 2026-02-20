@@ -54,6 +54,8 @@ export const EDITOR_LABELS = {
   teamDisplayName1Label: 'Nom affiché 1',
   teamDisplayName2Label: 'Nom affiché 2',
   teamDisplayNameHint: 'Si vide, le code pays est utilisé',
+  showFlagTeam1: 'Drapeau équipe 1',
+  showFlagTeam2: 'Drapeau équipe 2',
   score1Label: 'Score 1',
   score2Label: 'Score 2',
   showPenalties: 'Afficher les colonnes',

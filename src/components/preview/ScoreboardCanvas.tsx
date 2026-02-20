@@ -219,6 +219,8 @@ export function ScoreboardCanvas({
           shootoutLeft={state.shootoutLeft}
           shootoutRight={state.shootoutRight}
           logoMode={state.logoMode}
+          showFlagTeam1={state.showFlagTeam1}
+          showFlagTeam2={state.showFlagTeam2}
           teamLogos={logos}
           flagOverrides={flagOverrides}
           scorePopLeft={scorePopLeft}

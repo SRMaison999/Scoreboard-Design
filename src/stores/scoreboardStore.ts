@@ -5,6 +5,7 @@ import { DEFAULT_STATE } from '@/data/defaultState';
 import { CLEAN_CONTENT } from '@/data/cleanContent';
 import { DEFAULT_OPACITIES } from '@/constants/colors';
 import { DEFAULT_CUSTOM_FIELDS_DATA } from '@/types/customField';
+import { isCountryCode } from '@/utils/flagUrl';
 import { tickTimerDraft } from './timerActions';
 import {
   addCustomFieldDraft, removeCustomFieldDraft,
@@ -37,7 +38,11 @@ export const useScoreboardStore = create<ScoreboardStore>()(
       ...structuredClone(INITIAL_STATE),
 
       update: (key, value) =>
-        set((s) => { (s as Record<string, unknown>)[key] = value; }),
+        set((s) => {
+          (s as Record<string, unknown>)[key] = value;
+          if (key === 'team1') s.showFlagTeam1 = isCountryCode(value as string);
+          if (key === 'team2') s.showFlagTeam2 = isCountryCode(value as string);
+        }),
 
       updateColor: (key: ColorKey, value: string) =>
         set((s) => { s.colors[key] = value; }),
@@ -320,6 +325,13 @@ export const useScoreboardStore = create<ScoreboardStore>()(
           delete cfd['selectedFieldId'];
         } else if (cfd && cfd['selectedFieldIds'] === undefined) {
           cfd['selectedFieldIds'] = [];
+        }
+        /* Migration : showFlagTeam1/showFlagTeam2 auto-detecte */
+        if (state['showFlagTeam1'] === undefined) {
+          const t1 = typeof state['team1'] === 'string' ? state['team1'] : '';
+          const t2 = typeof state['team2'] === 'string' ? state['team2'] : '';
+          state['showFlagTeam1'] = isCountryCode(t1);
+          state['showFlagTeam2'] = isCountryCode(t2);
         }
         /* v8 : vider le contenu pour un ecran vierge au demarrage */
         const clean = structuredClone(CLEAN_CONTENT) as Record<string, unknown>;

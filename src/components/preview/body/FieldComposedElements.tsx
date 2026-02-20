@@ -35,6 +35,8 @@ export function HeaderBlockElement({ state, colors, opacities }: {
         shootoutLeft={state.shootoutLeft}
         shootoutRight={state.shootoutRight}
         logoMode={state.logoMode}
+        showFlagTeam1={state.showFlagTeam1}
+        showFlagTeam2={state.showFlagTeam2}
       />
     </div>
   );

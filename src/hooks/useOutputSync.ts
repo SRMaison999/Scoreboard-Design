@@ -62,6 +62,8 @@ function selectState(store: ReturnType<typeof useScoreboardStore.getState>): Sco
     templateWidth: store.templateWidth,
     templateHeight: store.templateHeight,
     fontSizes: store.fontSizes,
+    showFlagTeam1: store.showFlagTeam1,
+    showFlagTeam2: store.showFlagTeam2,
     logoMode: store.logoMode,
     showCompetitionLogo: store.showCompetitionLogo,
     competitionLogoPosition: store.competitionLogoPosition,

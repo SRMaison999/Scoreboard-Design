@@ -38,3 +38,11 @@ export function resolveFlagUrl(
 
   return '';
 }
+
+/**
+ * Vérifie si un code équipe correspond à un pays
+ * disposant d'un drapeau dans le registre embarqué.
+ */
+export function isCountryCode(code: string): boolean {
+  return code !== '' && code in FLAG_SVG_REGISTRY;
+}

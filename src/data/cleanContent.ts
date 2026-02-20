@@ -11,6 +11,8 @@ export const CLEAN_CONTENT: Partial<ScoreboardState> = {
   team2: '',
   teamDisplayName1: '',
   teamDisplayName2: '',
+  showFlagTeam1: false,
+  showFlagTeam2: false,
   score1: '0',
   score2: '0',
   period: '',
