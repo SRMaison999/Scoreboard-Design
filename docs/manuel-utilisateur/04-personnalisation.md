@@ -4,63 +4,63 @@
 
 ### 14 canaux de couleur
 
-Chaque element textuel et de fond possede sa propre couleur, modifiable independamment :
+Chaque élément textuel et de fond possède sa propre couleur, modifiable indépendamment :
 
-| Canal | Element |
+| Canal | Élément |
 |-------|---------|
-| Fond haut | Couleur du haut du degrade |
-| Fond milieu | Couleur du milieu du degrade |
-| Fond bas | Couleur du bas du degrade |
-| Noms d'equipes | Texte des codes pays |
+| Fond haut | Couleur du haut du dégradé |
+| Fond milieu | Couleur du milieu du dégradé |
+| Fond bas | Couleur du bas du dégradé |
+| Noms d'équipes | Texte des codes pays |
 | Scores | Chiffres des scores |
-| Fond scores | Cadre derriere les scores |
+| Fond scores | Cadre derrière les scores |
 | Horloge | Texte du temps |
 | Cadre horloge | Fond du cadre de l'horloge |
-| Periode | Texte du nom de la periode |
+| Période | Texte du nom de la période |
 | Titres | Texte des titres |
 | Valeurs stats | Chiffres des statistiques |
 | Labels stats | Texte des labels de statistiques |
-| Temps penalite | Temps de penalite |
-| Numero penalite | Numero du joueur penalise |
+| Temps pénalité | Temps de pénalité |
+| Numéro pénalité | Numéro du joueur pénalisé |
 
-### Opacite
+### Opacité
 
-Chaque couleur possede un slider d'opacite (0-100). La valeur 0 correspond a une couleur opaque, la valeur 100 a une couleur totalement transparente.
+Chaque couleur possède un slider d'opacité (0-100). La valeur 0 correspond à une couleur opaque, la valeur 100 à une couleur totalement transparente.
 
 ### Presets de couleurs
 
-5 themes predefinis permettent de changer l'apparence globale en un clic :
+5 thèmes prédéfinis permettent de changer l'apparence globale en un clic :
 
 | Preset | Description |
 |--------|-------------|
-| OMEGA Blue | Theme bleu hockey (par defaut) |
+| OMEGA Blue | Thème bleu hockey (par défaut) |
 | Dark Mode | Fond noir avec accents cyan |
-| Ice White | Tons bleu clair, texte fonce |
+| Ice White | Tons bleu clair, texte foncé |
 | Hockey Red | Rouge profond |
-| Arena Green | Vert stade avec accents neon |
+| Arena Green | Vert stade avec accents néon |
 
-Un preset modifie toutes les couleurs et opacites simultanement. Apres application, chaque couleur reste modifiable individuellement.
+Un preset modifie toutes les couleurs et opacités simultanément. Après application, chaque couleur reste modifiable individuellement.
 
-### Mode d'arriere-plan
+### Mode d'arrière-plan
 
 Deux modes disponibles :
 
 - **Uniforme** : une seule couleur de fond
-- **Degrade** : transition progressive entre 3 couleurs (haut, milieu, bas)
+- **Dégradé** : transition progressive entre 3 couleurs (haut, milieu, bas)
 
 ## Polices
 
 ### 3 zones de police
 
-| Zone | Elements concernes | Police par defaut |
+| Zone | Éléments concernés | Police par défaut |
 |------|-------------------|-------------------|
-| Equipes | Noms d'equipes, scores | Oswald |
-| Horloge | Horloge, periode | Barlow Condensed |
-| Corps | Titres, stats, penalites | Barlow Condensed |
+| Équipes | Noms d'équipes, scores | Oswald |
+| Horloge | Horloge, période | Barlow Condensed |
+| Corps | Titres, stats, pénalités | Barlow Condensed |
 
 ### 25 polices disponibles
 
-Les polices sont organisees par categories dans le selecteur :
+Les polices sont organisées par catégories dans le sélecteur :
 
 - **Sport / Impact** : Oswald, Bebas Neue, Anton, Russo One, Archivo Black, Black Ops One, Bungee
 - **Condensed** : Barlow Condensed, Saira Condensed, Roboto Condensed, Fjalla One, Teko
@@ -69,40 +69,40 @@ Les polices sont organisees par categories dans le selecteur :
 - **Monospace** : Share Tech Mono, JetBrains Mono
 - **Serif** : Playfair Display, Bitter
 
-Toutes sont des polices professionnelles chargees automatiquement depuis Google Fonts. Le selecteur affiche chaque police dans son propre rendu pour faciliter le choix.
+Toutes sont des polices professionnelles chargées automatiquement depuis Google Fonts. Le sélecteur affiche chaque police dans son propre rendu pour faciliter le choix.
 
 ## Tailles de police
 
-Chaque element textuel a un slider de taille individuel :
+Chaque élément textuel a un slider de taille individuel :
 
-| Element | Plage |
+| Élément | Plage |
 |---------|-------|
-| Noms d'equipes | 24-72px |
+| Noms d'équipes | 24-72px |
 | Scores | 40-120px |
 | Horloge | 40-120px |
-| Periode | 12-40px |
+| Période | 12-40px |
 | Titres | 16-60px |
 | Valeurs stats | 24-120px |
 | Labels stats | 16-60px |
-| Temps de penalite | 30-80px |
-| Numeros de penalite | 30-80px |
+| Temps de pénalité | 30-80px |
+| Numéros de pénalité | 30-80px |
 
-### Mise a l'echelle du corps
+### Mise à l'échelle du corps
 
-En plus des tailles individuelles ci-dessus, un **slider de mise a l'echelle** permet d'ajuster proportionnellement toutes les tailles de texte du corps actif. Ce slider est contextuel : il affiche le nom du type de corps actuellement selectionne.
+En plus des tailles individuelles ci-dessus, un **slider de mise à l'échelle** permet d'ajuster proportionnellement toutes les tailles de texte du corps actif. Ce slider est contextuel : il affiche le nom du type de corps actuellement sélectionné.
 
-| Parametre | Valeur |
+| Paramètre | Valeur |
 |-----------|--------|
 | Plage | 50% - 200% |
 | Pas | 5% |
-| Defaut | 100% |
+| Défaut | 100% |
 
-Chaque type de corps (1 a 13) possede son propre facteur d'echelle independant. Modifier le slider pour un type de corps n'affecte pas les autres.
+Chaque type de corps (1 à 13) possède son propre facteur d'échelle indépendant. Modifier le slider pour un type de corps n'affecte pas les autres.
 
 **Exemples d'utilisation :**
-- A 100% (defaut), les tailles sont celles d'origine
-- A 150%, tous les textes du corps sont agrandis de 50%
-- A 75%, tous les textes du corps sont reduits de 25%
+- À 100% (défaut), les tailles sont celles d'origine
+- À 150%, tous les textes du corps sont agrandis de 50%
+- À 75%, tous les textes du corps sont réduits de 25%
 
 Les 14 types de corps concernés :
 
@@ -127,7 +127,7 @@ Le Layout libre n'utilise pas la mise à l'échelle proportionnelle globale. Cha
 
 ## Dimensions du template
 
-### Presets de resolution
+### Presets de résolution
 
 | Preset | Dimensions | Ratio |
 |--------|-----------|-------|
@@ -135,9 +135,9 @@ Le Layout libre n'utilise pas la mise à l'échelle proportionnelle globale. Cha
 | 4K UHD | 3840 x 2160 | 16:9 |
 | HD 720p | 1280 x 720 | 16:9 |
 | SD 4:3 | 1440 x 1080 | 4:3 |
-| Carre | 1080 x 1080 | 1:1 |
+| Carré | 1080 x 1080 | 1:1 |
 | Ultra-wide | 2560 x 1080 | 21:9 |
 
-Des dimensions personnalisees sont egalement possibles en saisissant la largeur et la hauteur souhaitees.
+Des dimensions personnalisées sont également possibles en saisissant la largeur et la hauteur souhaitées.
 
-Le preview s'adapte automatiquement a la resolution choisie grace au redimensionnement proportionnel.
+Le preview s'adapte automatiquement à la résolution choisie grâce au redimensionnement proportionnel.

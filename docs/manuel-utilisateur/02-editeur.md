@@ -44,14 +44,30 @@ Survoler une icône affiche une infobulle avec le nom du groupe.
 
 Le type d'affichage se choisit dans le panneau **Modes** (1re icône du rail). Le Layout libre est proposé en premier.
 
-Quand le Layout libre est sélectionné, le panneau éditeur principal affiche :
-- **Mode pleine page** : masque le header pour utiliser tout le canvas
-- **Grille et guides** : affichage d'une grille d'alignement, aimantation, taille configurable
-- **Bibliothèque** : palette de 25+ éléments à glisser sur le canvas (voir chapitre 3, Layout libre)
-- **Presets** : sauvegarde et chargement de champs individuels ou d'écrans complets (voir chapitre 3, Layout libre)
-- **Couches** : liste des champs avec réordonnancement, visibilité et verrouillage
+Quand le Layout libre est sélectionné, le panneau éditeur adopte une **navigation dédiée en deux colonnes** :
 
-Quand un champ est sélectionné sur le canvas, un **panneau de propriétés séparé** s'ouvre automatiquement en deuxième colonne (entre le panneau éditeur et la preview). Cela permet de consulter la bibliothèque et les couches tout en modifiant les propriétés d'un champ. Voir le chapitre 3 (Layout libre - Panneau de propriétés) pour le détail.
+#### Rail d'icônes dédié au Layout libre
+
+Un rail vertical de 10 icônes remplace la navigation standard. Ce rail permet d'accéder rapidement à toutes les fonctionnalités du mode libre :
+
+| Icône | Onglet | Contenu |
+|-------|--------|---------|
+| Engrenage | **Canvas** | Mode pleine page, grille et guides, aimantation, taille de grille, annuler/rétablir, raccourcis clavier |
+| Dièse | **Match** | Éléments de match : Score, Horloge, Période, Nom d'équipe, Drapeau, Temps morts, Tirs au but |
+| Texte | **Texte** | Éléments textuels : Bloc de texte |
+| Graphique | **Données** | Éléments de visualisation : Ligne de stat, Barre comparative |
+| Utilisateur | **Joueurs** | Éléments joueurs : Photo joueur |
+| Image | **Médias** | Éléments décoratifs : Image, Forme (rectangle, cercle, arrondi), Séparateur |
+| Grille | **Composés** | Blocs complets : Header complet, Colonne de pénalités, Types 1-13 intégrés |
+| Couches | **Couches** | Liste des champs avec réordonnancement, visibilité et verrouillage |
+| Signet | **Presets** | Sauvegarde et chargement de champs individuels ou d'écrans complets |
+| Clé | **Propriétés** | Panneau de propriétés du champ sélectionné (position, taille, style, effets) |
+
+#### Zone de contenu
+
+À droite du rail, la zone de contenu affiche le panneau correspondant à l'onglet actif. Les onglets de catégorie (Match, Texte, Données, Joueurs, Médias, Composés) affichent une liste d'éléments cliquables ou glissables sur le canvas. L'onglet **Propriétés** affiche les paramètres du champ sélectionné, ou une barre d'outils multi-sélection si plusieurs champs sont sélectionnés.
+
+Voir le chapitre 3 (Layout libre) pour le détail de chaque fonctionnalité.
 
 ### Sous-onglet Équipes
 

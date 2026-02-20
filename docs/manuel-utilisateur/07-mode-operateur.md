@@ -1,64 +1,64 @@
-# Manuel utilisateur - Mode operateur
+# Manuel utilisateur - Mode opérateur
 
-## Presentation
+## Présentation
 
-Le mode operateur est une interface simplifiee concue pour le controle live du scoreboard pendant un match. Il remplace le panneau editeur detaille par des controles grands format, tactiles et rapides.
+Le mode opérateur est une interface simplifiée conçue pour le contrôle live du scoreboard pendant un match. Il remplace le panneau éditeur détaillé par des contrôles grands format, tactiles et rapides.
 
-## Acces
+## Accès
 
-- Depuis l'editeur : cliquer sur le bouton "Mode operateur" dans la barre d'outils
-- Acces direct : naviguer vers `/operator`
-- Retour a l'editeur : bouton "Retour a l'editeur" en haut du panneau
+- Depuis l'éditeur : cliquer sur le bouton "Mode opérateur" dans la barre d'outils
+- Accès direct : naviguer vers `/operator`
+- Retour à l'éditeur : bouton "Retour à l'éditeur" en haut du panneau
 
-## Controles disponibles
+## Contrôles disponibles
 
 ### Scores
 
-Boutons +1 et -1 pour chaque equipe. Les scores sont affiches en grand format entre les boutons.
+Boutons +1 et -1 pour chaque équipe. Les scores sont affichés en grand format entre les boutons.
 
 ### Horloge
 
-- **Demarrer** : lance le decompte du temps
-- **Arreter** : met en pause
-- **Reinitialiser** : remet le temps a la duree de la phase active
+- **Démarrer** : lance le décompte du temps
+- **Arrêter** : met en pause
+- **Réinitialiser** : remet le temps à la durée de la phase active
 
 ### Phase
 
-Selecteur de la phase active. Permet de passer rapidement a n'importe quelle phase du match.
+Sélecteur de la phase active. Permet de passer rapidement à n'importe quelle phase du match.
 
-### Penalites
+### Pénalités
 
-Ajout rapide de penalites :
-- Selection de l'equipe (gauche ou droite)
-- Saisie du numero de joueur
-- Selection de la duree (2:00, 4:00, 5:00, 10:00)
+Ajout rapide de pénalités :
+- Sélection de l'équipe (gauche ou droite)
+- Saisie du numéro de joueur
+- Sélection de la durée (2:00, 4:00, 5:00, 10:00)
 
 ## Raccourcis clavier
 
-Le mode operateur active des raccourcis clavier pour un controle rapide :
+Le mode opérateur active des raccourcis clavier pour un contrôle rapide :
 
 | Raccourci | Action |
 |-----------|--------|
-| Espace | Demarrer / Arreter l'horloge |
-| R | Reinitialiser l'horloge |
-| Fleche gauche | Score -1 equipe 1 |
-| Fleche droite | Score +1 equipe 1 |
-| Fleche haut | Score +1 equipe 2 |
-| Fleche bas | Score -1 equipe 2 |
+| Espace | Démarrer / Arrêter l'horloge |
+| R | Réinitialiser l'horloge |
+| Flèche gauche | Score -1 équipe 1 |
+| Flèche droite | Score +1 équipe 1 |
+| Flèche haut | Score +1 équipe 2 |
+| Flèche bas | Score -1 équipe 2 |
 | P | Phase suivante |
-| 1 | Ajouter penalite 2:00 equipe 1 |
-| 2 | Ajouter penalite 2:00 equipe 2 |
-| F11 | Plein ecran |
+| 1 | Ajouter pénalité 2:00 équipe 1 |
+| 2 | Ajouter pénalité 2:00 équipe 2 |
+| F11 | Plein écran |
 
-Les raccourcis sont desactives quand le curseur est dans un champ de saisie.
+Les raccourcis sont désactivés quand le curseur est dans un champ de saisie.
 
 ## Synchronisation
 
-Le mode operateur synchronise automatiquement le scoreboard avec la fenetre de sortie via BroadcastChannel. Chaque modification est immediatement refletee dans la fenetre de sortie.
+Le mode opérateur synchronise automatiquement le scoreboard avec la fenêtre de sortie via BroadcastChannel. Chaque modification est immédiatement reflétée dans la fenêtre de sortie.
 
 ## Conseils d'utilisation en match
 
-- Ouvrir la fenetre de sortie avant de passer en mode operateur
-- Verifier que les equipes et la phase initiale sont correctement configurees dans l'editeur avant de basculer
-- Utiliser les raccourcis clavier pour les actions les plus frequentes (score, horloge)
-- Le plein ecran (F11) permet de maximiser l'apercu du scoreboard
+- Ouvrir la fenêtre de sortie avant de passer en mode opérateur
+- Vérifier que les équipes et la phase initiale sont correctement configurées dans l'éditeur avant de basculer
+- Utiliser les raccourcis clavier pour les actions les plus fréquentes (score, horloge)
+- Le plein écran (F11) permet de maximiser l'aperçu du scoreboard
