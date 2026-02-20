@@ -173,4 +173,64 @@ describe('useFieldFontSize', () => {
       expect(field.element.config.fontSize).toBe(300);
     }
   });
+
+  it('fontInfo affiche la taille visuelle quand scaleContent est actif', () => {
+    const element = {
+      type: 'text-block' as const,
+      config: {
+        content: 'Test', fontSize: 30, fontWeight: 400, fontFamily: '',
+        textAlign: 'center' as const, textTransform: 'none' as const,
+        letterSpacing: 0,
+      },
+    };
+    useScoreboardStore.getState().addCustomField(element, 0, 0, 200, 100);
+
+    /* Simuler un redimensionnement : doubler la hauteur */
+    const field = useScoreboardStore.getState().customFieldsData.fields[0]!;
+    useScoreboardStore.getState().updateCustomFieldSize(field.id, 200, 200);
+
+    const { result } = renderHook(() => useFieldFontSize());
+    /* initialHeight = 100, height = 200 → scale = 2, visuel = 30 × 2 = 60 */
+    expect(result.current.fontInfo).toEqual({ value: 60, isGlobal: false });
+  });
+
+  it('setFontSize convertit la taille visuelle en taille brute', () => {
+    const element = {
+      type: 'text-block' as const,
+      config: {
+        content: 'Test', fontSize: 30, fontWeight: 400, fontFamily: '',
+        textAlign: 'center' as const, textTransform: 'none' as const,
+        letterSpacing: 0,
+      },
+    };
+    useScoreboardStore.getState().addCustomField(element, 0, 0, 200, 100);
+
+    const field = useScoreboardStore.getState().customFieldsData.fields[0]!;
+    useScoreboardStore.getState().updateCustomFieldSize(field.id, 200, 200);
+
+    const { result } = renderHook(() => useFieldFontSize());
+    /* L'utilisateur saisit 80 (taille visuelle), scale = 2 → raw = 40 */
+    act(() => result.current.setFontSize(80));
+
+    const updated = useScoreboardStore.getState().customFieldsData.fields[0]!;
+    if (updated.element.type === 'text-block') {
+      expect(updated.element.config.fontSize).toBe(40);
+    }
+  });
+
+  it('fontInfo sans redimensionnement affiche la taille brute', () => {
+    const element = {
+      type: 'text-block' as const,
+      config: {
+        content: 'Test', fontSize: 50, fontWeight: 400, fontFamily: '',
+        textAlign: 'center' as const, textTransform: 'none' as const,
+        letterSpacing: 0,
+      },
+    };
+    useScoreboardStore.getState().addCustomField(element, 0, 0, 200, 100);
+
+    const { result } = renderHook(() => useFieldFontSize());
+    /* scale = 1 (pas de redimensionnement) → visuel = brut = 50 */
+    expect(result.current.fontInfo).toEqual({ value: 50, isGlobal: false });
+  });
 });
