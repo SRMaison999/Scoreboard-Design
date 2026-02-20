@@ -11,7 +11,10 @@ import { TemplateManager } from '@/components/editor/TemplateManager';
 import { UserManual } from '@/components/common/UserManual';
 import { EDITOR_LABELS } from '@/constants/labels';
 import { captureScreenshot, buildScreenshotFilename } from '@/utils/screenshot';
-import { Camera, Printer, Radio, BookOpen } from 'lucide-react';
+import { generateSpec, downloadSpec } from '@/utils/specGenerator';
+import { generateExplanation, downloadExplanation } from '@/utils/specExplanation';
+import { extractState } from '@/utils/stateExtractor';
+import { Camera, Printer, Radio, BookOpen, FileCode } from 'lucide-react';
 import '@/styles/index.css';
 import '@/styles/print.css';
 
@@ -48,6 +51,14 @@ export function App() {
     window.print();
   }, []);
 
+  const handleGenerateSpecs = useCallback(() => {
+    const extracted = extractState(useScoreboardStore.getState());
+    const spec = generateSpec(extracted);
+    downloadSpec(spec, state.team1, state.team2);
+    const explanation = generateExplanation(spec);
+    downloadExplanation(explanation, state.team1, state.team2);
+  }, [state.team1, state.team2]);
+
   const update = useScoreboardStore((s) => s.update);
   const handleInlineEdit = useCallback((field: string, value: string) => {
     type EditableKey = 'team1' | 'team2' | 'score1' | 'score2' | 'time' | 'period';
@@ -74,6 +85,15 @@ export function App() {
             >
               <Camera size={14} className="flex-shrink-0" />
               {EDITOR_LABELS.screenshot}
+            </button>
+            <button
+              type="button"
+              onClick={handleGenerateSpecs}
+              className={toolbarBtnClass}
+              title={EDITOR_LABELS.specsToolbarTooltip}
+            >
+              <FileCode size={14} className="flex-shrink-0" />
+              {EDITOR_LABELS.specsToolbarButton}
             </button>
             <button
               type="button"

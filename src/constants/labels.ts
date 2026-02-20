@@ -476,6 +476,8 @@ export const EDITOR_LABELS = {
   exportSpecsTitle: 'Sp\u00e9cifications techniques',
   exportSpecsButton: 'G\u00e9n\u00e9rer les specs',
   exportSpecsHint: 'T\u00e9l\u00e9charge un JSON d\u00e9crivant l\u2019\u00e9cran actuel',
+  specsToolbarButton: 'Specs',
+  specsToolbarTooltip: 'G\u00e9n\u00e8re les fichiers de sp\u00e9cifications (JSON + explication)',
 
   /* Import / Export roster */
   rosterImport: 'Importer',

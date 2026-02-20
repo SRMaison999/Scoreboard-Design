@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { App } from '@/app/App';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
+import { EDITOR_LABELS } from '@/constants/labels';
 
 describe('App', () => {
   beforeEach(() => {
@@ -18,5 +19,10 @@ describe('App', () => {
     render(<App />);
     expect(screen.getByText('Scoreboard Editor')).toBeInTheDocument();
     expect(screen.getByText('Ouvrir la sortie')).toBeInTheDocument();
+  });
+
+  it('affiche le bouton Specs dans la barre d outils', () => {
+    render(<App />);
+    expect(screen.getByText(EDITOR_LABELS.specsToolbarButton)).toBeInTheDocument();
   });
 });
