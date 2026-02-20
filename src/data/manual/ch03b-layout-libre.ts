@@ -81,11 +81,14 @@ Certains \u00e9l\u00e9ments sont li\u00e9s \u00e0 une \u00e9quipe. Le panneau Pr
 
 Par d\u00e9faut, tout nouvel \u00e9l\u00e9ment est sur le c\u00f4t\u00e9 **Gauche**. Pour afficher les deux \u00e9quipes, il faut ajouter **deux \u00e9l\u00e9ments du m\u00eame type** et configurer l'un sur Gauche et l'autre sur Droite.
 
-**Exemple : afficher les noms des deux \u00e9quipes**
-1. Ajoutez un \u00e9l\u00e9ment **Nom d'\u00e9quipe** depuis la biblioth\u00e8que > il affiche l'\u00e9quipe gauche par d\u00e9faut
+**Exemple : afficher les deux \u00e9quipes avec drapeaux**
+1. Ajoutez un \u00e9l\u00e9ment **Nom d'\u00e9quipe** depuis la biblioth\u00e8que (cat\u00e9gorie Match) > il affiche automatiquement le **drapeau + le nom** de l'\u00e9quipe gauche
 2. Ajoutez un **deuxi\u00e8me** \u00e9l\u00e9ment **Nom d'\u00e9quipe**
 3. Cliquez sur ce deuxi\u00e8me \u00e9l\u00e9ment dans le canvas > le panneau Propri\u00e9t\u00e9s appara\u00eet
-4. Dans le s\u00e9lecteur **C\u00f4t\u00e9**, choisissez **Droite** > il affiche maintenant l'\u00e9quipe droite
+4. Dans le s\u00e9lecteur **C\u00f4t\u00e9**, choisissez **Droite** > il affiche maintenant le drapeau + le nom de l'\u00e9quipe droite
+5. Positionnez les deux \u00e9l\u00e9ments o\u00f9 vous le souhaitez sur le canvas
+
+**Astuce** : le drapeau est affich\u00e9 par d\u00e9faut \u00e0 c\u00f4t\u00e9 du nom. D\u00e9cochez **"Afficher le drapeau"** dans le panneau Propri\u00e9t\u00e9s si vous ne voulez afficher que le nom.
 
 Les \u00e9l\u00e9ments concern\u00e9s par le s\u00e9lecteur "C\u00f4t\u00e9" sont : **Nom d'\u00e9quipe**, **Score**, **Drapeau**, **Colonne de p\u00e9nalit\u00e9s**.
 
@@ -97,7 +100,7 @@ Les \u00e9l\u00e9ments concern\u00e9s par le s\u00e9lecteur "C\u00f4t\u00e9" son
 | **Score** | C\u00f4t\u00e9 (gauche/droite), afficher le label, taille de police |
 | **Horloge** | Afficher la p\u00e9riode, afficher le cadre, taille de police |
 | **P\u00e9riode** | Taille de police |
-| **Nom d'\u00e9quipe** | C\u00f4t\u00e9 (gauche/droite), afficher le drapeau, taille de police |
+| **Nom d'\u00e9quipe** | C\u00f4t\u00e9 (gauche/droite), afficher le drapeau (activ\u00e9 par d\u00e9faut), taille de police |
 | **Drapeau** | C\u00f4t\u00e9 (gauche/droite) |
 | **Ligne de stat** | Index de la statistique \u00e0 afficher |
 | **Barre comparative** | Index de la barre \u00e0 afficher |

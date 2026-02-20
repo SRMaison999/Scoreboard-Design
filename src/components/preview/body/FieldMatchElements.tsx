@@ -77,24 +77,31 @@ export function PeriodElement({ state, colors, opacities, element }: {
   );
 }
 
+const FLAG_ASPECT = 1.54;
+
 export function TeamNameElement({ state, colors, opacities, element }: {
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
-  readonly element: { readonly config: { readonly side: string; readonly fontSizeOverride?: number } };
+  readonly element: { readonly config: { readonly side: string; readonly showFlag?: boolean; readonly fontSizeOverride?: number } };
 }) {
   const isLeft = element.config.side === 'left';
   const displayName = isLeft ? state.teamDisplayName1 : state.teamDisplayName2;
-  const name = displayName || (isLeft ? state.team1 : state.team2);
+  const code = isLeft ? state.team1 : state.team2;
+  const name = displayName || code;
   const fontSize = resolveFontSize(element.config.fontSizeOverride, state.fontSizes.teamName);
+  const showFlag = element.config.showFlag !== false;
+  const flagH = Math.round(fontSize * 0.72);
+  const flagW = Math.round(flagH * FLAG_ASPECT);
   return (
     <div style={{
       width: '100%', height: '100%',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12,
       fontSize, fontWeight: 700,
       fontFamily: ff(state.fontTeams), color: col(colors, opacities, 'teamName'),
       letterSpacing: 4, textTransform: 'uppercase',
     }}>
+      {showFlag && <Flag code={code} w={flagW} h={flagH} />}
       {name}
     </div>
   );

@@ -51,17 +51,32 @@ describe('FieldMatchElements', () => {
     expect(screen.getByText('2nd')).toBeInTheDocument();
   });
 
-  it('TeamNameElement affiche l equipe gauche', () => {
+  it('TeamNameElement affiche l equipe gauche avec drapeau', () => {
     const state = { ...DEFAULT_STATE, team1: 'SUI', team2: 'CAN' };
-    render(
+    const { container } = render(
       <TeamNameElement
         state={state}
         colors={DEFAULT_COLORS}
         opacities={DEFAULT_OPACITIES}
-        element={{ config: { side: 'left' } }}
+        element={{ config: { side: 'left', showFlag: true } }}
       />,
     );
     expect(screen.getByText('SUI')).toBeInTheDocument();
+    expect(container.querySelector('img')).toBeTruthy();
+  });
+
+  it('TeamNameElement affiche l equipe droite sans drapeau', () => {
+    const state = { ...DEFAULT_STATE, team1: 'SUI', team2: 'CAN' };
+    const { container } = render(
+      <TeamNameElement
+        state={state}
+        colors={DEFAULT_COLORS}
+        opacities={DEFAULT_OPACITIES}
+        element={{ config: { side: 'right', showFlag: false } }}
+      />,
+    );
+    expect(screen.getByText('CAN')).toBeInTheDocument();
+    expect(container.querySelector('img')).toBeFalsy();
   });
 
   it('FlagElement rend un composant Flag', () => {
