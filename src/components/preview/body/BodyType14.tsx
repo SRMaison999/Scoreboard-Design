@@ -186,6 +186,29 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
     >
       {showGuides && <GridOverlay gridSize={gridSize} />}
 
+      {sorted.length === 0 && !zone.active && (
+        <div
+          data-testid="empty-canvas-hint"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            pointerEvents: 'none',
+          }}
+        >
+          <span style={{ fontSize: 16, fontWeight: 600, color: 'rgba(148, 163, 184, 0.6)' }}>
+            {CUSTOM_FIELD_LABELS.emptyCanvasTitle}
+          </span>
+          <span style={{ fontSize: 13, color: 'rgba(148, 163, 184, 0.4)', maxWidth: 360, textAlign: 'center' }}>
+            {CUSTOM_FIELD_LABELS.emptyCanvasHint}
+          </span>
+        </div>
+      )}
+
       {sorted.map((field) => (
         <InteractiveField
           key={field.id}

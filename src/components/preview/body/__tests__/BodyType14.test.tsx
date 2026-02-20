@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { BodyType14 } from '../BodyType14';
 import { DEFAULT_STATE } from '@/data/defaultState';
 import { DEFAULT_COLORS, DEFAULT_OPACITIES } from '@/constants/colors';
+import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import type { CustomField, FieldElementConfig } from '@/types/customField';
 import type { ScoreboardState } from '@/types/scoreboard';
 
@@ -80,5 +81,23 @@ describe('BodyType14', () => {
       <BodyType14 state={state} colors={DEFAULT_COLORS} opacities={DEFAULT_OPACITIES} />,
     );
     expect(container.querySelector('[data-testid="body-type-14"]')).toBeInTheDocument();
+  });
+
+  it('affiche l indice de canvas vide en mode interactif sans champs', () => {
+    const state = makeState([]);
+    render(
+      <BodyType14 state={state} colors={DEFAULT_COLORS} opacities={DEFAULT_OPACITIES} canvasScale={0.5} />,
+    );
+    expect(screen.getByTestId('empty-canvas-hint')).toBeInTheDocument();
+    expect(screen.getByText(CUSTOM_FIELD_LABELS.emptyCanvasTitle)).toBeInTheDocument();
+  });
+
+  it('masque l indice de canvas vide quand des champs existent', () => {
+    const fields = [makeTextField('a', 0, 0)];
+    const state = makeState(fields);
+    render(
+      <BodyType14 state={state} colors={DEFAULT_COLORS} opacities={DEFAULT_OPACITIES} canvasScale={0.5} />,
+    );
+    expect(screen.queryByTestId('empty-canvas-hint')).not.toBeInTheDocument();
   });
 });

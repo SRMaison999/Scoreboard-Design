@@ -237,7 +237,7 @@ export function CustomFieldProperties({ fieldId }: CustomFieldPropertiesProps) {
 
       {/* Configuration specifique a l'element */}
       <div className="text-[10px] text-gray-500 uppercase tracking-wider border-t border-gray-800 pt-1 mt-1">
-        {field.element.type}
+        {CUSTOM_FIELD_LABELS.elementTypeLabels[field.element.type] ?? field.element.type}
       </div>
       <FieldElementConfigEditor fieldId={fieldId} element={field.element} />
 

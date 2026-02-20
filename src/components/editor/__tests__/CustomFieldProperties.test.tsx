@@ -80,4 +80,14 @@ describe('CustomFieldProperties', () => {
       expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldPadding)).toBeInTheDocument();
     }
   });
+
+  it('affiche le label lisible du type d element', () => {
+    useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
+    const field = useScoreboardStore.getState().customFieldsData.fields[0];
+
+    if (field) {
+      render(<CustomFieldProperties fieldId={field.id} />);
+      expect(screen.getByText('Bloc de texte')).toBeInTheDocument();
+    }
+  });
 });
