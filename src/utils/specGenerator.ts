@@ -117,7 +117,7 @@ function getBodyData(state: ScoreboardState): unknown {
     case 13: return structuredClone(state.scheduleData);
     case 14: return structuredClone({
       ...state.customFieldsData,
-      selectedFieldId: null,
+      selectedFieldIds: [],
     });
     default: return null;
   }

@@ -40,7 +40,7 @@ function makeState(fields: CustomField[]): ScoreboardState {
       snapToGrid: true,
       gridSize: 20,
       showGuides: true,
-      selectedFieldId: null,
+      selectedFieldIds: [],
       zoneSelectionActive: false,
     },
   };

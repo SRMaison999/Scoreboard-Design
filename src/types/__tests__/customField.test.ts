@@ -55,7 +55,7 @@ describe('customField types et constantes', () => {
     expect(data.snapToGrid).toBe(true);
     expect(data.gridSize).toBe(20);
     expect(data.showGuides).toBe(true);
-    expect(data.selectedFieldId).toBeNull();
+    expect(data.selectedFieldIds).toEqual([]);
   });
 
   it('FieldElementConfig union accepte un text-block', () => {

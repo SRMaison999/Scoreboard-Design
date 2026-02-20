@@ -27,7 +27,8 @@ export function CustomFieldsSection() {
   const snapToGrid = useScoreboardStore((s) => s.customFieldsData.snapToGrid);
   const showGuides = useScoreboardStore((s) => s.customFieldsData.showGuides);
   const gridSize = useScoreboardStore((s) => s.customFieldsData.gridSize);
-  const selectedFieldId = useScoreboardStore((s) => s.customFieldsData.selectedFieldId);
+  const selectedFieldIds = useScoreboardStore((s) => s.customFieldsData.selectedFieldIds);
+  const singleSelectedId = selectedFieldIds.length === 1 ? selectedFieldIds[0] ?? null : null;
   const fieldsCount = useScoreboardStore((s) => s.customFieldsData.fields.length);
   const updateOption = useScoreboardStore((s) => s.updateCustomFieldsOption);
   const updateGridSize = useScoreboardStore((s) => s.updateCustomFieldsGridSize);
@@ -161,7 +162,7 @@ export function CustomFieldsSection() {
             variant="ghost"
             className="flex items-center gap-2 w-full justify-start"
             onClick={handleOpenSaveField}
-            disabled={!selectedFieldId}
+            disabled={!singleSelectedId}
           >
             <Save size={14} className="flex-shrink-0" />
             {CUSTOM_FIELD_LABELS.presetSaveField}
@@ -208,9 +209,9 @@ export function CustomFieldsSection() {
         </div>
       </Section>
 
-      {selectedFieldId && (
+      {singleSelectedId && (
         <Section title={CUSTOM_FIELD_LABELS.fieldProperties} defaultOpen>
-          <CustomFieldProperties fieldId={selectedFieldId} />
+          <CustomFieldProperties fieldId={singleSelectedId} />
         </Section>
       )}
 

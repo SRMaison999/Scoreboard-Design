@@ -36,6 +36,6 @@ describe('useFieldDrag', () => {
       result.current.onPointerDown(fakeEvent, fieldId, 50, 50);
     });
 
-    expect(useScoreboardStore.getState().customFieldsData.selectedFieldId).toBe(fieldId);
+    expect(useScoreboardStore.getState().customFieldsData.selectedFieldIds).toEqual([fieldId]);
   });
 });

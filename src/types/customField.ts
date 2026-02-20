@@ -214,7 +214,7 @@ export interface CustomFieldsData {
   snapToGrid: boolean;
   gridSize: number;
   showGuides: boolean;
-  selectedFieldId: string | null;
+  selectedFieldIds: string[];
   zoneSelectionActive: boolean;
 }
 
@@ -255,6 +255,6 @@ export const DEFAULT_CUSTOM_FIELDS_DATA: CustomFieldsData = {
   snapToGrid: true,
   gridSize: 20,
   showGuides: true,
-  selectedFieldId: null,
+  selectedFieldIds: [],
   zoneSelectionActive: false,
 };

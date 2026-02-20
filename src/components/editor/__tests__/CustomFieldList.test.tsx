@@ -43,7 +43,7 @@ describe('CustomFieldList', () => {
     const field = useScoreboardStore.getState().customFieldsData.fields[0];
     if (field) {
       await user.click(screen.getByText(field.label));
-      expect(useScoreboardStore.getState().customFieldsData.selectedFieldId).toBe(field.id);
+      expect(useScoreboardStore.getState().customFieldsData.selectedFieldIds).toEqual([field.id]);
     }
   });
 

@@ -12,6 +12,8 @@ import {
   updateCustomFieldElementDraft, updateCustomFieldStyleDraft,
   updateCustomFieldPropDraft, duplicateCustomFieldDraft,
   resetCustomFieldScaleDraft, reorderCustomFieldDraft,
+  moveSelectedFieldsDraft, removeSelectedFieldsDraft,
+  duplicateSelectedFieldsDraft,
 } from './customFieldActions';
 import type { ScoreboardState, PenaltySide } from '@/types/scoreboard';
 import type { ColorKey, ColorPreset } from '@/types/colors';
@@ -227,7 +229,23 @@ export const useScoreboardStore = create<ScoreboardStore>()(
       reorderCustomField: (fieldId, newZIndex) =>
         set((s) => { reorderCustomFieldDraft(s, fieldId, newZIndex); }),
       selectCustomField: (fieldId) =>
-        set((s) => { s.customFieldsData.selectedFieldId = fieldId; }),
+        set((s) => { s.customFieldsData.selectedFieldIds = fieldId ? [fieldId] : []; }),
+      toggleFieldSelection: (fieldId) =>
+        set((s) => {
+          const ids = s.customFieldsData.selectedFieldIds;
+          const idx = ids.indexOf(fieldId);
+          if (idx === -1) { ids.push(fieldId); } else { ids.splice(idx, 1); }
+        }),
+      selectAllFields: () =>
+        set((s) => { s.customFieldsData.selectedFieldIds = s.customFieldsData.fields.map((f) => f.id); }),
+      clearFieldSelection: () =>
+        set((s) => { s.customFieldsData.selectedFieldIds = []; }),
+      moveSelectedFields: (dx, dy) =>
+        set((s) => { moveSelectedFieldsDraft(s, dx, dy); }),
+      removeSelectedFields: () =>
+        set((s) => { removeSelectedFieldsDraft(s); }),
+      duplicateSelectedFields: () =>
+        set((s) => { duplicateSelectedFieldsDraft(s); }),
       updateCustomFieldsOption: (key, value) =>
         set((s) => { (s.customFieldsData as Record<string, unknown>)[key] = value; }),
       updateCustomFieldsGridSize: (size) =>
@@ -281,13 +299,21 @@ export const useScoreboardStore = create<ScoreboardStore>()(
           state['customFieldsData'] = structuredClone(DEFAULT_CUSTOM_FIELDS_DATA);
         }
         /* Migration : ajouter scaleContent/initialWidth/initialHeight aux champs existants */
-        const cfd = state['customFieldsData'] as { fields?: Array<Record<string, unknown>> };
+        const cfd = state['customFieldsData'] as Record<string, unknown> & { fields?: Array<Record<string, unknown>> };
         if (cfd?.fields) {
           for (const f of cfd.fields) {
             if (f['scaleContent'] === undefined) f['scaleContent'] = true;
             if (f['initialWidth'] === undefined) f['initialWidth'] = f['width'];
             if (f['initialHeight'] === undefined) f['initialHeight'] = f['height'];
           }
+        }
+        /* Migration : selectedFieldId (string|null) → selectedFieldIds (string[]) */
+        if (cfd && cfd['selectedFieldId'] !== undefined) {
+          const old = cfd['selectedFieldId'] as string | null;
+          cfd['selectedFieldIds'] = old ? [old] : [];
+          delete cfd['selectedFieldId'];
+        } else if (cfd && cfd['selectedFieldIds'] === undefined) {
+          cfd['selectedFieldIds'] = [];
         }
         /* v8 : vider le contenu pour un ecran vierge au demarrage */
         const clean = structuredClone(CLEAN_CONTENT) as Record<string, unknown>;

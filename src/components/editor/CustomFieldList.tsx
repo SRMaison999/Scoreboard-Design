@@ -10,8 +10,9 @@ import { cn } from '@/lib/utils';
 
 export function CustomFieldList() {
   const fields = useScoreboardStore((s) => s.customFieldsData.fields);
-  const selectedId = useScoreboardStore((s) => s.customFieldsData.selectedFieldId);
+  const selectedIds = useScoreboardStore((s) => s.customFieldsData.selectedFieldIds);
   const selectField = useScoreboardStore((s) => s.selectCustomField);
+  const toggleSelection = useScoreboardStore((s) => s.toggleFieldSelection);
   const removeField = useScoreboardStore((s) => s.removeCustomField);
   const updateProp = useScoreboardStore((s) => s.updateCustomFieldProp);
   const reorderField = useScoreboardStore((s) => s.reorderCustomField);
@@ -49,11 +50,14 @@ export function CustomFieldList() {
           key={field.id}
           className={cn(
             'flex items-center gap-1 rounded px-2 py-1 cursor-pointer text-[12px]',
-            selectedId === field.id
+            selectedIds.includes(field.id)
               ? 'bg-sky-900/40 text-sky-300 border border-sky-600/40'
               : 'text-gray-300 hover:bg-gray-800 border border-transparent',
           )}
-          onClick={() => selectField(field.id)}
+          onClick={(e) => {
+            if (e.ctrlKey || e.metaKey) { toggleSelection(field.id); }
+            else { selectField(field.id); }
+          }}
           role="button"
           tabIndex={0}
           onKeyDown={(e) => { if (e.key === 'Enter') selectField(field.id); }}

@@ -48,16 +48,16 @@ export function addCustomFieldDraft(
   };
 
   s.customFieldsData.fields.push(newField);
-  s.customFieldsData.selectedFieldId = newField.id;
+  s.customFieldsData.selectedFieldIds = [newField.id];
 }
 
 export function removeCustomFieldDraft(s: Draft, fieldId: string): void {
   const idx = s.customFieldsData.fields.findIndex((f) => f.id === fieldId);
   if (idx === -1) return;
   s.customFieldsData.fields.splice(idx, 1);
-  if (s.customFieldsData.selectedFieldId === fieldId) {
-    s.customFieldsData.selectedFieldId = null;
-  }
+  s.customFieldsData.selectedFieldIds = s.customFieldsData.selectedFieldIds.filter(
+    (id) => id !== fieldId,
+  );
 }
 
 export function updateCustomFieldPositionDraft(
@@ -150,7 +150,7 @@ export function duplicateCustomFieldDraft(s: Draft, fieldId: string): void {
   };
 
   s.customFieldsData.fields.push(copy);
-  s.customFieldsData.selectedFieldId = copy.id;
+  s.customFieldsData.selectedFieldIds = [copy.id];
 }
 
 export function resetCustomFieldScaleDraft(s: Draft, fieldId: string): void {
@@ -168,4 +168,63 @@ export function reorderCustomFieldDraft(
   const field = findField(s, fieldId);
   if (!field) return;
   (field as { zIndex: number }).zIndex = newZIndex;
+}
+
+export function moveSelectedFieldsDraft(
+  s: Draft,
+  dx: number,
+  dy: number,
+): void {
+  const ids = s.customFieldsData.selectedFieldIds;
+  const cw = s.templateWidth;
+  const ch = s.templateHeight;
+
+  for (const id of ids) {
+    const field = findField(s, id);
+    if (!field || field.locked) continue;
+    (field as { x: number }).x = Math.max(0, Math.min(field.x + dx, cw - field.width));
+    (field as { y: number }).y = Math.max(0, Math.min(field.y + dy, ch - field.height));
+  }
+}
+
+export function removeSelectedFieldsDraft(s: Draft): void {
+  const ids = new Set(s.customFieldsData.selectedFieldIds);
+  s.customFieldsData.fields = s.customFieldsData.fields.filter((f) => !ids.has(f.id));
+  s.customFieldsData.selectedFieldIds = [];
+}
+
+export function duplicateSelectedFieldsDraft(s: Draft): void {
+  const ids = s.customFieldsData.selectedFieldIds;
+  const fields = s.customFieldsData.fields;
+  const maxZ = fields.reduce((max, f) => Math.max(max, f.zIndex), 0);
+  const newIds: string[] = [];
+
+  for (let i = 0; i < ids.length; i++) {
+    const field = findField(s, ids[i]!);
+    if (!field) continue;
+    if (fields.length >= FIELD_MAX_FIELDS) break;
+
+    const copy: CustomField = {
+      id: generateId(),
+      label: `${field.label} (copie)`,
+      x: Math.min(field.x + 30, s.templateWidth - field.width),
+      y: Math.min(field.y + 30, s.templateHeight - field.height),
+      width: field.width,
+      height: field.height,
+      zIndex: maxZ + i + 1,
+      locked: field.locked,
+      visible: field.visible,
+      lockAspectRatio: field.lockAspectRatio,
+      scaleContent: field.scaleContent,
+      initialWidth: field.initialWidth,
+      initialHeight: field.initialHeight,
+      element: JSON.parse(JSON.stringify(field.element)) as FieldElementConfig,
+      style: { ...field.style },
+    };
+
+    fields.push(copy);
+    newIds.push(copy.id);
+  }
+
+  s.customFieldsData.selectedFieldIds = newIds;
 }

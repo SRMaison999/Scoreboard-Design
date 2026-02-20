@@ -65,6 +65,6 @@ describe('PropertiesPanel', () => {
     const closeBtn = screen.getByTitle(CUSTOM_FIELD_LABELS.propertiesPanelClose);
     await user.click(closeBtn);
 
-    expect(useScoreboardStore.getState().customFieldsData.selectedFieldId).toBeNull();
+    expect(useScoreboardStore.getState().customFieldsData.selectedFieldIds).toEqual([]);
   });
 });

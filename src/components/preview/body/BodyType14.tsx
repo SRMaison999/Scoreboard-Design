@@ -109,9 +109,9 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
   readonly opacities: OpacityMap;
   readonly canvasScale: number;
 }) {
-  const selectedFieldId = useScoreboardStore((s) => s.customFieldsData.selectedFieldId);
+  const selectedIds = useScoreboardStore((s) => s.customFieldsData.selectedFieldIds);
   const zoneSelectionActive = useScoreboardStore((s) => s.customFieldsData.zoneSelectionActive);
-  const selectField = useScoreboardStore((s) => s.selectCustomField);
+  const clearSelection = useScoreboardStore((s) => s.clearFieldSelection);
   const updateOption = useScoreboardStore((s) => s.updateCustomFieldsOption);
   const setCapturedFields = useZoneSelectionStore((s) => s.setCapturedFields);
   const { showGuides, gridSize } = state.customFieldsData;
@@ -122,8 +122,9 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
 
   const fields = state.customFieldsData.fields;
   const sorted = [...fields].sort((a, b) => a.zIndex - b.zIndex);
-  const selectedField = selectedFieldId
-    ? fields.find((f) => f.id === selectedFieldId)
+  const singleSelectedId = selectedIds.length === 1 ? selectedIds[0] ?? null : null;
+  const selectedField = singleSelectedId
+    ? fields.find((f) => f.id === singleSelectedId)
     : undefined;
 
   const handleZoneCapture = useCallback((captured: readonly CustomField[]) => {
@@ -147,21 +148,20 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
   const handleBackgroundClick = (e: React.MouseEvent) => {
     if (zone.active) return;
     if (e.target === e.currentTarget) {
-      selectField(null);
+      clearSelection();
     }
   };
 
-  /** Molette sur un champ sélectionné = ajuste la taille de police (sans Ctrl) */
+  /** Molette sur un champ selectionne = ajuste la taille de police (sans Ctrl) */
   const handleFieldWheel = useCallback((e: React.WheelEvent) => {
-    if (!hasFontControl || !selectedFieldId) return;
-    /* Vérifier que la molette est sur le champ sélectionné */
+    if (!hasFontControl || !singleSelectedId) return;
     const target = e.target as HTMLElement;
-    const fieldEl = target.closest(`[data-field-id="${selectedFieldId}"]`);
+    const fieldEl = target.closest(`[data-field-id="${singleSelectedId}"]`);
     if (!fieldEl) return;
     e.stopPropagation();
     const delta = e.deltaY < 0 ? 1 : -1;
     adjustFontSize(delta);
-  }, [hasFontControl, selectedFieldId, adjustFontSize]);
+  }, [hasFontControl, singleSelectedId, adjustFontSize]);
 
   const showToolbar = selectedField
     && hasFontControl
@@ -216,7 +216,7 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
           state={state}
           colors={colors}
           opacities={opacities}
-          isSelected={selectedFieldId === field.id}
+          isSelected={selectedIds.includes(field.id)}
           drag={zone.active ? disabledDrag : drag}
           resize={resize}
         />

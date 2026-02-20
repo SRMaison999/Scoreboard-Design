@@ -66,7 +66,7 @@ describe('generateSpec', () => {
     expect(spec.body.type).toBe(14);
     expect(spec.body.label).toBe('Layout libre');
     const data = spec.body.data as Record<string, unknown>;
-    expect(data.selectedFieldId).toBeNull();
+    expect(data.selectedFieldIds).toEqual([]);
   });
 
   it('inclut les donnees des types 1-3 (stats avec titres)', () => {

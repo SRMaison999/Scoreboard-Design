@@ -54,7 +54,7 @@ describe('presetStore', () => {
     expect(presets[0]!.name).toBe('Mon layout');
     expect(presets[0]!.scope).toBe('layout');
     expect(presets[0]!.layout?.fields).toHaveLength(1);
-    expect(presets[0]!.layout?.selectedFieldId).toBeNull();
+    expect(presets[0]!.layout?.selectedFieldIds).toEqual([]);
   });
 
   it('supprime un preset', async () => {
