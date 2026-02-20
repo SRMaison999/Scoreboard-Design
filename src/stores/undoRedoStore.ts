@@ -83,8 +83,42 @@ export const useUndoRedoStore = create<UndoRedoStore>((set, get) => ({
   },
 }));
 
+/** Délai de regroupement des changements rapides (ex: drag) en millisecondes */
+export const DEBOUNCE_DELAY = 300;
+
+/* État du debounce au niveau module pour accès depuis flushUndoSnapshot */
+let pendingSnapshot: CustomField[] | null = null;
+let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+function commitSnapshot(): void {
+  if (!pendingSnapshot) return;
+  const snapshot = pendingSnapshot;
+  pendingSnapshot = null;
+  debounceTimer = null;
+  useUndoRedoStore.setState((s) => {
+    const newPast = [...s.past, snapshot].slice(-MAX_HISTORY);
+    return {
+      past: newPast,
+      future: [],
+      canUndo: newPast.length > 0,
+      canRedo: false,
+    };
+  });
+}
+
 /**
- * Initialise l'écoute des changements de champs.
+ * Force le flush immédiat du snapshot en attente.
+ * Utile avant un undo/redo déclenché par raccourci clavier.
+ */
+export function flushUndoSnapshot(): void {
+  if (debounceTimer) clearTimeout(debounceTimer);
+  commitSnapshot();
+}
+
+/**
+ * Initialise l'écoute des changements de champs avec debounce.
+ * Les modifications rapprochées (drag, resize) sont regroupées en un seul
+ * snapshot pour éviter d'encombrer l'historique.
  * Doit être appelé une seule fois au montage de l'application.
  */
 let subscribed = false;
@@ -101,18 +135,24 @@ export function initUndoRedoListener(): void {
 
     const { restoring } = useUndoRedoStore.getState();
     if (!restoring) {
-      const snapshot = structuredClone(previousFields) as CustomField[];
-      useUndoRedoStore.setState((s) => {
-        const newPast = [...s.past, snapshot].slice(-MAX_HISTORY);
-        return {
-          past: newPast,
-          future: [],
-          canUndo: newPast.length > 0,
-          canRedo: false,
-        };
-      });
+      /* Capturer le snapshot initial (avant les changements rapides) */
+      if (!pendingSnapshot) {
+        pendingSnapshot = structuredClone(previousFields) as CustomField[];
+      }
+
+      /* Repousser le timer à chaque changement rapproché */
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(commitSnapshot, DEBOUNCE_DELAY);
     }
 
     previousFields = currentFields;
   });
+}
+
+/** Réinitialise l'état du listener (pour les tests) */
+export function resetUndoRedoListener(): void {
+  subscribed = false;
+  if (debounceTimer) clearTimeout(debounceTimer);
+  debounceTimer = null;
+  pendingSnapshot = null;
 }

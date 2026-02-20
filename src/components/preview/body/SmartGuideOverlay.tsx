@@ -4,13 +4,14 @@
  * Rendu sur le canvas (inline styles autorises).
  */
 
+import { memo } from 'react';
 import type { GuideLine } from '@/hooks/useSmartGuides';
 
 interface SmartGuideOverlayProps {
   readonly guides: readonly GuideLine[];
 }
 
-export function SmartGuideOverlay({ guides }: SmartGuideOverlayProps) {
+export const SmartGuideOverlay = memo(function SmartGuideOverlay({ guides }: SmartGuideOverlayProps) {
   if (guides.length === 0) return null;
 
   return (
@@ -50,4 +51,4 @@ export function SmartGuideOverlay({ guides }: SmartGuideOverlayProps) {
       })}
     </div>
   );
-}
+});

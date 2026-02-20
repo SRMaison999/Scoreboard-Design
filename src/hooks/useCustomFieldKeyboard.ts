@@ -6,7 +6,7 @@
 
 import { useEffect, useCallback } from 'react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
-import { useUndoRedoStore } from '@/stores/undoRedoStore';
+import { useUndoRedoStore, flushUndoSnapshot } from '@/stores/undoRedoStore';
 import { useCanvasViewStore } from '@/stores/canvasViewStore';
 import { useClipboardStore } from '@/stores/clipboardStore';
 
@@ -36,14 +36,16 @@ export function useCustomFieldKeyboard() {
       const isInput = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT';
       if (isInput) return;
 
-      /* Undo / Redo : toujours actifs */
+      /* Undo / Redo : flush le snapshot en attente avant de restaurer */
       if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
         e.preventDefault();
+        flushUndoSnapshot();
         undo();
         return;
       }
       if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
         e.preventDefault();
+        flushUndoSnapshot();
         redo();
         return;
       }

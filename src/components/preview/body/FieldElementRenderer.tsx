@@ -3,6 +3,7 @@
  * Dispatche vers le bon composant en fonction du type d'element.
  */
 
+import { memo } from 'react';
 import {
   ScoreElement,
   ClockElement,
@@ -144,7 +145,7 @@ function PlaceholderElement({ label }: { readonly label: string }) {
   );
 }
 
-export function FieldElementRenderer({
+export const FieldElementRenderer = memo(function FieldElementRenderer({
   element,
   state,
   colors,
@@ -210,4 +211,4 @@ export function FieldElementRenderer({
       return <PlaceholderElement label={element.type} />;
     }
   }
-}
+});

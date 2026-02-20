@@ -66,6 +66,8 @@ export const CUSTOM_FIELD_LABELS = {
   layerMoveDown: 'Descendre',
   layerToFront: 'Premier plan',
   layerToBack: 'Arrière-plan',
+  layerRename: 'Double-cliquer pour renommer',
+  layerRenameEmpty: 'Le nom ne peut pas être vide',
 
   /* Contraintes */
   canvasFull: 'Canvas complet. Supprimez un champ pour en ajouter un nouveau.',
@@ -291,6 +293,42 @@ export const CUSTOM_FIELD_LABELS = {
   effectShadowOpacity: 'Opacit\u00e9',
   effectShadowEnable: 'Activer l\u2019ombre',
   effectBackdropBlur: 'Flou d\u2019arri\u00e8re-plan',
+
+  /* R\u00e8gles du canvas */
+  rulerUnit: 'px',
+
+  /* Mod\u00e8les hockey (presets bodyType 14) */
+  hockeyPresetTitle: 'Mod\u00e8les hockey',
+  hockeyPresetSimpleScore: 'Score simple',
+  hockeyPresetWithPenalties: 'Score avec p\u00e9nalit\u00e9s',
+  hockeyPresetLowerThird: 'Bandeau inf\u00e9rieur',
+  hockeyPresetFullStats: 'Statistiques compl\u00e8tes',
+  hockeyPresetApply: 'Appliquer le mod\u00e8le',
+  hockeyPresetDescription: 'Mod\u00e8les pr\u00e9d\u00e9finis pour tableaux de bord hockey',
+
+  /* Modale raccourcis clavier */
+  shortcutsTitle: 'Raccourcis clavier',
+  shortcutsSectionGeneral: 'G\u00e9n\u00e9ral',
+  shortcutsSectionSelection: 'S\u00e9lection',
+  shortcutsSectionClipboard: 'Presse-papiers',
+  shortcutsSectionFields: 'Champs',
+  shortcutsSectionZoom: 'Zoom',
+  shortcutUndo: 'Annuler',
+  shortcutRedo: 'R\u00e9tablir',
+  shortcutSave: 'Sauvegarder',
+  shortcutSelectAll: 'Tout s\u00e9lectionner',
+  shortcutDeselect: 'D\u00e9s\u00e9lectionner',
+  shortcutCopy: 'Copier',
+  shortcutCut: 'Couper',
+  shortcutPaste: 'Coller',
+  shortcutDuplicate: 'Dupliquer',
+  shortcutDelete: 'Supprimer',
+  shortcutMove: 'D\u00e9placer (1px)',
+  shortcutMoveFast: 'D\u00e9placer (10px)',
+  shortcutZoomFit: 'Ajuster au canvas',
+  shortcutZoom100: 'Zoom 100\u00a0%',
+  shortcutZoomIn: 'Zoom avant',
+  shortcutZoomOut: 'Zoom arri\u00e8re',
 } as const;
 
 /* --- Bibliothèque d'éléments --- */
