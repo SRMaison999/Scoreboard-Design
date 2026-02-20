@@ -22,9 +22,9 @@ export function ZoomBar() {
       data-testid="zoom-bar"
       className={cn(
         'absolute bottom-3 left-1/2 -translate-x-1/2 z-10',
-        'flex items-center gap-1.5',
+        'flex items-center gap-2',
         'bg-gray-900/90 border border-gray-700 rounded-lg',
-        'px-2 py-1 backdrop-blur-sm',
+        'px-3 py-1.5 backdrop-blur-sm',
       )}
     >
       <button
@@ -36,12 +36,12 @@ export function ZoomBar() {
           'hover:bg-gray-700 transition-colors',
         )}
       >
-        <ZoomOut size={16} className="flex-shrink-0" />
+        <ZoomOut size={18} className="flex-shrink-0" />
       </button>
 
       <span
         data-testid="zoom-percentage"
-        className="text-xs text-gray-300 tabular-nums min-w-[3.5rem] text-center select-none"
+        className="text-sm text-gray-300 tabular-nums min-w-[4rem] text-center select-none font-medium"
       >
         {zoomPercent}
         {'\u00a0%'}
@@ -56,7 +56,7 @@ export function ZoomBar() {
           'hover:bg-gray-700 transition-colors',
         )}
       >
-        <ZoomIn size={16} className="flex-shrink-0" />
+        <ZoomIn size={18} className="flex-shrink-0" />
       </button>
 
       <div className="w-px h-4 bg-gray-700 mx-0.5" />
@@ -70,7 +70,7 @@ export function ZoomBar() {
           'hover:bg-gray-700 transition-colors',
         )}
       >
-        <Maximize2 size={16} className="flex-shrink-0" />
+        <Maximize2 size={18} className="flex-shrink-0" />
       </button>
 
       <button
@@ -82,7 +82,7 @@ export function ZoomBar() {
           'hover:bg-gray-700 transition-colors',
         )}
       >
-        <Scan size={16} className="flex-shrink-0" />
+        <Scan size={18} className="flex-shrink-0" />
       </button>
     </div>
   );

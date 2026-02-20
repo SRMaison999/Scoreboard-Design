@@ -74,10 +74,10 @@ export function EmptyCanvasHint() {
         alignItems: 'center', justifyContent: 'center', gap: 8, pointerEvents: 'none',
       }}
     >
-      <span style={{ fontSize: 28, fontWeight: 700, color: 'rgba(148, 163, 184, 0.85)', letterSpacing: 2 }}>
+      <span style={{ fontSize: 36, fontWeight: 700, color: 'rgba(148, 163, 184, 0.85)', letterSpacing: 2 }}>
         {CUSTOM_FIELD_LABELS.emptyCanvasTitle}
       </span>
-      <span style={{ fontSize: 18, color: 'rgba(148, 163, 184, 0.7)', maxWidth: 500, textAlign: 'center', lineHeight: 1.5 }}>
+      <span style={{ fontSize: 22, color: 'rgba(148, 163, 184, 0.7)', maxWidth: 560, textAlign: 'center', lineHeight: 1.5 }}>
         {CUSTOM_FIELD_LABELS.emptyCanvasHint}
       </span>
     </div>
@@ -98,8 +98,8 @@ export function DropIndicatorOverlay() {
       }}
     >
       <span style={{
-        backgroundColor: 'rgba(0, 0, 0, 0.75)', color: 'rgba(56, 189, 248, 1)',
-        padding: '8px 20px', borderRadius: 6, fontSize: 16, fontWeight: 600,
+        backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'rgba(56, 189, 248, 1)',
+        padding: '12px 28px', borderRadius: 8, fontSize: 20, fontWeight: 600,
       }}>
         {CUSTOM_FIELD_LABELS.dropHint}
       </span>
