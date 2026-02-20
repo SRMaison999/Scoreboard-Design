@@ -114,7 +114,7 @@ export interface ScoreboardActions {
   updateFontSize: (key: FontSizeKey, value: number) => void;
 
   /* Custom Fields (type 14) */
-  addCustomField: (element: FieldElementConfig, x: number, y: number, width: number, height: number) => void;
+  addCustomField: (element: FieldElementConfig, x: number, y: number, width: number, height: number, label?: string) => void;
   removeCustomField: (fieldId: string) => void;
   updateCustomFieldPosition: (fieldId: string, x: number, y: number) => void;
   updateCustomFieldSize: (fieldId: string, width: number, height: number) => void;

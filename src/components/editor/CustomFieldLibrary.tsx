@@ -86,9 +86,12 @@ function defaultConfig(el: LibraryElement): FieldElementConfig {
   }
 }
 
+/** Types d'elements qui dependent du cote (equipe 1 / equipe 2) */
+const SIDE_TYPES = new Set(['score-display', 'team-name', 'flag-display', 'penalty-column']);
+
 export function CustomFieldLibrary() {
   const [search, setSearch] = useState('');
-  const fieldsCount = useScoreboardStore((s) => s.customFieldsData.fields.length);
+  const fields = useScoreboardStore((s) => s.customFieldsData.fields);
   const templateWidth = useScoreboardStore((s) => s.templateWidth);
   const templateHeight = useScoreboardStore((s) => s.templateHeight);
   const addField = useScoreboardStore((s) => s.addCustomField);
@@ -99,15 +102,36 @@ export function CustomFieldLibrary() {
     return LIBRARY_ELEMENTS.filter((el) => el.label.toLowerCase().includes(q));
   }, [search]);
 
-  const isFull = fieldsCount >= FIELD_MAX_FIELDS;
+  const isFull = fields.length >= FIELD_MAX_FIELDS;
+
+  /** Detecte automatiquement le cote : si un element 'left' du meme type existe, utilise 'right' */
+  const detectSide = (type: string): 'left' | 'right' => {
+    const hasLeft = fields.some(
+      (f) => f.element.type === type && (f.element.config as { side?: string }).side === 'left',
+    );
+    return hasLeft ? 'right' : 'left';
+  };
 
   const handleAdd = (el: LibraryElement) => {
     if (isFull) return;
+    const config = defaultConfig(el);
+
+    /* Auto-detection du cote pour les elements dependant d'une equipe */
+    if (SIDE_TYPES.has(el.type)) {
+      const side = detectSide(el.type);
+      (config as { config: { side: string } }).config.side = side;
+    }
+
+    /* Label descriptif : inclut le cote pour les elements de match */
+    const sideLabel = SIDE_TYPES.has(el.type)
+      ? ` (${(config as { config: { side: string } }).config.side === 'left' ? CUSTOM_FIELD_LABELS.configSideLeft : CUSTOM_FIELD_LABELS.configSideRight})`
+      : '';
+
     const w = Math.min(el.defaultWidth, templateWidth);
     const h = Math.min(el.defaultHeight, templateHeight);
     const x = Math.round((templateWidth - w) / 2);
     const y = Math.round((templateHeight - h) / 2);
-    addField(defaultConfig(el), x, y, w, h);
+    addField(config, x, y, w, h, `${el.label}${sideLabel}`);
   };
 
   return (

@@ -24,13 +24,14 @@ export function addCustomFieldDraft(
   y: number,
   width: number,
   height: number,
+  label?: string,
 ): void {
   if (s.customFieldsData.fields.length >= FIELD_MAX_FIELDS) return;
 
   const maxZ = s.customFieldsData.fields.reduce((max, f) => Math.max(max, f.zIndex), 0);
   const newField: CustomField = {
     id: generateId(),
-    label: `Champ ${s.customFieldsData.fields.length + 1}`,
+    label: label ?? `Champ ${s.customFieldsData.fields.length + 1}`,
     x,
     y,
     width,
