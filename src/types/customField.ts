@@ -239,6 +239,7 @@ export interface CustomFieldsData {
 export interface LibraryElement {
   readonly type: FieldElementType;
   readonly label: string;
+  readonly description: string;
   readonly category: LibraryCategory;
   readonly defaultWidth: number;
   readonly defaultHeight: number;
