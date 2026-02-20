@@ -3,135 +3,306 @@ import type { ManualChapter } from '@/types/userManual';
 export const ch03b: ManualChapter = {
   id: 'layout-libre',
   title: 'Layout libre',
-  content: `Le **Layout libre** (mode 14) est le mode le plus puissant du Scoreboard Editor. Contrairement aux 13 autres modes qui imposent une mise en page fixe, le Layout libre affiche un canvas enti\u00e8rement vierge sur lequel vous placez librement des \u00e9l\u00e9ments visuels.
+  content: `Le **Layout libre** (mode 14) est le mode le plus puissant du Scoreboard Editor. Contrairement aux 13 autres modes qui imposent une mise en page fixe, le Layout libre affiche un canvas entièrement vierge sur lequel vous placez librement des éléments visuels.
 
-**Id\u00e9al pour :** cr\u00e9er un affichage sur mesure, concevoir des mises en page originales, assembler des \u00e9l\u00e9ments de diff\u00e9rentes natures sur un m\u00eame \u00e9cran.
+**Idéal pour :** créer un affichage sur mesure, concevoir des mises en page originales, assembler des éléments de différentes natures sur un même écran.
 
-## \u00c9tape 1 : S\u00e9lectionner le mode Layout libre
+---
 
-1. Dans le **rail d'ic\u00f4nes** (bord gauche), cliquez sur la 1\u00e8re ic\u00f4ne (**Modes**)
-2. Dans le panneau Modes, cliquez sur **Layout libre** (premi\u00e8re option, cat\u00e9gorie "Personnalis\u00e9")
-3. Le canvas devient enti\u00e8rement bleu (vierge), et le panneau **Contenu > \u00c9quipes** s'ouvre automatiquement
+## Principe fondamental : données globales et éléments visuels
 
-## \u00c9tape 2 : Configurer les options du canvas
+Le Layout libre repose sur deux piliers distincts :
 
-En haut du panneau, la section **Layout libre** propose trois options :
+1. **Les données du match** (équipes, scores, temps, période) se configurent dans le panneau de gauche, section **Contenu > Équipes > Header**
+2. **Les éléments visuels** (ce qui s'affiche sur le canvas) se placent depuis la **Bibliothèque d'éléments**
+
+Les éléments visuels **lisent** les données du match. Par exemple, un élément "Score" affiche la valeur configurée dans le Header. Modifier le score dans le Header met à jour tous les éléments Score du canvas en temps réel.
+
+---
+
+## Étape 1 : Sélectionner le mode Layout libre
+
+1. Dans le **rail d'icônes** (bord gauche), cliquez sur la 1ère icône (**Modes**)
+2. Dans le panneau Modes, cliquez sur **Layout libre** (première option, catégorie "Personnalisé")
+3. Le canvas devient entièrement bleu (vierge), et le panneau **Contenu > Équipes** s'ouvre automatiquement
+
+## Étape 2 : Configurer les équipes et le score
+
+**C'est la première chose à faire avant d'ajouter des éléments sur le canvas.**
+
+Dans le panneau de gauche, onglet **Équipes**, la section **Header** contient :
+
+| Champ | Description |
+|-------|-------------|
+| **Équipe 1** | Liste déroulante avec les 31 nations (codes NOC). C'est l'équipe **gauche** |
+| **Équipe 2** | Liste déroulante avec les 31 nations. C'est l'équipe **droite** |
+| **Nom affiché 1** | Nom personnalisé pour l'équipe 1 (remplace le code NOC si renseigné) |
+| **Nom affiché 2** | Nom personnalisé pour l'équipe 2 |
+| **Score 1** | Score de l'équipe 1 (gauche) |
+| **Score 2** | Score de l'équipe 2 (droite) |
+
+**Exemple :** sélectionnez "SUI - Suisse" comme Équipe 1 et "CAN - Canada" comme Équipe 2. Saisissez "3" pour Score 1 et "1" pour Score 2.
+
+Ces données seront utilisées par tous les éléments de match que vous placerez ensuite sur le canvas.
+
+## Étape 3 : Configurer les options du canvas
+
+Toujours dans l'onglet Équipes, sous la section Header, la section **Layout libre** propose trois options :
 
 | Option | Description |
 |--------|-------------|
-| Mode pleine page | Les \u00e9l\u00e9ments peuvent couvrir l'int\u00e9gralit\u00e9 du canvas |
-| Aimanter \u00e0 la grille | Les \u00e9l\u00e9ments s'alignent sur une grille invisible (10, 20 ou 50 px) |
+| Mode pleine page | Les éléments peuvent couvrir l'intégralité du canvas |
+| Aimanter à la grille | Les éléments s'alignent sur une grille invisible (10, 20 ou 50 px) |
 | Afficher les guides | Affiche la grille en surimpression pour faciliter l'alignement |
 
-## \u00c9tape 3 : Ajouter des \u00e9l\u00e9ments depuis la biblioth\u00e8que
+## Étape 4 : Ajouter des éléments depuis la bibliothèque
 
-Juste en dessous des options, la section **Biblioth\u00e8que d'\u00e9l\u00e9ments** affiche tous les \u00e9l\u00e9ments disponibles, class\u00e9s en 6 cat\u00e9gories :
+La section **Bibliothèque d'éléments** affiche tous les éléments disponibles, classés en 6 catégories :
 
-| Cat\u00e9gorie | \u00c9l\u00e9ments disponibles |
+| Catégorie | Éléments disponibles |
 |-----------|----------------------|
-| **Match** | Score, Horloge, P\u00e9riode, Nom d'\u00e9quipe, Drapeau, Temps morts, Tirs au but |
-| **Texte** | Bloc de texte (contenu libre, taille et style configurables) |
-| **Donn\u00e9es** | Ligne de stat, Barre comparative |
+| **Match** | Score, Horloge, Période, Nom d'équipe, Drapeau, Temps morts, Tirs au but |
+| **Texte** | Bloc de texte |
+| **Données** | Ligne de stat, Barre comparative |
 | **Joueurs** | Photo joueur |
-| **M\u00e9dias** | Image, Forme g\u00e9om\u00e9trique (rectangle, cercle, arrondi), S\u00e9parateur (ligne) |
-| **Compos\u00e9s** | Header complet, Colonne de p\u00e9nalit\u00e9s, et les 13 autres types d'affichage comme blocs embarqu\u00e9s |
+| **Médias** | Image, Forme géométrique, Séparateur (ligne) |
+| **Composés** | Header complet, Colonne de pénalités, et les 13 autres types d'affichage |
 
-**Pour ajouter un \u00e9l\u00e9ment** : cliquez sur son nom dans la liste. Il appara\u00eet au centre du canvas.
+**Pour ajouter un élément** : cliquez sur son nom dans la liste. Il apparaît au centre du canvas.
 
-**Astuce** : utilisez le champ de **recherche** en haut de la biblioth\u00e8que pour trouver rapidement un \u00e9l\u00e9ment par son nom.
+**Astuce** : utilisez le champ de **recherche** en haut de la bibliothèque pour trouver rapidement un élément par son nom.
 
-**Limite** : maximum 50 \u00e9l\u00e9ments par canvas.
+**Limite** : maximum 50 éléments par canvas.
 
-## \u00c9tape 4 : Manipuler les \u00e9l\u00e9ments sur le canvas
+## Étape 5 : Manipuler les éléments sur le canvas
 
 | Action | Geste |
 |--------|-------|
-| **S\u00e9lectionner** | Cliquez sur l'\u00e9l\u00e9ment |
-| **D\u00e9placer** | Cliquez et glissez l'\u00e9l\u00e9ment |
-| **Redimensionner** | Glissez l'une des 4 poign\u00e9es aux coins |
-| **Taille de police** | Molette de la souris sur l'\u00e9l\u00e9ment s\u00e9lectionn\u00e9, ou barre flottante +/- |
-| **D\u00e9s\u00e9lectionner** | Cliquez sur le fond du canvas (zone vide) |
-| **Supprimer** | Touche Suppr. avec l'\u00e9l\u00e9ment s\u00e9lectionn\u00e9 |
-| **Dupliquer** | Ctrl+D avec l'\u00e9l\u00e9ment s\u00e9lectionn\u00e9 |
-| **D\u00e9placer finement** | Fl\u00e8ches du clavier (1 pixel par appui) |
+| **Sélectionner** | Cliquez sur l'élément |
+| **Déplacer** | Cliquez et glissez l'élément |
+| **Redimensionner** | Glissez l'une des 4 poignées aux coins |
+| **Taille de police** | Molette de la souris sur l'élément sélectionné, ou barre flottante +/- |
+| **Désélectionner** | Cliquez sur le fond du canvas (zone vide) |
+| **Supprimer** | Touche Suppr. avec l'élément sélectionné |
+| **Dupliquer** | Ctrl+D avec l'élément sélectionné |
+| **Déplacer finement** | Flèches du clavier (1 pixel par appui) |
 
-Un \u00e9l\u00e9ment verrouill\u00e9 ne peut \u00eatre ni d\u00e9plac\u00e9 ni redimensionn\u00e9. En plus des 31 codes NOC, il est possible de saisir un nom d'\u00e9quipe libre.
+Un élément verrouillé ne peut être ni déplacé ni redimensionné.
 
-## \u00c9tape 5 : Configurer un \u00e9l\u00e9ment (panneau Propri\u00e9t\u00e9s)
+## Étape 6 : Configurer un élément (panneau Propriétés)
 
-Le panneau **Propri\u00e9t\u00e9s** n'est pas visible par d\u00e9faut. Il appara\u00eet uniquement quand vous **cliquez sur un \u00e9l\u00e9ment dans le canvas**. Une colonne suppl\u00e9mentaire s'ins\u00e8re alors entre le panneau \u00e9diteur (colonne de gauche) et le preview (zone principale). Quand aucun \u00e9l\u00e9ment n'est s\u00e9lectionn\u00e9, cette colonne dispara\u00eet.
+Le panneau **Propriétés** n'est pas visible par défaut. Il apparaît uniquement quand vous **cliquez sur un élément dans le canvas**. Une colonne supplémentaire s'insère alors entre le panneau éditeur et le preview. Quand aucun élément n'est sélectionné, cette colonne disparaît.
 
-**Pour ouvrir le panneau Propri\u00e9t\u00e9s** : cliquez sur un \u00e9l\u00e9ment dans le canvas.
+**Pour ouvrir le panneau Propriétés** : cliquez sur un élément dans le canvas.
 **Pour fermer le panneau** : cliquez sur le bouton X en haut du panneau, ou cliquez sur une zone vide du canvas.
 
-Le panneau Propri\u00e9t\u00e9s contient :
+Le panneau Propriétés contient :
 
-1. **Nom** : label de l'\u00e9l\u00e9ment (pour l'identifier dans la liste des couches)
-2. **Alignement** : 6 boutons pour positionner rapidement l'\u00e9l\u00e9ment (gauche, centre horizontal, droite, haut, centre vertical, bas)
-3. **Position** : coordonn\u00e9es X et Y en pixels
+1. **Nom** : label de l'élément (pour l'identifier dans la liste des couches)
+2. **Alignement** : 6 boutons pour positionner rapidement l'élément
+3. **Position** : coordonnées X et Y en pixels
 4. **Taille** : largeur et hauteur en pixels
-5. **Z-Index** : ordre d'empilement (les \u00e9l\u00e9ments avec un z-index \u00e9lev\u00e9 passent devant)
-6. **Style** : couleur de fond, bordure (couleur, \u00e9paisseur, rayon), opacit\u00e9, padding
-7. **Configuration sp\u00e9cifique** : options qui d\u00e9pendent du type d'\u00e9l\u00e9ment (voir tableaux ci-dessous)
+5. **Z-Index** : ordre d'empilement
+6. **Style** : couleur de fond, bordure, opacité, padding
+7. **Configuration spécifique** : options qui dépendent du type d'élément (voir ci-dessous)
 8. **Actions** : boutons Dupliquer et Supprimer
 
-### Le s\u00e9lecteur "C\u00f4t\u00e9" (gauche/droite)
+---
 
-Certains \u00e9l\u00e9ments sont li\u00e9s \u00e0 une \u00e9quipe. Le panneau Propri\u00e9t\u00e9s affiche alors un s\u00e9lecteur **"C\u00f4t\u00e9"** avec deux options : **Gauche** (\u00e9quipe 1) ou **Droite** (\u00e9quipe 2).
+## Guide détaillé par type d'élément
 
-Par d\u00e9faut, tout nouvel \u00e9l\u00e9ment est sur le c\u00f4t\u00e9 **Gauche**. Pour afficher les deux \u00e9quipes, il faut ajouter **deux \u00e9l\u00e9ments du m\u00eame type** et configurer l'un sur Gauche et l'autre sur Droite.
+### Score (catégorie Match)
 
-**Exemple : afficher les deux \u00e9quipes avec drapeaux**
-1. Ajoutez un \u00e9l\u00e9ment **Nom d'\u00e9quipe** depuis la biblioth\u00e8que (cat\u00e9gorie Match) > il affiche automatiquement le **drapeau + le nom** de l'\u00e9quipe gauche
-2. Ajoutez un **deuxi\u00e8me** \u00e9l\u00e9ment **Nom d'\u00e9quipe**
-3. Cliquez sur ce deuxi\u00e8me \u00e9l\u00e9ment dans le canvas > le panneau Propri\u00e9t\u00e9s appara\u00eet
-4. Dans le s\u00e9lecteur **C\u00f4t\u00e9**, choisissez **Droite** > il affiche maintenant le drapeau + le nom de l'\u00e9quipe droite
-5. Positionnez les deux \u00e9l\u00e9ments o\u00f9 vous le souhaitez sur le canvas
+**Ce qu'il affiche :** le score d'une équipe (la valeur saisie dans Header > Score 1 ou Score 2).
 
-**Astuce** : le drapeau est affich\u00e9 par d\u00e9faut \u00e0 c\u00f4t\u00e9 du nom. D\u00e9cochez **"Afficher le drapeau"** dans le panneau Propri\u00e9t\u00e9s si vous ne voulez afficher que le nom.
+**Comment l'utiliser :**
+1. Ajoutez un élément **Score** depuis la bibliothèque
+2. Cliquez dessus dans le canvas > le panneau Propriétés apparaît
+3. Dans **Côté**, choisissez **Gauche** (Score 1) ou **Droite** (Score 2)
+4. Optionnel : ajustez la **Taille de police** (0 = valeur globale)
 
-Les \u00e9l\u00e9ments concern\u00e9s par le s\u00e9lecteur "C\u00f4t\u00e9" sont : **Nom d'\u00e9quipe**, **Score**, **Drapeau**, **Colonne de p\u00e9nalit\u00e9s**.
+**Pour afficher les deux scores :** ajoutez **deux** éléments Score. Configurez le premier sur "Gauche" et le second sur "Droite".
 
-### Configuration sp\u00e9cifique par type d'\u00e9l\u00e9ment
+### Nom d'équipe (catégorie Match)
 
-| Type d'\u00e9l\u00e9ment | Options sp\u00e9cifiques |
-|-----------------|---------------------|
-| **Bloc de texte** | Contenu, taille de police, graisse, alignement, casse, espacement |
-| **Score** | C\u00f4t\u00e9 (gauche/droite), afficher le label, taille de police |
-| **Horloge** | Afficher la p\u00e9riode, afficher le cadre, taille de police |
-| **P\u00e9riode** | Taille de police |
-| **Nom d'\u00e9quipe** | C\u00f4t\u00e9 (gauche/droite), afficher le drapeau (activ\u00e9 par d\u00e9faut), taille de police |
-| **Drapeau** | C\u00f4t\u00e9 (gauche/droite) |
-| **Ligne de stat** | Index de la statistique \u00e0 afficher |
-| **Barre comparative** | Index de la barre \u00e0 afficher |
-| **Photo joueur** | Cl\u00e9 photo, forme (cercle/carr\u00e9) |
-| **Image** | Source (URL ou fichier), ajustement (cover/contain/fill) |
-| **Forme** | Type, couleur de remplissage, opacit\u00e9, bordure, rayon |
-| **S\u00e9parateur** | Orientation, \u00e9paisseur, couleur, opacit\u00e9 |
+**Ce qu'il affiche :** le nom de l'équipe (code NOC ou nom affiché personnalisé) + optionnellement le drapeau du pays.
 
-## \u00c9tape 6 : Organiser les couches
+**Comment l'utiliser :**
+1. Ajoutez un élément **Nom d'équipe** depuis la bibliothèque
+2. Cliquez dessus > dans **Côté**, choisissez **Gauche** (Équipe 1) ou **Droite** (Équipe 2)
+3. Le drapeau est affiché par défaut. Décochez **"Afficher le drapeau"** si vous ne voulez que le nom
+4. Optionnel : ajustez la **Taille de police** (0 = valeur globale)
 
-En bas du panneau \u00e9diteur, la section **Couches** liste tous les \u00e9l\u00e9ments du canvas :
-- Chaque \u00e9l\u00e9ment affiche son nom et son z-index
-- Cliquez sur un \u00e9l\u00e9ment de la liste pour le s\u00e9lectionner dans le canvas
-- Ajustez le z-index pour contr\u00f4ler l'ordre d'affichage
+**Pour afficher les deux équipes :**
+1. Ajoutez un premier **Nom d'équipe** > il montre l'équipe 1 (Gauche) par défaut
+2. Ajoutez un deuxième **Nom d'équipe**
+3. Cliquez sur le deuxième > dans **Côté**, choisissez **Droite**
+4. Positionnez-les où vous voulez sur le canvas
+
+### Drapeau (catégorie Match)
+
+**Ce qu'il affiche :** le drapeau du pays d'une équipe, seul (sans nom).
+
+**Comment l'utiliser :**
+1. Ajoutez un élément **Drapeau** depuis la bibliothèque
+2. Cliquez dessus > dans **Côté**, choisissez **Gauche** (Équipe 1) ou **Droite** (Équipe 2)
+3. Le drapeau s'adapte automatiquement à la taille de l'élément
+
+**Différence avec "Nom d'équipe" :** l'élément Drapeau n'affiche QUE le drapeau, sans texte. L'élément Nom d'équipe affiche le nom ET le drapeau ensemble.
+
+### Horloge (catégorie Match)
+
+**Ce qu'il affiche :** le temps du match (configuré dans l'onglet Match > section correspondante, ou via l'opérateur live).
+
+**Options dans le panneau Propriétés :**
+- **Afficher la période** : ajoute l'indicateur de période sous le temps
+- **Afficher le cadre** : entoure l'horloge d'un cadre visuel
+- **Taille de police** : 0 = valeur globale
+
+### Période (catégorie Match)
+
+**Ce qu'il affiche :** la période en cours (ex : "1st", "2nd", "OT").
+
+**Options :** Taille de police (0 = valeur globale).
+
+### Temps morts (catégorie Match)
+
+**Ce qu'il affiche :** les indicateurs de temps morts des deux équipes (points colorés). Affiche automatiquement les deux équipes côte à côte.
+
+**Pas de configuration supplémentaire** : l'élément utilise directement les données configurées dans l'onglet **Match > Temps morts**.
+
+### Tirs au but (catégorie Match)
+
+**Ce qu'il affiche :** les tentatives de tirs au but des deux équipes (cercles vert/rouge/gris). Affiche automatiquement les deux équipes côte à côte.
+
+**Pas de configuration supplémentaire** : l'élément utilise les données de l'onglet **Match > Tirs au but**.
+
+### Bloc de texte (catégorie Texte)
+
+**Ce qu'il affiche :** un texte libre que vous saisissez vous-même.
+
+**Options dans le panneau Propriétés :**
+- **Contenu** : le texte à afficher
+- **Taille de police** : taille en pixels
+- **Épaisseur** : Normal, Medium, Semi-bold, Bold
+- **Police** : police de caractères (ou "Police globale" pour hériter)
+- **Alignement** : Gauche, Centre, Droite
+- **Casse** : Aucune, MAJUSCULES, minuscules
+- **Espacement** : espacement entre les lettres
+
+### Ligne de stat (catégorie Données)
+
+**Ce qu'il affiche :** une ligne de statistiques (valeur gauche + libellé + valeur droite).
+
+**Options :** **Ligne de stat** (index) : sélectionnez quelle ligne de statistiques afficher (0 = première, 1 = deuxième, etc.). Les statistiques se configurent dans les modes body types 1 à 3.
+
+### Barre comparative (catégorie Données)
+
+**Ce qu'il affiche :** une barre de comparaison entre deux valeurs (gauche vs droite).
+
+**Options :** **Barre** (index) : sélectionnez quelle barre afficher.
+
+### Photo joueur (catégorie Joueurs)
+
+**Ce qu'il affiche :** la photo d'un joueur.
+
+**Options :**
+- **Clé photo** : identifiant de la photo du joueur (configuré dans l'onglet Médias > Photos)
+- **Forme** : Cercle ou Carré
+
+### Image (catégorie Médias)
+
+**Ce qu'il affiche :** une image externe (URL ou fichier local).
+
+**Options :**
+- **Source image** : URL de l'image ou bouton Parcourir pour charger un fichier
+- **Ajustement** : Couvrir (remplit sans déformer), Contenir (affiche en entier), Étirer (remplit en déformant)
+
+### Forme (catégorie Médias)
+
+**Ce qu'il affiche :** une forme géométrique colorée (rectangle, cercle, rectangle arrondi).
+
+**Options :**
+- **Forme** : Rectangle, Cercle, Rectangle arrondi
+- **Couleur de remplissage** + opacité
+- **Bordure** : couleur, épaisseur, rayon
+
+**Astuce :** utilisez les formes comme arrière-plans pour vos éléments de texte ou de score.
+
+### Séparateur (catégorie Médias)
+
+**Ce qu'il affiche :** une ligne de séparation.
+
+**Options :**
+- **Orientation** : Horizontale ou Verticale
+- **Épaisseur** : en pixels
+- **Couleur** + opacité
+
+### Header complet (catégorie Composés)
+
+**Ce qu'il affiche :** un bloc complet contenant automatiquement : drapeaux/logos, noms d'équipes, scores, temps morts et tirs au but. C'est l'équivalent du header des modes classiques (1 à 13).
+
+**Options :** **Afficher l'horloge** (cocher pour inclure le temps dans le header).
+
+**Astuce :** si vous voulez un scoreboard classique rapidement, ajoutez juste un Header complet en haut du canvas.
+
+### Colonne de pénalités (catégorie Composés)
+
+**Ce qu'il affiche :** la liste des pénalités d'une équipe.
+
+**Options :** **Côté** : Gauche (Équipe 1) ou Droite (Équipe 2).
+
+### Types d'affichage embarqués (catégorie Composés)
+
+Les 13 types d'affichage classiques (Stats centrées, Stats gauche/droite, Fiche joueur, Classement, etc.) peuvent être ajoutés comme éléments dans le canvas du Layout libre. Cela permet de combiner plusieurs types sur un même écran.
+
+---
+
+## Le sélecteur "Côté" (gauche/droite)
+
+Certains éléments sont liés à une équipe. Le panneau Propriétés affiche alors un sélecteur **"Côté"** :
+
+- **Gauche** = Équipe 1 (configurée dans Header > Équipe 1)
+- **Droite** = Équipe 2 (configurée dans Header > Équipe 2)
+
+Éléments concernés : **Score**, **Nom d'équipe**, **Drapeau**, **Colonne de pénalités**.
+
+Par défaut, tout nouvel élément est sur le côté **Gauche**.
+
+---
+
+## Étape 7 : Organiser les couches
+
+En bas du panneau éditeur, la section **Couches** liste tous les éléments du canvas :
+- Chaque élément affiche son nom et son z-index
+- Cliquez sur un élément de la liste pour le sélectionner dans le canvas
+- Ajustez le z-index pour contrôler l'ordre d'affichage
 
 ## Presets (sauvegarder et charger des mises en page)
 
 La section **Presets** permet de :
-- **Sauvegarder un \u00e9l\u00e9ment** : enregistre la configuration d'un seul \u00e9l\u00e9ment pour le r\u00e9utiliser
-- **Sauvegarder la mise en page** : enregistre l'ensemble des \u00e9l\u00e9ments du canvas
-- **Charger un preset** : applique un preset sauvegard\u00e9 pr\u00e9c\u00e9demment
+- **Sauvegarder le champ** : enregistre la configuration d'un seul élément pour le réutiliser
+- **Sauvegarder l'écran** : enregistre l'ensemble des éléments du canvas
+- **Charger un preset** : applique un preset sauvegardé précédemment
 
-## Exemple concret : cr\u00e9er un scoreboard personnalis\u00e9
+---
 
-Voici un exemple pas \u00e0 pas pour cr\u00e9er un scoreboard de statistiques personnalis\u00e9 :
+## Exemple concret : créer un scoreboard complet pas à pas
+
+Voici comment créer un scoreboard personnalisé avec deux équipes, leurs scores et une horloge :
 
 1. **Modes** > cliquez sur **Layout libre**
-2. Le canvas est vierge. Dans la biblioth\u00e8que, cliquez sur **Header complet** (cat\u00e9gorie "Compos\u00e9s") pour ajouter un header en haut
-3. Ajoutez un **Bloc de texte** (cat\u00e9gorie "Texte") et saisissez "STATISTIQUES DU MATCH" dans les propri\u00e9t\u00e9s
-4. Ajoutez plusieurs **Lignes de stat** (cat\u00e9gorie "Donn\u00e9es") et positionnez-les en dessous du titre
-5. Ajoutez un **S\u00e9parateur** (cat\u00e9gorie "M\u00e9dias") entre le titre et les stats
-6. Ajustez les positions et les tailles via le panneau Propri\u00e9t\u00e9s ou par glisser-d\u00e9poser
-7. Sauvegardez votre mise en page via la section **Presets** pour la r\u00e9utiliser`,
+2. Dans le panneau gauche, onglet **Équipes**, section **Header** :
+   - Équipe 1 : sélectionnez **SUI - Suisse**
+   - Équipe 2 : sélectionnez **CAN - Canada**
+   - Score 1 : saisissez **3**
+   - Score 2 : saisissez **1**
+3. Dans la **Bibliothèque**, cliquez sur **Forme** (catégorie Médias) > positionnez-la en haut comme fond de votre header
+4. Cliquez sur **Nom d'équipe** (catégorie Match) > il affiche "SUI" + drapeau suisse (côté Gauche par défaut)
+5. Cliquez à nouveau sur **Nom d'équipe** > cliquez dessus dans le canvas > dans Propriétés, changez le **Côté** à **Droite** > il affiche "CAN" + drapeau canadien
+6. Ajoutez un **Score** > il affiche "3" (côté Gauche par défaut)
+7. Ajoutez un deuxième **Score** > cliquez dessus > changez le **Côté** à **Droite** > il affiche "1"
+8. Ajoutez une **Horloge** > elle affiche le temps du match
+9. Positionnez et redimensionnez tous les éléments à votre convenance
+10. Sauvegardez votre mise en page via la section **Presets**`,
 };
