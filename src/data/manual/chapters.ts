@@ -2,6 +2,7 @@ import type { ManualChapter } from '@/types/userManual';
 import { ch01 } from './ch01-introduction';
 import { ch02 } from './ch02-editeur';
 import { ch03 } from './ch03-body-types';
+import { ch03b } from './ch03b-layout-libre';
 import { ch04 } from './ch04-personnalisation';
 import { ch05 } from './ch05-horloge';
 import { ch06 } from './ch06-templates';
@@ -17,6 +18,7 @@ export const MANUAL_CHAPTERS: readonly ManualChapter[] = [
   ch01,
   ch02,
   ch03,
+  ch03b,
   ch04,
   ch05,
   ch06,
