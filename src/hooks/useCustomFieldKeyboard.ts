@@ -12,9 +12,10 @@ import { useClipboardStore } from '@/stores/clipboardStore';
 
 const MOVE_STEP = 1;
 const MOVE_STEP_SHIFT = 10;
+const EMPTY_IDS: readonly string[] = [];
 
 export function useCustomFieldKeyboard() {
-  const selectedIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? []);
+  const selectedIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? EMPTY_IDS);
   const fields = useScoreboardStore((s) => s.customFieldsData.fields);
   const snapToGrid = useScoreboardStore((s) => s.customFieldsData.snapToGrid);
   const gridSize = useScoreboardStore((s) => s.customFieldsData.gridSize);

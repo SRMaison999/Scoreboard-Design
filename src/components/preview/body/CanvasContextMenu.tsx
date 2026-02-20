@@ -32,6 +32,7 @@ interface CanvasContextMenuProps {
 
 /* --- Constantes de style --- */
 
+const EMPTY_IDS: readonly string[] = [];
 const MENU_WIDTH = 260;
 const MENU_PADDING = 6;
 const ITEM_HEIGHT = 36;
@@ -47,7 +48,7 @@ export function CanvasContextMenu({
   onClose,
 }: CanvasContextMenuProps) {
   const fields = useScoreboardStore((s) => s.customFieldsData.fields);
-  const selectedIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? []);
+  const selectedIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? EMPTY_IDS);
   const showGuides = useScoreboardStore((s) => s.customFieldsData.showGuides);
   const removeSelectedFields = useScoreboardStore((s) => s.removeSelectedFields);
   const duplicateSelectedFields = useScoreboardStore((s) => s.duplicateSelectedFields);

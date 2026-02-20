@@ -22,6 +22,8 @@ import { MultiSelectionToolbar } from '@/components/editor/MultiSelectionToolbar
 import { HeaderSection } from '@/components/editor/HeaderSection';
 import type { FreeLayoutTab, IconRailItem } from '@/types/editor';
 
+const EMPTY_IDS: readonly string[] = [];
+
 const RAIL_ITEMS: readonly IconRailItem[] = [
   { id: 'canvas', icon: Settings, label: CUSTOM_FIELD_LABELS.freeLayoutTabCanvas },
   { id: 'match', icon: Hash, label: CUSTOM_FIELD_LABELS.freeLayoutTabMatch },
@@ -36,7 +38,7 @@ const RAIL_ITEMS: readonly IconRailItem[] = [
 ];
 
 function PropertiesContent() {
-  const selectedFieldIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? []);
+  const selectedFieldIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? EMPTY_IDS);
   const singleSelectedId = selectedFieldIds.length === 1 ? selectedFieldIds[0] ?? null : null;
 
   if (selectedFieldIds.length >= 2) {
