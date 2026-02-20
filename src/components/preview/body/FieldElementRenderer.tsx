@@ -3,6 +3,7 @@
  * Dispatche vers le bon composant en fonction du type d'element.
  */
 
+import { memo } from 'react';
 import {
   ScoreElement,
   ClockElement,
@@ -15,11 +16,19 @@ import {
 import { StatLineElement, BarCompareElement, PlayerPhotoElement } from './FieldDataElements';
 import { HeaderBlockElement, PenaltyColumnElement } from './FieldComposedElements';
 import { EmbeddedBodyType } from './FieldEmbeddedBodyType';
+import { InlineTextEditor } from './InlineTextEditor';
 import { hexToRgba } from '@/utils/color';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import type { ScoreboardState } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
-import type { FieldElementConfig } from '@/types/customField';
+import type { FieldElementConfig, TextBlockConfig } from '@/types/customField';
+
+export interface InlineEditProps {
+  readonly isEditing: boolean;
+  readonly originalContent: string;
+  readonly onCommit: (newContent: string) => void;
+  readonly onCancel: () => void;
+}
 
 interface FieldElementRendererProps {
   readonly element: FieldElementConfig;
@@ -28,6 +37,7 @@ interface FieldElementRendererProps {
   readonly opacities: OpacityMap;
   readonly width: number;
   readonly height: number;
+  readonly inlineEdit?: InlineEditProps;
 }
 
 function TextBlockElement({ element }: {
@@ -135,13 +145,14 @@ function PlaceholderElement({ label }: { readonly label: string }) {
   );
 }
 
-export function FieldElementRenderer({
+export const FieldElementRenderer = memo(function FieldElementRenderer({
   element,
   state,
   colors,
   opacities,
   width,
   height,
+  inlineEdit,
 }: FieldElementRendererProps) {
   switch (element.type) {
     case 'score-display':
@@ -159,6 +170,16 @@ export function FieldElementRenderer({
     case 'shootout-display':
       return <ShootoutElement state={state} />;
     case 'text-block':
+      if (inlineEdit?.isEditing) {
+        return (
+          <InlineTextEditor
+            config={element.config as TextBlockConfig}
+            originalContent={inlineEdit.originalContent}
+            onCommit={inlineEdit.onCommit}
+            onCancel={inlineEdit.onCancel}
+          />
+        );
+      }
       return <TextBlockElement element={element} />;
     case 'shape-block':
       return <ShapeElement element={element} />;
@@ -190,4 +211,4 @@ export function FieldElementRenderer({
       return <PlaceholderElement label={element.type} />;
     }
   }
-}
+});

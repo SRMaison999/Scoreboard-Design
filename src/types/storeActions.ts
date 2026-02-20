@@ -8,6 +8,7 @@ import type { RosterData, RosterPlayer } from './bodyTypes/roster';
 import type { RosterImportMode } from './rosterImport';
 import type { FontSizeKey } from './fontSizes';
 import type { CustomField, FieldElementConfig, FieldStyle } from './customField';
+import type { DistributionAction } from '@/utils/fieldDistribution';
 
 export interface ScoreboardActions {
   /* Actions generiques */
@@ -125,6 +126,14 @@ export interface ScoreboardActions {
   resetCustomFieldScale: (fieldId: string) => void;
   reorderCustomField: (fieldId: string, newZIndex: number) => void;
   selectCustomField: (fieldId: string | null) => void;
+  toggleFieldSelection: (fieldId: string) => void;
+  selectAllFields: () => void;
+  clearFieldSelection: () => void;
+  moveSelectedFields: (dx: number, dy: number) => void;
+  removeSelectedFields: () => void;
+  duplicateSelectedFields: () => void;
+  pasteFields: (sourceFields: readonly CustomField[], pasteOffset: number) => void;
+  distributeSelectedFields: (action: DistributionAction) => void;
   updateCustomFieldsOption: (key: 'fullPageMode' | 'snapToGrid' | 'showGuides' | 'zoneSelectionActive', value: boolean) => void;
   updateCustomFieldsGridSize: (size: number) => void;
 

@@ -12,6 +12,7 @@ describe('FieldPreset types', () => {
       y: 0,
       width: 200,
       height: 100,
+      rotation: 0,
       zIndex: 1,
       locked: false,
       visible: true,
@@ -48,7 +49,7 @@ describe('FieldPreset types', () => {
         snapToGrid: true,
         gridSize: 20,
         showGuides: true,
-        selectedFieldId: null,
+        selectedFieldIds: [],
         zoneSelectionActive: false,
       },
     };
@@ -75,7 +76,7 @@ describe('FieldPreset types', () => {
         snapToGrid: true,
         gridSize: 20,
         showGuides: true,
-        selectedFieldId: null,
+        selectedFieldIds: [],
         zoneSelectionActive: false,
       },
     };

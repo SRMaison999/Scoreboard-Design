@@ -11,7 +11,7 @@ function makeField(x: number, y: number, w = 100, h = 80): CustomField {
   };
   return {
     id: `f-${x}-${y}`, label: 'Test', x, y, width: w, height: h,
-    zIndex: 1, locked: false, visible: true, lockAspectRatio: false,
+    rotation: 0, zIndex: 1, locked: false, visible: true, lockAspectRatio: false,
     scaleContent: true, initialWidth: w, initialHeight: h,
     element, style: { ...DEFAULT_FIELD_STYLE },
   };

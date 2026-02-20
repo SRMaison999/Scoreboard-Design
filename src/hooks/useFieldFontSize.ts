@@ -64,12 +64,14 @@ function clampFontSize(value: number): number {
 export function useFieldFontSize() {
   const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
   const selectedFieldId = useScoreboardStore(
-    (s) => s.customFieldsData.selectedFieldId,
+    (s) => s.customFieldsData.selectedFieldIds.length === 1 ? s.customFieldsData.selectedFieldIds[0] ?? null : null,
   );
   const selectedField = useScoreboardStore(
-    (s) => s.customFieldsData.fields.find(
-      (f) => f.id === s.customFieldsData.selectedFieldId,
-    ),
+    (s) => {
+      const ids = s.customFieldsData.selectedFieldIds;
+      if (ids.length !== 1) return undefined;
+      return s.customFieldsData.fields.find((f) => f.id === ids[0]);
+    },
   );
   const fontSizes = useScoreboardStore((s) => s.fontSizes);
 

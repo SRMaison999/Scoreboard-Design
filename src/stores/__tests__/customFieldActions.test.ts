@@ -36,7 +36,7 @@ describe('customFieldActions', () => {
     expect(f.width).toBe(400);
     expect(f.height).toBe(80);
     expect(f.element.type).toBe('text-block');
-    expect(useScoreboardStore.getState().customFieldsData.selectedFieldId).toBe(f.id);
+    expect(useScoreboardStore.getState().customFieldsData.selectedFieldIds).toEqual([f.id]);
   });
 
   it('removeCustomField supprime un champ', () => {
@@ -44,7 +44,7 @@ describe('customFieldActions', () => {
     const id = getField(0).id;
     useScoreboardStore.getState().removeCustomField(id);
     expect(useScoreboardStore.getState().customFieldsData.fields).toHaveLength(0);
-    expect(useScoreboardStore.getState().customFieldsData.selectedFieldId).toBeNull();
+    expect(useScoreboardStore.getState().customFieldsData.selectedFieldIds).toEqual([]);
   });
 
   it('updateCustomFieldPosition respecte les bornes du canvas', () => {
@@ -106,10 +106,10 @@ describe('customFieldActions', () => {
     const id = getField(0).id;
 
     useScoreboardStore.getState().selectCustomField(null);
-    expect(useScoreboardStore.getState().customFieldsData.selectedFieldId).toBeNull();
+    expect(useScoreboardStore.getState().customFieldsData.selectedFieldIds).toEqual([]);
 
     useScoreboardStore.getState().selectCustomField(id);
-    expect(useScoreboardStore.getState().customFieldsData.selectedFieldId).toBe(id);
+    expect(useScoreboardStore.getState().customFieldsData.selectedFieldIds).toEqual([id]);
   });
 
   it('ne deplace pas un champ verrouille', () => {

@@ -26,7 +26,9 @@ export function SavePresetModal({ open, onClose, defaultScope, zoneFields }: Sav
   const [saving, setSaving] = useState(false);
 
   const fields = useScoreboardStore((s) => s.customFieldsData.fields);
-  const selectedFieldId = useScoreboardStore((s) => s.customFieldsData.selectedFieldId);
+  const selectedFieldId = useScoreboardStore(
+    (s) => s.customFieldsData.selectedFieldIds.length === 1 ? s.customFieldsData.selectedFieldIds[0] ?? null : null,
+  );
   const customFieldsData = useScoreboardStore((s) => s.customFieldsData);
   const saveFieldPreset = usePresetStore((s) => s.saveFieldPreset);
   const saveLayoutPreset = usePresetStore((s) => s.saveLayoutPreset);

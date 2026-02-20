@@ -8,17 +8,20 @@ import {
   Hash, Clock, Timer, Shield, Flag, PauseCircle, Target,
   Type, BarChart2, GitCompare, User, Image, Square, Minus,
   LayoutDashboard, Columns, AlignCenter, Trophy,
-  ListOrdered, FileText, Users, Calendar,
+  ListOrdered, FileText, Users, Calendar, GripVertical,
 } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
+import { useLibraryDragDrop } from '@/hooks/useLibraryDragDrop';
+import { prepareFieldForAdd } from '@/utils/fieldConfig';
+import { cn } from '@/lib/utils';
 import {
   LIBRARY_ELEMENTS,
   LIBRARY_CATEGORY_LABELS,
   CUSTOM_FIELD_LABELS,
 } from '@/constants/customFields';
 import { FIELD_MAX_FIELDS } from '@/types/customField';
-import type { LibraryCategory, LibraryElement, FieldElementConfig } from '@/types/customField';
+import type { LibraryCategory, LibraryElement } from '@/types/customField';
 import type { LucideIcon } from 'lucide-react';
 
 const CATEGORIES: LibraryCategory[] = ['match', 'text', 'data', 'players', 'media', 'composed'];
@@ -41,60 +44,13 @@ function LibraryIcon({ name }: { readonly name: string }) {
   return <Icon size={14} className="flex-shrink-0 text-gray-500" />;
 }
 
-function defaultConfig(el: LibraryElement): FieldElementConfig {
-  switch (el.type) {
-    case 'text-block':
-      return { type: 'text-block', config: { content: 'Texte', fontSize: 30, fontWeight: 600, fontFamily: '', textAlign: 'center', textTransform: 'uppercase', letterSpacing: 2 } };
-    case 'score-display':
-      return { type: 'score-display', config: { side: 'left', showLabel: false, fontSizeOverride: 0 } };
-    case 'clock-display':
-      return { type: 'clock-display', config: { showPeriod: true, showBox: false, fontSizeOverride: 0 } };
-    case 'period-display':
-      return { type: 'period-display', config: { fontSizeOverride: 0 } };
-    case 'team-name':
-      return { type: 'team-name', config: { side: 'left', showFlag: true, fontSizeOverride: 0 } };
-    case 'flag-display':
-      return { type: 'flag-display', config: { side: 'left' } };
-    case 'timeout-display':
-      return { type: 'timeout-display', config: {} };
-    case 'shootout-display':
-      return { type: 'shootout-display', config: {} };
-    case 'stat-line':
-      return { type: 'stat-line', config: { statIndex: 0 } };
-    case 'bar-compare':
-      return { type: 'bar-compare', config: { barIndex: 0 } };
-    case 'player-photo':
-      return { type: 'player-photo', config: { photoKey: '', shape: 'circle' } };
-    case 'image-block':
-      return { type: 'image-block', config: { src: '', objectFit: 'cover' } };
-    case 'shape-block':
-      return { type: 'shape-block', config: { shape: 'rectangle', fillColor: '#ffffff', fillOpacity: 80, borderColor: '', borderWidth: 0, borderRadius: 0 } };
-    case 'separator-line':
-      return { type: 'separator-line', config: { orientation: 'horizontal', thickness: 2, lineColor: '#ffffff', lineOpacity: 50 } };
-    case 'header-block':
-      return { type: 'header-block', config: { showClock: true } };
-    case 'penalty-column':
-      return { type: 'penalty-column', config: { side: 'left' } };
-    default: {
-      const bodyMatch = el.type.match(/^body-type-(\d+)$/);
-      if (bodyMatch?.[1]) {
-        const id = parseInt(bodyMatch[1], 10);
-        return { type: el.type, config: { bodyTypeId: id } } as FieldElementConfig;
-      }
-      return { type: 'text-block', config: { content: 'Texte', fontSize: 30, fontWeight: 600, fontFamily: '', textAlign: 'center', textTransform: 'uppercase', letterSpacing: 2 } };
-    }
-  }
-}
-
-/** Types d'elements qui dependent du cote (equipe 1 / equipe 2) */
-const SIDE_TYPES = new Set(['score-display', 'team-name', 'flag-display', 'penalty-column']);
-
 export function CustomFieldLibrary() {
   const [search, setSearch] = useState('');
   const fields = useScoreboardStore((s) => s.customFieldsData.fields);
   const templateWidth = useScoreboardStore((s) => s.templateWidth);
   const templateHeight = useScoreboardStore((s) => s.templateHeight);
   const addField = useScoreboardStore((s) => s.addCustomField);
+  const { onDragStart } = useLibraryDragDrop();
 
   const filtered = useMemo(() => {
     if (!search.trim()) return LIBRARY_ELEMENTS;
@@ -104,34 +60,15 @@ export function CustomFieldLibrary() {
 
   const isFull = fields.length >= FIELD_MAX_FIELDS;
 
-  /** Detecte automatiquement le cote : si un element 'left' du meme type existe, utilise 'right' */
-  const detectSide = (type: string): 'left' | 'right' => {
-    const hasLeft = fields.some(
-      (f) => f.element.type === type && (f.element.config as { side?: string }).side === 'left',
-    );
-    return hasLeft ? 'right' : 'left';
-  };
-
   const handleAdd = (el: LibraryElement) => {
     if (isFull) return;
-    const config = defaultConfig(el);
-
-    /* Auto-detection du cote pour les elements dependant d'une equipe */
-    if (SIDE_TYPES.has(el.type)) {
-      const side = detectSide(el.type);
-      (config as { config: { side: string } }).config.side = side;
-    }
-
-    /* Label descriptif : inclut le cote pour les elements de match */
-    const sideLabel = SIDE_TYPES.has(el.type)
-      ? ` (${(config as { config: { side: string } }).config.side === 'left' ? CUSTOM_FIELD_LABELS.configSideLeft : CUSTOM_FIELD_LABELS.configSideRight})`
-      : '';
+    const { config, label } = prepareFieldForAdd(el, fields);
 
     const w = Math.min(el.defaultWidth, templateWidth);
     const h = Math.min(el.defaultHeight, templateHeight);
     const x = Math.round((templateWidth - w) / 2);
     const y = Math.round((templateHeight - h) / 2);
-    addField(config, x, y, w, h, `${el.label}${sideLabel}`);
+    addField(config, x, y, w, h, label);
   };
 
   return (
@@ -162,9 +99,21 @@ export function CustomFieldLibrary() {
                   key={el.type}
                   type="button"
                   disabled={isFull}
+                  draggable={!isFull}
                   onClick={() => handleAdd(el)}
-                  className="flex items-center gap-2 text-[12px] text-gray-300 hover:text-sky-300 hover:bg-gray-800 rounded px-2 py-1 cursor-pointer text-left disabled:opacity-40 disabled:cursor-not-allowed"
+                  onDragStart={(e) => onDragStart(e, el.type)}
+                  title={isFull ? CUSTOM_FIELD_LABELS.maxFieldsReached : CUSTOM_FIELD_LABELS.dragTooltip}
+                  className={cn(
+                    'group flex items-center gap-1.5 text-[12px] text-gray-300 rounded px-1.5 py-1 text-left',
+                    'hover:text-sky-300 hover:bg-gray-800',
+                    !isFull && 'cursor-grab active:cursor-grabbing',
+                    'disabled:opacity-40 disabled:cursor-not-allowed',
+                  )}
                 >
+                  <GripVertical
+                    size={10}
+                    className="flex-shrink-0 text-gray-600 opacity-0 group-hover:opacity-60 transition-opacity"
+                  />
                   <LibraryIcon name={el.icon} />
                   {el.label}
                 </button>

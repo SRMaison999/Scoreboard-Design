@@ -66,6 +66,8 @@ export const CUSTOM_FIELD_LABELS = {
   layerMoveDown: 'Descendre',
   layerToFront: 'Premier plan',
   layerToBack: 'Arrière-plan',
+  layerRename: 'Double-cliquer pour renommer',
+  layerRenameEmpty: 'Le nom ne peut pas être vide',
 
   /* Contraintes */
   canvasFull: 'Canvas complet. Supprimez un champ pour en ajouter un nouveau.',
@@ -123,6 +125,11 @@ export const CUSTOM_FIELD_LABELS = {
   /* Taille de police par champ */
   configFontSizeOverride: 'Taille de police',
   configFontSizeAutoHint: '0 = valeur globale',
+
+  /* Rotation */
+  fieldRotation: 'Rotation',
+  fieldRotationUnit: '\u00b0',
+  fieldRotationReset: 'R\u00e9initialiser',
 
   /* Proportions et mise à l'échelle */
   fieldLockAspectRatio: 'Verrouiller les proportions',
@@ -195,9 +202,14 @@ export const CUSTOM_FIELD_LABELS = {
   presetLoadMerge: 'Ajouter au layout actuel',
   presetFieldCount: 'champ(s)',
 
+  /* Glisser-déposer depuis la bibliothèque */
+  dragTooltip: 'Glisser sur le canvas pour positionner',
+  dropHint: 'Relâcher pour déposer l\u2019élément',
+  dragMimeType: 'application/x-scoreboard-element',
+
   /* État vide du canvas */
   emptyCanvasTitle: 'Canvas vide',
-  emptyCanvasHint: 'Cliquez sur un élément dans la bibliothèque ci-dessous pour commencer.',
+  emptyCanvasHint: 'Glissez un élément depuis la bibliothèque ou cliquez pour l\u2019ajouter au centre.',
   emptyCanvasStepTeams: 'Configurez d\u2019abord les équipes dans la section Header ci-dessus',
   emptyCanvasStepAdd: 'Puis ajoutez des éléments depuis la bibliothèque',
 
@@ -227,6 +239,96 @@ export const CUSTOM_FIELD_LABELS = {
   /* Raccourcis clavier */
   keyboardShortcutsTitle: 'Raccourcis',
   keyboardShortcutsList: 'Suppr\u00a0: supprimer \u00b7 Ctrl+D\u00a0: dupliquer \u00b7 Flèches\u00a0: déplacer \u00b7 Molette\u00a0: taille police',
+
+  /* Zoom et navigation du canvas */
+  zoomIn: 'Zoom avant',
+  zoomOut: 'Zoom arri\u00e8re',
+  zoomToFit: 'Ajuster \u00e0 l\u2019\u00e9cran',
+  zoom100: 'Zoom 100\u00a0%',
+  zoomLabel: 'Zoom',
+
+  /* Menu contextuel */
+  contextCut: 'Couper',
+  contextCopy: 'Copier',
+  contextPaste: 'Coller',
+  contextDuplicate: 'Dupliquer',
+  contextDelete: 'Supprimer',
+  contextLock: 'Verrouiller',
+  contextUnlock: 'D\u00e9verrouiller',
+  contextHide: 'Masquer',
+  contextBringToFront: 'Premier plan',
+  contextSendToBack: 'Arri\u00e8re-plan',
+  contextBringForward: 'Avancer',
+  contextSendBackward: 'Reculer',
+  contextSelectAll: 'Tout s\u00e9lectionner',
+  contextToggleGrid: 'Afficher/Masquer la grille',
+
+  /* Edition inline */
+  inlineEditHint: 'Double-cliquez pour modifier le texte',
+
+  /* Distribution et espacement */
+  distributeH: 'Distribuer horizontalement',
+  distributeV: 'Distribuer verticalement',
+  spaceH: 'Espacement horizontal',
+  spaceV: 'Espacement vertical',
+  alignSelLeft: 'Aligner les bords gauches',
+  alignSelCenterH: 'Centrer horizontalement',
+  alignSelRight: 'Aligner les bords droits',
+  alignSelTop: 'Aligner les bords sup\u00e9rieurs',
+  alignSelCenterV: 'Centrer verticalement',
+  alignSelBottom: 'Aligner les bords inf\u00e9rieurs',
+  multiSelectionTitle: 'S\u00e9lection multiple',
+  multiSelectionCount: 'champ(s) s\u00e9lectionn\u00e9(s)',
+  alignSelectionTitle: 'Aligner la s\u00e9lection',
+  distributeTitle: 'Distribuer',
+
+  /* Effets visuels */
+  effectsTitle: 'Effets visuels',
+  effectOpacity: 'Opacit\u00e9 globale',
+  effectShadow: 'Ombre port\u00e9e',
+  effectShadowOffsetX: 'D\u00e9calage X',
+  effectShadowOffsetY: 'D\u00e9calage Y',
+  effectShadowBlur: 'Flou',
+  effectShadowColor: 'Couleur',
+  effectShadowOpacity: 'Opacit\u00e9',
+  effectShadowEnable: 'Activer l\u2019ombre',
+  effectBackdropBlur: 'Flou d\u2019arri\u00e8re-plan',
+
+  /* R\u00e8gles du canvas */
+  rulerUnit: 'px',
+
+  /* Mod\u00e8les hockey (presets bodyType 14) */
+  hockeyPresetTitle: 'Mod\u00e8les hockey',
+  hockeyPresetSimpleScore: 'Score simple',
+  hockeyPresetWithPenalties: 'Score avec p\u00e9nalit\u00e9s',
+  hockeyPresetLowerThird: 'Bandeau inf\u00e9rieur',
+  hockeyPresetFullStats: 'Statistiques compl\u00e8tes',
+  hockeyPresetApply: 'Appliquer le mod\u00e8le',
+  hockeyPresetDescription: 'Mod\u00e8les pr\u00e9d\u00e9finis pour tableaux de bord hockey',
+
+  /* Modale raccourcis clavier */
+  shortcutsTitle: 'Raccourcis clavier',
+  shortcutsSectionGeneral: 'G\u00e9n\u00e9ral',
+  shortcutsSectionSelection: 'S\u00e9lection',
+  shortcutsSectionClipboard: 'Presse-papiers',
+  shortcutsSectionFields: 'Champs',
+  shortcutsSectionZoom: 'Zoom',
+  shortcutUndo: 'Annuler',
+  shortcutRedo: 'R\u00e9tablir',
+  shortcutSave: 'Sauvegarder',
+  shortcutSelectAll: 'Tout s\u00e9lectionner',
+  shortcutDeselect: 'D\u00e9s\u00e9lectionner',
+  shortcutCopy: 'Copier',
+  shortcutCut: 'Couper',
+  shortcutPaste: 'Coller',
+  shortcutDuplicate: 'Dupliquer',
+  shortcutDelete: 'Supprimer',
+  shortcutMove: 'D\u00e9placer (1px)',
+  shortcutMoveFast: 'D\u00e9placer (10px)',
+  shortcutZoomFit: 'Ajuster au canvas',
+  shortcutZoom100: 'Zoom 100\u00a0%',
+  shortcutZoomIn: 'Zoom avant',
+  shortcutZoomOut: 'Zoom arri\u00e8re',
 } as const;
 
 /* --- Bibliothèque d'éléments --- */

@@ -1,18 +1,21 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { BodyType14 } from '../BodyType14';
+import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { DEFAULT_STATE } from '@/data/defaultState';
 import { DEFAULT_COLORS, DEFAULT_OPACITIES } from '@/constants/colors';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import type { CustomField, FieldElementConfig } from '@/types/customField';
 import type { ScoreboardState } from '@/types/scoreboard';
 
+const DRAG_MIME = CUSTOM_FIELD_LABELS.dragMimeType;
+
 function makeTextField(id: string, x: number, y: number): CustomField {
   return {
     id,
     label: `Champ ${id}`,
     x, y, width: 200, height: 80,
-    zIndex: 1,
+    rotation: 0, zIndex: 1,
     locked: false, visible: true, lockAspectRatio: false,
     scaleContent: true, initialWidth: 200, initialHeight: 80,
     element: {
@@ -26,6 +29,7 @@ function makeTextField(id: string, x: number, y: number): CustomField {
     style: {
       backgroundColor: '', backgroundOpacity: 0,
       borderColor: '', borderWidth: 0, borderRadius: 0, padding: 0,
+      opacity: 100, shadow: null, backdropBlur: 0,
     },
   };
 }
@@ -40,13 +44,18 @@ function makeState(fields: CustomField[]): ScoreboardState {
       snapToGrid: true,
       gridSize: 20,
       showGuides: true,
-      selectedFieldId: null,
+      selectedFieldIds: [],
       zoneSelectionActive: false,
     },
   };
 }
 
 describe('BodyType14', () => {
+  beforeEach(() => {
+    useScoreboardStore.getState().resetState();
+    useScoreboardStore.getState().update('bodyType', 14);
+  });
+
   it('rend le conteneur avec data-testid', () => {
     const state = makeState([]);
     render(
@@ -99,5 +108,63 @@ describe('BodyType14', () => {
       <BodyType14 state={state} colors={DEFAULT_COLORS} opacities={DEFAULT_OPACITIES} canvasScale={0.5} />,
     );
     expect(screen.queryByTestId('empty-canvas-hint')).not.toBeInTheDocument();
+  });
+
+  it('affiche l indicateur de depot lors d un dragOver valide', () => {
+    const state = makeState([]);
+    render(
+      <BodyType14 state={state} colors={DEFAULT_COLORS} opacities={DEFAULT_OPACITIES} canvasScale={0.5} />,
+    );
+
+    const canvas = screen.getByTestId('body-type-14');
+
+    /* Simuler un dragover avec le type MIME correct */
+    const dragOverEvent = new Event('dragover', { bubbles: true, cancelable: true });
+    Object.defineProperty(dragOverEvent, 'dataTransfer', {
+      value: {
+        types: [DRAG_MIME],
+        dropEffect: 'none',
+      },
+    });
+    fireEvent(canvas, dragOverEvent);
+
+    expect(screen.getByTestId('drop-indicator')).toBeInTheDocument();
+    expect(screen.getByText(CUSTOM_FIELD_LABELS.dropHint)).toBeInTheDocument();
+  });
+
+  it('n affiche pas l indicateur de depot sans dragOver', () => {
+    const state = makeState([]);
+    render(
+      <BodyType14 state={state} colors={DEFAULT_COLORS} opacities={DEFAULT_OPACITIES} canvasScale={0.5} />,
+    );
+
+    expect(screen.queryByTestId('drop-indicator')).not.toBeInTheDocument();
+  });
+
+  it('ajoute un champ au drop d un element', () => {
+    const state = makeState([]);
+    render(
+      <BodyType14 state={state} colors={DEFAULT_COLORS} opacities={DEFAULT_OPACITIES} canvasScale={1} />,
+    );
+
+    const canvas = screen.getByTestId('body-type-14');
+    const payload = JSON.stringify({ elementType: 'text-block' });
+
+    /* Simuler le drop */
+    const dropEvent = new Event('drop', { bubbles: true, cancelable: true });
+    Object.defineProperty(dropEvent, 'dataTransfer', {
+      value: {
+        types: [DRAG_MIME],
+        getData: vi.fn(() => payload),
+      },
+    });
+    Object.defineProperty(dropEvent, 'clientX', { value: 500 });
+    Object.defineProperty(dropEvent, 'clientY', { value: 300 });
+
+    fireEvent(canvas, dropEvent);
+
+    const fields = useScoreboardStore.getState().customFieldsData.fields;
+    expect(fields.length).toBe(1);
+    expect(fields[0]?.element.type).toBe('text-block');
   });
 });

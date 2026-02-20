@@ -43,7 +43,7 @@ describe('CustomFieldList', () => {
     const field = useScoreboardStore.getState().customFieldsData.fields[0];
     if (field) {
       await user.click(screen.getByText(field.label));
-      expect(useScoreboardStore.getState().customFieldsData.selectedFieldId).toBe(field.id);
+      expect(useScoreboardStore.getState().customFieldsData.selectedFieldIds).toEqual([field.id]);
     }
   });
 
@@ -61,5 +61,59 @@ describe('CustomFieldList', () => {
     expect(screen.getByTitle(CUSTOM_FIELD_LABELS.fieldVisible)).toBeInTheDocument();
     expect(screen.getByTitle(CUSTOM_FIELD_LABELS.fieldLocked)).toBeInTheDocument();
     expect(screen.getByTitle(CUSTOM_FIELD_LABELS.fieldDelete)).toBeInTheDocument();
+  });
+
+  it('affiche le data-testid de la liste', () => {
+    useScoreboardStore.getState().addCustomField(textElement, 0, 0, 200, 100);
+    render(<CustomFieldList />);
+    expect(screen.getByTestId('custom-field-list')).toBeInTheDocument();
+  });
+
+  it('active le renommage au double-clic sur le label', async () => {
+    const user = userEvent.setup();
+    useScoreboardStore.getState().addCustomField(textElement, 0, 0, 200, 100);
+    const field = useScoreboardStore.getState().customFieldsData.fields[0];
+    if (!field) return;
+
+    render(<CustomFieldList />);
+    const label = screen.getByText(field.label);
+    await user.dblClick(label);
+
+    expect(screen.getByTestId('layer-rename-input')).toBeInTheDocument();
+  });
+
+  it('renomme un champ après double-clic et Enter', async () => {
+    const user = userEvent.setup();
+    useScoreboardStore.getState().addCustomField(textElement, 0, 0, 200, 100);
+    const field = useScoreboardStore.getState().customFieldsData.fields[0];
+    if (!field) return;
+
+    render(<CustomFieldList />);
+    await user.dblClick(screen.getByText(field.label));
+
+    const input = screen.getByTestId('layer-rename-input');
+    await user.clear(input);
+    await user.type(input, 'Nouveau nom');
+    await user.keyboard('{Enter}');
+
+    expect(useScoreboardStore.getState().customFieldsData.fields[0]?.label).toBe('Nouveau nom');
+  });
+
+  it('annule le renommage avec Echap', async () => {
+    const user = userEvent.setup();
+    useScoreboardStore.getState().addCustomField(textElement, 0, 0, 200, 100);
+    const field = useScoreboardStore.getState().customFieldsData.fields[0];
+    if (!field) return;
+    const originalLabel = field.label;
+
+    render(<CustomFieldList />);
+    await user.dblClick(screen.getByText(originalLabel));
+
+    const input = screen.getByTestId('layer-rename-input');
+    await user.clear(input);
+    await user.type(input, 'Annulé');
+    await user.keyboard('{Escape}');
+
+    expect(useScoreboardStore.getState().customFieldsData.fields[0]?.label).toBe(originalLabel);
   });
 });

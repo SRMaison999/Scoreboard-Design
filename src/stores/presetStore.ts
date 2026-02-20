@@ -107,7 +107,7 @@ export const usePresetStore = create<PresetStore>((set, get) => ({
   saveLayoutPreset: async (name, layout) => {
     const cleanLayout: CustomFieldsData = {
       ...structuredClone(layout),
-      selectedFieldId: null,
+      selectedFieldIds: [],
     };
     const preset = buildPreset(name, 'layout', undefined, cleanLayout);
     await db.fieldPresets.add(preset);

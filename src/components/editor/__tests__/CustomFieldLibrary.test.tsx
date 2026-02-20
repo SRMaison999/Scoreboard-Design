@@ -69,4 +69,24 @@ describe('CustomFieldLibrary', () => {
       expect(useScoreboardStore.getState().customFieldsData.fields.length).toBe(1);
     }
   });
+
+  it('rend les éléments avec l attribut draggable', () => {
+    render(<CustomFieldLibrary />);
+
+    const firstElement = LIBRARY_ELEMENTS[0];
+    if (firstElement) {
+      const button = screen.getByText(firstElement.label).closest('button');
+      expect(button).toHaveAttribute('draggable', 'true');
+    }
+  });
+
+  it('affiche le tooltip de glisser-déposer sur les éléments', () => {
+    render(<CustomFieldLibrary />);
+
+    const firstElement = LIBRARY_ELEMENTS[0];
+    if (firstElement) {
+      const button = screen.getByText(firstElement.label).closest('button');
+      expect(button).toHaveAttribute('title', CUSTOM_FIELD_LABELS.dragTooltip);
+    }
+  });
 });

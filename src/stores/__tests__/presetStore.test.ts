@@ -11,6 +11,7 @@ const MOCK_FIELD: CustomField = {
   y: 50,
   width: 200,
   height: 100,
+  rotation: 0,
   zIndex: 1,
   locked: false,
   visible: true,
@@ -54,7 +55,7 @@ describe('presetStore', () => {
     expect(presets[0]!.name).toBe('Mon layout');
     expect(presets[0]!.scope).toBe('layout');
     expect(presets[0]!.layout?.fields).toHaveLength(1);
-    expect(presets[0]!.layout?.selectedFieldId).toBeNull();
+    expect(presets[0]!.layout?.selectedFieldIds).toEqual([]);
   });
 
   it('supprime un preset', async () => {

@@ -27,6 +27,7 @@ function makeField(overrides: Partial<CustomField> = {}): CustomField {
     y: 100,
     width: 200,
     height: 80,
+    rotation: 0,
     zIndex: 1,
     locked: false,
     visible: true,
@@ -37,17 +38,18 @@ function makeField(overrides: Partial<CustomField> = {}): CustomField {
     element: { type: 'text-block', config: { content: 'Test', fontSize: 24, fontWeight: 400, fontFamily: '', textAlign: 'left', textTransform: 'none', letterSpacing: 0 } },
     style: { ...DEFAULT_FIELD_STYLE },
     ...overrides,
-  };
+  } as CustomField;
 }
 
 function setupFieldSelected(fieldOverrides: Partial<CustomField> = {}) {
   const field = makeField(fieldOverrides);
   useScoreboardStore.setState((s) => ({
     ...s,
+    bodyType: 14,
     customFieldsData: {
       ...s.customFieldsData,
       fields: [field],
-      selectedFieldId: field.id,
+      selectedFieldIds: [field.id],
     },
   }));
   return field;
@@ -70,7 +72,7 @@ describe('useCustomFieldKeyboard', () => {
 
     const state = useScoreboardStore.getState();
     expect(state.customFieldsData.fields).toHaveLength(0);
-    expect(state.customFieldsData.selectedFieldId).toBeNull();
+    expect(state.customFieldsData.selectedFieldIds).toEqual([]);
   });
 
   it('Backspace supprime le champ sélectionné', () => {
@@ -81,7 +83,7 @@ describe('useCustomFieldKeyboard', () => {
 
     const state = useScoreboardStore.getState();
     expect(state.customFieldsData.fields).toHaveLength(0);
-    expect(state.customFieldsData.selectedFieldId).toBeNull();
+    expect(state.customFieldsData.selectedFieldIds).toEqual([]);
   });
 
   /* --- Duplication --- */
@@ -244,10 +246,11 @@ describe('useCustomFieldKeyboard', () => {
   it('Delete est ignoré quand aucun champ n\'est sélectionné', () => {
     const field = makeField();
     useScoreboardStore.setState((s) => ({
+      bodyType: 14,
       customFieldsData: {
         ...s.customFieldsData,
         fields: [field],
-        selectedFieldId: null,
+        selectedFieldIds: [],
       },
     }));
     renderHook(() => useCustomFieldKeyboard());
@@ -261,10 +264,11 @@ describe('useCustomFieldKeyboard', () => {
   it('Ctrl+D est ignoré quand aucun champ n\'est sélectionné', () => {
     const field = makeField();
     useScoreboardStore.setState((s) => ({
+      bodyType: 14,
       customFieldsData: {
         ...s.customFieldsData,
         fields: [field],
-        selectedFieldId: null,
+        selectedFieldIds: [],
       },
     }));
     renderHook(() => useCustomFieldKeyboard());
@@ -278,10 +282,11 @@ describe('useCustomFieldKeyboard', () => {
   it('Les flèches sont ignorées quand aucun champ n\'est sélectionné', () => {
     const field = makeField();
     useScoreboardStore.setState((s) => ({
+      bodyType: 14,
       customFieldsData: {
         ...s.customFieldsData,
         fields: [field],
-        selectedFieldId: null,
+        selectedFieldIds: [],
       },
     }));
     renderHook(() => useCustomFieldKeyboard());

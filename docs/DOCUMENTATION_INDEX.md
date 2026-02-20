@@ -48,11 +48,27 @@
 | 4 | Frame Data API (serialisation, delta encoding, enregistrement) | Termine |
 | 5 | Body types 4-13 (13 types au total) | Termine |
 | 6 | Mode operateur live (raccourcis clavier, fenetre de sortie) | Termine |
-
-### Phases completees (suite)
-
-| Phase | Description | Statut |
-|-------|-------------|--------|
 | 7 | Photos et medias (photos joueurs, logos equipe/competition/sponsor) | Termine |
 | 8 | Animations et export video/GIF | Termine |
 | 9 | Integrations externes (import rosters, API scores, multi-scoreboard, sync multi-poste, CasparCG/Viz) | Termine |
+
+### Ameliorations du Layout libre (mode editeur avance)
+
+| Fonctionnalite | Description | Statut |
+|----------------|-------------|--------|
+| Multi-selection | Selection de plusieurs champs (Ctrl+Clic, selection de zone) | Termine |
+| Smart guides | Guides d'alignement dynamiques pendant le deplacement | Termine |
+| Zoom et panoramique | Zoom molette, Ctrl+0/1/+/-, regles pixel | Termine |
+| 8 handles de resize | Poignees coins + bords, Shift (proportionnel), Alt (depuis le centre) | Termine |
+| Menu contextuel | Clic droit avec couper/copier/coller/dupliquer/supprimer/calques | Termine |
+| Effets visuels | Opacite, ombre portee, flou d'arriere-plan | Termine |
+| Drag-and-drop | Glisser-deposer depuis la bibliotheque vers le canvas | Termine |
+| Rotation | Poignee de rotation avec snap a 15 degres | Termine |
+| Edition inline | Double-clic pour editer le texte directement sur le canvas | Termine |
+| Distribution | Alignement et distribution automatique de la multi-selection | Termine |
+| Modeles hockey | 4 modeles de layout predefinies pour le hockey | Termine |
+| Raccourcis clavier | Modale d'aide avec tous les raccourcis organises par section | Termine |
+| Historique debounce | Regroupement intelligent des changements rapides (drag, resize) | Termine |
+| Regles canvas | Regles pixel adaptatives le long des bords du canvas | Termine |
+| Panneau calques | Renommage inline, icones de type, multi-selection | Termine |
+| Performance | React.memo sur les composants de rendu critiques | Termine |

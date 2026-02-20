@@ -12,9 +12,9 @@ import { CustomFieldProperties } from './CustomFieldProperties';
 
 export function PropertiesPanel() {
   const selectedFieldId = useScoreboardStore(
-    (s) => s.customFieldsData.selectedFieldId,
+    (s) => s.customFieldsData.selectedFieldIds.length === 1 ? s.customFieldsData.selectedFieldIds[0] ?? null : null,
   );
-  const selectField = useScoreboardStore((s) => s.selectCustomField);
+  const clearSelection = useScoreboardStore((s) => s.clearFieldSelection);
 
   if (!selectedFieldId) return null;
 
@@ -29,7 +29,7 @@ export function PropertiesPanel() {
         </span>
         <button
           type="button"
-          onClick={() => selectField(null)}
+          onClick={() => clearSelection()}
           className="p-1 text-gray-500 hover:text-gray-300"
           title={CUSTOM_FIELD_LABELS.propertiesPanelClose}
         >

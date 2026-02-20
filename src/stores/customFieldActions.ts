@@ -4,8 +4,10 @@
  */
 
 import { DEFAULT_FIELD_STYLE, FIELD_MAX_FIELDS } from '@/types/customField';
+import { distributeFields } from '@/utils/fieldDistribution';
 import type { ScoreboardState } from '@/types/scoreboard';
 import type { FieldElementConfig, FieldStyle, CustomField } from '@/types/customField';
+import type { DistributionAction } from '@/utils/fieldDistribution';
 
 type Draft = ScoreboardState;
 
@@ -36,6 +38,7 @@ export function addCustomFieldDraft(
     y,
     width,
     height,
+    rotation: 0,
     zIndex: maxZ + 1,
     locked: false,
     visible: true,
@@ -48,16 +51,16 @@ export function addCustomFieldDraft(
   };
 
   s.customFieldsData.fields.push(newField);
-  s.customFieldsData.selectedFieldId = newField.id;
+  s.customFieldsData.selectedFieldIds = [newField.id];
 }
 
 export function removeCustomFieldDraft(s: Draft, fieldId: string): void {
   const idx = s.customFieldsData.fields.findIndex((f) => f.id === fieldId);
   if (idx === -1) return;
   s.customFieldsData.fields.splice(idx, 1);
-  if (s.customFieldsData.selectedFieldId === fieldId) {
-    s.customFieldsData.selectedFieldId = null;
-  }
+  s.customFieldsData.selectedFieldIds = s.customFieldsData.selectedFieldIds.filter(
+    (id) => id !== fieldId,
+  );
 }
 
 export function updateCustomFieldPositionDraft(
@@ -138,6 +141,7 @@ export function duplicateCustomFieldDraft(s: Draft, fieldId: string): void {
     y: Math.min(field.y + 30, s.templateHeight - field.height),
     width: field.width,
     height: field.height,
+    rotation: field.rotation,
     zIndex: maxZ + 1,
     locked: field.locked,
     visible: field.visible,
@@ -150,7 +154,7 @@ export function duplicateCustomFieldDraft(s: Draft, fieldId: string): void {
   };
 
   s.customFieldsData.fields.push(copy);
-  s.customFieldsData.selectedFieldId = copy.id;
+  s.customFieldsData.selectedFieldIds = [copy.id];
 }
 
 export function resetCustomFieldScaleDraft(s: Draft, fieldId: string): void {
@@ -168,4 +172,136 @@ export function reorderCustomFieldDraft(
   const field = findField(s, fieldId);
   if (!field) return;
   (field as { zIndex: number }).zIndex = newZIndex;
+}
+
+export function moveSelectedFieldsDraft(
+  s: Draft,
+  dx: number,
+  dy: number,
+): void {
+  const ids = s.customFieldsData.selectedFieldIds;
+  const cw = s.templateWidth;
+  const ch = s.templateHeight;
+
+  for (const id of ids) {
+    const field = findField(s, id);
+    if (!field || field.locked) continue;
+    (field as { x: number }).x = Math.max(0, Math.min(field.x + dx, cw - field.width));
+    (field as { y: number }).y = Math.max(0, Math.min(field.y + dy, ch - field.height));
+  }
+}
+
+export function removeSelectedFieldsDraft(s: Draft): void {
+  const ids = new Set(s.customFieldsData.selectedFieldIds);
+  s.customFieldsData.fields = s.customFieldsData.fields.filter((f) => !ids.has(f.id));
+  s.customFieldsData.selectedFieldIds = [];
+}
+
+export function duplicateSelectedFieldsDraft(s: Draft): void {
+  const ids = s.customFieldsData.selectedFieldIds;
+  const fields = s.customFieldsData.fields;
+  const maxZ = fields.reduce((max, f) => Math.max(max, f.zIndex), 0);
+  const newIds: string[] = [];
+
+  for (let i = 0; i < ids.length; i++) {
+    const field = findField(s, ids[i]!);
+    if (!field) continue;
+    if (fields.length >= FIELD_MAX_FIELDS) break;
+
+    const copy: CustomField = {
+      id: generateId(),
+      label: `${field.label} (copie)`,
+      x: Math.min(field.x + 30, s.templateWidth - field.width),
+      y: Math.min(field.y + 30, s.templateHeight - field.height),
+      width: field.width,
+      height: field.height,
+      rotation: field.rotation,
+      zIndex: maxZ + i + 1,
+      locked: field.locked,
+      visible: field.visible,
+      lockAspectRatio: field.lockAspectRatio,
+      scaleContent: field.scaleContent,
+      initialWidth: field.initialWidth,
+      initialHeight: field.initialHeight,
+      element: JSON.parse(JSON.stringify(field.element)) as FieldElementConfig,
+      style: { ...field.style },
+    };
+
+    fields.push(copy);
+    newIds.push(copy.id);
+  }
+
+  s.customFieldsData.selectedFieldIds = newIds;
+}
+
+/**
+ * Colle des champs depuis le presse-papiers avec un d\u00e9calage par collage successif.
+ */
+export function pasteFieldsDraft(
+  s: Draft,
+  sourceFields: readonly CustomField[],
+  pasteOffset: number,
+): void {
+  const fields = s.customFieldsData.fields;
+  const maxZ = fields.reduce((max, f) => Math.max(max, f.zIndex), 0);
+  const newIds: string[] = [];
+  const offset = pasteOffset * 20;
+
+  for (let i = 0; i < sourceFields.length; i++) {
+    const src = sourceFields[i];
+    if (!src) continue;
+    if (fields.length >= FIELD_MAX_FIELDS) break;
+
+    const copy: CustomField = {
+      id: generateId(),
+      label: `${src.label} (copie)`,
+      x: Math.min(src.x + offset, s.templateWidth - src.width),
+      y: Math.min(src.y + offset, s.templateHeight - src.height),
+      width: src.width,
+      height: src.height,
+      rotation: src.rotation,
+      zIndex: maxZ + i + 1,
+      locked: false,
+      visible: src.visible,
+      lockAspectRatio: src.lockAspectRatio,
+      scaleContent: src.scaleContent,
+      initialWidth: src.initialWidth,
+      initialHeight: src.initialHeight,
+      element: JSON.parse(JSON.stringify(src.element)) as FieldElementConfig,
+      style: { ...src.style },
+    };
+
+    fields.push(copy);
+    newIds.push(copy.id);
+  }
+
+  s.customFieldsData.selectedFieldIds = newIds;
+}
+
+/**
+ * Distribue ou aligne les champs sélectionnés entre eux.
+ */
+export function distributeSelectedFieldsDraft(
+  s: Draft,
+  action: DistributionAction,
+): void {
+  const ids = s.customFieldsData.selectedFieldIds;
+  if (ids.length < 2) return;
+
+  const selected = s.customFieldsData.fields.filter(
+    (f) => ids.includes(f.id) && !f.locked,
+  );
+  if (selected.length < 2) return;
+
+  const rects = selected.map((f) => ({
+    id: f.id, x: f.x, y: f.y, width: f.width, height: f.height,
+  }));
+
+  const updates = distributeFields(rects, action);
+  for (const u of updates) {
+    const field = findField(s, u.id);
+    if (!field) continue;
+    (field as { x: number }).x = u.x;
+    (field as { y: number }).y = u.y;
+  }
 }

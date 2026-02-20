@@ -43,6 +43,10 @@ State principal de l'application. Contient toutes les donnees du scoreboard : eq
 - Actions specifiques par body type (updateGoalField, addRosterPlayer, etc.)
 - `addCustomField/updateCustomField/removeCustomField` : champs personnalisés (Body Type 14)
 - `selectField/reorderField` : sélection et réordonnancement des couches
+- `moveSelectedFields/removeSelectedFields/duplicateSelectedFields` : operations multi-selection
+- `distributeSelectedFields` : alignement et distribution automatique
+- `pasteFields` : collage depuis le presse-papiers interne
+- `selectAllFields/clearFieldSelection/toggleFieldSelection` : gestion de la selection
 
 ### 2.2 `useTemplateStore`
 
@@ -177,6 +181,50 @@ Gestion des presets de champs personnalises et de layouts, persistes dans Indexe
 - `exportPreset(id)` : telecharge en `.preset.json`
 - `importPreset(file)` : importe depuis un fichier JSON
 
+### 2.11 `useUndoRedoStore`
+
+**Fichier** : `src/stores/undoRedoStore.ts`
+
+Historique undo/redo des champs personnalises (Body Type 14). Non persiste.
+
+**State** : `past: CustomField[][]`, `future: CustomField[][]`, `canUndo: boolean`, `canRedo: boolean`
+
+**Actions** :
+- `undo()` : restaure l'etat precedent
+- `redo()` : retablit l'etat suivant
+- `clear()` : vide l'historique
+
+**Fonctions utilitaires** :
+- `initUndoRedoListener()` : initialise l'ecoute des changements avec debounce (300ms)
+- `flushUndoSnapshot()` : force le commit immediat du snapshot en attente
+- `resetUndoRedoListener()` : reinitialise le listener (tests)
+
+### 2.12 `useClipboardStore`
+
+**Fichier** : `src/stores/clipboardStore.ts`
+
+Presse-papiers interne pour copier/couper/coller des champs personnalises.
+
+**State** : `copiedFields: CustomField[]`, `pasteCount: number`
+
+**Actions** :
+- `copyFields(fields)` : copie les champs dans le presse-papiers
+- `incrementPasteCount()` : incremente le compteur de collages (pour le decalage)
+
+### 2.13 `useCanvasViewStore`
+
+**Fichier** : `src/stores/canvasViewStore.ts`
+
+Etat du zoom et du panoramique du canvas.
+
+**State** : `scale: number`, `panX: number`, `panY: number`
+
+**Actions** :
+- `zoomIn()` / `zoomOut()` : zoom par paliers
+- `zoomToFit()` : ajuster au canvas
+- `zoomTo100()` : zoom a 100%
+- `setPan(x, y)` : definir le decalage
+
 ---
 
 ## 3. Hooks
@@ -202,7 +250,12 @@ Gestion des presets de champs personnalises et de layouts, persistes dans Indexe
 | `usePressRepeat` | `src/hooks/usePressRepeat.ts` | Répétition accélérée au maintien d'un bouton (utilisé par la barre de police) |
 | `useFontSelectGroups` | `src/hooks/useFontSelectGroups.ts` | Construit les groupes de polices par categorie pour le composant Select |
 | `useUserManual` | `src/hooks/useUserManual.ts` | État du manuel utilisateur intégré (ouverture, chapitre actif) |
-| `useCustomFieldKeyboard` | `src/hooks/useCustomFieldKeyboard.ts` | Raccourcis clavier du Layout libre (Suppr, Ctrl+D, flèches) |
+| `useCustomFieldKeyboard` | `src/hooks/useCustomFieldKeyboard.ts` | Raccourcis clavier du Layout libre (Suppr, Ctrl+D, flèches, copier/coller, zoom) |
+| `useSmartGuides` | `src/hooks/useSmartGuides.ts` | Guides d'alignement dynamiques pendant le deplacement (snap a 6px) |
+| `useZoneSelection` | `src/hooks/useZoneSelection.ts` | Selection de zone par rectangle sur le canvas |
+| `useFieldRotation` | `src/hooks/useFieldRotation.ts` | Rotation des champs avec poignee et snap a 15 degres |
+| `useInlineEdit` | `src/hooks/useInlineEdit.ts` | Edition de texte inline au double-clic sur les blocs texte |
+| `useLibraryDragDrop` | `src/hooks/useLibraryDragDrop.ts` | Drag-and-drop d'elements depuis la bibliotheque vers le canvas |
 
 ---
 
