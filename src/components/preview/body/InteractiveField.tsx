@@ -46,8 +46,8 @@ interface InteractiveFieldProps {
   readonly resize: ResizeHandlers;
 }
 
-const HANDLE_SIZE = 10;
-const HANDLE_OFFSET = -5;
+const HANDLE_SIZE = 14;
+const HANDLE_OFFSET = -7;
 
 const HANDLES: readonly { handle: ResizeHandle; cursor: string; top?: number; bottom?: number; left?: number; right?: number }[] = [
   { handle: 'top-left', cursor: 'nwse-resize', top: HANDLE_OFFSET, left: HANDLE_OFFSET },

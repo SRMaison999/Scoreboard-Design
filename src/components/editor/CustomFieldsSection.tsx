@@ -150,6 +150,9 @@ export function CustomFieldsSection() {
           </Button>
           <span className="text-[10px] text-gray-600 ml-auto">{CUSTOM_FIELD_LABELS.undoRedoHint}</span>
         </div>
+        <p className="text-[10px] text-gray-600 mt-1">
+          {CUSTOM_FIELD_LABELS.keyboardShortcutsList}
+        </p>
       </Section>
 
       <Section title={CUSTOM_FIELD_LABELS.sectionPresets} defaultOpen={false}>

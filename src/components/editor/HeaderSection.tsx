@@ -4,6 +4,7 @@ import { InputField } from '@/components/ui/InputField';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { HOCKEY_NATIONS } from '@/constants/nations';
 import { EDITOR_LABELS } from '@/constants/labels';
+import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 
 const NATION_OPTIONS = HOCKEY_NATIONS.map((n) => ({
   value: n.noc,
@@ -17,10 +18,16 @@ export function HeaderSection() {
   const displayName2 = useScoreboardStore((s) => s.teamDisplayName2);
   const score1 = useScoreboardStore((s) => s.score1);
   const score2 = useScoreboardStore((s) => s.score2);
+  const bodyType = useScoreboardStore((s) => s.bodyType);
   const update = useScoreboardStore((s) => s.update);
 
   return (
     <Section title={EDITOR_LABELS.sectionHeader}>
+      {bodyType === 14 && (
+        <p className="text-[11px] text-sky-400/70 -mt-1 mb-1">
+          {CUSTOM_FIELD_LABELS.headerLayoutLibreHint}
+        </p>
+      )}
       <div className="flex gap-2">
         <Select
           label={EDITOR_LABELS.team1Label}
