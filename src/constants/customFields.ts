@@ -194,6 +194,39 @@ export const CUSTOM_FIELD_LABELS = {
   presetLoadReplace: 'Remplacer le layout actuel',
   presetLoadMerge: 'Ajouter au layout actuel',
   presetFieldCount: 'champ(s)',
+
+  /* État vide du canvas */
+  emptyCanvasTitle: 'Canvas vide',
+  emptyCanvasHint: 'Cliquez sur un élément dans la bibliothèque ci-dessous pour commencer.',
+  emptyCanvasStepTeams: 'Configurez d\u2019abord les équipes dans la section Header ci-dessus',
+  emptyCanvasStepAdd: 'Puis ajoutez des éléments depuis la bibliothèque',
+
+  /* Indice Header en mode Layout libre */
+  headerLayoutLibreHint: 'Ces données sont utilisées par les éléments Score, Nom d\u2019équipe et Drapeau sur le canvas.',
+
+  /* Labels lisibles pour les types d\u2019éléments */
+  elementTypeLabels: {
+    'score-display': 'Score',
+    'clock-display': 'Horloge',
+    'period-display': 'Période',
+    'team-name': 'Nom d\u2019équipe',
+    'flag-display': 'Drapeau',
+    'timeout-display': 'Temps morts',
+    'shootout-display': 'Tirs au but',
+    'text-block': 'Bloc de texte',
+    'stat-line': 'Ligne de stat',
+    'bar-compare': 'Barre comparative',
+    'player-photo': 'Photo joueur',
+    'image-block': 'Image',
+    'shape-block': 'Forme',
+    'separator-line': 'Séparateur',
+    'header-block': 'Header complet',
+    'penalty-column': 'Colonne de pénalités',
+  } as Readonly<Record<string, string>>,
+
+  /* Raccourcis clavier */
+  keyboardShortcutsTitle: 'Raccourcis',
+  keyboardShortcutsList: 'Suppr\u00a0: supprimer \u00b7 Ctrl+D\u00a0: dupliquer \u00b7 Flèches\u00a0: déplacer \u00b7 Molette\u00a0: taille police',
 } as const;
 
 /* --- Bibliothèque d'éléments --- */
