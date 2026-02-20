@@ -16,8 +16,8 @@ import type { PresetScope } from '@/types/fieldPreset';
 
 export function FreeLayoutPresetsPanel() {
   const singleSelectedId = useScoreboardStore((s) => {
-    const ids = s.customFieldsData.selectedFieldIds;
-    return ids.length === 1 ? ids[0] ?? null : null;
+    const ids = s.customFieldsData?.selectedFieldIds;
+    return ids?.length === 1 ? ids[0] ?? null : null;
   });
   const fieldsCount = useScoreboardStore((s) => s.customFieldsData.fields.length);
   const zoneSelectionActive = useScoreboardStore((s) => s.customFieldsData.zoneSelectionActive);

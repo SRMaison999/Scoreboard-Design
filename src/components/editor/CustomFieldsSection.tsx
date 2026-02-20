@@ -28,7 +28,7 @@ export function CustomFieldsSection() {
   const snapToGrid = useScoreboardStore((s) => s.customFieldsData.snapToGrid);
   const showGuides = useScoreboardStore((s) => s.customFieldsData.showGuides);
   const gridSize = useScoreboardStore((s) => s.customFieldsData.gridSize);
-  const selectedFieldIds = useScoreboardStore((s) => s.customFieldsData.selectedFieldIds);
+  const selectedFieldIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? []);
   const singleSelectedId = selectedFieldIds.length === 1 ? selectedFieldIds[0] ?? null : null;
   const fieldsCount = useScoreboardStore((s) => s.customFieldsData.fields.length);
   const updateOption = useScoreboardStore((s) => s.updateCustomFieldsOption);
