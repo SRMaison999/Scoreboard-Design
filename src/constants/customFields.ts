@@ -343,6 +343,7 @@ export const CUSTOM_FIELD_LABELS = {
   shortcutZoom100: 'Zoom 100\u00a0%',
   shortcutZoomIn: 'Zoom avant',
   shortcutZoomOut: 'Zoom arri\u00e8re',
+  alignmentFixHint: 'Corriger l\'alignement',
 } as const;
 
 /* --- Bibliothèque d'éléments --- */

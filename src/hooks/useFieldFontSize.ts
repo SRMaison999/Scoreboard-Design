@@ -61,6 +61,12 @@ function clampFontSize(value: number): number {
   return Math.max(FONT_MIN, Math.min(FONT_MAX, value));
 }
 
+/** Facteur d'échelle du contenu lorsque scaleContent est actif */
+function getContentScale(field: { scaleContent: boolean; initialHeight: number; height: number }): number {
+  if (!field.scaleContent || field.initialHeight <= 0) return 1;
+  return field.height / field.initialHeight;
+}
+
 export function useFieldFontSize() {
   const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
   const selectedFieldId = useScoreboardStore(
@@ -75,11 +81,17 @@ export function useFieldFontSize() {
   );
   const fontSizes = useScoreboardStore((s) => s.fontSizes);
 
+  const contentScale = selectedField ? getContentScale(selectedField) : 1;
+
+  /* fontInfo affiche la taille visuelle (raw × contentScale) */
   const fontInfo = selectedField
-    ? resolveFontSize(selectedField.element, { fontSizes })
+    ? (() => {
+        const raw = resolveFontSize(selectedField.element, { fontSizes });
+        return { value: raw.value * contentScale, isGlobal: raw.isGlobal };
+      })()
     : null;
 
-  /** Ajuste la taille de police d'un delta (+/-) */
+  /** Ajuste la taille de police d'un delta (+/-) en espace brut */
   const adjustFontSize = useCallback((delta: number) => {
     if (!selectedField || !selectedFieldId) return;
     const element = selectedField.element;
@@ -99,19 +111,20 @@ export function useFieldFontSize() {
     }
   }, [selectedField, selectedFieldId, updateElement, fontSizes]);
 
-  /** Définit une taille de police exacte (saisie directe) */
-  const setFontSize = useCallback((size: number) => {
+  /** Définit une taille de police exacte (saisie = taille visuelle) */
+  const setFontSize = useCallback((visualSize: number) => {
     if (!selectedField || !selectedFieldId) return;
     const element = selectedField.element;
-    const clamped = clampFontSize(size);
+    const scale = getContentScale(selectedField);
+    const rawSize = clampFontSize(Math.round(visualSize / scale));
 
     if (element.type === 'text-block') {
-      updateFieldElementConfig(updateElement, selectedFieldId, element, { fontSize: clamped });
+      updateFieldElementConfig(updateElement, selectedFieldId, element, { fontSize: rawSize });
       return;
     }
 
     if (OVERRIDE_TYPES.has(element.type)) {
-      updateFieldElementConfig(updateElement, selectedFieldId, element, { fontSizeOverride: clamped });
+      updateFieldElementConfig(updateElement, selectedFieldId, element, { fontSizeOverride: rawSize });
     }
   }, [selectedField, selectedFieldId, updateElement]);
 
