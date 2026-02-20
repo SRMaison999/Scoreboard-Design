@@ -42,34 +42,140 @@ Un **champ de recherche** en haut de la bibliothèque permet de filtrer les él�
 ### Interaction sur le canvas
 
 #### Sélection
-- **Cliquer** sur un champ pour le sélectionner (bordure bleue pointillée).
+- **Cliquer** sur un champ pour le sélectionner (bordure bleue avec poignées).
+- **Ctrl+Clic** sur un autre champ pour l'ajouter à la sélection (multi-sélection).
 - **Cliquer sur le fond** du canvas pour désélectionner.
-- Le champ sélectionné affiche 4 poignées de redimensionnement dans ses coins.
+- **Sélection de zone** : cliquer et glisser sur le fond du canvas pour dessiner un rectangle de sélection. Tous les champs inclus dans la zone sont sélectionnés.
+- Le champ sélectionné affiche **8 poignées de redimensionnement** (4 coins + 4 bords) et une **poignée de rotation** au-dessus.
 
 #### Déplacement
 - **Glisser-déposer** un champ sélectionné pour le repositionner.
+- En multi-sélection, le déplacement s'applique à tous les champs sélectionnés.
 - Le déplacement tient compte du facteur de zoom du canvas (compensation automatique).
 - Si l'aimantation à la grille est activée, le champ s'aligne sur les intersections.
+- Les **smart guides** apparaissent automatiquement en rose pendant le déplacement pour indiquer l'alignement avec d'autres champs (bords, centres) ou le canvas.
 
 #### Redimensionnement
-- **Tirer** l'une des 4 poignées dans les coins du champ sélectionné.
+- **Tirer** l'une des **8 poignées** (coins et bords) du champ sélectionné.
+- **Shift** maintenu pendant le redimensionnement : conserve les proportions.
+- **Alt** maintenu pendant le redimensionnement : redimensionne depuis le centre.
 - Le redimensionnement est proportionnel : la taille de police du champ s'ajuste automatiquement en fonction du ratio de redimensionnement.
 - La compensation de scale du canvas est appliquée automatiquement.
+
+#### Rotation
+- Le champ sélectionné affiche une **poignée de rotation** (cercle) au-dessus, reliée par une ligne.
+- **Tirer** la poignée de rotation pour faire pivoter le champ.
+- La rotation s'effectue par incréments de **15 degrés** avec magnétisme automatique.
+- L'angle de rotation est affiché dans les propriétés du champ.
+
+#### Édition de texte inline
+- **Double-cliquer** sur un bloc de texte pour passer en mode édition directe.
+- Le texte peut être modifié directement sur le canvas, sans passer par le panneau de propriétés.
+- **Entrée** pour valider, **Échap** pour annuler.
+
+#### Drag-and-drop depuis la bibliothèque
+- Les éléments de la bibliothèque peuvent être **glissés-déposés** directement sur le canvas.
+- Un indicateur visuel (zone de dépôt) apparaît pendant le survol du canvas.
+- Le champ est créé à la position exacte du dépôt.
 
 #### Verrouillage
 - Un champ verrouillé (icône cadenas dans la liste des couches) ne peut être ni déplacé ni redimensionné.
 - Le curseur affiche une icône "interdit" au survol d'un champ verrouillé.
 - Le verrouillage protège les éléments déjà positionnés contre les modifications accidentelles.
 
+#### Menu contextuel (clic droit)
+
+Un clic droit sur le canvas ouvre un menu contextuel avec les actions suivantes :
+
+| Action | Raccourci | Description |
+|--------|-----------|-------------|
+| Couper | Ctrl+X | Copie et supprime le(s) champ(s) sélectionné(s) |
+| Copier | Ctrl+C | Copie le(s) champ(s) sélectionné(s) dans le presse-papiers |
+| Coller | Ctrl+V | Colle le contenu du presse-papiers avec un léger décalage |
+| Dupliquer | Ctrl+D | Crée une copie immédiate avec décalage |
+| Supprimer | Suppr | Supprime le(s) champ(s) sélectionné(s) |
+| Verrouiller/Déverrouiller | - | Bascule le verrouillage du champ |
+| Masquer/Afficher | - | Bascule la visibilité du champ |
+| Premier plan | - | Place le champ au-dessus de tous les autres |
+| Arrière-plan | - | Place le champ derrière tous les autres |
+| Tout sélectionner | Ctrl+A | Sélectionne tous les champs du canvas |
+| Afficher/Masquer la grille | - | Bascule l'affichage de la grille |
+
 #### Raccourcis clavier
 
 | Raccourci | Action |
 |-----------|--------|
-| `Suppr` / `Delete` | Supprime le champ sélectionné |
-| `Ctrl+D` | Duplique le champ sélectionné |
-| Flèches directionnelles | Déplace le champ de 1 px dans la direction |
+| `Suppr` / `Delete` | Supprime le(s) champ(s) sélectionné(s) |
+| `Ctrl+D` | Duplique le(s) champ(s) sélectionné(s) |
+| `Ctrl+C` | Copier la sélection |
+| `Ctrl+X` | Couper la sélection |
+| `Ctrl+V` | Coller depuis le presse-papiers |
+| `Ctrl+A` | Tout sélectionner |
+| `Échap` | Désélectionner |
+| Flèches | Déplacer de 1 px (ou taille de grille si activée) |
+| `Shift+Flèches` | Déplacer de 10 px |
 | `Ctrl+Z` | Annuler la dernière action |
 | `Ctrl+Y` | Rétablir l'action annulée |
+| `Ctrl+0` | Ajuster le zoom au canvas |
+| `Ctrl+1` | Zoom à 100% |
+| `Ctrl+=` | Zoom avant |
+| `Ctrl+-` | Zoom arrière |
+
+Une modale d'aide affiche tous les raccourcis clavier organisés par section (accessible depuis l'interface).
+
+### Multi-sélection et opérations groupées
+
+Quand plusieurs champs sont sélectionnés (via Ctrl+Clic ou sélection de zone), une **barre d'outils multi-sélection** apparaît dans le panneau latéral avec :
+
+#### Alignement (6 boutons)
+- Aligner les bords gauches / Centrer horizontalement / Aligner les bords droits
+- Aligner les bords supérieurs / Centrer verticalement / Aligner les bords inférieurs
+
+#### Distribution (pour 3+ champs sélectionnés)
+- Distribuer horizontalement (espacement égal entre les champs)
+- Distribuer verticalement (espacement égal entre les champs)
+
+#### Actions groupées
+- Supprimer tous les champs sélectionnés
+- Dupliquer tous les champs sélectionnés
+
+### Zoom et panoramique
+
+Le canvas supporte le zoom et le panoramique pour travailler sur des détails :
+
+| Contrôle | Action |
+|----------|--------|
+| `Ctrl+Molette` | Zoom avant/arrière |
+| `Ctrl+0` | Ajuster au canvas (zoom pour tout voir) |
+| `Ctrl+1` | Zoom 100% (taille réelle) |
+| `Ctrl+=` | Zoom avant |
+| `Ctrl+-` | Zoom arrière |
+| Barre de zoom | Sélection directe du niveau de zoom |
+
+Des **règles pixel** apparaissent le long des bords supérieur et gauche du canvas, avec des graduations adaptées au niveau de zoom.
+
+### Effets visuels
+
+Chaque champ peut avoir des effets visuels configurables dans le panneau de propriétés :
+
+| Effet | Description |
+|-------|-------------|
+| **Opacité** | Transparence globale du champ (0-100%) |
+| **Ombre portée** | Ombre configurable (décalage X/Y, flou, étendue, couleur) |
+| **Flou d'arrière-plan** | Effet de flou (backdrop blur) sur le contenu derrière le champ |
+
+### Modèles hockey prédéfinis
+
+4 modèles de layout spécialement conçus pour le hockey sur glace :
+
+| Modèle | Description |
+|--------|-------------|
+| **Score simple** | Noms d'équipe, score central, horloge et période |
+| **Score avec pénalités** | Score complet avec colonnes de pénalités gauche et droite |
+| **Bandeau inférieur** | Barre horizontale en bas de l'écran (style lower third) |
+| **Statistiques complètes** | Layout complet avec score, horloge, stats et comparaisons |
+
+Ces modèles créent automatiquement les champs pré-positionnés sur le canvas.
 
 ### Contrôle de la taille de police sur le canvas
 
@@ -160,14 +266,18 @@ Paramètres spécifiques selon le type d'élément (voir tableau ci-dessous).
 
 ### Panneau des couches
 
-La liste des champs affiche tous les éléments dans l'ordre des couches (Z-index, le dernier de la liste étant au premier plan). Pour chaque champ :
+La liste des champs affiche tous les éléments dans l'ordre des couches (Z-index, du plus haut au plus bas). Pour chaque champ :
 
 | Contrôle | Action |
 |----------|--------|
+| **Icône de type** | Indique le type d'élément (texte, image, horloge, etc.) |
+| **Nom du champ** | Cliquer pour sélectionner. **Double-cliquer** pour renommer le champ directement dans la liste. |
+| **z-index** | Affiche la position dans l'empilement |
 | **Flèches haut/bas** | Réordonner les couches (quel champ passe devant/derrière) |
 | **Icône oeil** | Basculer la visibilité (un champ invisible reste dans la liste mais n'apparaît pas sur le canvas) |
-| **Icône cadenas** | Basculer le verrouillage (empêche le déplacement et le redimensionnement accidentels) |
-| **Clic sur le nom** | Sélectionne le champ correspondant sur le canvas |
+| **Icône cadenas** | Basculer le verrouillage (empêche le déplacement et le redimensionnement accidentels). Un champ verrouillé affiche un cadenas doré. |
+| **Icône poubelle** | Supprimer le champ |
+| **Ctrl+Clic** | Ajouter/retirer le champ de la multi-sélection |
 
 ### Sélection de zone
 
@@ -215,12 +325,14 @@ Deux modes de chargement sont disponibles :
 
 ### Historique undo/redo
 
-Chaque action effectuée dans le Layout libre (ajout, suppression, déplacement, redimensionnement, modification de propriété) est enregistrée dans un historique dédié de 50 niveaux.
+Chaque action effectuée dans le Layout libre (ajout, suppression, déplacement, redimensionnement, rotation, modification de propriété) est enregistrée dans un historique dédié de 50 niveaux.
 
 | Raccourci | Action |
 |-----------|--------|
 | `Ctrl+Z` | Annuler la dernière action (revenir en arrière) |
 | `Ctrl+Y` | Rétablir l'action annulée (avancer) |
+
+**Regroupement intelligent :** les modifications rapides et successives (par exemple, pendant un glisser-déposer ou un redimensionnement) sont automatiquement regroupées en une seule entrée d'historique grâce à un mécanisme de debounce (300 ms). Cela évite d'encombrer l'historique avec des dizaines d'états intermédiaires et garantit qu'un seul `Ctrl+Z` annule l'ensemble de l'opération de déplacement.
 
 L'historique est propre au Layout libre et ne se mélange pas avec les modifications des autres parties du scoreboard. Il se réinitialise quand on change de type d'affichage.
 
