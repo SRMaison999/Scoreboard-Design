@@ -64,68 +64,9 @@ describe('FreeLayoutPanel', () => {
     expect(screen.getByTestId('free-layout-library-panel')).toBeInTheDocument();
   });
 
-  it('n\'affiche pas le panneau de propri\u00e9t\u00e9s quand aucun champ n\'est s\u00e9lectionn\u00e9', () => {
+  it('ne contient pas de panneau de propri\u00e9t\u00e9s (d\u00e9plac\u00e9 \u00e0 droite du canvas)', () => {
     render(<FreeLayoutPanel />);
+    expect(screen.queryByTestId('properties-panel')).not.toBeInTheDocument();
     expect(screen.queryByTestId('properties-full-panel')).not.toBeInTheDocument();
-  });
-
-  it('affiche les propri\u00e9t\u00e9s en pleine hauteur quand un champ est s\u00e9lectionn\u00e9', () => {
-    const element = {
-      type: 'text-block' as const,
-      config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 },
-    };
-    useScoreboardStore.getState().addCustomField(element, 50, 50, 200, 100);
-    const firstField = useScoreboardStore.getState().customFieldsData.fields[0];
-    if (!firstField) throw new Error('Le champ devrait exister');
-    useScoreboardStore.getState().selectCustomField(firstField.id);
-    render(<FreeLayoutPanel />);
-    expect(screen.getByTestId('properties-full-panel')).toBeInTheDocument();
-    expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldLabel)).toBeInTheDocument();
-  });
-
-  it('masque la biblioth\u00e8que quand un champ est s\u00e9lectionn\u00e9', () => {
-    useEditorUIStore.setState({ activeFreeLayoutTab: 'library' });
-    const element = {
-      type: 'text-block' as const,
-      config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 },
-    };
-    useScoreboardStore.getState().addCustomField(element, 50, 50, 200, 100);
-    const firstField = useScoreboardStore.getState().customFieldsData.fields[0];
-    if (!firstField) throw new Error('Le champ devrait exister');
-    useScoreboardStore.getState().selectCustomField(firstField.id);
-    render(<FreeLayoutPanel />);
-    expect(screen.queryByTestId('free-layout-library-panel')).not.toBeInTheDocument();
-  });
-
-  it('affiche un bouton retour dans le panneau de propri\u00e9t\u00e9s', () => {
-    const element = {
-      type: 'text-block' as const,
-      config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 },
-    };
-    useScoreboardStore.getState().addCustomField(element, 50, 50, 200, 100);
-    const firstField = useScoreboardStore.getState().customFieldsData.fields[0];
-    if (!firstField) throw new Error('Le champ devrait exister');
-    useScoreboardStore.getState().selectCustomField(firstField.id);
-    render(<FreeLayoutPanel />);
-    expect(screen.getByTestId('properties-back-button')).toBeInTheDocument();
-  });
-
-  it('revient au contenu de l\'onglet quand on clique sur le bouton retour', async () => {
-    const user = userEvent.setup();
-    useEditorUIStore.setState({ activeFreeLayoutTab: 'library' });
-    const element = {
-      type: 'text-block' as const,
-      config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 },
-    };
-    useScoreboardStore.getState().addCustomField(element, 50, 50, 200, 100);
-    const firstField = useScoreboardStore.getState().customFieldsData.fields[0];
-    if (!firstField) throw new Error('Le champ devrait exister');
-    useScoreboardStore.getState().selectCustomField(firstField.id);
-    render(<FreeLayoutPanel />);
-
-    await user.click(screen.getByTestId('properties-back-button'));
-
-    expect(screen.queryByTestId('properties-full-panel')).not.toBeInTheDocument();
-    expect(screen.getByTestId('free-layout-library-panel')).toBeInTheDocument();
   });
 });

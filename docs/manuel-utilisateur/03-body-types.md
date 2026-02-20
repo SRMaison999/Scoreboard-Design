@@ -231,9 +231,9 @@ Les quasi-alignements affichent un **badge cliquable** indiquant l'écart en pix
 
 Le diagnostic compare 6 points d'ancrage pour chaque champ : bord gauche, centre horizontal, bord droit, bord supérieur, centre vertical et bord inférieur. Le nombre de suggestions de quasi-alignement est limité à 6 pour éviter la surcharge visuelle.
 
-### Panneau de propriétés (sidebar)
+### Panneau de propriétés (à droite du canvas)
 
-Quand un champ est sélectionné, le panneau de propriétés remplace le contenu de l'onglet actif (bibliothèque, couches, etc.) et occupe toute la hauteur disponible. Cela offre un espace confortable pour configurer les propriétés sans avoir à scroller. Un bouton **retour** (flèche) en haut du panneau permet de revenir au contenu précédent (bibliothèque, couches, etc.). Cliquer sur ce bouton désélectionne le champ.
+Quand un champ est sélectionné, un panneau de propriétés (300 px de large) apparaît à droite du canvas de preview. Cela permet de garder la bibliothèque et les couches toujours visibles à gauche, tout en disposant d'un espace confortable pour configurer les propriétés sans scroller. Un bouton **X** en haut du panneau permet de le fermer (et désélectionne le champ). Le panneau supporte aussi la multi-sélection (alignement et distribution).
 
 Le panneau de propriétés affiche :
 

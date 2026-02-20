@@ -329,10 +329,11 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 **TemplateManager** gere la sauvegarde/chargement/import/export de templates via modale.
 
 **Composants du constructeur de champs personnalisés (Body Type 14)** :
-- `CustomFieldsSection.tsx` : section principale avec rail de 4 onglets (Bibliothèque, Canvas, Calques, Presets). Quand un champ est sélectionné, le panneau de propriétés remplace le contenu en pleine hauteur avec un bouton retour
+- `CustomFieldsSection.tsx` : section principale avec rail de 4 onglets (Bibliothèque, Canvas, Calques, Presets). Le contenu occupe toute la hauteur du panneau gauche
 - `CustomFieldLibrary.tsx` : palette d'éléments unifiée avec filtres horizontaux par catégorie (chips) et recherche
 - `CustomFieldList.tsx` : liste des couches avec réordonnancement, visibilité, verrouillage
-- `CustomFieldProperties.tsx` : panneau de propriétés affiché en pleine hauteur quand un élément est sélectionné (remplace le contenu de l'onglet actif), avec sections repliables (position, z-index/rotation, style, config). Le z-index est contrôlé par 4 boutons d'action (premier plan, avancer, reculer, arrière-plan) au lieu d'un champ numérique. Un bouton retour permet de revenir à la bibliothèque
+- `CustomFieldProperties.tsx` : propriétés du champ avec sections repliables (position, z-index/rotation, style, config). Le z-index est contrôlé par 4 boutons d'action (premier plan, avancer, reculer, arrière-plan) au lieu d'un champ numérique
+- `PropertiesPanel.tsx` : panneau latéral droit (300 px) affiché à droite du canvas quand un ou plusieurs champs sont sélectionnés. Supporte la sélection simple (propriétés complètes) et multiple (alignement/distribution)
 - `FieldElementConfigEditor.tsx` : éditeurs de configuration spécifiques par type d'élément
 
 ### 5.3 Preview (`src/components/preview/`)
