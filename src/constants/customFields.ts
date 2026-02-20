@@ -1,19 +1,21 @@
 /**
- * Bibliothèque d'éléments pour le constructeur de champs personnalisés.
- * Chaque élément définit son type, sa catégorie, ses dimensions par défaut et minimales.
+ * Labels et constantes pour le constructeur de champs personnalis\u00e9s.
+ * Les d\u00e9finitions des \u00e9l\u00e9ments de la biblioth\u00e8que sont dans ./libraryElements.ts.
  */
 
-import type { LibraryElement, LibraryCategory } from '@/types/customField';
+import type { LibraryCategory } from '@/types/customField';
 
-/* --- Labels des catégories --- */
+export { LIBRARY_ELEMENTS } from './libraryElements';
+
+/* --- Labels des cat\u00e9gories --- */
 
 export const LIBRARY_CATEGORY_LABELS: Readonly<Record<LibraryCategory, string>> = {
   match: 'Match',
   text: 'Texte',
-  data: 'Données',
+  data: 'Donn\u00e9es',
   players: 'Joueurs',
-  media: 'Médias',
-  composed: 'Composés',
+  media: 'M\u00e9dias',
+  composed: 'Compos\u00e9s',
 };
 
 /* --- Labels du constructeur de champs --- */
@@ -21,23 +23,23 @@ export const LIBRARY_CATEGORY_LABELS: Readonly<Record<LibraryCategory, string>> 
 export const CUSTOM_FIELD_LABELS = {
   /* Section principale */
   sectionCustomFields: 'Layout libre',
-  bodyType14Label: 'Layout libre (champs personnalisés)',
+  bodyType14Label: 'Layout libre (champs personnalis\u00e9s)',
 
   /* Modes */
   fullPageMode: 'Mode pleine page',
-  fullPageModeHint: 'Les éléments peuvent couvrir tout le canvas',
-  snapToGrid: 'Aimanter à la grille',
+  fullPageModeHint: 'Les \u00e9l\u00e9ments peuvent couvrir tout le canvas',
+  snapToGrid: 'Aimanter \u00e0 la grille',
   showGuides: 'Afficher les guides',
   gridSize: 'Taille de la grille',
 
-  /* Bibliothèque */
-  libraryTitle: 'Bibliothèque',
-  librarySearch: 'Rechercher un élément...',
-  libraryEmpty: 'Aucun élément trouvé',
+  /* Biblioth\u00e8que */
+  libraryTitle: 'Biblioth\u00e8que',
+  librarySearch: 'Rechercher un \u00e9l\u00e9ment...',
+  libraryEmpty: 'Aucun \u00e9l\u00e9ment trouv\u00e9',
   addField: 'Ajouter au canvas',
 
   /* Champs */
-  fieldProperties: 'Propriétés du champ',
+  fieldProperties: 'Propri\u00e9t\u00e9s du champ',
   fieldLabel: 'Nom du champ',
   fieldPosition: 'Position',
   fieldSize: 'Taille',
@@ -46,7 +48,7 @@ export const CUSTOM_FIELD_LABELS = {
   fieldWidth: 'Largeur',
   fieldHeight: 'Hauteur',
   fieldZIndex: 'Ordre (Z)',
-  fieldLocked: 'Verrouillé',
+  fieldLocked: 'Verrouill\u00e9',
   fieldVisible: 'Visible',
   fieldDelete: 'Supprimer le champ',
   fieldDuplicate: 'Dupliquer le champ',
@@ -55,19 +57,19 @@ export const CUSTOM_FIELD_LABELS = {
   fieldStyleTitle: 'Style du champ',
   fieldBgColor: 'Couleur de fond',
   fieldBorderColor: 'Couleur de bordure',
-  fieldBorderWidth: 'Épaisseur de bordure',
+  fieldBorderWidth: '\u00c9paisseur de bordure',
   fieldBorderRadius: 'Rayon de bordure',
   fieldPadding: 'Marge interne',
-  fieldBgOpacity: 'Opacité du fond',
+  fieldBgOpacity: 'Opacit\u00e9 du fond',
 
   /* Couches */
   layersTitle: 'Couches',
   layerMoveUp: 'Monter',
   layerMoveDown: 'Descendre',
   layerToFront: 'Premier plan',
-  layerToBack: 'Arrière-plan',
+  layerToBack: 'Arri\u00e8re-plan',
   layerRename: 'Double-cliquer pour renommer',
-  layerRenameEmpty: 'Le nom ne peut pas être vide',
+  layerRenameEmpty: 'Le nom ne peut pas \u00eatre vide',
 
   /* Contraintes */
   canvasFull: 'Canvas complet. Supprimez un champ pour en ajouter un nouveau.',
@@ -75,37 +77,37 @@ export const CUSTOM_FIELD_LABELS = {
   maxFieldsReached: 'Nombre maximal de champs atteint',
 
   /* Validations */
-  validateLayout: 'Vérifier le layout',
-  validationOk: 'Aucun problème détecté',
-  validationOverlap: 'Chevauchement détecté',
+  validateLayout: 'V\u00e9rifier le layout',
+  validationOk: 'Aucun probl\u00e8me d\u00e9tect\u00e9',
+  validationOverlap: 'Chevauchement d\u00e9tect\u00e9',
   validationOutOfBounds: 'Champ hors limites',
 
-  /* Config éléments */
+  /* Config \u00e9l\u00e9ments */
   configTextContent: 'Contenu',
   configTextFontSize: 'Taille de police',
-  configTextFontWeight: 'Épaisseur',
+  configTextFontWeight: '\u00c9paisseur',
   configTextAlign: 'Alignement',
   configTextTransform: 'Casse',
-  configSide: 'Côté',
+  configSide: 'C\u00f4t\u00e9',
   configSideLeft: 'Gauche',
   configSideRight: 'Droite',
   configShowFlag: 'Afficher le drapeau',
   configShowLabel: 'Afficher le label',
-  configShowPeriod: 'Afficher la période',
+  configShowPeriod: 'Afficher la p\u00e9riode',
   configShowBox: 'Afficher le cadre',
   configShowClock: 'Afficher l\'horloge',
   configStatIndex: 'Ligne de stat',
   configBarIndex: 'Barre',
-  configPhotoKey: 'Clé photo',
+  configPhotoKey: 'Cl\u00e9 photo',
   configPhotoShape: 'Forme',
   configPhotoCircle: 'Cercle',
-  configPhotoSquare: 'Carré',
+  configPhotoSquare: 'Carr\u00e9',
   configImageSrc: 'Source image',
   configImageFit: 'Ajustement',
   configImageBrowse: 'Parcourir...',
   configImageCover: 'Couvrir',
   configImageContain: 'Contenir',
-  configImageFill: 'Étirer',
+  configImageFill: '\u00c9tirer',
   configShapeType: 'Forme',
   configShapeRectangle: 'Rectangle',
   configShapeCircle: 'Cercle',
@@ -115,10 +117,10 @@ export const CUSTOM_FIELD_LABELS = {
   configSeparatorOrientation: 'Orientation',
   configSeparatorHorizontal: 'Horizontale',
   configSeparatorVertical: 'Verticale',
-  configSeparatorThickness: 'Épaisseur',
+  configSeparatorThickness: '\u00c9paisseur',
   configSeparatorColor: 'Couleur',
 
-  /* Police de caractères */
+  /* Police de caract\u00e8res */
   configFontFamily: 'Police',
   configFontFamilyGlobal: 'Police globale',
 
@@ -131,11 +133,11 @@ export const CUSTOM_FIELD_LABELS = {
   fieldRotationUnit: '\u00b0',
   fieldRotationReset: 'R\u00e9initialiser',
 
-  /* Proportions et mise à l'échelle */
+  /* Proportions et mise \u00e0 l'\u00e9chelle */
   fieldLockAspectRatio: 'Verrouiller les proportions',
-  fieldScaleContent: 'Mise à l\u2019échelle du contenu',
+  fieldScaleContent: 'Mise \u00e0 l\u2019\u00e9chelle du contenu',
   fieldScaleContentHint: 'Le contenu suit la taille du champ',
-  fieldResetScale: 'Réinitialiser l\u2019échelle',
+  fieldResetScale: 'R\u00e9initialiser l\u2019\u00e9chelle',
 
   /* Alignement */
   alignLeft: 'Aligner \u00e0 gauche',
@@ -153,8 +155,8 @@ export const CUSTOM_FIELD_LABELS = {
   /* Raccourcis */
   keyboardShortcutsHint: 'Suppr, Ctrl+D, Fl\u00e8ches, Ctrl+Z/Y',
 
-  /* Panneau de propriétés secondaire */
-  propertiesPanelTitle: 'Propriétés',
+  /* Panneau de propri\u00e9t\u00e9s secondaire */
+  propertiesPanelTitle: 'Propri\u00e9t\u00e9s',
   propertiesPanelClose: 'Fermer le panneau',
 
   /* Barre flottante taille de police */
@@ -164,11 +166,11 @@ export const CUSTOM_FIELD_LABELS = {
   fontToolbarGlobalHint: 'Valeur globale',
   fontToolbarClickToEdit: 'Cliquer pour saisir une valeur',
 
-  /* Sélection de zone */
-  zoneSelectStart: 'Sélectionner une zone',
-  zoneSelectCancel: 'Annuler la sélection',
+  /* S\u00e9lection de zone */
+  zoneSelectStart: 'S\u00e9lectionner une zone',
+  zoneSelectCancel: 'Annuler la s\u00e9lection',
   zoneSelectHint: 'Dessinez un rectangle sur le canvas pour capturer les champs',
-  zoneSelectNoFields: 'Aucun champ dans la zone sélectionnée',
+  zoneSelectNoFields: 'Aucun champ dans la zone s\u00e9lectionn\u00e9e',
 
   /* Presets */
   sectionPresets: 'Presets',
@@ -202,26 +204,26 @@ export const CUSTOM_FIELD_LABELS = {
   presetLoadMerge: 'Ajouter au layout actuel',
   presetFieldCount: 'champ(s)',
 
-  /* Glisser-déposer depuis la bibliothèque */
+  /* Glisser-d\u00e9poser depuis la biblioth\u00e8que */
   dragTooltip: 'Glisser sur le canvas pour positionner',
-  dropHint: 'Relâcher pour déposer l\u2019élément',
+  dropHint: 'Rel\u00e2cher pour d\u00e9poser l\u2019\u00e9l\u00e9ment',
   dragMimeType: 'application/x-scoreboard-element',
 
-  /* État vide du canvas */
+  /* \u00c9tat vide du canvas */
   emptyCanvasTitle: 'Canvas vide',
-  emptyCanvasHint: 'Glissez un élément depuis la bibliothèque ou cliquez pour l\u2019ajouter au centre.',
-  emptyCanvasStepTeams: 'Configurez d\u2019abord les équipes dans la section Header ci-dessus',
-  emptyCanvasStepAdd: 'Puis ajoutez des éléments depuis la bibliothèque',
+  emptyCanvasHint: 'Glissez un \u00e9l\u00e9ment depuis la biblioth\u00e8que ou cliquez pour l\u2019ajouter au centre.',
+  emptyCanvasStepTeams: 'Configurez d\u2019abord les \u00e9quipes dans la section Header ci-dessus',
+  emptyCanvasStepAdd: 'Puis ajoutez des \u00e9l\u00e9ments depuis la biblioth\u00e8que',
 
   /* Indice Header en mode Layout libre */
-  headerLayoutLibreHint: 'Ces données sont utilisées par les éléments Score, Nom d\u2019équipe et Drapeau sur le canvas.',
+  headerLayoutLibreHint: 'Ces donn\u00e9es sont utilis\u00e9es par les \u00e9l\u00e9ments Score, Nom d\u2019\u00e9quipe et Drapeau sur le canvas.',
 
-  /* Labels lisibles pour les types d\u2019éléments */
+  /* Labels lisibles pour les types d\u2019\u00e9l\u00e9ments */
   elementTypeLabels: {
     'score-display': 'Score',
     'clock-display': 'Horloge',
-    'period-display': 'Période',
-    'team-name': 'Nom d\u2019équipe',
+    'period-display': 'P\u00e9riode',
+    'team-name': 'Nom d\u2019\u00e9quipe',
     'flag-display': 'Drapeau',
     'timeout-display': 'Temps morts',
     'shootout-display': 'Tirs au but',
@@ -231,14 +233,14 @@ export const CUSTOM_FIELD_LABELS = {
     'player-photo': 'Photo joueur',
     'image-block': 'Image',
     'shape-block': 'Forme',
-    'separator-line': 'Séparateur',
+    'separator-line': 'S\u00e9parateur',
     'header-block': 'Header complet',
-    'penalty-column': 'Colonne de pénalités',
+    'penalty-column': 'Colonne de p\u00e9nalit\u00e9s',
   } as Readonly<Record<string, string>>,
 
   /* Raccourcis clavier */
   keyboardShortcutsTitle: 'Raccourcis',
-  keyboardShortcutsList: 'Suppr\u00a0: supprimer \u00b7 Ctrl+D\u00a0: dupliquer \u00b7 Flèches\u00a0: déplacer \u00b7 Molette\u00a0: taille police',
+  keyboardShortcutsList: 'Suppr\u00a0: supprimer \u00b7 Ctrl+D\u00a0: dupliquer \u00b7 Fl\u00e8ches\u00a0: d\u00e9placer \u00b7 Molette\u00a0: taille police',
 
   /* Zoom et navigation du canvas */
   zoomIn: 'Zoom avant',
@@ -319,6 +321,7 @@ export const CUSTOM_FIELD_LABELS = {
   freeLayoutTabProperties: 'Propri\u00e9t\u00e9s',
   freeLayoutNoSelection: 'S\u00e9lectionnez un champ pour voir ses propri\u00e9t\u00e9s',
   freeLayoutAddHint: 'Cliquer pour ajouter, ou glisser sur le canvas',
+  freeLayoutFieldAdded: 'Champ ajout\u00e9 \u2014 configurez-le ci-dessous',
 
   /* Modale raccourcis clavier */
   shortcutsTitle: 'Raccourcis clavier',
@@ -345,309 +348,3 @@ export const CUSTOM_FIELD_LABELS = {
   shortcutZoomOut: 'Zoom arri\u00e8re',
   alignmentFixHint: 'Corriger l\'alignement',
 } as const;
-
-/* --- Bibliothèque d'éléments --- */
-
-export const LIBRARY_ELEMENTS: readonly LibraryElement[] = [
-  /* --- Match --- */
-  {
-    type: 'score-display',
-    label: 'Score',
-    category: 'match',
-    defaultWidth: 180,
-    defaultHeight: 120,
-    minWidth: 60,
-    minHeight: 50,
-    icon: 'hash',
-  },
-  {
-    type: 'clock-display',
-    label: 'Horloge',
-    category: 'match',
-    defaultWidth: 340,
-    defaultHeight: 120,
-    minWidth: 100,
-    minHeight: 50,
-    icon: 'clock',
-  },
-  {
-    type: 'period-display',
-    label: 'Période',
-    category: 'match',
-    defaultWidth: 250,
-    defaultHeight: 60,
-    minWidth: 80,
-    minHeight: 40,
-    icon: 'timer',
-  },
-  {
-    type: 'team-name',
-    label: 'Nom d\'équipe',
-    category: 'match',
-    defaultWidth: 400,
-    defaultHeight: 120,
-    minWidth: 80,
-    minHeight: 40,
-    icon: 'shield',
-  },
-  {
-    type: 'flag-display',
-    label: 'Drapeau',
-    category: 'match',
-    defaultWidth: 120,
-    defaultHeight: 80,
-    minWidth: 50,
-    minHeight: 40,
-    icon: 'flag',
-  },
-  {
-    type: 'timeout-display',
-    label: 'Temps morts',
-    category: 'match',
-    defaultWidth: 280,
-    defaultHeight: 60,
-    minWidth: 80,
-    minHeight: 40,
-    icon: 'pause-circle',
-  },
-  {
-    type: 'shootout-display',
-    label: 'Tirs au but',
-    category: 'match',
-    defaultWidth: 400,
-    defaultHeight: 60,
-    minWidth: 120,
-    minHeight: 40,
-    icon: 'target',
-  },
-
-  /* --- Texte --- */
-  {
-    type: 'text-block',
-    label: 'Bloc de texte',
-    category: 'text',
-    defaultWidth: 400,
-    defaultHeight: 80,
-    minWidth: 80,
-    minHeight: 40,
-    icon: 'type',
-  },
-
-  /* --- Données --- */
-  {
-    type: 'stat-line',
-    label: 'Ligne de stat',
-    category: 'data',
-    defaultWidth: 500,
-    defaultHeight: 60,
-    minWidth: 200,
-    minHeight: 40,
-    icon: 'bar-chart-2',
-  },
-  {
-    type: 'bar-compare',
-    label: 'Barre comparative',
-    category: 'data',
-    defaultWidth: 500,
-    defaultHeight: 80,
-    minWidth: 200,
-    minHeight: 40,
-    icon: 'git-compare',
-  },
-
-  /* --- Joueurs --- */
-  {
-    type: 'player-photo',
-    label: 'Photo joueur',
-    category: 'players',
-    defaultWidth: 150,
-    defaultHeight: 150,
-    minWidth: 60,
-    minHeight: 60,
-    icon: 'user',
-  },
-
-  /* --- Médias --- */
-  {
-    type: 'image-block',
-    label: 'Image',
-    category: 'media',
-    defaultWidth: 300,
-    defaultHeight: 200,
-    minWidth: 60,
-    minHeight: 60,
-    icon: 'image',
-  },
-  {
-    type: 'shape-block',
-    label: 'Forme',
-    category: 'media',
-    defaultWidth: 200,
-    defaultHeight: 200,
-    minWidth: 40,
-    minHeight: 40,
-    icon: 'square',
-  },
-  {
-    type: 'separator-line',
-    label: 'Séparateur',
-    category: 'media',
-    defaultWidth: 400,
-    defaultHeight: 4,
-    minWidth: 40,
-    minHeight: 4,
-    icon: 'minus',
-  },
-
-  /* --- Composés (body types existants) --- */
-  {
-    type: 'header-block',
-    label: 'Header complet',
-    category: 'composed',
-    defaultWidth: 1920,
-    defaultHeight: 200,
-    minWidth: 400,
-    minHeight: 100,
-    icon: 'layout-dashboard',
-  },
-  {
-    type: 'penalty-column',
-    label: 'Colonne de pénalités',
-    category: 'composed',
-    defaultWidth: 200,
-    defaultHeight: 600,
-    minWidth: 100,
-    minHeight: 200,
-    icon: 'columns',
-  },
-  {
-    type: 'body-type-1',
-    label: 'Stats centrées (Type 1)',
-    category: 'composed',
-    defaultWidth: 1200,
-    defaultHeight: 600,
-    minWidth: 400,
-    minHeight: 200,
-    icon: 'align-center',
-  },
-  {
-    type: 'body-type-2',
-    label: 'Stats gauche/droite (Type 2)',
-    category: 'composed',
-    defaultWidth: 1200,
-    defaultHeight: 600,
-    minWidth: 400,
-    minHeight: 200,
-    icon: 'columns',
-  },
-  {
-    type: 'body-type-3',
-    label: 'Stats joueur (Type 3)',
-    category: 'composed',
-    defaultWidth: 1200,
-    defaultHeight: 600,
-    minWidth: 400,
-    minHeight: 200,
-    icon: 'user',
-  },
-  {
-    type: 'body-type-4',
-    label: 'Célébration de but (Type 4)',
-    category: 'composed',
-    defaultWidth: 1200,
-    defaultHeight: 600,
-    minWidth: 400,
-    minHeight: 200,
-    icon: 'trophy',
-  },
-  {
-    type: 'body-type-5',
-    label: 'Fiche joueur (Type 5)',
-    category: 'composed',
-    defaultWidth: 1200,
-    defaultHeight: 600,
-    minWidth: 400,
-    minHeight: 200,
-    icon: 'id-card',
-  },
-  {
-    type: 'body-type-6',
-    label: 'Classement (Type 6)',
-    category: 'composed',
-    defaultWidth: 1200,
-    defaultHeight: 600,
-    minWidth: 400,
-    minHeight: 200,
-    icon: 'list-ordered',
-  },
-  {
-    type: 'body-type-7',
-    label: 'Score final (Type 7)',
-    category: 'composed',
-    defaultWidth: 1200,
-    defaultHeight: 600,
-    minWidth: 400,
-    minHeight: 200,
-    icon: 'flag-triangle-right',
-  },
-  {
-    type: 'body-type-8',
-    label: 'Texte libre (Type 8)',
-    category: 'composed',
-    defaultWidth: 1200,
-    defaultHeight: 600,
-    minWidth: 400,
-    minHeight: 200,
-    icon: 'file-text',
-  },
-  {
-    type: 'body-type-9',
-    label: 'Face-à-face (Type 9)',
-    category: 'composed',
-    defaultWidth: 1200,
-    defaultHeight: 600,
-    minWidth: 400,
-    minHeight: 200,
-    icon: 'users',
-  },
-  {
-    type: 'body-type-10',
-    label: 'Chronologie (Type 10)',
-    category: 'composed',
-    defaultWidth: 1200,
-    defaultHeight: 600,
-    minWidth: 400,
-    minHeight: 200,
-    icon: 'clock',
-  },
-  {
-    type: 'body-type-11',
-    label: 'Barres comparatives (Type 11)',
-    category: 'composed',
-    defaultWidth: 1200,
-    defaultHeight: 600,
-    minWidth: 400,
-    minHeight: 200,
-    icon: 'bar-chart',
-  },
-  {
-    type: 'body-type-12',
-    label: 'Composition d\'équipe (Type 12)',
-    category: 'composed',
-    defaultWidth: 1200,
-    defaultHeight: 600,
-    minWidth: 400,
-    minHeight: 200,
-    icon: 'users',
-  },
-  {
-    type: 'body-type-13',
-    label: 'Calendrier (Type 13)',
-    category: 'composed',
-    defaultWidth: 1200,
-    defaultHeight: 600,
-    minWidth: 400,
-    minHeight: 200,
-    icon: 'calendar',
-  },
-];

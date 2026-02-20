@@ -1,10 +1,12 @@
 /**
  * Panneau affichant les éléments de la bibliothèque pour une catégorie donnée.
  * Utilisé dans la navigation du Layout libre.
+ * Après ajout d'un champ, navigue automatiquement vers l'onglet Propriétés.
  */
 
 import { GripVertical } from 'lucide-react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
+import { useEditorUIStore } from '@/stores/editorUIStore';
 import { useLibraryDragDrop } from '@/hooks/useLibraryDragDrop';
 import { prepareFieldForAdd } from '@/utils/fieldConfig';
 import { cn } from '@/lib/utils';
@@ -26,6 +28,7 @@ export function FreeLayoutCategoryPanel({ category }: FreeLayoutCategoryPanelPro
   const templateWidth = useScoreboardStore((s) => s.templateWidth);
   const templateHeight = useScoreboardStore((s) => s.templateHeight);
   const addField = useScoreboardStore((s) => s.addCustomField);
+  const setFreeLayoutTab = useEditorUIStore((s) => s.setFreeLayoutTab);
   const { onDragStart } = useLibraryDragDrop();
 
   const items = LIBRARY_ELEMENTS.filter((el) => el.category === category);
@@ -39,6 +42,7 @@ export function FreeLayoutCategoryPanel({ category }: FreeLayoutCategoryPanelPro
     const x = Math.round((templateWidth - w) / 2);
     const y = Math.round((templateHeight - h) / 2);
     addField(config, x, y, w, h, label);
+    setFreeLayoutTab('properties');
   };
 
   return (
@@ -57,7 +61,7 @@ export function FreeLayoutCategoryPanel({ category }: FreeLayoutCategoryPanelPro
           <p className="text-[11px] text-red-400 mb-2">{CUSTOM_FIELD_LABELS.maxFieldsReached}</p>
         )}
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1.5">
           {items.map((el) => (
             <button
               key={el.type}
@@ -68,7 +72,7 @@ export function FreeLayoutCategoryPanel({ category }: FreeLayoutCategoryPanelPro
               onDragStart={(e) => onDragStart(e, el.type)}
               title={isFull ? CUSTOM_FIELD_LABELS.maxFieldsReached : CUSTOM_FIELD_LABELS.dragTooltip}
               className={cn(
-                'group flex items-center gap-2 text-[13px] text-gray-300 rounded-md px-3 py-2.5 text-left',
+                'group flex items-start gap-2 text-left rounded-md px-3 py-2.5',
                 'border border-gray-800 hover:text-sky-300 hover:bg-gray-800/60 hover:border-gray-700',
                 'transition-colors',
                 !isFull && 'cursor-grab active:cursor-grabbing',
@@ -77,10 +81,13 @@ export function FreeLayoutCategoryPanel({ category }: FreeLayoutCategoryPanelPro
             >
               <GripVertical
                 size={12}
-                className="flex-shrink-0 text-gray-600 opacity-0 group-hover:opacity-60 transition-opacity"
+                className="flex-shrink-0 text-gray-600 opacity-0 group-hover:opacity-60 transition-opacity mt-0.5"
               />
               <LibraryIcon name={el.icon} />
-              <span className="flex-1">{el.label}</span>
+              <div className="flex-1 min-w-0">
+                <span className="text-[13px] text-gray-300 group-hover:text-sky-300">{el.label}</span>
+                <p className="text-[10px] text-gray-500 mt-0.5 leading-tight">{el.description}</p>
+              </div>
             </button>
           ))}
         </div>

@@ -18,6 +18,7 @@ import { useFieldResize } from '@/hooks/useFieldResize';
 import { useFieldRotation } from '@/hooks/useFieldRotation';
 import { useFieldFontSize, hasEditableFontSize } from '@/hooks/useFieldFontSize';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
+import { useEditorUIStore } from '@/stores/editorUIStore';
 import { useZoneSelection } from '@/hooks/useZoneSelection';
 import { useLibraryDragDrop } from '@/hooks/useLibraryDragDrop';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
@@ -80,6 +81,7 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
   const { showGuides, gridSize } = state.customFieldsData;
 
   const addField = useScoreboardStore((s) => s.addCustomField);
+  const setFreeLayoutTab = useEditorUIStore((s) => s.setFreeLayoutTab);
 
   const drag = useFieldDrag(canvasScale);
   const resize = useFieldResize(canvasScale);
@@ -172,7 +174,8 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
     const y = Math.max(0, Math.min(canvasY - Math.round(h / 2), state.templateHeight - h));
 
     addField(config, x, y, w, h, label);
-  }, [isFull, libraryDrag, canvasScale, fields, state.templateWidth, state.templateHeight, addField]);
+    setFreeLayoutTab('properties');
+  }, [isFull, libraryDrag, canvasScale, fields, state.templateWidth, state.templateHeight, addField, setFreeLayoutTab]);
 
   const showToolbar = selectedField && hasFontControl && fontInfo && hasEditableFontSize(selectedField.element.type);
 
