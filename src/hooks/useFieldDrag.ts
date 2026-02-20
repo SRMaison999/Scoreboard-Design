@@ -44,7 +44,7 @@ export function useFieldDrag(scale: number) {
   );
 
   const onPointerDown = useCallback(
-    (e: React.PointerEvent, fieldId: string, fieldX: number, fieldY: number) => {
+    (e: React.PointerEvent, fieldId: string, _fieldX: number, _fieldY: number) => {
       e.stopPropagation();
       e.preventDefault();
 

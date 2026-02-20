@@ -13,7 +13,7 @@ import {
   updateCustomFieldPropDraft, duplicateCustomFieldDraft,
   resetCustomFieldScaleDraft, reorderCustomFieldDraft,
   moveSelectedFieldsDraft, removeSelectedFieldsDraft,
-  duplicateSelectedFieldsDraft,
+  duplicateSelectedFieldsDraft, pasteFieldsDraft,
 } from './customFieldActions';
 import type { ScoreboardState, PenaltySide } from '@/types/scoreboard';
 import type { ColorKey, ColorPreset } from '@/types/colors';
@@ -246,6 +246,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { removeSelectedFieldsDraft(s); }),
       duplicateSelectedFields: () =>
         set((s) => { duplicateSelectedFieldsDraft(s); }),
+      pasteFields: (sourceFields, pasteOffset) =>
+        set((s) => { pasteFieldsDraft(s, sourceFields, pasteOffset); }),
       updateCustomFieldsOption: (key, value) =>
         set((s) => { (s.customFieldsData as Record<string, unknown>)[key] = value; }),
       updateCustomFieldsGridSize: (size) =>

@@ -41,6 +41,9 @@ function makeField(overrides?: Partial<CustomField>): CustomField {
       borderWidth: 0,
       borderRadius: 0,
       padding: 0,
+      opacity: 100,
+      shadow: null,
+      backdropBlur: 0,
     },
     ...overrides,
   };
@@ -123,7 +126,7 @@ describe('InteractiveField', () => {
     expect(screen.queryByTestId('selection-border')).not.toBeInTheDocument();
   });
 
-  it('affiche 4 poignees de resize quand selectionne et non verrouille', () => {
+  it('affiche 8 poignees de resize quand selectionne et non verrouille', () => {
     render(
       <InteractiveField
         field={makeField()}
@@ -135,10 +138,16 @@ describe('InteractiveField', () => {
         resize={makeResize()}
       />,
     );
+    /* 4 coins */
     expect(screen.getByTestId('resize-handle-top-left')).toBeInTheDocument();
     expect(screen.getByTestId('resize-handle-top-right')).toBeInTheDocument();
     expect(screen.getByTestId('resize-handle-bottom-left')).toBeInTheDocument();
     expect(screen.getByTestId('resize-handle-bottom-right')).toBeInTheDocument();
+    /* 4 bords */
+    expect(screen.getByTestId('resize-handle-top')).toBeInTheDocument();
+    expect(screen.getByTestId('resize-handle-bottom')).toBeInTheDocument();
+    expect(screen.getByTestId('resize-handle-left')).toBeInTheDocument();
+    expect(screen.getByTestId('resize-handle-right')).toBeInTheDocument();
   });
 
   it('masque les poignees de resize quand verrouille', () => {
@@ -192,39 +201,30 @@ describe('InteractiveField', () => {
 });
 
 describe('fieldBgStyle', () => {
+  const baseStyle = {
+    backgroundColor: '',
+    backgroundOpacity: 0,
+    borderColor: '',
+    borderWidth: 0,
+    borderRadius: 0,
+    padding: 0,
+    opacity: 100,
+    shadow: null,
+    backdropBlur: 0,
+  };
+
   it('retourne un objet vide pour un style par defaut', () => {
-    const result = fieldBgStyle({
-      backgroundColor: '',
-      backgroundOpacity: 0,
-      borderColor: '',
-      borderWidth: 0,
-      borderRadius: 0,
-      padding: 0,
-    });
+    const result = fieldBgStyle(baseStyle);
     expect(result).toEqual({});
   });
 
   it('applique la couleur de fond avec opacite', () => {
-    const result = fieldBgStyle({
-      backgroundColor: '#ff0000',
-      backgroundOpacity: 50,
-      borderColor: '',
-      borderWidth: 0,
-      borderRadius: 0,
-      padding: 0,
-    });
+    const result = fieldBgStyle({ ...baseStyle, backgroundColor: '#ff0000', backgroundOpacity: 50 });
     expect(result.backgroundColor).toBeDefined();
   });
 
   it('applique la bordure quand epaisseur > 0', () => {
-    const result = fieldBgStyle({
-      backgroundColor: '',
-      backgroundOpacity: 0,
-      borderColor: '#0000ff',
-      borderWidth: 2,
-      borderRadius: 0,
-      padding: 0,
-    });
+    const result = fieldBgStyle({ ...baseStyle, borderColor: '#0000ff', borderWidth: 2 });
     expect(result.border).toContain('2px solid');
   });
 });

@@ -177,6 +177,14 @@ export type FieldElementConfig =
 
 /* --- Style d'un champ --- */
 
+export interface FieldShadow {
+  offsetX: number;
+  offsetY: number;
+  blur: number;
+  color: string;
+  opacity: number;
+}
+
 export interface FieldStyle {
   backgroundColor: string;
   backgroundOpacity: number;
@@ -184,6 +192,12 @@ export interface FieldStyle {
   borderWidth: number;
   borderRadius: number;
   padding: number;
+  /** Opacite globale de l'element (0-100) */
+  opacity: number;
+  /** Ombre portee */
+  shadow: FieldShadow | null;
+  /** Flou d'arriere-plan en pixels */
+  backdropBlur: number;
 }
 
 /* --- Champ personnalisé --- */
@@ -231,6 +245,18 @@ export interface LibraryElement {
   readonly icon: string;
 }
 
+/* --- Type de poignée de redimensionnement --- */
+
+export type ResizeHandle =
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right';
+
 /* --- Constantes de dimensions --- */
 
 export const FIELD_MIN_SIZE = 40;
@@ -247,6 +273,9 @@ export const DEFAULT_FIELD_STYLE: FieldStyle = {
   borderWidth: 0,
   borderRadius: 0,
   padding: 0,
+  opacity: 100,
+  shadow: null,
+  backdropBlur: 0,
 };
 
 export const DEFAULT_CUSTOM_FIELDS_DATA: CustomFieldsData = {

@@ -6,20 +6,19 @@ import { DEFAULT_FIELD_STYLE } from '@/types/customField';
 
 function makeField(overrides: Partial<CustomField> & { id: string }): CustomField {
   return {
-    id: overrides.id,
-    label: overrides.label ?? 'Test',
-    x: overrides.x ?? 0,
-    y: overrides.y ?? 0,
-    width: overrides.width ?? 100,
-    height: overrides.height ?? 100,
-    zIndex: overrides.zIndex ?? 1,
+    label: 'Test',
+    x: 0,
+    y: 0,
+    width: 100,
+    height: 100,
+    zIndex: 1,
     locked: false,
     visible: true,
     lockAspectRatio: false,
     scaleContent: true,
     initialWidth: overrides.width ?? 100,
     initialHeight: overrides.height ?? 100,
-    element: { type: 'text-block', config: { content: '', fontSize: 24, fontWeight: 'normal', fontFamily: '', textAlign: 'left', textTransform: 'none', letterSpacing: 0 } },
+    element: { type: 'text-block', config: { content: '', fontSize: 24, fontWeight: 400, fontFamily: '', textAlign: 'left', textTransform: 'none', letterSpacing: 0 } },
     style: { ...DEFAULT_FIELD_STYLE },
     ...overrides,
   };

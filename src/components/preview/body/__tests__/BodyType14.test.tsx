@@ -26,6 +26,7 @@ function makeTextField(id: string, x: number, y: number): CustomField {
     style: {
       backgroundColor: '', backgroundOpacity: 0,
       borderColor: '', borderWidth: 0, borderRadius: 0, padding: 0,
+      opacity: 100, shadow: null, backdropBlur: 0,
     },
   };
 }

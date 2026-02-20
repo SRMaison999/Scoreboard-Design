@@ -14,6 +14,7 @@ import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import { alignField } from '@/utils/fieldAlignment';
 import { FieldElementConfigEditor } from './FieldElementConfigEditor';
+import { FieldEffectsEditor } from './FieldEffectsEditor';
 import type { AlignmentAction } from '@/utils/fieldAlignment';
 
 interface CustomFieldPropertiesProps {
@@ -234,6 +235,9 @@ export function CustomFieldProperties({ fieldId }: CustomFieldPropertiesProps) {
           />
         </div>
       </div>
+
+      {/* Effets visuels */}
+      <FieldEffectsEditor fieldId={fieldId} />
 
       {/* Configuration specifique a l'element */}
       <div className="text-[10px] text-gray-500 uppercase tracking-wider border-t border-gray-800 pt-1 mt-1">

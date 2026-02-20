@@ -131,6 +131,7 @@ export interface ScoreboardActions {
   moveSelectedFields: (dx: number, dy: number) => void;
   removeSelectedFields: () => void;
   duplicateSelectedFields: () => void;
+  pasteFields: (sourceFields: readonly CustomField[], pasteOffset: number) => void;
   updateCustomFieldsOption: (key: 'fullPageMode' | 'snapToGrid' | 'showGuides' | 'zoneSelectionActive', value: boolean) => void;
   updateCustomFieldsGridSize: (size: number) => void;
 

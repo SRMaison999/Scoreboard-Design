@@ -227,6 +227,41 @@ export const CUSTOM_FIELD_LABELS = {
   /* Raccourcis clavier */
   keyboardShortcutsTitle: 'Raccourcis',
   keyboardShortcutsList: 'Suppr\u00a0: supprimer \u00b7 Ctrl+D\u00a0: dupliquer \u00b7 Flèches\u00a0: déplacer \u00b7 Molette\u00a0: taille police',
+
+  /* Zoom et navigation du canvas */
+  zoomIn: 'Zoom avant',
+  zoomOut: 'Zoom arri\u00e8re',
+  zoomToFit: 'Ajuster \u00e0 l\u2019\u00e9cran',
+  zoom100: 'Zoom 100\u00a0%',
+  zoomLabel: 'Zoom',
+
+  /* Menu contextuel */
+  contextCut: 'Couper',
+  contextCopy: 'Copier',
+  contextPaste: 'Coller',
+  contextDuplicate: 'Dupliquer',
+  contextDelete: 'Supprimer',
+  contextLock: 'Verrouiller',
+  contextUnlock: 'D\u00e9verrouiller',
+  contextHide: 'Masquer',
+  contextBringToFront: 'Premier plan',
+  contextSendToBack: 'Arri\u00e8re-plan',
+  contextBringForward: 'Avancer',
+  contextSendBackward: 'Reculer',
+  contextSelectAll: 'Tout s\u00e9lectionner',
+  contextToggleGrid: 'Afficher/Masquer la grille',
+
+  /* Effets visuels */
+  effectsTitle: 'Effets visuels',
+  effectOpacity: 'Opacit\u00e9 globale',
+  effectShadow: 'Ombre port\u00e9e',
+  effectShadowOffsetX: 'D\u00e9calage X',
+  effectShadowOffsetY: 'D\u00e9calage Y',
+  effectShadowBlur: 'Flou',
+  effectShadowColor: 'Couleur',
+  effectShadowOpacity: 'Opacit\u00e9',
+  effectShadowEnable: 'Activer l\u2019ombre',
+  effectBackdropBlur: 'Flou d\u2019arri\u00e8re-plan',
 } as const;
 
 /* --- Bibliothèque d'éléments --- */

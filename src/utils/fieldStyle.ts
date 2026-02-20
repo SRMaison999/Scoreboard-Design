@@ -22,5 +22,22 @@ export function fieldBgStyle(style: FieldStyle): React.CSSProperties {
     result.padding = `${style.padding}px`;
   }
 
+  /* Opacite globale */
+  if (style.opacity < 100) {
+    result.opacity = style.opacity / 100;
+  }
+
+  /* Ombre portee */
+  if (style.shadow) {
+    const { offsetX, offsetY, blur, color, opacity } = style.shadow;
+    const shadowColor = hexToRgba(color, opacity);
+    result.boxShadow = `${offsetX}px ${offsetY}px ${blur}px ${shadowColor}`;
+  }
+
+  /* Flou d'arriere-plan */
+  if (style.backdropBlur > 0) {
+    result.backdropFilter = `blur(${style.backdropBlur}px)`;
+  }
+
   return result;
 }

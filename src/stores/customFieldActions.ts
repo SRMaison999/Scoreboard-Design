@@ -228,3 +228,46 @@ export function duplicateSelectedFieldsDraft(s: Draft): void {
 
   s.customFieldsData.selectedFieldIds = newIds;
 }
+
+/**
+ * Colle des champs depuis le presse-papiers avec un d\u00e9calage par collage successif.
+ */
+export function pasteFieldsDraft(
+  s: Draft,
+  sourceFields: readonly CustomField[],
+  pasteOffset: number,
+): void {
+  const fields = s.customFieldsData.fields;
+  const maxZ = fields.reduce((max, f) => Math.max(max, f.zIndex), 0);
+  const newIds: string[] = [];
+  const offset = pasteOffset * 20;
+
+  for (let i = 0; i < sourceFields.length; i++) {
+    const src = sourceFields[i];
+    if (!src) continue;
+    if (fields.length >= FIELD_MAX_FIELDS) break;
+
+    const copy: CustomField = {
+      id: generateId(),
+      label: `${src.label} (copie)`,
+      x: Math.min(src.x + offset, s.templateWidth - src.width),
+      y: Math.min(src.y + offset, s.templateHeight - src.height),
+      width: src.width,
+      height: src.height,
+      zIndex: maxZ + i + 1,
+      locked: false,
+      visible: src.visible,
+      lockAspectRatio: src.lockAspectRatio,
+      scaleContent: src.scaleContent,
+      initialWidth: src.initialWidth,
+      initialHeight: src.initialHeight,
+      element: JSON.parse(JSON.stringify(src.element)) as FieldElementConfig,
+      style: { ...src.style },
+    };
+
+    fields.push(copy);
+    newIds.push(copy.id);
+  }
+
+  s.customFieldsData.selectedFieldIds = newIds;
+}

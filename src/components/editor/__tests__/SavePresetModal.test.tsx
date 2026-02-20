@@ -69,7 +69,7 @@ describe('SavePresetModal', () => {
       id: 'z1', label: 'Zone 1', x: 0, y: 0, width: 100, height: 80,
       zIndex: 1, locked: false, visible: true, lockAspectRatio: false,
       scaleContent: true, initialWidth: 100, initialHeight: 80,
-      element, style: { backgroundColor: '', backgroundOpacity: 0, borderColor: '', borderWidth: 0, borderRadius: 0, padding: 0 },
+      element, style: { backgroundColor: '', backgroundOpacity: 0, borderColor: '', borderWidth: 0, borderRadius: 0, padding: 0, opacity: 100, shadow: null, backdropBlur: 0 },
     }];
     render(
       <SavePresetModal open onClose={() => {}} defaultScope="layout" zoneFields={zoneFields} />,
@@ -84,7 +84,7 @@ describe('SavePresetModal', () => {
       id: 'z1', label: 'Zone 1', x: 0, y: 0, width: 100, height: 80,
       zIndex: 1, locked: false, visible: true, lockAspectRatio: false,
       scaleContent: true, initialWidth: 100, initialHeight: 80,
-      element, style: { backgroundColor: '', backgroundOpacity: 0, borderColor: '', borderWidth: 0, borderRadius: 0, padding: 0 },
+      element, style: { backgroundColor: '', backgroundOpacity: 0, borderColor: '', borderWidth: 0, borderRadius: 0, padding: 0, opacity: 100, shadow: null, backdropBlur: 0 },
     }];
     render(
       <SavePresetModal open onClose={() => {}} defaultScope="layout" zoneFields={zoneFields} />,
@@ -99,7 +99,7 @@ describe('SavePresetModal', () => {
       id: 'z1', label: 'Zone 1', x: 0, y: 0, width: 100, height: 80,
       zIndex: 1, locked: false, visible: true, lockAspectRatio: false,
       scaleContent: true, initialWidth: 100, initialHeight: 80,
-      element, style: { backgroundColor: '', backgroundOpacity: 0, borderColor: '', borderWidth: 0, borderRadius: 0, padding: 0 },
+      element, style: { backgroundColor: '', backgroundOpacity: 0, borderColor: '', borderWidth: 0, borderRadius: 0, padding: 0, opacity: 100, shadow: null, backdropBlur: 0 },
     }];
     const onClose = vi.fn();
     render(

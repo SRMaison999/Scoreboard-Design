@@ -1,12 +1,12 @@
 /**
  * Hook pour le redimensionnement des champs sur le canvas.
- * Gere les 4 poignees de coin, les contraintes de taille et le verrouillage de ratio.
+ * Gere les 8 poignees (4 coins + 4 bords), les contraintes de taille,
+ * le verrouillage de ratio, et les modificateurs Shift (proportionnel) / Alt (centre).
  */
 
 import { useCallback, useRef } from 'react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
-
-type ResizeHandle = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+import type { ResizeHandle } from '@/types/customField';
 
 interface ResizeState {
   fieldId: string;
@@ -19,6 +19,15 @@ interface ResizeState {
   startH: number;
   aspectRatio: number;
   lockAspectRatio: boolean;
+  centerX: number;
+  centerY: number;
+}
+
+const MIN_SIZE = 40;
+
+function isCornerHandle(handle: ResizeHandle): boolean {
+  return handle === 'top-left' || handle === 'top-right'
+    || handle === 'bottom-left' || handle === 'bottom-right';
 }
 
 export function useFieldResize(scale: number) {
@@ -67,6 +76,8 @@ export function useFieldResize(scale: number) {
         startH: fieldH,
         aspectRatio: fieldW / Math.max(fieldH, 1),
         lockAspectRatio: field?.lockAspectRatio ?? false,
+        centerX: fieldX + fieldW / 2,
+        centerY: fieldY + fieldH / 2,
       };
     },
     [fields],
@@ -79,12 +90,15 @@ export function useFieldResize(scale: number) {
 
       const dx = (e.clientX - rs.startMouseX) / scale;
       const dy = (e.clientY - rs.startMouseY) / scale;
+      const shiftHeld = e.shiftKey;
+      const altHeld = e.altKey;
 
       let newX = rs.startX;
       let newY = rs.startY;
       let newW = rs.startW;
       let newH = rs.startH;
 
+      /* --- Calcul des nouvelles dimensions selon la poignee --- */
       if (rs.handle.includes('right')) {
         newW = snapValue(rs.startW + dx);
       }
@@ -100,33 +114,61 @@ export function useFieldResize(scale: number) {
         newY = snapValue(rs.startY + dy);
       }
 
-      newW = Math.max(40, newW);
-      newH = Math.max(40, newH);
+      /* Taille minimale */
+      newW = Math.max(MIN_SIZE, newW);
+      newH = Math.max(MIN_SIZE, newH);
 
-      /* Verrouillage de ratio d'aspect */
-      if (rs.lockAspectRatio) {
+      /* --- Verrouillage proportionnel (champ ou Shift) --- */
+      const forceProportional = shiftHeld || rs.lockAspectRatio;
+      if (forceProportional && isCornerHandle(rs.handle)) {
         const absW = Math.abs(dx);
         const absH = Math.abs(dy);
         if (absW >= absH) {
-          newH = Math.max(40, Math.round(newW / rs.aspectRatio));
+          newH = Math.max(MIN_SIZE, Math.round(newW / rs.aspectRatio));
           if (rs.handle.includes('top')) {
             newY = rs.startY + rs.startH - newH;
           }
         } else {
-          newW = Math.max(40, Math.round(newH * rs.aspectRatio));
+          newW = Math.max(MIN_SIZE, Math.round(newH * rs.aspectRatio));
           if (rs.handle.includes('left')) {
             newX = rs.startX + rs.startW - newW;
           }
         }
+      } else if (forceProportional && !isCornerHandle(rs.handle)) {
+        /* Poignees de bord avec proportionnel : ajuster l'autre axe */
+        if (rs.handle === 'left' || rs.handle === 'right') {
+          newH = Math.max(MIN_SIZE, Math.round(newW / rs.aspectRatio));
+        } else {
+          newW = Math.max(MIN_SIZE, Math.round(newH * rs.aspectRatio));
+        }
       }
 
-      if (rs.handle.includes('left') && newX < 0) {
-        newW = newW + newX;
-        newX = 0;
-      }
-      if (rs.handle.includes('top') && newY < 0) {
-        newH = newH + newY;
-        newY = 0;
+      /* --- Redimensionnement depuis le centre (Alt) --- */
+      if (altHeld) {
+        newX = Math.round(rs.centerX - newW / 2);
+        newY = Math.round(rs.centerY - newH / 2);
+
+        /* Ajuster si on depasse les limites negatives */
+        if (newX < 0) {
+          const overflow = -newX;
+          newX = 0;
+          newW = newW - overflow;
+        }
+        if (newY < 0) {
+          const overflow = -newY;
+          newY = 0;
+          newH = newH - overflow;
+        }
+      } else {
+        /* Limites classiques sans Alt */
+        if (rs.handle.includes('left') && newX < 0) {
+          newW = newW + newX;
+          newX = 0;
+        }
+        if (rs.handle.includes('top') && newY < 0) {
+          newH = newH + newY;
+          newY = 0;
+        }
       }
 
       updatePosition(rs.fieldId, newX, newY);
