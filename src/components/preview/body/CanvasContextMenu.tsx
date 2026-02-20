@@ -33,10 +33,10 @@ interface CanvasContextMenuProps {
 /* --- Constantes de style --- */
 
 const EMPTY_IDS: readonly string[] = [];
-const MENU_WIDTH = 260;
-const MENU_PADDING = 6;
-const ITEM_HEIGHT = 36;
-const SEPARATOR_HEIGHT = 11;
+const MENU_WIDTH = 320;
+const MENU_PADDING = 8;
+const ITEM_HEIGHT = 44;
+const SEPARATOR_HEIGHT = 13;
 
 /* --- Composant --- */
 
@@ -185,7 +185,7 @@ export function CanvasContextMenu({
         width: MENU_WIDTH,
         backgroundColor: 'rgba(30, 30, 36, 0.98)',
         border: '1px solid rgba(255, 255, 255, 0.12)',
-        borderRadius: 8,
+        borderRadius: 10,
         padding: MENU_PADDING,
         zIndex: 99999,
         boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6)',
@@ -197,7 +197,7 @@ export function CanvasContextMenu({
         isSeparator(entry) ? (
           <div
             key={`sep-${i}`}
-            style={{ height: 1, margin: '4px 8px', backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
+            style={{ height: 1, margin: '5px 10px', backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
           />
         ) : (
           <MenuItemRow key={entry.label} label={entry.label} shortcut={entry.shortcut} disabled={entry.disabled} onClick={entry.action} />
@@ -224,11 +224,11 @@ function MenuItemRow({ label, shortcut, disabled, onClick }: {
         alignItems: 'center',
         justifyContent: 'space-between',
         height: ITEM_HEIGHT,
-        padding: '0 14px',
-        borderRadius: 5,
+        padding: '0 18px',
+        borderRadius: 6,
         cursor: disabled ? 'default' : 'pointer',
         color: disabled ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.92)',
-        fontSize: 15,
+        fontSize: 19,
         userSelect: 'none',
       }}
       onClick={disabled ? undefined : onClick}
@@ -243,7 +243,7 @@ function MenuItemRow({ label, shortcut, disabled, onClick }: {
     >
       <span>{label}</span>
       {shortcut && (
-        <span style={{ fontSize: 13, color: 'rgba(255, 255, 255, 0.45)', marginLeft: 20 }}>
+        <span style={{ fontSize: 15, color: 'rgba(255, 255, 255, 0.45)', marginLeft: 24 }}>
           {shortcut}
         </span>
       )}
