@@ -248,9 +248,9 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
           )}
           {!zone.drawing && (
             <div style={{
-              position: 'absolute', top: 16, left: '50%', transform: 'translateX(-50%)',
+              position: 'absolute', top: 20, left: '50%', transform: 'translateX(-50%)',
               backgroundColor: 'rgba(0, 0, 0, 0.85)', color: 'rgba(56, 189, 248, 1)',
-              padding: '8px 20px', borderRadius: 6, fontSize: 16, fontWeight: 600, whiteSpace: 'nowrap',
+              padding: '12px 28px', borderRadius: 8, fontSize: 20, fontWeight: 600, whiteSpace: 'nowrap',
             }}>
               {CUSTOM_FIELD_LABELS.zoneSelectHint}
             </div>

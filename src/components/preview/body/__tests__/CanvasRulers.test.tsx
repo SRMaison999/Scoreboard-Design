@@ -113,12 +113,12 @@ describe('CanvasRulers', () => {
   it('la regle horizontale commence apres le carre de coin', () => {
     render(<CanvasRulers {...DEFAULT_PROPS} />);
     const horizontal = screen.getByTestId('ruler-horizontal');
-    expect(horizontal.style.left).toBe('20px');
+    expect(horizontal.style.left).toBe('24px');
   });
 
   it('la regle verticale commence apres le carre de coin', () => {
     render(<CanvasRulers {...DEFAULT_PROPS} />);
     const vertical = screen.getByTestId('ruler-vertical');
-    expect(vertical.style.top).toBe('20px');
+    expect(vertical.style.top).toBe('24px');
   });
 });

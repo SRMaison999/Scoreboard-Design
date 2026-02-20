@@ -91,10 +91,10 @@ export function FieldFontToolbar({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 24,
-    height: 24,
+    width: 30,
+    height: 30,
     border: 'none',
-    borderRadius: 4,
+    borderRadius: 5,
     backgroundColor: 'transparent',
     color: '#94a3b8',
     cursor: 'pointer',
@@ -117,12 +117,12 @@ export function FieldFontToolbar({
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 2,
+          gap: 4,
           backgroundColor: 'rgba(15, 23, 42, 0.95)',
           border: '1px solid rgba(56, 189, 248, 0.5)',
-          borderRadius: 6,
-          padding: '2px 6px',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.4)',
+          borderRadius: 8,
+          padding: '4px 8px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
           whiteSpace: 'nowrap',
         }}
       >
@@ -138,7 +138,7 @@ export function FieldFontToolbar({
           onPointerLeave={decRepeat.stop}
           style={btnStyle}
         >
-          <Minus size={12} />
+          <Minus size={16} />
         </button>
 
         {editing ? (
@@ -154,8 +154,8 @@ export function FieldFontToolbar({
             onKeyDown={handleEditKeyDown}
             onPointerDown={(e) => e.stopPropagation()}
             style={{
-              width: 40,
-              fontSize: 11,
+              width: 48,
+              fontSize: 14,
               fontWeight: 600,
               fontFamily: 'monospace',
               textAlign: 'center',
@@ -176,10 +176,10 @@ export function FieldFontToolbar({
             }}
             onPointerDown={(e) => e.stopPropagation()}
             style={{
-              fontSize: 11,
+              fontSize: 14,
               fontWeight: 600,
               color: isGlobal ? '#64748b' : '#e2e8f0',
-              minWidth: 36,
+              minWidth: 42,
               textAlign: 'center',
               fontFamily: 'monospace',
               userSelect: 'none',
@@ -205,7 +205,7 @@ export function FieldFontToolbar({
           onPointerLeave={incRepeat.stop}
           style={btnStyle}
         >
-          <Plus size={12} />
+          <Plus size={16} />
         </button>
       </div>
     </div>

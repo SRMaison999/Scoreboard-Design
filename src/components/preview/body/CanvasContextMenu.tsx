@@ -32,10 +32,10 @@ interface CanvasContextMenuProps {
 
 /* --- Constantes de style --- */
 
-const MENU_WIDTH = 220;
-const MENU_PADDING = 4;
-const ITEM_HEIGHT = 30;
-const SEPARATOR_HEIGHT = 9;
+const MENU_WIDTH = 260;
+const MENU_PADDING = 6;
+const ITEM_HEIGHT = 36;
+const SEPARATOR_HEIGHT = 11;
 
 /* --- Composant --- */
 
@@ -184,10 +184,10 @@ export function CanvasContextMenu({
         width: MENU_WIDTH,
         backgroundColor: 'rgba(30, 30, 36, 0.98)',
         border: '1px solid rgba(255, 255, 255, 0.12)',
-        borderRadius: 6,
+        borderRadius: 8,
         padding: MENU_PADDING,
         zIndex: 99999,
-        boxShadow: '0 8px 24px rgba(0, 0, 0, 0.5)',
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6)',
       }}
       onClick={(e) => e.stopPropagation()}
       onContextMenu={(e) => e.preventDefault()}
@@ -223,11 +223,11 @@ function MenuItemRow({ label, shortcut, disabled, onClick }: {
         alignItems: 'center',
         justifyContent: 'space-between',
         height: ITEM_HEIGHT,
-        padding: '0 10px',
-        borderRadius: 4,
+        padding: '0 14px',
+        borderRadius: 5,
         cursor: disabled ? 'default' : 'pointer',
-        color: disabled ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.9)',
-        fontSize: 13,
+        color: disabled ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.92)',
+        fontSize: 15,
         userSelect: 'none',
       }}
       onClick={disabled ? undefined : onClick}
@@ -242,7 +242,7 @@ function MenuItemRow({ label, shortcut, disabled, onClick }: {
     >
       <span>{label}</span>
       {shortcut && (
-        <span style={{ fontSize: 11, color: 'rgba(255, 255, 255, 0.4)', marginLeft: 16 }}>
+        <span style={{ fontSize: 13, color: 'rgba(255, 255, 255, 0.45)', marginLeft: 20 }}>
           {shortcut}
         </span>
       )}

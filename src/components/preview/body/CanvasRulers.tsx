@@ -9,13 +9,13 @@ import { cn } from '@/lib/utils';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 
 /** Epaisseur (largeur / hauteur) des regles en pixels */
-const RULER_THICKNESS = 20;
+const RULER_THICKNESS = 24;
 
 /** Hauteur des grands traits de graduation */
-const MAJOR_TICK_HEIGHT = 10;
+const MAJOR_TICK_HEIGHT = 12;
 
 /** Hauteur des petits traits de graduation */
-const MINOR_TICK_HEIGHT = 5;
+const MINOR_TICK_HEIGHT = 6;
 
 interface CanvasRulersProps {
   readonly canvasWidth: number;
@@ -101,7 +101,7 @@ function HorizontalRuler({
   return (
     <div
       data-testid="ruler-horizontal"
-      className={cn('absolute top-0 h-5 bg-gray-900 overflow-hidden select-none pointer-events-none')}
+      className={cn('absolute top-0 h-6 bg-gray-900 overflow-hidden select-none pointer-events-none')}
       style={{
         left: RULER_THICKNESS,
         right: 0,
@@ -124,7 +124,7 @@ function HorizontalRuler({
               <span
                 className="absolute text-gray-500 whitespace-nowrap"
                 style={{
-                  fontSize: 9,
+                  fontSize: 11,
                   left: 2,
                   top: tick.isMajor ? MAJOR_TICK_HEIGHT : MINOR_TICK_HEIGHT,
                   lineHeight: 1,
@@ -162,7 +162,7 @@ function VerticalRuler({
   return (
     <div
       data-testid="ruler-vertical"
-      className={cn('absolute left-0 w-5 bg-gray-900 overflow-hidden select-none pointer-events-none')}
+      className={cn('absolute left-0 w-6 bg-gray-900 overflow-hidden select-none pointer-events-none')}
       style={{
         top: RULER_THICKNESS,
         bottom: 0,
@@ -185,7 +185,7 @@ function VerticalRuler({
               <span
                 className="absolute text-gray-500 whitespace-nowrap origin-top-left"
                 style={{
-                  fontSize: 9,
+                  fontSize: 11,
                   left: tick.isMajor ? MAJOR_TICK_HEIGHT + 2 : MINOR_TICK_HEIGHT + 2,
                   top: 2,
                   lineHeight: 1,
@@ -213,7 +213,7 @@ export function CanvasRulers({ canvasWidth, canvasHeight, scale, panX, panY }: C
       {/* Carre de coin (intersection haut-gauche) */}
       <div
         data-testid="ruler-corner"
-        className="absolute top-0 left-0 w-5 h-5 bg-gray-900"
+        className="absolute top-0 left-0 w-6 h-6 bg-gray-900"
       />
 
       <HorizontalRuler
