@@ -101,14 +101,14 @@ export function LoadPresetModal({ open, onClose }: LoadPresetModalProps) {
     if (!preset.field) return;
     if (fields.length >= FIELD_MAX_FIELDS) return;
     const f = preset.field;
-    addField(f.element, f.x, f.y, f.width, f.height);
+    addField(f.element, f.x, f.y, f.width, f.height, f.label);
 
     if (preset.children && preset.children.length > 0) {
       const absoluteChildren = toAbsolutePositions(f, preset.children);
       const remaining = FIELD_MAX_FIELDS - fields.length - 1;
       const toAdd = absoluteChildren.slice(0, remaining);
       for (const child of toAdd) {
-        addField(child.element, child.x, child.y, child.width, child.height);
+        addField(child.element, child.x, child.y, child.width, child.height, child.label);
       }
     }
 
