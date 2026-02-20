@@ -25,7 +25,9 @@ export function ContentPanel() {
   const setContentSubTab = useEditorUIStore((s) => s.setContentSubTab);
   const bodyType = useScoreboardStore((s) => s.bodyType);
   const showPenalties = useScoreboardStore((s) => s.showPenalties);
+  const fullPageMode = useScoreboardStore((s) => s.customFieldsData.fullPageMode);
   const showTitles = bodyType <= 3;
+  const hideHeader = bodyType === 14 && fullPageMode;
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
@@ -38,7 +40,7 @@ export function ContentPanel() {
         {activeTab === 'general' && <GeneralSection />}
         {activeTab === 'teams' && (
           <>
-            <HeaderSection />
+            {!hideHeader && <HeaderSection />}
             {showTitles && <TitleSection />}
             <BodyContentSection bodyType={bodyType} />
           </>

@@ -3,8 +3,11 @@
  * Extraits de FieldElementConfigEditor pour respecter la limite de 300 lignes.
  */
 
+import { useRef, useCallback } from 'react';
+import { Upload } from 'lucide-react';
 import { InputField } from '@/components/ui/InputField';
 import { Select } from '@/components/ui/Select';
+import { Button } from '@/components/ui/Button';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import { updateFieldElementConfig } from '@/utils/fieldConfig';
@@ -119,14 +122,49 @@ export function ImageEditor({ fieldId, element }: {
   const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
   const c = element.config;
   const patch = (p: Record<string, unknown>) => updateFieldElementConfig(updateElement, fieldId, element, p);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const handleFile = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === 'string') {
+        updateFieldElementConfig(updateElement, fieldId, element, { src: reader.result });
+      }
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  }, [updateElement, fieldId, element]);
 
   return (
     <div className="flex flex-col gap-2">
       <InputField
         label={CUSTOM_FIELD_LABELS.configImageSrc}
-        value={c.src}
+        value={c.src.startsWith('data:') ? '(fichier local)' : c.src}
         onChange={(v) => patch({ src: v })}
       />
+      <input
+        ref={fileRef}
+        type="file"
+        accept="image/*"
+        onChange={handleFile}
+        className="hidden"
+        data-testid="image-file-input"
+      />
+      <Button
+        variant="ghost"
+        className="flex items-center gap-2 w-full justify-start"
+        onClick={() => fileRef.current?.click()}
+      >
+        <Upload size={14} className="flex-shrink-0" />
+        {CUSTOM_FIELD_LABELS.configImageBrowse}
+      </Button>
+      {c.src.startsWith('data:') && (
+        <div className="w-full h-16 rounded border border-gray-700 overflow-hidden">
+          <img src={c.src} alt="" className="w-full h-full object-contain" />
+        </div>
+      )}
       <Select
         label={CUSTOM_FIELD_LABELS.configImageFit}
         value={c.objectFit}

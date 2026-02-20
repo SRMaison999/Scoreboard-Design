@@ -16,6 +16,8 @@ export const ch03: ManualChapter = {
 
 Le Layout libre est le mode le plus puissant : il affiche un canvas enti\u00e8rement vierge (sans header pr\u00e9d\u00e9fini) sur lequel vous placez librement des \u00e9l\u00e9ments visuels.
 
+**Id\u00e9al pour :** cr\u00e9er un affichage sur mesure, concevoir des mises en page originales, assembler des \u00e9l\u00e9ments de diff\u00e9rentes natures sur un m\u00eame \u00e9cran.
+
 ### \u00c9tape 1 : S\u00e9lectionner le mode Layout libre
 
 1. Rail d'ic\u00f4nes > **Modes** (1\u00e8re ic\u00f4ne)
@@ -42,7 +44,7 @@ Juste en dessous des options, la section **Biblioth\u00e8que d'\u00e9l\u00e9ment
 | **Texte** | Bloc de texte (contenu libre, taille et style configurables) |
 | **Donn\u00e9es** | Ligne de stat, Barre comparative |
 | **Joueurs** | Photo joueur |
-| **M\u00e9dias** | Image, Forme g\u00e9om\u00e9trique, S\u00e9parateur |
+| **M\u00e9dias** | Image, Forme g\u00e9om\u00e9trique (rectangle, cercle, arrondi), S\u00e9parateur (ligne) |
 | **Compos\u00e9s** | Header complet, Colonne de p\u00e9nalit\u00e9s, et les 13 autres types d'affichage comme blocs embarqu\u00e9s |
 
 **Pour ajouter un \u00e9l\u00e9ment** : cliquez sur son nom dans la liste. Il appara\u00eet au centre du canvas.
@@ -58,11 +60,13 @@ Juste en dessous des options, la section **Biblioth\u00e8que d'\u00e9l\u00e9ment
 | **S\u00e9lectionner** | Cliquez sur l'\u00e9l\u00e9ment |
 | **D\u00e9placer** | Cliquez et glissez l'\u00e9l\u00e9ment |
 | **Redimensionner** | Glissez l'une des 4 poign\u00e9es aux coins |
-| **Taille de police** | Molette de la souris sur l'\u00e9l\u00e9ment s\u00e9lectionn\u00e9 |
+| **Taille de police** | Molette de la souris sur l'\u00e9l\u00e9ment s\u00e9lectionn\u00e9, ou barre flottante +/- |
 | **D\u00e9s\u00e9lectionner** | Cliquez sur le fond du canvas (zone vide) |
 | **Supprimer** | Touche Suppr. avec l'\u00e9l\u00e9ment s\u00e9lectionn\u00e9 |
 | **Dupliquer** | Ctrl+D avec l'\u00e9l\u00e9ment s\u00e9lectionn\u00e9 |
 | **D\u00e9placer finement** | Fl\u00e8ches du clavier (1 pixel par appui) |
+
+Un champ verrouill\u00e9 ne peut \u00eatre ni d\u00e9plac\u00e9 ni redimensionn\u00e9. En plus des 31 codes NOC, il est possible de saisir un nom d'\u00e9quipe libre.
 
 ### \u00c9tape 5 : Configurer un \u00e9l\u00e9ment (panneau Propri\u00e9t\u00e9s)
 
@@ -92,8 +96,8 @@ Quand vous cliquez sur un \u00e9l\u00e9ment dans le canvas, un **panneau Propri\
 | **Ligne de stat** | Index de la statistique \u00e0 afficher |
 | **Barre comparative** | Index de la barre \u00e0 afficher |
 | **Photo joueur** | Cl\u00e9 photo, forme (cercle/carr\u00e9) |
-| **Image** | Source (URL), ajustement (cover/contain/fill) |
-| **Forme** | Type, couleur de remplissage, opacit\u00e9, bordure |
+| **Image** | Source (URL ou fichier), ajustement (cover/contain/fill) |
+| **Forme** | Type, couleur de remplissage, opacit\u00e9, bordure, rayon |
 | **S\u00e9parateur** | Orientation, \u00e9paisseur, couleur, opacit\u00e9 |
 
 ### \u00c9tape 6 : Organiser les couches
@@ -118,6 +122,8 @@ La section **Presets** permet de :
 4. Ajoutez plusieurs **Lignes de stat** (cat\u00e9gorie "Donn\u00e9es") et positionnez-les en dessous du titre
 5. Ajoutez un **S\u00e9parateur** (cat\u00e9gorie "M\u00e9dias") entre le titre et les stats
 6. Ajustez les positions et les tailles via le panneau Propri\u00e9t\u00e9s ou par glisser-d\u00e9poser
+
+---
 
 ## Stats sym\u00e9triques (mode 1)
 

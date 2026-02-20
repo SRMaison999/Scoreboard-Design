@@ -11,7 +11,7 @@ import {
   updateCustomFieldPositionDraft, updateCustomFieldSizeDraft,
   updateCustomFieldElementDraft, updateCustomFieldStyleDraft,
   updateCustomFieldPropDraft, duplicateCustomFieldDraft,
-  reorderCustomFieldDraft,
+  resetCustomFieldScaleDraft, reorderCustomFieldDraft,
 } from './customFieldActions';
 import type { ScoreboardState, PenaltySide } from '@/types/scoreboard';
 import type { ColorKey, ColorPreset } from '@/types/colors';
@@ -222,6 +222,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { updateCustomFieldPropDraft(s, fieldId, key, value); }),
       duplicateCustomField: (fieldId) =>
         set((s) => { duplicateCustomFieldDraft(s, fieldId); }),
+      resetCustomFieldScale: (fieldId) =>
+        set((s) => { resetCustomFieldScaleDraft(s, fieldId); }),
       reorderCustomField: (fieldId, newZIndex) =>
         set((s) => { reorderCustomFieldDraft(s, fieldId, newZIndex); }),
       selectCustomField: (fieldId) =>
@@ -271,8 +273,21 @@ export const useScoreboardStore = create<ScoreboardStore>()(
             }
           }
         }
+        if (state['teamDisplayName1'] === undefined) {
+          state['teamDisplayName1'] = '';
+          state['teamDisplayName2'] = '';
+        }
         if (state['customFieldsData'] === undefined) {
           state['customFieldsData'] = structuredClone(DEFAULT_CUSTOM_FIELDS_DATA);
+        }
+        /* Migration : ajouter scaleContent/initialWidth/initialHeight aux champs existants */
+        const cfd = state['customFieldsData'] as { fields?: Array<Record<string, unknown>> };
+        if (cfd?.fields) {
+          for (const f of cfd.fields) {
+            if (f['scaleContent'] === undefined) f['scaleContent'] = true;
+            if (f['initialWidth'] === undefined) f['initialWidth'] = f['width'];
+            if (f['initialHeight'] === undefined) f['initialHeight'] = f['height'];
+          }
         }
         /* v8 : vider le contenu pour un ecran vierge au demarrage */
         const clean = structuredClone(CLEAN_CONTENT) as Record<string, unknown>;

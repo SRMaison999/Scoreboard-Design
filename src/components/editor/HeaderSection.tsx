@@ -13,6 +13,8 @@ const NATION_OPTIONS = HOCKEY_NATIONS.map((n) => ({
 export function HeaderSection() {
   const team1 = useScoreboardStore((s) => s.team1);
   const team2 = useScoreboardStore((s) => s.team2);
+  const displayName1 = useScoreboardStore((s) => s.teamDisplayName1);
+  const displayName2 = useScoreboardStore((s) => s.teamDisplayName2);
   const score1 = useScoreboardStore((s) => s.score1);
   const score2 = useScoreboardStore((s) => s.score2);
   const update = useScoreboardStore((s) => s.update);
@@ -35,6 +37,21 @@ export function HeaderSection() {
           className="flex-1"
         />
       </div>
+      <div className="flex gap-2">
+        <InputField
+          label={EDITOR_LABELS.teamDisplayName1Label}
+          value={displayName1}
+          onChange={(v) => update('teamDisplayName1', v)}
+        />
+        <InputField
+          label={EDITOR_LABELS.teamDisplayName2Label}
+          value={displayName2}
+          onChange={(v) => update('teamDisplayName2', v)}
+        />
+      </div>
+      <p className="text-[10px] text-gray-600 -mt-1">
+        {EDITOR_LABELS.teamDisplayNameHint}
+      </p>
       <div className="flex gap-2">
         <InputField
           label={EDITOR_LABELS.score1Label}

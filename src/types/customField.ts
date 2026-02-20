@@ -59,6 +59,7 @@ export interface TextBlockConfig {
   readonly content: string;
   readonly fontSize: number;
   readonly fontWeight: number;
+  readonly fontFamily: string;
   readonly textAlign: 'left' | 'center' | 'right';
   readonly textTransform: 'none' | 'uppercase' | 'lowercase';
   readonly letterSpacing: number;
@@ -198,6 +199,9 @@ export interface CustomField {
   locked: boolean;
   visible: boolean;
   lockAspectRatio: boolean;
+  scaleContent: boolean;
+  initialWidth: number;
+  initialHeight: number;
   element: FieldElementConfig;
   style: FieldStyle;
 }
@@ -211,6 +215,7 @@ export interface CustomFieldsData {
   gridSize: number;
   showGuides: boolean;
   selectedFieldId: string | null;
+  zoneSelectionActive: boolean;
 }
 
 /* --- Élément de la bibliothèque (pour le panneau) --- */
@@ -251,4 +256,5 @@ export const DEFAULT_CUSTOM_FIELDS_DATA: CustomFieldsData = {
   gridSize: 20,
   showGuides: true,
   selectedFieldId: null,
+  zoneSelectionActive: false,
 };

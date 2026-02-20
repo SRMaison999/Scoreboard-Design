@@ -30,7 +30,7 @@ Le Scoreboard Editor est un éditeur visuel de scoreboards pour retransmissions 
 L'éditeur se compose de plusieurs zones :
 
 - **Panneau latéral gauche** (360 px) : tous les contrôles de configuration, organisés en sections dépliables
-- **Panneau de propriétés** (300 px, optionnel) : s'ouvre automatiquement quand un champ est sélectionné en mode Layout libre (Type 14). Forme une deuxième colonne entre le panneau éditeur et la preview.
+- **Panneau de propriétés** (300 px, optionnel) : s'ouvre automatiquement quand un champ est sélectionné en mode Layout libre. Forme une deuxième colonne entre le panneau éditeur et la preview.
 - **Zone de preview droite** : aperçu en temps réel du scoreboard, mis à l'échelle automatiquement
 
 ### Barre d'outils
@@ -52,7 +52,7 @@ L'état du scoreboard est sauvegardé automatiquement dans le navigateur. En rev
 | Chapitre | Contenu |
 |----------|---------|
 | [02 - Éditeur](./02-editeur.md) | Guide complet du panneau éditeur |
-| [03 - Types d'affichage](./03-body-types.md) | Les 14 types de corps disponibles (dont le Layout libre) |
+| [03 - Types d'affichage](./03-body-types.md) | Les 14 types de corps (Layout libre en premier, puis types 1-13) |
 | [04 - Personnalisation](./04-personnalisation.md) | Couleurs, polices, dimensions |
 | [05 - Horloge et phases](./05-horloge-et-phases.md) | Configuration du temps de jeu |
 | [06 - Templates](./06-templates.md) | Sauvegarde et gestion de templates |

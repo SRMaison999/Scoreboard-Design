@@ -60,7 +60,7 @@ Chaque couleur poss\u00e8de un slider d'opacit\u00e9 (0-100).
 | Horloge | Horloge, p\u00e9riode | Barlow Condensed |
 | Corps | Titres, stats, p\u00e9nalit\u00e9s | Barlow Condensed |
 
-25 polices professionnelles sont disponibles, organis\u00e9es par cat\u00e9gories (Sport, Condens\u00e9, Moderne, Display, Monospace, Serif).
+25 polices professionnelles sont disponibles, organis\u00e9es par cat\u00e9gories (Sport, Condens\u00e9, Moderne, Display, Monospace, Serif). En mode Layout libre, chaque champ peut avoir sa propre police ind\u00e9pendante.
 
 ## Dimensions du template
 

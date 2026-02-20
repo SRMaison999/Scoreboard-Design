@@ -13,11 +13,12 @@ function makeTextField(id: string, x: number, y: number): CustomField {
     x, y, width: 200, height: 80,
     zIndex: 1,
     locked: false, visible: true, lockAspectRatio: false,
+    scaleContent: true, initialWidth: 200, initialHeight: 80,
     element: {
       type: 'text-block',
       config: {
         content: `Texte ${id}`,
-        fontSize: 24, fontWeight: 600,
+        fontSize: 24, fontWeight: 600, fontFamily: '',
         textAlign: 'center', textTransform: 'none', letterSpacing: 0,
       },
     } as FieldElementConfig,
@@ -39,6 +40,7 @@ function makeState(fields: CustomField[]): ScoreboardState {
       gridSize: 20,
       showGuides: true,
       selectedFieldId: null,
+      zoneSelectionActive: false,
     },
   };
 }

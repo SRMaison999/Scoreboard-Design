@@ -7,7 +7,7 @@ import type { FieldElementConfig } from '@/types/customField';
 
 const textElement: FieldElementConfig = {
   type: 'text-block',
-  config: { content: 'test', fontSize: 20, fontWeight: 400, textAlign: 'center', textTransform: 'none', letterSpacing: 0 },
+  config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0 },
 };
 
 describe('CustomFieldProperties', () => {

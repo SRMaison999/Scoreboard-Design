@@ -16,6 +16,8 @@ export interface HeaderEditCallback {
 interface HeaderProps {
   readonly team1: string;
   readonly team2: string;
+  readonly teamDisplayName1?: string;
+  readonly teamDisplayName2?: string;
   readonly score1: string;
   readonly score2: string;
   readonly colors: ColorMap;
@@ -142,7 +144,8 @@ const EMPTY_LOGOS: Record<string, string> = {};
 const EMPTY_FLAG_OVERRIDES: Record<string, string> = {};
 
 export function Header({
-  team1, team2, score1, score2,
+  team1, team2, teamDisplayName1 = '', teamDisplayName2 = '',
+  score1, score2,
   colors, opacities, fontTeams,
   fontSizeTeamName = 80, fontSizeScore = 80,
   showTimeouts = false, timeoutsLeft = 0, timeoutsRight = 0,
@@ -191,7 +194,7 @@ export function Header({
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             {onEdit
               ? <InlineEdit value={team1} onCommit={(v) => onEdit('team1', v)} style={teamStyle} testId="inline-team1" />
-              : <div style={teamStyle}>{team1}</div>
+              : <div style={teamStyle}>{teamDisplayName1 || team1}</div>
             }
             {showTimeouts && <TimeoutDots count={timeoutsLeft} maxTimeouts={maxTimeouts} />}
           </div>
@@ -208,7 +211,7 @@ export function Header({
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             {onEdit
               ? <InlineEdit value={team2} onCommit={(v) => onEdit('team2', v)} style={teamStyle} testId="inline-team2" />
-              : <div style={teamStyle}>{team2}</div>
+              : <div style={teamStyle}>{teamDisplayName2 || team2}</div>
             }
             {showTimeouts && <TimeoutDots count={timeoutsRight} maxTimeouts={maxTimeouts} />}
           </div>

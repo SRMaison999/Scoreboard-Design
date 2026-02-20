@@ -225,6 +225,8 @@ describe('scoreboardStore', () => {
         showPenalties: s.showPenalties,
         team1: 'USA',
         team2: 'CAN',
+        teamDisplayName1: '',
+        teamDisplayName2: '',
         score1: s.score1,
         score2: s.score2,
         time: s.time,
