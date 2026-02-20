@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
+import { useEditorUIStore } from '@/stores/editorUIStore';
 import { EDITOR_LABELS } from '@/constants/labels';
 import { SubTabs } from '@/components/ui/SubTabs';
 import { HeaderSection } from '@/components/editor/HeaderSection';
@@ -21,7 +21,8 @@ const TABS: readonly SubTabItem[] = [
 ];
 
 export function ContentPanel() {
-  const [activeTab, setActiveTab] = useState<ContentSubTab>('teams');
+  const activeTab = useEditorUIStore((s) => s.activeContentSubTab);
+  const setContentSubTab = useEditorUIStore((s) => s.setContentSubTab);
   const bodyType = useScoreboardStore((s) => s.bodyType);
   const showPenalties = useScoreboardStore((s) => s.showPenalties);
   const fullPageMode = useScoreboardStore((s) => s.customFieldsData.fullPageMode);
@@ -33,7 +34,7 @@ export function ContentPanel() {
       <SubTabs
         tabs={TABS}
         activeId={activeTab}
-        onSelect={(id) => setActiveTab(id as ContentSubTab)}
+        onSelect={(id) => setContentSubTab(id as ContentSubTab)}
       />
       <div className="flex-1 min-h-0 flex flex-col gap-4 p-4 overflow-y-auto">
         {activeTab === 'general' && <GeneralSection />}

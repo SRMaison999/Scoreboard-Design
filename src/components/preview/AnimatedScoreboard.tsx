@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { ScoreboardCanvas } from './ScoreboardCanvas';
+import type { InlineEditHandler } from './ScoreboardCanvas';
 import { useAnimationTriggers } from '@/hooks/useAnimationTriggers';
 import {
   entryKeyframeName,
@@ -16,10 +17,11 @@ interface AnimatedScoreboardProps {
   readonly playerPhotos?: Record<string, string>;
   readonly logos?: Record<string, string>;
   readonly canvasScale?: number;
+  readonly onInlineEdit?: InlineEditHandler;
 }
 
 /**
- * Enveloppe ScoreboardCanvas avec les animations configurées :
+ * Enveloppe ScoreboardCanvas avec les animations configur\u00e9es :
  * entry/exit, score pop, penalty flash, clock pulse.
  */
 export function AnimatedScoreboard({
@@ -29,6 +31,7 @@ export function AnimatedScoreboard({
   playerPhotos,
   logos,
   canvasScale,
+  onInlineEdit,
 }: AnimatedScoreboardProps) {
   const { animationConfig: config } = state;
   const timeSeconds = parseTimeToSeconds(state.time);
@@ -76,6 +79,7 @@ export function AnimatedScoreboard({
         penaltyFlashRight={flags.penaltyFlashRight}
         clockPulse={flags.clockPulse}
         canvasScale={canvasScale}
+        onInlineEdit={onInlineEdit}
       />
     </div>
   );

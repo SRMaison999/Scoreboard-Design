@@ -25,6 +25,8 @@ import type { FontId } from '@/types/fonts';
 import type { FontSizeConfig } from '@/types/fontSizes';
 import type { LogoPosition } from '@/types/logo';
 
+export type InlineEditHandler = (field: string, value: string) => void;
+
 interface ScoreboardCanvasProps {
   readonly state: ScoreboardState;
   readonly width?: number;
@@ -37,6 +39,7 @@ interface ScoreboardCanvasProps {
   readonly penaltyFlashRight?: boolean;
   readonly clockPulse?: boolean;
   readonly canvasScale?: number;
+  readonly onInlineEdit?: InlineEditHandler;
 }
 
 interface BodyProps {
@@ -116,6 +119,7 @@ export function ScoreboardCanvas({
   penaltyFlashRight = false,
   clockPulse = false,
   canvasScale,
+  onInlineEdit,
 }: ScoreboardCanvasProps) {
   const w = width ?? state.templateWidth;
   const h = height ?? state.templateHeight;
@@ -193,8 +197,8 @@ export function ScoreboardCanvas({
         }}
       />
 
-      {/* En mode pleine page (type 14), le header et les pénalités sont masqués */}
-      {!(state.bodyType === 14 && state.customFieldsData.fullPageMode) && (
+      {/* En mode Layout libre (type 14), le canvas est vierge : ni header ni pénalités */}
+      {state.bodyType !== 14 && (
       <div style={{ position: 'relative', zIndex: 1, flexShrink: 0, padding: '14px 96px 10px' }}>
         <Header
           team1={state.team1}
@@ -219,6 +223,7 @@ export function ScoreboardCanvas({
           flagOverrides={flagOverrides}
           scorePopLeft={scorePopLeft}
           scorePopRight={scorePopRight}
+          onEdit={onInlineEdit}
         />
 
         <ClockOverlay
@@ -234,6 +239,8 @@ export function ScoreboardCanvas({
           fontSizePeriod={fontSizes.period}
           clockPulse={clockPulse}
           clockTenthsThreshold={state.clockTenthsThreshold}
+          onEditTime={onInlineEdit ? (v) => onInlineEdit('time', v) : undefined}
+          onEditPeriod={onInlineEdit ? (v) => onInlineEdit('period', v) : undefined}
         />
       </div>
       )}
@@ -245,7 +252,7 @@ export function ScoreboardCanvas({
         <SponsorLogoRenderer logos={logos} position={state.sponsorLogoPosition} size={state.sponsorLogoSize} />
       )}
 
-      {state.bodyType === 14 && state.customFieldsData.fullPageMode ? (
+      {state.bodyType === 14 ? (
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
           <BodyType14 state={state} colors={colors} opacities={opacities} canvasScale={canvasScale} />
         </div>

@@ -3,13 +3,15 @@ import { useScaling } from '@/hooks/useScaling';
 import { usePlayerPhotos } from '@/hooks/usePlayerPhotos';
 import { useLogos } from '@/hooks/useLogos';
 import { AnimatedScoreboard } from './AnimatedScoreboard';
+import type { InlineEditHandler } from './ScoreboardCanvas';
 import type { ScoreboardState } from '@/types/scoreboard';
 
 interface ScoreboardPreviewProps {
   readonly state: ScoreboardState;
+  readonly onInlineEdit?: InlineEditHandler;
 }
 
-export function ScoreboardPreview({ state }: ScoreboardPreviewProps) {
+export function ScoreboardPreview({ state, onInlineEdit }: ScoreboardPreviewProps) {
   const playerPhotos = usePlayerPhotos();
   const logos = useLogos();
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -39,7 +41,7 @@ export function ScoreboardPreview({ state }: ScoreboardPreviewProps) {
           flexShrink: 0,
         }}
       >
-        <AnimatedScoreboard state={state} playerPhotos={playerPhotos} logos={logos} canvasScale={scale} />
+        <AnimatedScoreboard state={state} playerPhotos={playerPhotos} logos={logos} canvasScale={scale} onInlineEdit={onInlineEdit} />
       </div>
     </div>
   );

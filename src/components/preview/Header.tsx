@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Flag } from './Flag';
+import { InlineEdit } from './InlineEdit';
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
 import type { ColorMap, OpacityMap } from '@/types/colors';
@@ -7,6 +8,10 @@ import type { FontId } from '@/types/fonts';
 import type { ShootoutAttempt } from '@/types/bodyTypes/shootout';
 import type { LogoMode } from '@/types/logo';
 import type { CSSProperties } from 'react';
+
+export interface HeaderEditCallback {
+  (field: 'team1' | 'team2' | 'score1' | 'score2', value: string): void;
+}
 
 interface HeaderProps {
   readonly team1: string;
@@ -31,6 +36,7 @@ interface HeaderProps {
   readonly flagOverrides?: Record<string, string>;
   readonly scorePopLeft?: boolean;
   readonly scorePopRight?: boolean;
+  readonly onEdit?: HeaderEditCallback;
 }
 
 function col(colors: ColorMap, opacities: OpacityMap, key: keyof ColorMap): string {
@@ -147,6 +153,7 @@ export function Header({
   logoMode = 'flag', teamLogos = EMPTY_LOGOS,
   flagOverrides = EMPTY_FLAG_OVERRIDES,
   scorePopLeft = false, scorePopRight = false,
+  onEdit,
 }: HeaderProps) {
   const c = (key: keyof ColorMap) => col(colors, opacities, key);
   const hasScoreBox = !!colors.scoreBox;
@@ -185,15 +192,27 @@ export function Header({
             {showShootout && <ShootoutDisplay attempts={shootoutLeft} color={c('teamName')} />}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div style={teamStyle}>{teamDisplayName1 || team1}</div>
+            {onEdit
+              ? <InlineEdit value={team1} onCommit={(v) => onEdit('team1', v)} style={teamStyle} testId="inline-team1" />
+              : <div style={teamStyle}>{teamDisplayName1 || team1}</div>
+            }
             {showTimeouts && <TimeoutDots count={timeoutsLeft} maxTimeouts={maxTimeouts} />}
           </div>
-          <div style={score1Style}>{score1}</div>
+          {onEdit
+            ? <InlineEdit value={score1} onCommit={(v) => onEdit('score1', v)} style={score1Style} testId="inline-score1" />
+            : <div style={score1Style}>{score1}</div>
+          }
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
-          <div style={score2Style}>{score2}</div>
+          {onEdit
+            ? <InlineEdit value={score2} onCommit={(v) => onEdit('score2', v)} style={score2Style} testId="inline-score2" />
+            : <div style={score2Style}>{score2}</div>
+          }
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div style={teamStyle}>{teamDisplayName2 || team2}</div>
+            {onEdit
+              ? <InlineEdit value={team2} onCommit={(v) => onEdit('team2', v)} style={teamStyle} testId="inline-team2" />
+              : <div style={teamStyle}>{teamDisplayName2 || team2}</div>
+            }
             {showTimeouts && <TimeoutDots count={timeoutsRight} maxTimeouts={maxTimeouts} />}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
