@@ -8,6 +8,14 @@ import { svgToDataUri } from '@/utils/svg';
 const svgDataUriCache = new Map<string, string>();
 
 /**
+ * Retourne le contenu SVG brut d'un drapeau pour un code NOC.
+ * Retourne une chaine vide si le code n'est pas dans le registre.
+ */
+export function getRawFlagSvg(code: string): string {
+  return FLAG_SVG_REGISTRY[code] ?? '';
+}
+
+/**
  * Resout l'URL du drapeau pour un code NOC.
  * Priorite : override utilisateur (flag-CODE) > SVG embarque > chaine vide.
  */

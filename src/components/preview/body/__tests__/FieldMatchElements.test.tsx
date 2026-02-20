@@ -62,7 +62,8 @@ describe('FieldMatchElements', () => {
       />,
     );
     expect(screen.getByText('SUI')).toBeInTheDocument();
-    expect(container.querySelector('img')).toBeTruthy();
+    /* Le drapeau est rendu en SVG inline */
+    expect(container.querySelector('svg')).toBeTruthy();
   });
 
   it('TeamNameElement affiche l equipe droite sans drapeau', () => {
@@ -76,7 +77,7 @@ describe('FieldMatchElements', () => {
       />,
     );
     expect(screen.getByText('CAN')).toBeInTheDocument();
-    expect(container.querySelector('img')).toBeFalsy();
+    expect(container.querySelector('svg')).toBeFalsy();
   });
 
   it('FlagElement rend un composant Flag', () => {
