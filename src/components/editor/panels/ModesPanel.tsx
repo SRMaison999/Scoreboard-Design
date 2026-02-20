@@ -1,5 +1,6 @@
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
+import { useEditorUIStore } from '@/stores/editorUIStore';
 import { BODY_TYPES, BODY_TYPE_CATEGORY_LABELS } from '@/constants/bodyTypes';
 import { EDITOR_LABELS } from '@/constants/labels';
 import type { BodyTypeId, BodyTypeOption } from '@/types/scoreboard';
@@ -41,6 +42,12 @@ function ModeButton({
 export function ModesPanel() {
   const bodyType = useScoreboardStore((s) => s.bodyType);
   const update = useScoreboardStore((s) => s.update);
+  const navigateTo = useEditorUIStore((s) => s.navigateTo);
+
+  const handleSelectMode = useCallback((id: BodyTypeId) => {
+    update('bodyType', id);
+    navigateTo('content', 'teams');
+  }, [update, navigateTo]);
 
   const groups = useMemo(() => {
     const order: Category[] = ['custom', 'stats', 'match', 'info'];
@@ -73,7 +80,7 @@ export function ModesPanel() {
                   key={t.id}
                   type={t}
                   isActive={bodyType === t.id}
-                  onSelect={() => update('bodyType', t.id as BodyTypeId)}
+                  onSelect={() => handleSelectMode(t.id as BodyTypeId)}
                 />
               ))}
             </div>

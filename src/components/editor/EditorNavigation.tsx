@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { LayoutGrid, FileText, Palette, Clock, Film, Radio } from 'lucide-react';
 import { EDITOR_LABELS } from '@/constants/labels';
 import { IconRail } from '@/components/ui/IconRail';
+import { useEditorUIStore } from '@/stores/editorUIStore';
 import { ModesPanel } from '@/components/editor/panels/ModesPanel';
 import { ContentPanel } from '@/components/editor/panels/ContentPanel';
 import { AppearancePanel } from '@/components/editor/panels/AppearancePanel';
@@ -31,14 +31,15 @@ function ActivePanel({ railTab }: { readonly railTab: RailTabId }) {
 }
 
 export function EditorNavigation() {
-  const [activeTab, setActiveTab] = useState<RailTabId>('content');
+  const activeTab = useEditorUIStore((s) => s.activeRailTab);
+  const setRailTab = useEditorUIStore((s) => s.setRailTab);
 
   return (
     <div className="flex h-full">
       <IconRail
         items={RAIL_ITEMS}
         activeId={activeTab}
-        onSelect={(id) => setActiveTab(id as RailTabId)}
+        onSelect={(id) => setRailTab(id as RailTabId)}
       />
       <div className="flex-1 flex flex-col overflow-hidden">
         <ActivePanel railTab={activeTab} />

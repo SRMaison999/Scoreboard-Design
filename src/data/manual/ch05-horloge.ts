@@ -5,7 +5,7 @@ export const ch05: ManualChapter = {
   title: 'Horloge et phases',
   content: `## Emplacement
 
-Les controles de l'horloge et des phases se trouvent dans le **panneau gauche**, onglet **Horloge** (icone d'horloge, 3e icone du rail de navigation).
+Les contr\u00f4les de l'horloge et des phases se trouvent dans le **panneau gauche**, onglet **Horloge** (ic\u00f4ne d'horloge, 4\u00e8me ic\u00f4ne du rail de navigation).
 
 ## Horloge
 

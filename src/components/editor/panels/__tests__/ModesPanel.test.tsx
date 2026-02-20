@@ -2,12 +2,14 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ModesPanel } from '../ModesPanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
+import { useEditorUIStore } from '@/stores/editorUIStore';
 import { BODY_TYPES, BODY_TYPE_CATEGORY_LABELS } from '@/constants/bodyTypes';
 import { EDITOR_LABELS } from '@/constants/labels';
 
 describe('ModesPanel', () => {
   beforeEach(() => {
     useScoreboardStore.getState().resetState();
+    useEditorUIStore.setState({ activeRailTab: 'modes', activeContentSubTab: 'general' });
   });
 
   it('affiche le titre de la section', () => {
@@ -58,5 +60,13 @@ describe('ModesPanel', () => {
     const inactiveBtn = screen.getByTestId('mode-btn-6');
     expect(inactiveBtn.className).toContain('bg-gray-900');
     expect(inactiveBtn.className).not.toContain('bg-sky-950');
+  });
+
+  it('navigue vers Contenu/\u00c9quipes apr\u00e8s s\u00e9lection d\u2019un mode', () => {
+    render(<ModesPanel />);
+    fireEvent.click(screen.getByTestId('mode-btn-1'));
+    const uiState = useEditorUIStore.getState();
+    expect(uiState.activeRailTab).toBe('content');
+    expect(uiState.activeContentSubTab).toBe('teams');
   });
 });

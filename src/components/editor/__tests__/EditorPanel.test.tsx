@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { EditorPanel } from '@/components/editor/EditorPanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
+import { useEditorUIStore } from '@/stores/editorUIStore';
 
 describe('EditorPanel', () => {
   beforeEach(() => {
@@ -13,6 +14,7 @@ describe('EditorPanel', () => {
     });
     vi.stubGlobal('BroadcastChannel', MockBroadcastChannel);
     useScoreboardStore.getState().resetState();
+    useEditorUIStore.setState({ activeRailTab: 'content', activeContentSubTab: 'teams' });
   });
 
   it('affiche le titre Scoreboard Editor', () => {
