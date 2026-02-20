@@ -163,6 +163,26 @@ function SideSelector({ fieldId, element }: {
   );
 }
 
+function ShowFlagToggle({ fieldId, element }: {
+  readonly fieldId: string;
+  readonly element: FieldElementConfig;
+}) {
+  const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
+  const config = element.config as { showFlag?: boolean };
+  const checked = config.showFlag !== false;
+
+  return (
+    <label className="flex items-center gap-2 text-[12px] text-gray-300">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => updateFieldElementConfig(updateElement, fieldId, element, { showFlag: e.target.checked })}
+      />
+      {CUSTOM_FIELD_LABELS.configShowFlag}
+    </label>
+  );
+}
+
 function HeaderBlockEditor({ fieldId, element }: {
   readonly fieldId: string;
   readonly element: Extract<FieldElementConfig, { type: 'header-block' }>;
@@ -299,6 +319,7 @@ export function FieldElementConfigEditor({ fieldId, element }: FieldElementConfi
       return (
         <div className="flex flex-col gap-2">
           <SideSelector fieldId={fieldId} element={element} />
+          <ShowFlagToggle fieldId={fieldId} element={element} />
           <FontSizeOverrideInput fieldId={fieldId} element={element} />
         </div>
       );
