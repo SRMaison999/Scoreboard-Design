@@ -200,10 +200,10 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
             pointerEvents: 'none',
           }}
         >
-          <span style={{ fontSize: 16, fontWeight: 600, color: 'rgba(148, 163, 184, 0.6)' }}>
+          <span style={{ fontSize: 28, fontWeight: 700, color: 'rgba(148, 163, 184, 0.85)', letterSpacing: 2 }}>
             {CUSTOM_FIELD_LABELS.emptyCanvasTitle}
           </span>
-          <span style={{ fontSize: 13, color: 'rgba(148, 163, 184, 0.4)', maxWidth: 360, textAlign: 'center' }}>
+          <span style={{ fontSize: 18, color: 'rgba(148, 163, 184, 0.7)', maxWidth: 500, textAlign: 'center', lineHeight: 1.5 }}>
             {CUSTOM_FIELD_LABELS.emptyCanvasHint}
           </span>
         </div>
@@ -269,11 +269,12 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
               top: 16,
               left: '50%',
               transform: 'translateX(-50%)',
-              backgroundColor: 'rgba(0, 0, 0, 0.7)',
-              color: 'rgba(56, 189, 248, 0.9)',
-              padding: '4px 12px',
-              borderRadius: 4,
-              fontSize: 12,
+              backgroundColor: 'rgba(0, 0, 0, 0.85)',
+              color: 'rgba(56, 189, 248, 1)',
+              padding: '8px 20px',
+              borderRadius: 6,
+              fontSize: 16,
+              fontWeight: 600,
               whiteSpace: 'nowrap',
             }}>
               {CUSTOM_FIELD_LABELS.zoneSelectHint}

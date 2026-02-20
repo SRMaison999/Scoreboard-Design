@@ -99,8 +99,9 @@ function ImageElement({ element }: {
       <div style={{
         width: '100%', height: '100%',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        backgroundColor: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.5)',
-        fontSize: 13, border: '1px dashed rgba(255,255,255,0.15)',
+        backgroundColor: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.75)',
+        fontSize: 18, fontWeight: 600, border: '2px dashed rgba(255,255,255,0.4)',
+        letterSpacing: 1,
       }}>
         {CUSTOM_FIELD_LABELS.elementTypeLabels['image-block'] ?? 'Image'}
       </div>
@@ -124,9 +125,10 @@ function PlaceholderElement({ label }: { readonly label: string }) {
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      backgroundColor: 'rgba(255,255,255,0.08)',
-      border: '1px dashed rgba(255,255,255,0.25)',
-      color: 'rgba(255,255,255,0.5)', fontSize: 13,
+      backgroundColor: 'rgba(255,255,255,0.12)',
+      border: '2px dashed rgba(255,255,255,0.4)',
+      color: 'rgba(255,255,255,0.75)', fontSize: 18, fontWeight: 600,
+      letterSpacing: 1,
     }}>
       {readableLabel}
     </div>

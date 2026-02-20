@@ -28,12 +28,11 @@ describe('Header', () => {
     expect(screen.getByText('FIN')).toBeInTheDocument();
   });
 
-  it('affiche des drapeaux SVG en mode flag par d\u00e9faut', () => {
+  it('affiche des drapeaux SVG inline en mode flag par d\u00e9faut', () => {
     const { container } = render(<Header {...baseProps} />);
-    const images = container.querySelectorAll('img');
-    expect(images.length).toBeGreaterThanOrEqual(2);
-    const firstImg = images[0] as HTMLImageElement;
-    expect(firstImg.getAttribute('src')).toMatch(/^data:image\/svg\+xml;base64,/);
+    /* Les drapeaux sont rendus en SVG inline (pas en <img>) */
+    const svgs = container.querySelectorAll('svg');
+    expect(svgs.length).toBeGreaterThanOrEqual(2);
   });
 
   it('affiche des images de logo en mode logo quand disponibles', () => {
@@ -48,18 +47,18 @@ describe('Header', () => {
   it('affiche drapeaux et logos en mode both', () => {
     const logos = { 'team-SVK': 'data:image/webp;base64,svk', 'team-FIN': 'data:image/webp;base64,fin' };
     const { container } = render(<Header {...baseProps} logoMode="both" teamLogos={logos} />);
+    /* 2 drapeaux SVG inline + 2 logos <img> */
+    const svgs = container.querySelectorAll('svg');
     const images = container.querySelectorAll('img');
-    // 2 drapeaux SVG + 2 logos = 4 images
-    expect(images).toHaveLength(4);
+    expect(svgs.length).toBeGreaterThanOrEqual(2);
+    expect(images).toHaveLength(2);
   });
 
   it('fallback aux drapeaux SVG si logo mode est logo mais aucun logo disponible', () => {
     const { container } = render(<Header {...baseProps} logoMode="logo" teamLogos={{}} />);
-    const images = container.querySelectorAll('img');
-    // Fallback: affiche les drapeaux SVG
-    expect(images.length).toBeGreaterThanOrEqual(2);
-    const firstImg = images[0] as HTMLImageElement;
-    expect(firstImg.getAttribute('src')).toMatch(/^data:image\/svg\+xml;base64,/);
+    /* Fallback: affiche les drapeaux SVG inline */
+    const svgs = container.querySelectorAll('svg');
+    expect(svgs.length).toBeGreaterThanOrEqual(2);
   });
 
   it('affiche les timeouts quand activ\u00e9s', () => {
@@ -69,8 +68,8 @@ describe('Header', () => {
     expect(container.innerHTML).toContain('border-radius: 50%');
   });
 
-  it('les drapeaux ont la meme hauteur que la cap height par defaut', () => {
-    // En JSDOM sans canvas, measureCapHeight retourne Math.round(fontSize * 0.72)
+  it('les drapeaux ont la m\u00eame hauteur que la cap height par d\u00e9faut', () => {
+    /* En JSDOM sans canvas, measureCapHeight retourne Math.round(fontSize * 0.72) */
     const { container } = render(<Header {...baseProps} fontSizeTeamName={80} />);
     const flagDivs = container.querySelectorAll('[style*="box-shadow"]');
     const flagEl = flagDivs[0] as HTMLElement;
@@ -79,8 +78,6 @@ describe('Header', () => {
   });
 
   it('les drapeaux scalent quand fontSizeTeamName change', () => {
-    // En JSDOM sans canvas, measureCapHeight retourne Math.round(fontSize * 0.72)
-    // width = Math.round(capHeight * FLAG_ASPECT) avec FLAG_ASPECT = 1.54
     const { container, rerender } = render(<Header {...baseProps} fontSizeTeamName={80} />);
     let flagDivs = container.querySelectorAll('[style*="box-shadow"]');
     let flagEl = flagDivs[0] as HTMLElement;
@@ -94,7 +91,6 @@ describe('Header', () => {
   });
 
   it('les drapeaux sont petits quand fontSizeTeamName est petit', () => {
-    // En JSDOM sans canvas, measureCapHeight retourne Math.round(fontSize * 0.72)
     const { container } = render(<Header {...baseProps} fontSizeTeamName={40} />);
     const flagDivs = container.querySelectorAll('[style*="box-shadow"]');
     const flagEl = flagDivs[0] as HTMLElement;

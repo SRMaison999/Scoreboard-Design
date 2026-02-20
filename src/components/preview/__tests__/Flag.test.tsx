@@ -10,12 +10,10 @@ vi.mock('@/assets/flags', () => ({
 }));
 
 describe('Flag', () => {
-  it('rend un <img> pour un NOC connu', () => {
+  it('rend un SVG inline pour un NOC connu', () => {
     const { container } = render(<Flag code="CAN" />);
-    const img = container.querySelector('img');
-    expect(img).toBeInTheDocument();
-    expect(img?.getAttribute('src')).toMatch(/^data:image\/svg\+xml;base64,/);
-    expect(img?.getAttribute('alt')).toBe('CAN');
+    const svg = container.querySelector('svg');
+    expect(svg).toBeInTheDocument();
   });
 
   it('rend le fallback texte pour un code inconnu', () => {
@@ -25,10 +23,11 @@ describe('Flag', () => {
 
   it('respecte les dimensions personnalis\u00e9es', () => {
     const { container } = render(<Flag code="FIN" w={100} h={60} />);
-    const img = container.querySelector('img');
-    expect(img).toBeInTheDocument();
-    expect(img?.style.width).toBe('100px');
-    expect(img?.style.height).toBe('60px');
+    const wrapper = container.firstChild as HTMLElement;
+    expect(wrapper).toBeInTheDocument();
+    expect(wrapper?.style.width).toBe('100px');
+    expect(wrapper?.style.height).toBe('60px');
+    expect(container.querySelector('svg')).toBeInTheDocument();
   });
 
   it('priorise l\u2019override utilisateur sur le SVG embarqu\u00e9', () => {
