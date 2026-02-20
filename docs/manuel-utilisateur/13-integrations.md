@@ -1,190 +1,190 @@
-# Integrations
+# Intégrations
 
-Ce chapitre couvre les cinq modules d'integration disponibles dans le panneau editeur, sous le groupe **Integrations**.
+Ce chapitre couvre les cinq modules d'intégration disponibles dans le panneau éditeur, sous le groupe **Intégrations**.
 
 ---
 
 ## 1. Import de rosters (CSV, Excel, JSON)
 
-### Presentation
+### Présentation
 
-Permet d'importer des compositions d'equipe depuis des fichiers externes au lieu de saisir chaque joueur manuellement.
+Permet d'importer des compositions d'équipe depuis des fichiers externes au lieu de saisir chaque joueur manuellement.
 
-### Formats supportes
+### Formats supportés
 
-| Format | Extensions | Details |
+| Format | Extensions | Détails |
 |--------|-----------|---------|
-| CSV | `.csv` | Colonnes separees par virgule ou point-virgule. Colonnes reconnues : `number`/`no`/`#`, `name`/`nom`, `position`/`pos` |
-| Excel | `.xlsx`, `.xls` | Premiere feuille du classeur. Memes alias de colonnes que le CSV |
-| JSON | `.json` | Tableau de joueurs, ou objet avec cle `players` ou `roster` |
+| CSV | `.csv` | Colonnes séparées par virgule ou point-virgule. Colonnes reconnues : `number`/`no`/`#`, `name`/`nom`, `position`/`pos` |
+| Excel | `.xlsx`, `.xls` | Première feuille du classeur. Mêmes alias de colonnes que le CSV |
+| JSON | `.json` | Tableau de joueurs, ou objet avec clé `players` ou `roster` |
 
 ### Utilisation
 
-1. Dans la section **Roster** de l'editeur, cliquer sur le bouton **Importer**
-2. Dans la modale, glisser-deposer un fichier ou cliquer pour parcourir
-3. Un apercu des joueurs detectes s'affiche dans un tableau
+1. Dans la section **Roster** de l'éditeur, cliquer sur le bouton **Importer**
+2. Dans la modale, glisser-déposer un fichier ou cliquer pour parcourir
+3. Un aperçu des joueurs détectés s'affiche dans un tableau
 4. Choisir le mode d'import :
-   - **Remplacer** : ecrase le roster existant
+   - **Remplacer** : écrase le roster existant
    - **Ajouter** : fusionne avec le roster existant (limite de 25 joueurs)
 5. Valider l'import
 
 ### Export
 
 Trois formats d'export sont disponibles via le bouton **Exporter** :
-- CSV : fichier texte avec en-tetes
+- CSV : fichier texte avec en-têtes
 - JSON : tableau d'objets avec `number`, `name`, `position`
 - Excel : classeur `.xlsx`
 
 ### Limites
 
-- Maximum 25 joueurs par equipe
-- Les positions invalides sont marquees comme vides
-- Les lignes sans numero ni nom sont ignorees
+- Maximum 25 joueurs par équipe
+- Les positions invalides sont marquées comme vides
+- Les lignes sans numéro ni nom sont ignorées
 
 ---
 
-## 2. API scores temps reel
+## 2. API scores temps réel
 
-### Presentation
+### Présentation
 
-Connecte le scoreboard a une source de donnees externe (API de ligue, serveur de stats) pour recevoir automatiquement les mises a jour de score, de temps et de penalites.
+Connecte le scoreboard à une source de données externe (API de ligue, serveur de stats) pour recevoir automatiquement les mises à jour de score, de temps et de pénalités.
 
 ### Configuration
 
 | Champ | Description |
 |-------|-------------|
-| **Point de terminaison** | URL du serveur. Prefixe `ws://` ou `wss://` pour WebSocket, `http://` ou `https://` pour le polling HTTP |
-| **ID du match** | Identifiant du match a suivre |
-| **Mise a jour auto** | Active/desactive la synchronisation automatique des donnees recues |
+| **Point de terminaison** | URL du serveur. Préfixe `ws://` ou `wss://` pour WebSocket, `http://` ou `https://` pour le polling HTTP |
+| **ID du match** | Identifiant du match à suivre |
+| **Mise à jour auto** | Active/désactive la synchronisation automatique des données reçues |
 
 ### Modes de connexion
 
-- **WebSocket** : connexion persistante, donnees poussees en temps reel
-- **Polling HTTP** : requete toutes les 5 secondes (mode fallback)
+- **WebSocket** : connexion persistante, données poussées en temps réel
+- **Polling HTTP** : requête toutes les 5 secondes (mode fallback)
 
-### Donnees recues
+### Données reçues
 
-Les donnees live peuvent mettre a jour :
-- Scores des deux equipes
-- Temps de jeu et periode
-- Penalites actives (joueur, infraction, duree)
+Les données live peuvent mettre à jour :
+- Scores des deux équipes
+- Temps de jeu et période
+- Pénalités actives (joueur, infraction, durée)
 
 ### Statuts
 
 | Statut | Signification |
 |--------|---------------|
-| Deconnecte | Pas de connexion active |
+| Déconnecté | Pas de connexion active |
 | Connexion... | Tentative de connexion en cours |
-| Connecte | Donnees recues normalement |
-| Erreur | Probleme de connexion ou de donnees |
+| Connecté | Données reçues normalement |
+| Erreur | Problème de connexion ou de données |
 
 ---
 
 ## 3. Multi-scoreboard (overlays)
 
-### Presentation
+### Présentation
 
-Permet d'afficher plusieurs formats de scoreboard simultanement sur la fenetre de sortie : lower third, score bug, ticker defilant.
+Permet d'afficher plusieurs formats de scoreboard simultanément sur la fenêtre de sortie : lower third, score bug, ticker défilant.
 
 ### Types d'overlay
 
 | Type | Description |
 |------|-------------|
-| **Lower Third** | Barre inferieure pleine largeur affichant equipes, score, temps et periode |
+| **Lower Third** | Barre inférieure pleine largeur affichant équipes, score, temps et période |
 | **Score Bug** | Affichage compact de score, positionnable en 6 positions (haut/milieu/bas, gauche/droite) |
-| **Ticker** | Bandeau defilant avec texte personnalisable |
+| **Ticker** | Bandeau défilant avec texte personnalisable |
 
 ### Gestion des overlays
 
-- **Ajouter** : boutons dedies pour chaque type (maximum 10 overlays)
-- **Visibilite** : basculer l'affichage de chaque overlay individuellement
-- **Position** : choisir parmi 6 positions predefinies (score bug)
-- **Opacite** : regler la transparence de chaque overlay (0 a 100%)
+- **Ajouter** : boutons dédiés pour chaque type (maximum 10 overlays)
+- **Visibilité** : basculer l'affichage de chaque overlay individuellement
+- **Position** : choisir parmi 6 positions prédéfinies (score bug)
+- **Opacité** : régler la transparence de chaque overlay (0 à 100%)
 - **Supprimer** : retirer un overlay de la liste
 
 ### Ticker
 
-- Ajouter des elements de texte qui defilent en boucle
-- Regler la vitesse de defilement (1 a 200 pixels par seconde)
-- Maximum 20 elements de texte
+- Ajouter des éléments de texte qui défilent en boucle
+- Régler la vitesse de défilement (1 à 200 pixels par seconde)
+- Maximum 20 éléments de texte
 
 ---
 
 ## 4. Synchronisation multi-poste
 
-### Presentation
+### Présentation
 
-Permet a plusieurs postes de travail de partager le meme etat du scoreboard en temps reel via WebSocket. Utile pour les productions avec plusieurs operateurs.
+Permet à plusieurs postes de travail de partager le même état du scoreboard en temps réel via WebSocket. Utile pour les productions avec plusieurs opérateurs.
 
-### Roles
+### Rôles
 
-| Role | Droits |
+| Rôle | Droits |
 |------|--------|
-| **Admin** | Controle total, peut envoyer et recevoir les mises a jour |
-| **Operateur** | Peut envoyer et recevoir les mises a jour |
-| **Viewer** | Lecture seule, recoit les mises a jour sans pouvoir les modifier |
+| **Admin** | Contrôle total, peut envoyer et recevoir les mises à jour |
+| **Opérateur** | Peut envoyer et recevoir les mises à jour |
+| **Viewer** | Lecture seule, reçoit les mises à jour sans pouvoir les modifier |
 
 ### Configuration
 
 | Champ | Description |
 |-------|-------------|
 | **URL du serveur** | Adresse du serveur WebSocket de synchronisation |
-| **Role** | Admin, operateur ou viewer |
+| **Rôle** | Admin, opérateur ou viewer |
 
 ### Fonctionnement
 
-1. Configurer l'URL du serveur et le role
+1. Configurer l'URL du serveur et le rôle
 2. Cliquer sur **Connecter**
-3. Les pairs connectes apparaissent dans la liste avec leur nom et role
-4. Les modifications de l'etat sont propagees automatiquement selon le role
+3. Les pairs connectés apparaissent dans la liste avec leur nom et rôle
+4. Les modifications de l'état sont propagées automatiquement selon le rôle
 
 ### Protocole
 
-Les messages echanges suivent un protocole structure :
-- `STATE_UPDATE` : mise a jour partielle de l'etat
-- `FULL_SYNC` : synchronisation complete de l'etat
-- `PEER_JOIN` / `PEER_LEAVE` : notifications de connexion/deconnexion
+Les messages échangés suivent un protocole structuré :
+- `STATE_UPDATE` : mise à jour partielle de l'état
+- `FULL_SYNC` : synchronisation complète de l'état
+- `PEER_JOIN` / `PEER_LEAVE` : notifications de connexion/déconnexion
 - `REQUEST_SYNC` : demande de synchronisation initiale
 
-La reconnexion automatique est geree avec backoff exponentiel (jusqu'a 5 tentatives).
+La reconnexion automatique est gérée avec backoff exponentiel (jusqu'à 5 tentatives).
 
 ---
 
-## 5. Integration CasparCG / Viz
+## 5. Intégration CasparCG / Viz
 
-### Presentation
+### Présentation
 
-Permet de streamer les donnees du scoreboard vers des systemes broadcast professionnels (CasparCG, Vizrt) via WebSocket et/ou export de fichiers JSON.
+Permet de streamer les données du scoreboard vers des systèmes broadcast professionnels (CasparCG, Vizrt) via WebSocket et/ou export de fichiers JSON.
 
 ### Configuration
 
 | Champ | Description |
 |-------|-------------|
-| **Port WebSocket** | Port d'ecoute pour les clients CasparCG/Viz (defaut : 8080) |
-| **Port HTTP** | Port pour l'acces HTTP aux donnees (defaut : 8081) |
+| **Port WebSocket** | Port d'écoute pour les clients CasparCG/Viz (défaut : 8080) |
+| **Port HTTP** | Port pour l'accès HTTP aux données (défaut : 8081) |
 | **Export fichier** | Active l'export automatique vers un fichier JSON |
 | **Chemin du fichier** | Chemin du fichier JSON de sortie |
-| **Intervalle** | Frequence de mise a jour du fichier (en millisecondes, defaut : 1000) |
+| **Intervalle** | Fréquence de mise à jour du fichier (en millisecondes, défaut : 1000) |
 
 ### Fonctionnement
 
 1. Configurer les ports et les options d'export
-2. Cliquer sur **Demarrer** pour lancer le streaming
-3. Les statistiques s'affichent en temps reel :
-   - Nombre de clients connectes
-   - Nombre de frames envoyees
-   - Heure de la derniere frame
-4. Utiliser **Snapshot** pour exporter manuellement un etat complet en JSON
+2. Cliquer sur **Démarrer** pour lancer le streaming
+3. Les statistiques s'affichent en temps réel :
+   - Nombre de clients connectés
+   - Nombre de frames envoyées
+   - Heure de la dernière frame
+4. Utiliser **Snapshot** pour exporter manuellement un état complet en JSON
 
-### Format des donnees
+### Format des données
 
-Les donnees sont envoyees en trois couches :
+Les données sont envoyées en trois couches :
 - **Template** : design, couleurs, polices (change rarement)
-- **Match** : equipes, rosters, phases (change entre les matchs)
-- **Frame** : scores, temps, penalites (change chaque seconde)
+- **Match** : équipes, rosters, phases (change entre les matchs)
+- **Frame** : scores, temps, pénalités (change chaque seconde)
 
-Le streaming utilise le delta encoding : seules les differences entre deux frames consecutives sont envoyees, ce qui reduit la bande passante.
+Le streaming utilise le delta encoding : seules les différences entre deux frames consécutives sont envoyées, ce qui réduit la bande passante.
 
-### Arret
+### Arrêt
 
-Cliquer sur **Arreter** pour couper le streaming. Le compteur de frames et les statistiques sont reinitialises.
+Cliquer sur **Arrêter** pour couper le streaming. Le compteur de frames et les statistiques sont réinitialisées.

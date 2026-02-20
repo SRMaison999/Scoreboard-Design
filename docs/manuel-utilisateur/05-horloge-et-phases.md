@@ -4,42 +4,42 @@
 
 ### Affichage
 
-L'horloge affiche le temps de jeu au format MM:SS. Lorsque le temps restant passe sous un seuil configurable, l'affichage bascule automatiquement en format avec dixiemes de seconde (S.t ou M:SS.t) pour une precision broadcast.
+L'horloge affiche le temps de jeu au format MM:SS. Lorsque le temps restant passe sous un seuil configurable, l'affichage bascule automatiquement en format avec dixièmes de seconde (S.t ou M:SS.t) pour une précision broadcast.
 
-### Seuil des dixiemes de seconde
+### Seuil des dixièmes de seconde
 
-Par defaut, les dixiemes de seconde apparaissent sous 10 secondes. Ce seuil est configurable via le curseur "Dixiemes de seconde sous" dans la section Horloge de l'editeur :
+Par défaut, les dixièmes de seconde apparaissent sous 10 secondes. Ce seuil est configurable via le curseur "Dixièmes de seconde sous" dans la section Horloge de l'éditeur :
 
-- **Plage** : de 0 a 120 secondes (par pas de 5 secondes)
-- **0 secondes** : les dixiemes ne sont jamais affiches
-- **120 secondes** : les dixiemes sont affiches pour les 2 dernieres minutes
+- **Plage** : de 0 à 120 secondes (par pas de 5 secondes)
+- **0 secondes** : les dixièmes ne sont jamais affichés
+- **120 secondes** : les dixièmes sont affichés pour les 2 dernières minutes
 
-Ce seuil s'applique a l'horloge principale et aux temps de penalite.
+Ce seuil s'applique à l'horloge principale et aux temps de pénalité.
 
-### Visibilite
+### Visibilité
 
-L'horloge peut etre masquee via le toggle "Afficher l'horloge" dans la section Horloge de l'editeur.
+L'horloge peut être masquée via le toggle "Afficher l'horloge" dans la section Horloge de l'éditeur.
 
 ### Cadre de l'horloge
 
-Le cadre colore autour de l'horloge a 4 modes d'affichage :
+Le cadre coloré autour de l'horloge a 4 modes d'affichage :
 
 | Mode | Comportement |
 |------|-------------|
-| Jamais | Le cadre n'est jamais affiche |
+| Jamais | Le cadre n'est jamais affiché |
 | Toujours | Le cadre est toujours visible |
-| A l'arret | Le cadre apparait uniquement quand l'horloge est arretee |
-| En marche | Le cadre apparait uniquement quand l'horloge tourne |
+| À l'arrêt | Le cadre apparaît uniquement quand l'horloge est arrêtée |
+| En marche | Le cadre apparaît uniquement quand l'horloge tourne |
 
 ## Phases de match
 
-Le match est organise en phases successives. Chaque phase a :
+Le match est organisé en phases successives. Chaque phase a :
 
 - Un **nom** (ex: "1st PERIOD", "INTERMISSION")
-- Une **duree** (ex: "20:00")
+- Une **durée** (ex: "20:00")
 - Une **phase suivante** (transition automatique)
 
-### Phases par defaut
+### Phases par défaut
 
 ```
 TO WARM UP (10:00) -> WARM UP (20:00) -> TO GAME (5:00)
@@ -54,38 +54,38 @@ OVERTIME (5:00), OVERTIME 2 (5:00)
 Dans la section "Phases", vous pouvez :
 
 - Modifier le nom de chaque phase
-- Modifier la duree de chaque phase
+- Modifier la durée de chaque phase
 - Ajouter de nouvelles phases
 - Supprimer des phases existantes
-- Definir les transitions entre phases
+- Définir les transitions entre phases
 
-### Selection de la phase active
+### Sélection de la phase active
 
-Un selecteur dans la section Horloge permet de choisir directement la phase active. Le temps est automatiquement reinitialise a la duree de la phase selectionnee.
+Un sélecteur dans la section Horloge permet de choisir directement la phase active. Le temps est automatiquement réinitialisé à la durée de la phase sélectionnée.
 
-## Mode demo
+## Mode démo
 
-Le mode demo simule le deroulement d'un match :
+Le mode démo simule le déroulement d'un match :
 
-- **Demarrer** : lance le decompte de l'horloge
-- **Arreter** : met en pause le decompte
-- **Reinitialiser** : remet le temps a la duree de la phase active
+- **Démarrer** : lance le décompte de l'horloge
+- **Arrêter** : met en pause le décompte
+- **Réinitialiser** : remet le temps à la durée de la phase active
 
 ### Comportement automatique
 
-Quand le mode demo est actif :
+Quand le mode démo est actif :
 
-- L'horloge decremente a raison de 1 dixieme de seconde par cycle (100ms)
-- Les penalites sont decrementees simultanement
-- Les penalites expirees (temps = 0:00) sont automatiquement supprimees
-- A 0:00, l'horloge passe automatiquement a la phase suivante avec sa duree
-- Sous le seuil configure, l'affichage passe en dixiemes de seconde
-- Si aucune phase suivante n'existe, le mode demo s'arrete
+- L'horloge décrémente à raison de 1 dixième de seconde par cycle (100ms)
+- Les pénalités sont décrémentées simultanément
+- Les pénalités expirées (temps = 0:00) sont automatiquement supprimées
+- À 0:00, l'horloge passe automatiquement à la phase suivante avec sa durée
+- Sous le seuil configuré, l'affichage passe en dixièmes de seconde
+- Si aucune phase suivante n'existe, le mode démo s'arrête
 
-## Penalites et horloge
+## Pénalités et horloge
 
-Les penalites sont liees a l'horloge :
+Les pénalités sont liées à l'horloge :
 
-- Quand le mode demo tourne, les penalites sont decrementees en parallele
-- Les penalites expirees disparaissent automatiquement
-- L'affichage des penalites passe egalement en dixiemes de seconde sous le seuil configure
+- Quand le mode démo tourne, les pénalités sont décrémentées en parallèle
+- Les pénalités expirées disparaissent automatiquement
+- L'affichage des pénalités passe également en dixièmes de seconde sous le seuil configuré

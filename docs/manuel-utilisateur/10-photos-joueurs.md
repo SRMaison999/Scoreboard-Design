@@ -1,21 +1,21 @@
 # Photos des joueurs
 
-## Presentation
+## Présentation
 
-Le Scoreboard Editor permet d'associer des photos aux joueurs. Ces photos sont affichees automatiquement dans les types d'affichage qui les supportent (stats joueur et face-a-face). Les photos sont stockees localement dans le navigateur via IndexedDB.
+Le Scoreboard Editor permet d'associer des photos aux joueurs. Ces photos sont affichées automatiquement dans les types d'affichage qui les supportent (stats joueur et face-à-face). Les photos sont stockées localement dans le navigateur via IndexedDB.
 
 ---
 
 ## Ajouter une photo
 
-1. Dans le panneau editeur, ouvrir la section **Photos des joueurs** (groupe Contenu)
-2. Selectionner l'**equipe** du joueur dans le menu deroulant (code NOC)
-3. Saisir le **numero** du joueur
+1. Dans le panneau éditeur, ouvrir la section **Photos des joueurs** (groupe Contenu)
+2. Sélectionner l'**équipe** du joueur dans le menu déroulant (code NOC)
+3. Saisir le **numéro** du joueur
 4. Optionnel : saisir le **nom** du joueur
 5. Cliquer sur **Ajouter une photo**
-6. Selectionner un fichier image (formats acceptes : PNG, JPEG, WebP)
+6. Sélectionner un fichier image (formats acceptés : PNG, JPEG, WebP)
 
-La photo est automatiquement recadree en carre et compressee en WebP pour optimiser l'espace de stockage.
+La photo est automatiquement recadrée en carré et compressée en WebP pour optimiser l'espace de stockage.
 
 ---
 
@@ -23,17 +23,17 @@ La photo est automatiquement recadree en carre et compressee en WebP pour optimi
 
 ### Liste des photos
 
-Toutes les photos ajoutees sont affichees dans une liste sous le formulaire d'ajout. Chaque entree montre :
+Toutes les photos ajoutées sont affichées dans une liste sous le formulaire d'ajout. Chaque entrée montre :
 - La miniature de la photo (cercle)
-- L'equipe, le numero et le nom du joueur
+- L'équipe, le numéro et le nom du joueur
 
 ### Supprimer une photo
 
-Cliquer sur l'icone de suppression (corbeille rouge) a droite de la photo a supprimer.
+Cliquer sur l'icône de suppression (corbeille rouge) à droite de la photo à supprimer.
 
 ### Remplacer une photo
 
-Pour remplacer la photo d'un joueur existant, ajouter simplement une nouvelle photo avec la meme equipe et le meme numero. L'ancienne photo sera automatiquement remplacee.
+Pour remplacer la photo d'un joueur existant, ajouter simplement une nouvelle photo avec la même équipe et le même numéro. L'ancienne photo sera automatiquement remplacée.
 
 ---
 
@@ -41,31 +41,31 @@ Pour remplacer la photo d'un joueur existant, ajouter simplement une nouvelle ph
 
 ### Type 3 : Stats joueur
 
-Quand l'option **Afficher photo joueur** est activee, les photos des joueurs sont affichees dans un cercle a cote de leurs statistiques. La correspondance se fait par le numero du joueur.
+Quand l'option **Afficher photo joueur** est activée, les photos des joueurs sont affichées dans un cercle à côté de leurs statistiques. La correspondance se fait par le numéro du joueur.
 
-Si aucune photo n'est trouvee pour un joueur, un cercle gris avec le numero du joueur est affiche en remplacement.
+Si aucune photo n'est trouvée pour un joueur, un cercle gris avec le numéro du joueur est affiché en remplacement.
 
-### Type 9 : Face-a-face
+### Type 9 : Face-à-face
 
-Les photos des deux joueurs compares sont affichees dans des cercles a cote de leurs noms. La correspondance se fait par la combinaison equipe + numero.
+Les photos des deux joueurs comparés sont affichées dans des cercles à côté de leurs noms. La correspondance se fait par la combinaison équipe + numéro.
 
-Si aucune photo n'est trouvee, un cercle avec le numero du joueur est affiche.
+Si aucune photo n'est trouvée, un cercle avec le numéro du joueur est affiché.
 
 ---
 
 ## Identification des photos
 
-Chaque photo est identifiee par la combinaison **equipe-numero** (exemple : `CAN-11`). Cela signifie que :
-- Un meme joueur a la meme photo dans tous les types d'affichage
-- Si deux joueurs ont le meme numero dans des equipes differentes, ils auront des photos distinctes
-- Changer l'equipe ou le numero d'un joueur dans un type d'affichage mettra a jour la photo affichee
+Chaque photo est identifiée par la combinaison **équipe-numéro** (exemple : `CAN-11`). Cela signifie que :
+- Un même joueur a la même photo dans tous les types d'affichage
+- Si deux joueurs ont le même numéro dans des équipes différentes, ils auront des photos distinctes
+- Changer l'équipe ou le numéro d'un joueur dans un type d'affichage mettra à jour la photo affichée
 
 ---
 
 ## Stockage
 
-Les photos sont stockees dans IndexedDB, ce qui signifie :
+Les photos sont stockées dans IndexedDB, ce qui signifie :
 - Elles persistent entre les sessions (rechargement de page)
-- Elles sont partagees entre toutes les fenetres de l'application (editeur, operateur, sortie)
+- Elles sont partagées entre toutes les fenêtres de l'application (éditeur, opérateur, sortie)
 - Elles ne sont pas incluses dans les exports de templates
-- Elles restent disponibles meme apres changement de template
+- Elles restent disponibles même après changement de template

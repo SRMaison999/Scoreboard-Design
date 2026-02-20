@@ -204,6 +204,8 @@ Les champs de type Image disposent d'un **sélecteur de fichier** intégré au p
 
 Quand un champ texte est redimensionné via les poignées, la taille de police s'ajuste proportionnellement. Par exemple, si un champ est élargi de 50%, la taille de police augmente de 50%. Ce comportement garantit que le texte reste visuellement cohérent après un redimensionnement.
 
+**Taille de police visuelle :** la barre flottante au-dessus du champ affiche la taille de police **visuelle** (telle qu'elle apparaît à l'écran), pas la taille brute stockée. Si un champ a été redimensionné, la taille affichée tient compte du facteur d'échelle. Par exemple, un champ avec une police brute de 30 px agrandi à 200% de sa hauteur initiale affichera "60" dans la barre flottante. Saisir une nouvelle valeur dans la barre applique la conversion inverse automatiquement.
+
 ### Noms d'équipes libres
 
 Pour les champs "Nom d'équipe", le sélecteur propose à la fois les 31 codes NOC prédéfinis (CAN, USA, SUI...) et la possibilité de saisir un nom libre. Cela permet d'utiliser des noms personnalisés pour les ligues locales, les équipes de club ou tout autre contexte hors compétitions internationales.
@@ -215,6 +217,19 @@ Pour les champs "Nom d'équipe", le sélecteur propose à la fois les 31 codes N
 | **Afficher les guides** | Superpose une grille en pointillés sur le canvas pour faciliter l'alignement visuel. |
 | **Taille de la grille** | Configurable (8 px par défaut). Les valeurs habituelles sont 8, 16, 24 ou 32 px. |
 | **Aimanter à la grille** | Les champs s'alignent automatiquement sur les intersections de la grille lors du déplacement. |
+
+### Diagnostic d'alignement
+
+Quand un champ est sélectionné (sans être en cours de déplacement), le système analyse automatiquement son alignement par rapport aux autres champs et aux bords du canvas. Deux types d'indicateurs visuels apparaissent :
+
+| Indicateur | Apparence | Signification |
+|------------|-----------|---------------|
+| **Alignement exact** | Ligne verte continue | Le champ est parfaitement aligné (bord, centre) avec un autre champ ou le canvas |
+| **Quasi-alignement** | Ligne ambrée en pointillés + badge | Le champ est presque aligné (écart de 1 à 8 pixels) |
+
+Les quasi-alignements affichent un **badge cliquable** indiquant l'écart en pixels (ex : "3px"). Cliquer sur ce badge corrige automatiquement la position du champ pour obtenir un alignement parfait.
+
+Le diagnostic compare 6 points d'ancrage pour chaque champ : bord gauche, centre horizontal, bord droit, bord supérieur, centre vertical et bord inférieur. Le nombre de suggestions de quasi-alignement est limité à 6 pour éviter la surcharge visuelle.
 
 ### Panneau de propriétés (sidebar)
 
