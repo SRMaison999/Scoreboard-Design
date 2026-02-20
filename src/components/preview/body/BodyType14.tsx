@@ -7,6 +7,7 @@
 import { useCallback, useEffect } from 'react';
 import { InteractiveField, type DragHandlers } from './InteractiveField';
 import { FieldFontToolbar } from './FieldFontToolbar';
+import { SmartGuideOverlay } from './SmartGuideOverlay';
 import { FieldElementRenderer } from './FieldElementRenderer';
 import { fieldBgStyle } from '@/utils/fieldStyle';
 import { useFieldDrag } from '@/hooks/useFieldDrag';
@@ -221,6 +222,8 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
           resize={resize}
         />
       ))}
+
+      {drag.isDragging && <SmartGuideOverlay guides={drag.activeGuides} />}
 
       {showToolbar && selectedField && fontInfo && (
         <FieldFontToolbar
