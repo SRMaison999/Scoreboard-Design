@@ -11,6 +11,7 @@ import { PenaltySection } from '@/components/editor/PenaltySection';
 import { PhotoSection } from '@/components/editor/PhotoSection';
 import { LogoSection } from '@/components/editor/LogoSection';
 import { BodyContentSection } from '@/components/editor/BodyContentSection';
+import { FreeLayoutPanel } from './FreeLayoutPanel';
 import type { ContentSubTab, SubTabItem } from '@/types/editor';
 
 const TABS: readonly SubTabItem[] = [
@@ -26,6 +27,11 @@ export function ContentPanel() {
   const bodyType = useScoreboardStore((s) => s.bodyType);
   const showPenalties = useScoreboardStore((s) => s.showPenalties);
   const showTitles = bodyType <= 3;
+
+  /* En mode Layout libre (bodyType 14), afficher le panneau dédié */
+  if (bodyType === 14) {
+    return <FreeLayoutPanel />;
+  }
 
   return (
     <div className="flex flex-col h-full overflow-hidden">

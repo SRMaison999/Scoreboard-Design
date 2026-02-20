@@ -39,4 +39,13 @@ describe('editorUIStore', () => {
     expect(state.activeRailTab).toBe('appearance');
     expect(state.activeContentSubTab).toBe('match');
   });
+
+  it('a la valeur par défaut de activeFreeLayoutTab', () => {
+    expect(useEditorUIStore.getState().activeFreeLayoutTab).toBe('match');
+  });
+
+  it('change l\'onglet Layout libre avec setFreeLayoutTab', () => {
+    useEditorUIStore.getState().setFreeLayoutTab('layers');
+    expect(useEditorUIStore.getState().activeFreeLayoutTab).toBe('layers');
+  });
 });
