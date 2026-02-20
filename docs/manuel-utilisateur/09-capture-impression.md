@@ -42,13 +42,16 @@ Le bouton Imprimer dans la barre d'outils ouvre le dialogue d'impression du navi
 - Format A3 recommandé pour une meilleure lisibilité
 - Utile pour l'archivage papier ou l'affichage physique dans les vestiaires
 
-## Spécifications techniques (JSON)
+## Spécifications techniques
 
-### Bouton "Générer les specs"
+### Bouton "Specs"
 
-Dans la section **Export** (onglet Animations > Export), le bouton "Générer les specs" télécharge un fichier JSON structuré contenant toutes les propriétés nécessaires pour recréer l'écran actuel.
+Le bouton **Specs** se trouve dans la barre d'outils au-dessus du canvas, à côté des boutons Capture et Imprimer. Un clic génère et télécharge automatiquement **deux fichiers** :
 
-### Contenu du fichier
+1. **Fichier de spécifications** (`.specs.json`) : un JSON structuré contenant toutes les propriétés techniques de l'écran actuel.
+2. **Fichier d'explication** (`.md`) : un document Markdown lisible qui décrit en détail la disposition de chaque élément à l'écran.
+
+### Contenu du fichier de spécifications (JSON)
 
 Le fichier `.specs.json` contient :
 
@@ -63,8 +66,22 @@ Le fichier `.specs.json` contient :
 - **Animations** : configuration complète des animations d'entrée, sortie, score, pénalités, horloge
 - **Visibilité** et **média de fond**
 
+### Contenu du fichier d'explication (Markdown)
+
+Le fichier `.md` contient :
+
+- **Vue d'ensemble** : schéma ASCII de la disposition générale (header, corps, pénalités)
+- **Canvas** : dimensions et mode de rendu
+- **Fond** : couleurs du dégradé ou couleur uniforme, média de fond éventuel
+- **Header** : position de chaque élément (drapeaux, noms, scores, horloge, période)
+- **Corps** : description détaillée du body type actif avec toutes les données (tableaux de stats, classement, calendrier, etc.)
+- **Polices** : familles et tailles utilisées
+- **Couleurs** : tableau récapitulatif de chaque couleur par élément
+- **Logos** : positions et tailles des logos affichés
+- **Visibilité** : état du scoreboard
+
 ### Usage
 
-Ce fichier est destiné aux développeurs qui doivent reproduire un écran spécifique. Il contient toutes les valeurs nécessaires sans avoir à ouvrir l'éditeur.
+Ces fichiers sont destinés aux développeurs qui doivent reproduire un écran spécifique. Le JSON fournit les valeurs brutes, le Markdown fournit le contexte visuel et les explications de positionnement.
 
 Fonctionne pour **tous les body types** (1-14), pas uniquement le Layout libre.

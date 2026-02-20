@@ -46,13 +46,8 @@ describe('ExportSection', () => {
     expect(screen.getByText(EDITOR_LABELS.exportVideoFps)).toBeInTheDocument();
   });
 
-  it('affiche le bouton de generation de specs', () => {
+  it('ne contient plus le bouton de generation de specs (deplace dans la toolbar)', () => {
     renderAndOpen();
-    expect(screen.getByText(EDITOR_LABELS.exportSpecsButton)).toBeInTheDocument();
-  });
-
-  it('affiche le titre de la section specs', () => {
-    renderAndOpen();
-    expect(screen.getByText(EDITOR_LABELS.exportSpecsTitle)).toBeInTheDocument();
+    expect(screen.queryByText(EDITOR_LABELS.exportSpecsButton)).not.toBeInTheDocument();
   });
 });
