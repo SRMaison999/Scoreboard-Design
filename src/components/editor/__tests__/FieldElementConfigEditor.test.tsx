@@ -90,6 +90,17 @@ describe('FieldElementConfigEditor', () => {
     expect(checkboxes[1]).not.toBeChecked();
   });
 
+  it('affiche le selecteur de cote et la case drapeau pour un team-name', () => {
+    const element: FieldElementConfig = {
+      type: 'team-name',
+      config: { side: 'left', showFlag: true, fontSizeOverride: 0 },
+    };
+    render(<FieldElementConfigEditor fieldId="f1" element={element} />);
+    expect(screen.getByText(CUSTOM_FIELD_LABELS.configSide)).toBeInTheDocument();
+    expect(screen.getByText(CUSTOM_FIELD_LABELS.configShowFlag)).toBeInTheDocument();
+    expect(screen.getByRole('checkbox')).toBeChecked();
+  });
+
   it('ne rend rien pour un type sans editeur specifique', () => {
     const element: FieldElementConfig = {
       type: 'timeout-display',

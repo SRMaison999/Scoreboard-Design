@@ -59,7 +59,12 @@ Un \u00e9l\u00e9ment verrouill\u00e9 ne peut \u00eatre ni d\u00e9plac\u00e9 ni r
 
 ## \u00c9tape 5 : Configurer un \u00e9l\u00e9ment (panneau Propri\u00e9t\u00e9s)
 
-Quand vous cliquez sur un \u00e9l\u00e9ment dans le canvas, un **panneau Propri\u00e9t\u00e9s** s'ouvre en deuxi\u00e8me colonne (entre le panneau \u00e9diteur et le preview). Ce panneau contient :
+Le panneau **Propri\u00e9t\u00e9s** n'est pas visible par d\u00e9faut. Il appara\u00eet uniquement quand vous **cliquez sur un \u00e9l\u00e9ment dans le canvas**. Une colonne suppl\u00e9mentaire s'ins\u00e8re alors entre le panneau \u00e9diteur (colonne de gauche) et le preview (zone principale). Quand aucun \u00e9l\u00e9ment n'est s\u00e9lectionn\u00e9, cette colonne dispara\u00eet.
+
+**Pour ouvrir le panneau Propri\u00e9t\u00e9s** : cliquez sur un \u00e9l\u00e9ment dans le canvas.
+**Pour fermer le panneau** : cliquez sur le bouton X en haut du panneau, ou cliquez sur une zone vide du canvas.
+
+Le panneau Propri\u00e9t\u00e9s contient :
 
 1. **Nom** : label de l'\u00e9l\u00e9ment (pour l'identifier dans la liste des couches)
 2. **Alignement** : 6 boutons pour positionner rapidement l'\u00e9l\u00e9ment (gauche, centre horizontal, droite, haut, centre vertical, bas)
@@ -67,10 +72,25 @@ Quand vous cliquez sur un \u00e9l\u00e9ment dans le canvas, un **panneau Propri\
 4. **Taille** : largeur et hauteur en pixels
 5. **Z-Index** : ordre d'empilement (les \u00e9l\u00e9ments avec un z-index \u00e9lev\u00e9 passent devant)
 6. **Style** : couleur de fond, bordure (couleur, \u00e9paisseur, rayon), opacit\u00e9, padding
-7. **Configuration sp\u00e9cifique** : options qui d\u00e9pendent du type d'\u00e9l\u00e9ment (voir tableau ci-dessous)
+7. **Configuration sp\u00e9cifique** : options qui d\u00e9pendent du type d'\u00e9l\u00e9ment (voir tableaux ci-dessous)
 8. **Actions** : boutons Dupliquer et Supprimer
 
-**Pour fermer le panneau** : cliquez sur le bouton X en haut, ou cliquez sur une zone vide du canvas.
+### Le s\u00e9lecteur "C\u00f4t\u00e9" (gauche/droite)
+
+Certains \u00e9l\u00e9ments sont li\u00e9s \u00e0 une \u00e9quipe. Le panneau Propri\u00e9t\u00e9s affiche alors un s\u00e9lecteur **"C\u00f4t\u00e9"** avec deux options : **Gauche** (\u00e9quipe 1) ou **Droite** (\u00e9quipe 2).
+
+Par d\u00e9faut, tout nouvel \u00e9l\u00e9ment est sur le c\u00f4t\u00e9 **Gauche**. Pour afficher les deux \u00e9quipes, il faut ajouter **deux \u00e9l\u00e9ments du m\u00eame type** et configurer l'un sur Gauche et l'autre sur Droite.
+
+**Exemple : afficher les deux \u00e9quipes avec drapeaux**
+1. Ajoutez un \u00e9l\u00e9ment **Nom d'\u00e9quipe** depuis la biblioth\u00e8que (cat\u00e9gorie Match) > il affiche automatiquement le **drapeau + le nom** de l'\u00e9quipe gauche
+2. Ajoutez un **deuxi\u00e8me** \u00e9l\u00e9ment **Nom d'\u00e9quipe**
+3. Cliquez sur ce deuxi\u00e8me \u00e9l\u00e9ment dans le canvas > le panneau Propri\u00e9t\u00e9s appara\u00eet
+4. Dans le s\u00e9lecteur **C\u00f4t\u00e9**, choisissez **Droite** > il affiche maintenant le drapeau + le nom de l'\u00e9quipe droite
+5. Positionnez les deux \u00e9l\u00e9ments o\u00f9 vous le souhaitez sur le canvas
+
+**Astuce** : le drapeau est affich\u00e9 par d\u00e9faut \u00e0 c\u00f4t\u00e9 du nom. D\u00e9cochez **"Afficher le drapeau"** dans le panneau Propri\u00e9t\u00e9s si vous ne voulez afficher que le nom.
+
+Les \u00e9l\u00e9ments concern\u00e9s par le s\u00e9lecteur "C\u00f4t\u00e9" sont : **Nom d'\u00e9quipe**, **Score**, **Drapeau**, **Colonne de p\u00e9nalit\u00e9s**.
 
 ### Configuration sp\u00e9cifique par type d'\u00e9l\u00e9ment
 
@@ -80,7 +100,7 @@ Quand vous cliquez sur un \u00e9l\u00e9ment dans le canvas, un **panneau Propri\
 | **Score** | C\u00f4t\u00e9 (gauche/droite), afficher le label, taille de police |
 | **Horloge** | Afficher la p\u00e9riode, afficher le cadre, taille de police |
 | **P\u00e9riode** | Taille de police |
-| **Nom d'\u00e9quipe** | C\u00f4t\u00e9 (gauche/droite), afficher le drapeau, taille de police |
+| **Nom d'\u00e9quipe** | C\u00f4t\u00e9 (gauche/droite), afficher le drapeau (activ\u00e9 par d\u00e9faut), taille de police |
 | **Drapeau** | C\u00f4t\u00e9 (gauche/droite) |
 | **Ligne de stat** | Index de la statistique \u00e0 afficher |
 | **Barre comparative** | Index de la barre \u00e0 afficher |
