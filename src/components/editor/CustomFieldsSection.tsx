@@ -22,13 +22,15 @@ import { GRID_SIZE_OPTIONS } from '@/types/customField';
 import type { CustomField } from '@/types/customField';
 import type { PresetScope } from '@/types/fieldPreset';
 
+const EMPTY_IDS: readonly string[] = [];
+
 export function CustomFieldsSection() {
   useCustomFieldKeyboard();
   const fullPageMode = useScoreboardStore((s) => s.customFieldsData.fullPageMode);
   const snapToGrid = useScoreboardStore((s) => s.customFieldsData.snapToGrid);
   const showGuides = useScoreboardStore((s) => s.customFieldsData.showGuides);
   const gridSize = useScoreboardStore((s) => s.customFieldsData.gridSize);
-  const selectedFieldIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? []);
+  const selectedFieldIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? EMPTY_IDS);
   const singleSelectedId = selectedFieldIds.length === 1 ? selectedFieldIds[0] ?? null : null;
   const fieldsCount = useScoreboardStore((s) => s.customFieldsData.fields.length);
   const updateOption = useScoreboardStore((s) => s.updateCustomFieldsOption);

@@ -13,6 +13,8 @@ import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import { cn } from '@/lib/utils';
 
+const EMPTY_IDS: readonly string[] = [];
+
 /** Icône compacte selon le type d'élément du champ */
 function FieldTypeIcon({ type }: { type: string }) {
   const cls = 'flex-shrink-0 text-gray-500';
@@ -30,7 +32,7 @@ function FieldTypeIcon({ type }: { type: string }) {
 
 export function CustomFieldList() {
   const fields = useScoreboardStore((s) => s.customFieldsData.fields);
-  const selectedIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? []);
+  const selectedIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? EMPTY_IDS);
   const selectField = useScoreboardStore((s) => s.selectCustomField);
   const toggleSelection = useScoreboardStore((s) => s.toggleFieldSelection);
   const removeField = useScoreboardStore((s) => s.removeCustomField);

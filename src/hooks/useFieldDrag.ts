@@ -9,6 +9,8 @@ import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { useSmartGuides, type GuideLine } from '@/hooks/useSmartGuides';
 import type { CustomField } from '@/types/customField';
 
+const EMPTY_IDS: readonly string[] = [];
+
 interface DragState {
   fieldId: string;
   startMouseX: number;
@@ -22,7 +24,7 @@ export function useFieldDrag(scale: number) {
   const updatePosition = useScoreboardStore((s) => s.updateCustomFieldPosition);
   const selectField = useScoreboardStore((s) => s.selectCustomField);
   const toggleSelection = useScoreboardStore((s) => s.toggleFieldSelection);
-  const selectedIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? []);
+  const selectedIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? EMPTY_IDS);
   const fields = useScoreboardStore((s) => s.customFieldsData.fields);
   const snapToGrid = useScoreboardStore((s) => s.customFieldsData.snapToGrid);
   const gridSize = useScoreboardStore((s) => s.customFieldsData.gridSize);

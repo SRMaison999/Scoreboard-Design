@@ -36,6 +36,8 @@ interface BodyType14Props {
   readonly canvasScale?: number;
 }
 
+const EMPTY_IDS: readonly string[] = [];
+
 /** Drag handlers desactives pendant la selection de zone */
 const disabledDrag: DragHandlers = {
   onPointerDown: () => undefined,
@@ -69,7 +71,7 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
   readonly opacities: OpacityMap;
   readonly canvasScale: number;
 }) {
-  const selectedIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? []);
+  const selectedIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? EMPTY_IDS);
   const zoneSelectionActive = useScoreboardStore((s) => s.customFieldsData.zoneSelectionActive);
   const clearSelection = useScoreboardStore((s) => s.clearFieldSelection);
   const selectField = useScoreboardStore((s) => s.selectCustomField);
