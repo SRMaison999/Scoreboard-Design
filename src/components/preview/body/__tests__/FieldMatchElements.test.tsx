@@ -66,6 +66,46 @@ describe('FieldMatchElements', () => {
     expect(container.querySelector('svg')).toBeTruthy();
   });
 
+  it('TeamNameElement cote gauche : drapeau avant le nom', () => {
+    const state = { ...DEFAULT_STATE, team1: 'SUI', team2: 'CAN' };
+    const { container } = render(
+      <TeamNameElement
+        state={state}
+        colors={DEFAULT_COLORS}
+        opacities={DEFAULT_OPACITIES}
+        element={{ config: { side: 'left', showFlag: true } }}
+      />,
+    );
+    const wrapper = container.firstElementChild!;
+    const html = wrapper.innerHTML;
+    const svgPos = html.indexOf('<svg');
+    const textPos = html.indexOf('SUI');
+    expect(svgPos).toBeGreaterThanOrEqual(0);
+    expect(textPos).toBeGreaterThanOrEqual(0);
+    /* Le drapeau (svg) doit apparaitre AVANT le texte dans le DOM */
+    expect(svgPos).toBeLessThan(textPos);
+  });
+
+  it('TeamNameElement cote droit : drapeau apres le nom', () => {
+    const state = { ...DEFAULT_STATE, team1: 'SUI', team2: 'CAN' };
+    const { container } = render(
+      <TeamNameElement
+        state={state}
+        colors={DEFAULT_COLORS}
+        opacities={DEFAULT_OPACITIES}
+        element={{ config: { side: 'right', showFlag: true } }}
+      />,
+    );
+    const wrapper = container.firstElementChild!;
+    const html = wrapper.innerHTML;
+    const svgPos = html.indexOf('<svg');
+    const textPos = html.indexOf('CAN');
+    expect(svgPos).toBeGreaterThanOrEqual(0);
+    expect(textPos).toBeGreaterThanOrEqual(0);
+    /* Le drapeau (svg) doit apparaitre APRES le texte dans le DOM */
+    expect(svgPos).toBeGreaterThan(textPos);
+  });
+
   it('TeamNameElement affiche l equipe droite sans drapeau', () => {
     const state = { ...DEFAULT_STATE, team1: 'SUI', team2: 'CAN' };
     const { container } = render(

@@ -101,8 +101,9 @@ export function TeamNameElement({ state, colors, opacities, element }: {
       fontFamily: ff(state.fontTeams), color: col(colors, opacities, 'teamName'),
       letterSpacing: 4, textTransform: 'uppercase',
     }}>
-      {showFlag && <Flag code={code} w={flagW} h={flagH} />}
+      {isLeft && showFlag && <Flag code={code} w={flagW} h={flagH} />}
       {name}
+      {!isLeft && showFlag && <Flag code={code} w={flagW} h={flagH} />}
     </div>
   );
 }
