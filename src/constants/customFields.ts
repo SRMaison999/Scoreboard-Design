@@ -306,6 +306,20 @@ export const CUSTOM_FIELD_LABELS = {
   hockeyPresetApply: 'Appliquer le mod\u00e8le',
   hockeyPresetDescription: 'Mod\u00e8les pr\u00e9d\u00e9finis pour tableaux de bord hockey',
 
+  /* Navigation Layout libre (onglets) */
+  freeLayoutTabCanvas: 'Canvas',
+  freeLayoutTabMatch: 'Match',
+  freeLayoutTabText: 'Texte',
+  freeLayoutTabData: 'Donn\u00e9es',
+  freeLayoutTabPlayers: 'Joueurs',
+  freeLayoutTabMedia: 'M\u00e9dias',
+  freeLayoutTabComposed: 'Compos\u00e9s',
+  freeLayoutTabLayers: 'Couches',
+  freeLayoutTabPresets: 'Presets',
+  freeLayoutTabProperties: 'Propri\u00e9t\u00e9s',
+  freeLayoutNoSelection: 'S\u00e9lectionnez un champ pour voir ses propri\u00e9t\u00e9s',
+  freeLayoutAddHint: 'Cliquer pour ajouter, ou glisser sur le canvas',
+
   /* Modale raccourcis clavier */
   shortcutsTitle: 'Raccourcis clavier',
   shortcutsSectionGeneral: 'G\u00e9n\u00e9ral',

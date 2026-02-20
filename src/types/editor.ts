@@ -16,6 +16,19 @@ export type AppearanceSubTab = 'style' | 'fonts' | 'colors';
 export type AnimationsSubTab = 'animations' | 'export';
 export type IntegrationsSubTab = 'live' | 'multi' | 'sync' | 'broadcast';
 
+/* Onglets du panneau Layout libre */
+export type FreeLayoutTab =
+  | 'canvas'
+  | 'match'
+  | 'text'
+  | 'data'
+  | 'players'
+  | 'media'
+  | 'composed'
+  | 'layers'
+  | 'presets'
+  | 'properties';
+
 /* Union de tous les sous-onglets possibles */
 export type SubTabId =
   | ContentSubTab
