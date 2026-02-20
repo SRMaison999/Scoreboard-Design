@@ -206,8 +206,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { s.fontSizes[key] = value; }),
 
       /* Custom Fields (type 14) */
-      addCustomField: (element, x, y, width, height) =>
-        set((s) => { addCustomFieldDraft(s, element, x, y, width, height); }),
+      addCustomField: (element, x, y, width, height, label) =>
+        set((s) => { addCustomFieldDraft(s, element, x, y, width, height, label); }),
       removeCustomField: (fieldId) =>
         set((s) => { removeCustomFieldDraft(s, fieldId); }),
       updateCustomFieldPosition: (fieldId, x, y) =>

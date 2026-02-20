@@ -19,6 +19,8 @@ export function HeaderBlockElement({ state, colors, opacities }: {
       <Header
         team1={state.team1}
         team2={state.team2}
+        teamDisplayName1={state.teamDisplayName1}
+        teamDisplayName2={state.teamDisplayName2}
         score1={state.score1}
         score2={state.score2}
         colors={colors}
