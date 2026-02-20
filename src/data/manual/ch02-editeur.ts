@@ -9,14 +9,15 @@ export const ch02: ManualChapter = {
 
 ### Rail d'ic\u00f4nes (bord gauche de l'\u00e9cran)
 
-Un rail vertical d'ic\u00f4nes tout \u00e0 gauche permet de basculer entre 5 groupes :
+Un rail vertical d\u2019ic\u00f4nes tout \u00e0 gauche permet de basculer entre 6 groupes :
 
 | Ic\u00f4ne | Groupe | Description |
 |-------|--------|-------------|
-| Fichier | **Contenu** | \u00c9quipes, scores, body type, p\u00e9nalit\u00e9s, m\u00e9dias |
+| Grille | **Modes** | Choix du type d\u2019affichage du scoreboard |
+| Fichier | **Contenu** | \u00c9quipes, scores, p\u00e9nalit\u00e9s, m\u00e9dias |
 | Palette | **Apparence** | Dimensions, polices, couleurs, fond |
 | Horloge | **Horloge** | Temps de jeu, phases, d\u00e9mo |
-| Film | **Animations** | Animations d'entr\u00e9e/sortie, export vid\u00e9o/GIF |
+| Film | **Animations** | Animations d\u2019entr\u00e9e/sortie, export vid\u00e9o/GIF |
 | Radio | **Int\u00e9grations** | Scores en direct, multi-scoreboard, sync, broadcast |
 
 ### Sous-onglets (en haut du panneau \u00e9diteur)
@@ -34,11 +35,24 @@ Les sous-onglets horizontaux apparaissent juste sous le titre du groupe :
 
 \u00c0 l\u2019int\u00e9rieur de chaque sous-onglet, les sections peuvent \u00eatre repli\u00e9es en cliquant sur leur titre.
 
+## \u00c9dition directe sur le preview
+
+Double-cliquez sur n\u2019importe quel texte du scoreboard (nom d\u2019\u00e9quipe, score, horloge, p\u00e9riode) pour le modifier directement sur le preview. Validez avec Entr\u00e9e, annulez avec \u00c9chappement.
+
 ## Panneau Modes (1\u00e8re ic\u00f4ne du rail)
 
-Grille de boutons pour choisir le type d\u2019affichage du corps du scoreboard. Le Layout libre est propos\u00e9 en premier.
+Cliquez sur l\u2019ic\u00f4ne grille (1\u00e8re ic\u00f4ne du rail) pour ouvrir le panneau de choix du mode d\u2019affichage. Les modes sont organis\u00e9s par cat\u00e9gorie :
 
-## Groupe Contenu (2\u00e8me ic\u00f4ne du rail)
+- **Personnalis\u00e9** : Layout libre \u2014 canvas vierge o\u00f9 vous placez les \u00e9l\u00e9ments librement
+- **Statistiques** : Stats sym\u00e9triques, asym\u00e9triques, joueur, face-\u00e0-face, barres comparatives
+- **\u00c9v\u00e9nements de match** : C\u00e9l\u00e9bration de but, fiche joueur, score final, chronologie
+- **Informations** : Classement, texte libre, composition d\u2019\u00e9quipe, calendrier
+
+Chaque bouton affiche le nom du mode et une br\u00e8ve description. Le mode actif est surlign\u00e9 en bleu.
+
+En mode **Layout libre**, le canvas est enti\u00e8rement vierge (sans header). Ajoutez des \u00e9l\u00e9ments depuis la biblioth\u00e8que et un panneau de propri\u00e9t\u00e9s s\u2019ouvre en deuxi\u00e8me colonne lorsqu\u2019un \u00e9l\u00e9ment est s\u00e9lectionn\u00e9.
+
+## Groupe Contenu (2e ic\u00f4ne du rail)
 
 ### Sous-onglet G\u00e9n\u00e9ral
 

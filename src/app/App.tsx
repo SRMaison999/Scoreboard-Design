@@ -47,6 +47,15 @@ export function App() {
     window.print();
   }, []);
 
+  const update = useScoreboardStore((s) => s.update);
+  const handleInlineEdit = useCallback((field: string, value: string) => {
+    type EditableKey = 'team1' | 'team2' | 'score1' | 'score2' | 'time' | 'period';
+    const allowed = new Set<EditableKey>(['team1', 'team2', 'score1', 'score2', 'time', 'period']);
+    if (allowed.has(field as EditableKey)) {
+      update(field as EditableKey, value);
+    }
+  }, [update]);
+
   const toolbarBtnClass = 'bg-blue-950 border border-blue-600 text-blue-300 rounded-md px-3 py-1 cursor-pointer text-sm flex items-center justify-center gap-1.5 flex-1 min-w-0 whitespace-nowrap';
 
   return (
@@ -101,7 +110,7 @@ export function App() {
         </div>
 
         <div className="flex-1 flex items-center justify-center p-6 bg-gray-950 overflow-hidden">
-          <ScoreboardPreview state={state} />
+          <ScoreboardPreview state={state} onInlineEdit={handleInlineEdit} />
         </div>
       </div>
 
