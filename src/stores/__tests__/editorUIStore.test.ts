@@ -40,12 +40,21 @@ describe('editorUIStore', () => {
     expect(state.activeContentSubTab).toBe('match');
   });
 
-  it('a la valeur par défaut de activeFreeLayoutTab', () => {
-    expect(useEditorUIStore.getState().activeFreeLayoutTab).toBe('match');
+  it('a la valeur par d\u00e9faut de activeFreeLayoutTab', () => {
+    expect(useEditorUIStore.getState().activeFreeLayoutTab).toBe('library');
+  });
+
+  it('a la valeur par d\u00e9faut de activeLibraryCategory', () => {
+    expect(useEditorUIStore.getState().activeLibraryCategory).toBe('all');
   });
 
   it('change l\'onglet Layout libre avec setFreeLayoutTab', () => {
     useEditorUIStore.getState().setFreeLayoutTab('layers');
     expect(useEditorUIStore.getState().activeFreeLayoutTab).toBe('layers');
+  });
+
+  it('change le filtre de cat\u00e9gorie avec setLibraryCategory', () => {
+    useEditorUIStore.getState().setLibraryCategory('match');
+    expect(useEditorUIStore.getState().activeLibraryCategory).toBe('match');
   });
 });

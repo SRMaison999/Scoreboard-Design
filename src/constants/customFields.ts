@@ -310,18 +310,23 @@ export const CUSTOM_FIELD_LABELS = {
 
   /* Navigation Layout libre (onglets) */
   freeLayoutTabCanvas: 'Canvas',
-  freeLayoutTabMatch: 'Match',
-  freeLayoutTabText: 'Texte',
-  freeLayoutTabData: 'Donn\u00e9es',
-  freeLayoutTabPlayers: 'Joueurs',
-  freeLayoutTabMedia: 'M\u00e9dias',
-  freeLayoutTabComposed: 'Compos\u00e9s',
+  freeLayoutTabLibrary: 'Biblioth\u00e8que',
   freeLayoutTabLayers: 'Couches',
   freeLayoutTabPresets: 'Presets',
-  freeLayoutTabProperties: 'Propri\u00e9t\u00e9s',
-  freeLayoutNoSelection: 'S\u00e9lectionnez un champ pour voir ses propri\u00e9t\u00e9s',
+  freeLayoutNoSelection: 'S\u00e9lectionnez un champ sur le canvas pour voir ses propri\u00e9t\u00e9s.',
   freeLayoutAddHint: 'Cliquer pour ajouter, ou glisser sur le canvas',
-  freeLayoutFieldAdded: 'Champ ajout\u00e9 \u2014 configurez-le ci-dessous',
+  freeLayoutFieldAdded: 'Champ ajout\u00e9 \u2014 configurez-le dans le panneau de propri\u00e9t\u00e9s ci-dessous',
+  freeLayoutCategoryAll: 'Tout',
+
+  /* Ordre des couches (z-index) */
+  zIndexBringToFront: 'Premier plan',
+  zIndexBringForward: 'Avancer',
+  zIndexSendBackward: 'Reculer',
+  zIndexSendToBack: 'Arri\u00e8re-plan',
+  zIndexOrderTitle: 'Ordre d\u2019affichage',
+
+  /* Indicateur de coordonn\u00e9es */
+  cursorCoordinates: 'Coordonn\u00e9es',
 
   /* Modale raccourcis clavier */
   shortcutsTitle: 'Raccourcis clavier',
