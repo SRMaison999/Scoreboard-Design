@@ -14,7 +14,9 @@ import {
 } from './FieldMatchElements';
 import { StatLineElement, BarCompareElement, PlayerPhotoElement } from './FieldDataElements';
 import { HeaderBlockElement, PenaltyColumnElement } from './FieldComposedElements';
+import { EmbeddedBodyType } from './FieldEmbeddedBodyType';
 import { hexToRgba } from '@/utils/color';
+import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import type { ScoreboardState } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FieldElementConfig } from '@/types/customField';
@@ -97,10 +99,10 @@ function ImageElement({ element }: {
       <div style={{
         width: '100%', height: '100%',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        backgroundColor: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.3)',
-        fontSize: 14,
+        backgroundColor: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.5)',
+        fontSize: 13, border: '1px dashed rgba(255,255,255,0.15)',
       }}>
-        Image
+        {CUSTOM_FIELD_LABELS.elementTypeLabels['image-block'] ?? 'Image'}
       </div>
     );
   }
@@ -117,15 +119,16 @@ function ImageElement({ element }: {
 }
 
 function PlaceholderElement({ label }: { readonly label: string }) {
+  const readableLabel = CUSTOM_FIELD_LABELS.elementTypeLabels[label] ?? label;
   return (
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      backgroundColor: 'rgba(255,255,255,0.05)',
-      border: '1px dashed rgba(255,255,255,0.2)',
-      color: 'rgba(255,255,255,0.4)', fontSize: 12,
+      backgroundColor: 'rgba(255,255,255,0.08)',
+      border: '1px dashed rgba(255,255,255,0.25)',
+      color: 'rgba(255,255,255,0.5)', fontSize: 13,
     }}>
-      {label}
+      {readableLabel}
     </div>
   );
 }
@@ -171,7 +174,18 @@ export function FieldElementRenderer({
       return <HeaderBlockElement state={state} colors={colors} opacities={opacities} />;
     case 'penalty-column':
       return <PenaltyColumnElement state={state} colors={colors} opacities={opacities} element={element} />;
-    default:
+    default: {
+      /* Body types 1-13 imbriques dans le Layout libre */
+      const bodyMatch = element.type.match(/^body-type-(\d+)$/);
+      if (bodyMatch?.[1]) {
+        const bodyId = parseInt(bodyMatch[1], 10);
+        return (
+          <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+            <EmbeddedBodyType bodyTypeId={bodyId} state={state} colors={colors} opacities={opacities} />
+          </div>
+        );
+      }
       return <PlaceholderElement label={element.type} />;
+    }
   }
 }

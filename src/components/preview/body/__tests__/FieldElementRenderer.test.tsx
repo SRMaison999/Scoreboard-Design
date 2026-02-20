@@ -86,6 +86,16 @@ describe('FieldElementRenderer', () => {
     expect(screen.getByText('Image')).toBeInTheDocument();
   });
 
+  it('rend un image-block avec une source', () => {
+    const element: FieldElementConfig = {
+      type: 'image-block',
+      config: { src: 'data:image/png;base64,abc', objectFit: 'cover' },
+    };
+    const { container } = render(<FieldElementRenderer element={element} {...defaultProps} />);
+    const img = container.querySelector('img');
+    expect(img).toBeInTheDocument();
+  });
+
   it('rend un flag-display avec le composant Flag', () => {
     const element: FieldElementConfig = {
       type: 'flag-display',
@@ -95,13 +105,13 @@ describe('FieldElementRenderer', () => {
     expect(container.firstChild).toBeInTheDocument();
   });
 
-  it('rend un placeholder pour un type compose', () => {
+  it('rend un body-type-1 imbrique dans le Layout libre', () => {
     const element: FieldElementConfig = {
       type: 'body-type-1',
       config: { bodyTypeId: 1 },
     };
-    render(<FieldElementRenderer element={element} {...defaultProps} />);
-    expect(screen.getByText('body-type-1')).toBeInTheDocument();
+    const { container } = render(<FieldElementRenderer element={element} {...defaultProps} />);
+    expect(container.firstChild).toBeInTheDocument();
   });
 
   it('rend un timeout-display', () => {
