@@ -12,7 +12,10 @@ import { CustomFieldProperties } from './CustomFieldProperties';
 
 export function PropertiesPanel() {
   const selectedFieldId = useScoreboardStore(
-    (s) => s.customFieldsData.selectedFieldIds.length === 1 ? s.customFieldsData.selectedFieldIds[0] ?? null : null,
+    (s) => {
+      const ids = s.customFieldsData?.selectedFieldIds;
+      return ids?.length === 1 ? ids[0] ?? null : null;
+    },
   );
   const clearSelection = useScoreboardStore((s) => s.clearFieldSelection);
 

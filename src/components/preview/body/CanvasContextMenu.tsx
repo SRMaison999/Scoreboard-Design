@@ -47,7 +47,7 @@ export function CanvasContextMenu({
   onClose,
 }: CanvasContextMenuProps) {
   const fields = useScoreboardStore((s) => s.customFieldsData.fields);
-  const selectedIds = useScoreboardStore((s) => s.customFieldsData.selectedFieldIds);
+  const selectedIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? []);
   const showGuides = useScoreboardStore((s) => s.customFieldsData.showGuides);
   const removeSelectedFields = useScoreboardStore((s) => s.removeSelectedFields);
   const duplicateSelectedFields = useScoreboardStore((s) => s.duplicateSelectedFields);

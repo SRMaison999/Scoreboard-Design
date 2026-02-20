@@ -69,7 +69,7 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
   readonly opacities: OpacityMap;
   readonly canvasScale: number;
 }) {
-  const selectedIds = useScoreboardStore((s) => s.customFieldsData.selectedFieldIds);
+  const selectedIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? []);
   const zoneSelectionActive = useScoreboardStore((s) => s.customFieldsData.zoneSelectionActive);
   const clearSelection = useScoreboardStore((s) => s.clearFieldSelection);
   const selectField = useScoreboardStore((s) => s.selectCustomField);

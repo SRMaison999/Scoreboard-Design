@@ -36,7 +36,7 @@ const RAIL_ITEMS: readonly IconRailItem[] = [
 ];
 
 function PropertiesContent() {
-  const selectedFieldIds = useScoreboardStore((s) => s.customFieldsData.selectedFieldIds);
+  const selectedFieldIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? []);
   const singleSelectedId = selectedFieldIds.length === 1 ? selectedFieldIds[0] ?? null : null;
 
   if (selectedFieldIds.length >= 2) {

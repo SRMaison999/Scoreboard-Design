@@ -70,12 +70,15 @@ function getContentScale(field: { scaleContent: boolean; initialHeight: number; 
 export function useFieldFontSize() {
   const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
   const selectedFieldId = useScoreboardStore(
-    (s) => s.customFieldsData.selectedFieldIds.length === 1 ? s.customFieldsData.selectedFieldIds[0] ?? null : null,
+    (s) => {
+      const ids = s.customFieldsData?.selectedFieldIds;
+      return ids?.length === 1 ? ids[0] ?? null : null;
+    },
   );
   const selectedField = useScoreboardStore(
     (s) => {
-      const ids = s.customFieldsData.selectedFieldIds;
-      if (ids.length !== 1) return undefined;
+      const ids = s.customFieldsData?.selectedFieldIds;
+      if (!ids || ids.length !== 1) return undefined;
       return s.customFieldsData.fields.find((f) => f.id === ids[0]);
     },
   );

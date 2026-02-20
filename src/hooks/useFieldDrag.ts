@@ -22,7 +22,7 @@ export function useFieldDrag(scale: number) {
   const updatePosition = useScoreboardStore((s) => s.updateCustomFieldPosition);
   const selectField = useScoreboardStore((s) => s.selectCustomField);
   const toggleSelection = useScoreboardStore((s) => s.toggleFieldSelection);
-  const selectedIds = useScoreboardStore((s) => s.customFieldsData.selectedFieldIds);
+  const selectedIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? []);
   const fields = useScoreboardStore((s) => s.customFieldsData.fields);
   const snapToGrid = useScoreboardStore((s) => s.customFieldsData.snapToGrid);
   const gridSize = useScoreboardStore((s) => s.customFieldsData.gridSize);
