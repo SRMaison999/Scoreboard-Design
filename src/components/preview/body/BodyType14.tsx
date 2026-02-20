@@ -6,18 +6,24 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { InteractiveField, type DragHandlers } from './InteractiveField';
+import type { InlineEditHandlers } from './InteractiveField';
 import { FieldFontToolbar } from './FieldFontToolbar';
 import { SmartGuideOverlay } from './SmartGuideOverlay';
-import { StaticField, GridOverlay } from './BodyType14Static';
+import { StaticField, GridOverlay, EmptyCanvasHint, DropIndicatorOverlay } from './BodyType14Static';
 import { CanvasContextMenu } from './CanvasContextMenu';
 import type { ContextMenuPosition } from './CanvasContextMenu';
 import { useFieldDrag } from '@/hooks/useFieldDrag';
 import { useFieldResize } from '@/hooks/useFieldResize';
+import { useFieldRotation } from '@/hooks/useFieldRotation';
 import { useFieldFontSize, hasEditableFontSize } from '@/hooks/useFieldFontSize';
+import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { useZoneSelection } from '@/hooks/useZoneSelection';
+import { useLibraryDragDrop } from '@/hooks/useLibraryDragDrop';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { useZoneSelectionStore } from '@/stores/zoneSelectionStore';
+import { prepareFieldForAdd } from '@/utils/fieldConfig';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
+import { FIELD_MAX_FIELDS } from '@/types/customField';
 import type { ScoreboardState } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { CustomField } from '@/types/customField';
@@ -29,12 +35,32 @@ interface BodyType14Props {
   readonly canvasScale?: number;
 }
 
-/** Drag handlers d\u00e9sactiv\u00e9s pendant la s\u00e9lection de zone */
+/** Drag handlers desactives pendant la selection de zone */
 const disabledDrag: DragHandlers = {
   onPointerDown: () => undefined,
   onPointerMove: () => undefined,
   onPointerUp: () => undefined,
 };
+
+/** Construit les handlers d'edition inline pour un champ donne */
+function buildInlineEditHandlers(
+  fieldId: string,
+  edit: {
+    editingFieldId: string | null;
+    originalContent: string;
+    startEditing: (id: string) => void;
+    commitEdit: (content: string) => void;
+    cancelEdit: () => void;
+  },
+): InlineEditHandlers {
+  return {
+    isEditing: edit.editingFieldId === fieldId,
+    originalContent: edit.originalContent,
+    onDoubleClick: edit.startEditing,
+    onCommit: edit.commitEdit,
+    onCancel: edit.cancelEdit,
+  };
+}
 
 function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
   readonly state: ScoreboardState;
@@ -50,11 +76,17 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
   const setCapturedFields = useZoneSelectionStore((s) => s.setCapturedFields);
   const { showGuides, gridSize } = state.customFieldsData;
 
+  const addField = useScoreboardStore((s) => s.addCustomField);
+
   const drag = useFieldDrag(canvasScale);
   const resize = useFieldResize(canvasScale);
+  const rotationHandlers = useFieldRotation(canvasScale);
   const { fontInfo, hasFontControl, increase, decrease, setFontSize, adjustFontSize } = useFieldFontSize();
+  const inlineEdit = useInlineEdit();
+  const libraryDrag = useLibraryDragDrop();
 
   const fields = state.customFieldsData.fields;
+  const isFull = fields.length >= FIELD_MAX_FIELDS;
   const sorted = [...fields].sort((a, b) => a.zIndex - b.zIndex);
   const singleSelectedId = selectedIds.length === 1 ? selectedIds[0] ?? null : null;
   const selectedField = singleSelectedId ? fields.find((f) => f.id === singleSelectedId) : undefined;
@@ -105,6 +137,10 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
 
   const handleBackgroundClick = (e: React.MouseEvent) => {
     if (zone.active) return;
+    /* Quitter le mode edition inline si actif */
+    if (inlineEdit.editingFieldId && e.target === e.currentTarget) {
+      inlineEdit.cancelEdit();
+    }
     if (e.target === e.currentTarget) clearSelection();
   };
 
@@ -117,11 +153,30 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
     adjustFontSize(e.deltaY < 0 ? 1 : -1);
   }, [hasFontControl, singleSelectedId, adjustFontSize]);
 
+  /** Gestion du drop d'un element depuis la bibliotheque */
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    if (isFull) return;
+    const result = libraryDrag.onDrop(e, canvasScale);
+    if (!result) return;
+
+    const { element: el, canvasX, canvasY } = result;
+    const { config, label } = prepareFieldForAdd(el, fields);
+
+    /* Positionner l'element centre sur le point de drop */
+    const w = Math.min(el.defaultWidth, state.templateWidth);
+    const h = Math.min(el.defaultHeight, state.templateHeight);
+    const x = Math.max(0, Math.min(canvasX - Math.round(w / 2), state.templateWidth - w));
+    const y = Math.max(0, Math.min(canvasY - Math.round(h / 2), state.templateHeight - h));
+
+    addField(config, x, y, w, h, label);
+  }, [isFull, libraryDrag, canvasScale, fields, state.templateWidth, state.templateHeight, addField]);
+
   const showToolbar = selectedField && hasFontControl && fontInfo && hasEditableFontSize(selectedField.element.type);
 
   return (
     <div
       data-testid="body-type-14"
+      data-canvas-container
       style={{
         position: 'relative',
         width: '100%',
@@ -132,28 +187,18 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
       onClick={handleBackgroundClick}
       onWheelCapture={handleFieldWheel}
       onContextMenu={handleContextMenu}
+      onDragOver={libraryDrag.onDragOver}
+      onDragLeave={libraryDrag.onDragLeave}
+      onDrop={handleDrop}
       onPointerDown={zone.active ? zone.onPointerDown : undefined}
       onPointerMove={zone.active ? zone.onPointerMove : undefined}
       onPointerUp={zone.active ? zone.onPointerUp : undefined}
     >
       {showGuides && <GridOverlay gridSize={gridSize} />}
 
-      {sorted.length === 0 && !zone.active && (
-        <div
-          data-testid="empty-canvas-hint"
-          style={{
-            position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: 'center', gap: 8, pointerEvents: 'none',
-          }}
-        >
-          <span style={{ fontSize: 28, fontWeight: 700, color: 'rgba(148, 163, 184, 0.85)', letterSpacing: 2 }}>
-            {CUSTOM_FIELD_LABELS.emptyCanvasTitle}
-          </span>
-          <span style={{ fontSize: 18, color: 'rgba(148, 163, 184, 0.7)', maxWidth: 500, textAlign: 'center', lineHeight: 1.5 }}>
-            {CUSTOM_FIELD_LABELS.emptyCanvasHint}
-          </span>
-        </div>
-      )}
+      {libraryDrag.isDragOver && !isFull && <DropIndicatorOverlay />}
+
+      {sorted.length === 0 && !zone.active && !libraryDrag.isDragOver && <EmptyCanvasHint />}
 
       {sorted.map((field) => (
         <InteractiveField
@@ -165,6 +210,8 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
           isSelected={selectedIds.includes(field.id)}
           drag={zone.active ? disabledDrag : drag}
           resize={resize}
+          rotation={rotationHandlers}
+          inlineEdit={buildInlineEditHandlers(field.id, inlineEdit)}
         />
       ))}
 

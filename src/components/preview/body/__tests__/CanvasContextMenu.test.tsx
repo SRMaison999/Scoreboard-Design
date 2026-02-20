@@ -26,6 +26,7 @@ function makeField(id: string, overrides?: Partial<CustomField>): CustomField {
     y: 200,
     width: 200,
     height: 80,
+    rotation: 0,
     zIndex: 1,
     locked: false,
     visible: true,
@@ -36,7 +37,7 @@ function makeField(id: string, overrides?: Partial<CustomField>): CustomField {
     element,
     style: { ...DEFAULT_FIELD_STYLE },
     ...overrides,
-  };
+  } as CustomField;
 }
 
 /* Mock du store scoreboard */

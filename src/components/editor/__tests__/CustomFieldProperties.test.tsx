@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { CustomFieldProperties } from '../CustomFieldProperties';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
@@ -88,6 +88,65 @@ describe('CustomFieldProperties', () => {
     if (field) {
       render(<CustomFieldProperties fieldId={field.id} />);
       expect(screen.getByText('Bloc de texte')).toBeInTheDocument();
+    }
+  });
+
+  it('affiche la section rotation avec la valeur par defaut 0', () => {
+    useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
+    const field = useScoreboardStore.getState().customFieldsData.fields[0];
+
+    if (field) {
+      render(<CustomFieldProperties fieldId={field.id} />);
+      expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldRotation)).toBeInTheDocument();
+      const input = screen.getByTestId('rotation-input') as HTMLInputElement;
+      expect(input.value).toBe('0');
+    }
+  });
+
+  it('ne montre pas le bouton de reinitialisation quand la rotation est 0', () => {
+    useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
+    const field = useScoreboardStore.getState().customFieldsData.fields[0];
+
+    if (field) {
+      render(<CustomFieldProperties fieldId={field.id} />);
+      expect(screen.queryByTestId('rotation-reset')).not.toBeInTheDocument();
+    }
+  });
+
+  it('montre le bouton de reinitialisation quand la rotation n\'est pas 0', () => {
+    useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
+    const field = useScoreboardStore.getState().customFieldsData.fields[0];
+
+    if (field) {
+      useScoreboardStore.getState().updateCustomFieldProp(field.id, 'rotation', 45);
+      render(<CustomFieldProperties fieldId={field.id} />);
+      expect(screen.getByTestId('rotation-reset')).toBeInTheDocument();
+    }
+  });
+
+  it('met a jour la rotation via l\'input', () => {
+    useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
+    const field = useScoreboardStore.getState().customFieldsData.fields[0];
+
+    if (field) {
+      render(<CustomFieldProperties fieldId={field.id} />);
+      const input = screen.getByTestId('rotation-input');
+      fireEvent.change(input, { target: { value: '90' } });
+      const updated = useScoreboardStore.getState().customFieldsData.fields[0];
+      expect(updated?.rotation).toBe(90);
+    }
+  });
+
+  it('reinitialise la rotation a 0 avec le bouton', () => {
+    useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
+    const field = useScoreboardStore.getState().customFieldsData.fields[0];
+
+    if (field) {
+      useScoreboardStore.getState().updateCustomFieldProp(field.id, 'rotation', 45);
+      render(<CustomFieldProperties fieldId={field.id} />);
+      fireEvent.click(screen.getByTestId('rotation-reset'));
+      const updated = useScoreboardStore.getState().customFieldsData.fields[0];
+      expect(updated?.rotation).toBe(0);
     }
   });
 });

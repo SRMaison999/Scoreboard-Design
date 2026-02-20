@@ -11,6 +11,7 @@ function makeField(overrides: Partial<CustomField> & { id: string }): CustomFiel
     y: 0,
     width: 100,
     height: 100,
+    rotation: 0,
     zIndex: 1,
     locked: false,
     visible: true,
@@ -21,7 +22,7 @@ function makeField(overrides: Partial<CustomField> & { id: string }): CustomFiel
     element: { type: 'text-block', config: { content: '', fontSize: 24, fontWeight: 400, fontFamily: '', textAlign: 'left', textTransform: 'none', letterSpacing: 0 } },
     style: { ...DEFAULT_FIELD_STYLE },
     ...overrides,
-  };
+  } as CustomField;
 }
 
 describe('useSmartGuides', () => {

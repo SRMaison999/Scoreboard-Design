@@ -14,6 +14,7 @@ import {
   resetCustomFieldScaleDraft, reorderCustomFieldDraft,
   moveSelectedFieldsDraft, removeSelectedFieldsDraft,
   duplicateSelectedFieldsDraft, pasteFieldsDraft,
+  distributeSelectedFieldsDraft,
 } from './customFieldActions';
 import type { ScoreboardState, PenaltySide } from '@/types/scoreboard';
 import type { ColorKey, ColorPreset } from '@/types/colors';
@@ -248,6 +249,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { duplicateSelectedFieldsDraft(s); }),
       pasteFields: (sourceFields, pasteOffset) =>
         set((s) => { pasteFieldsDraft(s, sourceFields, pasteOffset); }),
+      distributeSelectedFields: (action) =>
+        set((s) => { distributeSelectedFieldsDraft(s, action); }),
       updateCustomFieldsOption: (key, value) =>
         set((s) => { (s.customFieldsData as Record<string, unknown>)[key] = value; }),
       updateCustomFieldsGridSize: (size) =>
@@ -300,13 +303,14 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         if (state['customFieldsData'] === undefined) {
           state['customFieldsData'] = structuredClone(DEFAULT_CUSTOM_FIELDS_DATA);
         }
-        /* Migration : ajouter scaleContent/initialWidth/initialHeight aux champs existants */
+        /* Migration : ajouter scaleContent/initialWidth/initialHeight/rotation aux champs existants */
         const cfd = state['customFieldsData'] as Record<string, unknown> & { fields?: Array<Record<string, unknown>> };
         if (cfd?.fields) {
           for (const f of cfd.fields) {
             if (f['scaleContent'] === undefined) f['scaleContent'] = true;
             if (f['initialWidth'] === undefined) f['initialWidth'] = f['width'];
             if (f['initialHeight'] === undefined) f['initialHeight'] = f['height'];
+            if (f['rotation'] === undefined) f['rotation'] = 0;
           }
         }
         /* Migration : selectedFieldId (string|null) → selectedFieldIds (string[]) */

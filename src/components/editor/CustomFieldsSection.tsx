@@ -15,6 +15,7 @@ import { useCustomFieldKeyboard } from '@/hooks/useCustomFieldKeyboard';
 import { CustomFieldLibrary } from './CustomFieldLibrary';
 import { CustomFieldList } from './CustomFieldList';
 import { CustomFieldProperties } from './CustomFieldProperties';
+import { MultiSelectionToolbar } from './MultiSelectionToolbar';
 import { SavePresetModal } from './SavePresetModal';
 import { LoadPresetModal } from './LoadPresetModal';
 import { GRID_SIZE_OPTIONS } from '@/types/customField';
@@ -208,6 +209,12 @@ export function CustomFieldsSection() {
           </div>
         </div>
       </Section>
+
+      {selectedFieldIds.length >= 2 && (
+        <Section title={CUSTOM_FIELD_LABELS.multiSelectionTitle} defaultOpen>
+          <MultiSelectionToolbar count={selectedFieldIds.length} />
+        </Section>
+      )}
 
       {singleSelectedId && (
         <Section title={CUSTOM_FIELD_LABELS.fieldProperties} defaultOpen>

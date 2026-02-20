@@ -12,6 +12,7 @@ describe('FieldPreset types', () => {
       y: 0,
       width: 200,
       height: 100,
+      rotation: 0,
       zIndex: 1,
       locked: false,
       visible: true,

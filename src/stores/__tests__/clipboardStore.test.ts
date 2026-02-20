@@ -23,6 +23,7 @@ function makeField(id: string): CustomField {
     y: 200,
     width: 200,
     height: 80,
+    rotation: 0,
     zIndex: 1,
     locked: false,
     visible: true,

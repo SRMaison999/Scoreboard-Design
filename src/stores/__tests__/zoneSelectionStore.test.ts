@@ -10,7 +10,7 @@ function makeField(id: string): CustomField {
   };
   return {
     id, label: 'Test', x: 0, y: 0, width: 100, height: 80,
-    zIndex: 1, locked: false, visible: true, lockAspectRatio: false,
+    rotation: 0, zIndex: 1, locked: false, visible: true, lockAspectRatio: false,
     scaleContent: true, initialWidth: 100, initialHeight: 80,
     element, style: { ...DEFAULT_FIELD_STYLE },
   };

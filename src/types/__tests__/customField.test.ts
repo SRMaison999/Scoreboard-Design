@@ -79,7 +79,7 @@ describe('customField types et constantes', () => {
       id: 'test-id',
       label: 'Test',
       x: 0, y: 0, width: 100, height: 80,
-      zIndex: 1,
+      rotation: 0, zIndex: 1,
       locked: false, visible: true, lockAspectRatio: false,
       scaleContent: true, initialWidth: 100, initialHeight: 80,
       element: { type: 'text-block', config: { content: 'a', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'left', textTransform: 'none', letterSpacing: 0 } },

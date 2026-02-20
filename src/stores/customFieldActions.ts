@@ -4,8 +4,10 @@
  */
 
 import { DEFAULT_FIELD_STYLE, FIELD_MAX_FIELDS } from '@/types/customField';
+import { distributeFields } from '@/utils/fieldDistribution';
 import type { ScoreboardState } from '@/types/scoreboard';
 import type { FieldElementConfig, FieldStyle, CustomField } from '@/types/customField';
+import type { DistributionAction } from '@/utils/fieldDistribution';
 
 type Draft = ScoreboardState;
 
@@ -36,6 +38,7 @@ export function addCustomFieldDraft(
     y,
     width,
     height,
+    rotation: 0,
     zIndex: maxZ + 1,
     locked: false,
     visible: true,
@@ -138,6 +141,7 @@ export function duplicateCustomFieldDraft(s: Draft, fieldId: string): void {
     y: Math.min(field.y + 30, s.templateHeight - field.height),
     width: field.width,
     height: field.height,
+    rotation: field.rotation,
     zIndex: maxZ + 1,
     locked: field.locked,
     visible: field.visible,
@@ -211,6 +215,7 @@ export function duplicateSelectedFieldsDraft(s: Draft): void {
       y: Math.min(field.y + 30, s.templateHeight - field.height),
       width: field.width,
       height: field.height,
+      rotation: field.rotation,
       zIndex: maxZ + i + 1,
       locked: field.locked,
       visible: field.visible,
@@ -254,6 +259,7 @@ export function pasteFieldsDraft(
       y: Math.min(src.y + offset, s.templateHeight - src.height),
       width: src.width,
       height: src.height,
+      rotation: src.rotation,
       zIndex: maxZ + i + 1,
       locked: false,
       visible: src.visible,
@@ -270,4 +276,32 @@ export function pasteFieldsDraft(
   }
 
   s.customFieldsData.selectedFieldIds = newIds;
+}
+
+/**
+ * Distribue ou aligne les champs sélectionnés entre eux.
+ */
+export function distributeSelectedFieldsDraft(
+  s: Draft,
+  action: DistributionAction,
+): void {
+  const ids = s.customFieldsData.selectedFieldIds;
+  if (ids.length < 2) return;
+
+  const selected = s.customFieldsData.fields.filter(
+    (f) => ids.includes(f.id) && !f.locked,
+  );
+  if (selected.length < 2) return;
+
+  const rects = selected.map((f) => ({
+    id: f.id, x: f.x, y: f.y, width: f.width, height: f.height,
+  }));
+
+  const updates = distributeFields(rects, action);
+  for (const u of updates) {
+    const field = findField(s, u.id);
+    if (!field) continue;
+    (field as { x: number }).x = u.x;
+    (field as { y: number }).y = u.y;
+  }
 }

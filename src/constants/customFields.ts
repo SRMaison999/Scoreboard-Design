@@ -124,6 +124,11 @@ export const CUSTOM_FIELD_LABELS = {
   configFontSizeOverride: 'Taille de police',
   configFontSizeAutoHint: '0 = valeur globale',
 
+  /* Rotation */
+  fieldRotation: 'Rotation',
+  fieldRotationUnit: '\u00b0',
+  fieldRotationReset: 'R\u00e9initialiser',
+
   /* Proportions et mise à l'échelle */
   fieldLockAspectRatio: 'Verrouiller les proportions',
   fieldScaleContent: 'Mise à l\u2019échelle du contenu',
@@ -195,9 +200,14 @@ export const CUSTOM_FIELD_LABELS = {
   presetLoadMerge: 'Ajouter au layout actuel',
   presetFieldCount: 'champ(s)',
 
+  /* Glisser-déposer depuis la bibliothèque */
+  dragTooltip: 'Glisser sur le canvas pour positionner',
+  dropHint: 'Relâcher pour déposer l\u2019élément',
+  dragMimeType: 'application/x-scoreboard-element',
+
   /* État vide du canvas */
   emptyCanvasTitle: 'Canvas vide',
-  emptyCanvasHint: 'Cliquez sur un élément dans la bibliothèque ci-dessous pour commencer.',
+  emptyCanvasHint: 'Glissez un élément depuis la bibliothèque ou cliquez pour l\u2019ajouter au centre.',
   emptyCanvasStepTeams: 'Configurez d\u2019abord les équipes dans la section Header ci-dessus',
   emptyCanvasStepAdd: 'Puis ajoutez des éléments depuis la bibliothèque',
 
@@ -250,6 +260,25 @@ export const CUSTOM_FIELD_LABELS = {
   contextSendBackward: 'Reculer',
   contextSelectAll: 'Tout s\u00e9lectionner',
   contextToggleGrid: 'Afficher/Masquer la grille',
+
+  /* Edition inline */
+  inlineEditHint: 'Double-cliquez pour modifier le texte',
+
+  /* Distribution et espacement */
+  distributeH: 'Distribuer horizontalement',
+  distributeV: 'Distribuer verticalement',
+  spaceH: 'Espacement horizontal',
+  spaceV: 'Espacement vertical',
+  alignSelLeft: 'Aligner les bords gauches',
+  alignSelCenterH: 'Centrer horizontalement',
+  alignSelRight: 'Aligner les bords droits',
+  alignSelTop: 'Aligner les bords sup\u00e9rieurs',
+  alignSelCenterV: 'Centrer verticalement',
+  alignSelBottom: 'Aligner les bords inf\u00e9rieurs',
+  multiSelectionTitle: 'S\u00e9lection multiple',
+  multiSelectionCount: 'champ(s) s\u00e9lectionn\u00e9(s)',
+  alignSelectionTitle: 'Aligner la s\u00e9lection',
+  distributeTitle: 'Distribuer',
 
   /* Effets visuels */
   effectsTitle: 'Effets visuels',

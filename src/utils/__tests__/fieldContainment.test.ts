@@ -16,6 +16,7 @@ function makeField(overrides: Partial<CustomField> & { id: string }): CustomFiel
     y: 0,
     width: w,
     height: h,
+    rotation: 0,
     zIndex: 1,
     locked: false,
     visible: true,

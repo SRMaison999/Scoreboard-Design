@@ -209,6 +209,8 @@ export interface CustomField {
   y: number;
   width: number;
   height: number;
+  /** Rotation en degres (0 par defaut) */
+  rotation: number;
   zIndex: number;
   locked: boolean;
   visible: boolean;

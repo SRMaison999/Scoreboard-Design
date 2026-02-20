@@ -6,7 +6,7 @@
 import {
   AlignStartVertical, AlignCenterVertical, AlignEndVertical,
   AlignStartHorizontal, AlignCenterHorizontal, AlignEndHorizontal,
-  Ratio,
+  Ratio, RotateCcw,
 } from 'lucide-react';
 import { InputField } from '@/components/ui/InputField';
 import { Button } from '@/components/ui/Button';
@@ -160,6 +160,35 @@ export function CustomFieldProperties({ fieldId }: CustomFieldPropertiesProps) {
         onChange={(e) => updateProp(fieldId, 'zIndex', Number(e.target.value))}
         className="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded px-2 py-0.5 text-[13px]"
       />
+
+      {/* Rotation */}
+      <div className="text-[10px] text-gray-500 uppercase tracking-wider border-t border-gray-800 pt-1 mt-1">
+        {CUSTOM_FIELD_LABELS.fieldRotation}
+      </div>
+      <div className="flex items-center gap-2">
+        <input
+          type="number"
+          data-testid="rotation-input"
+          min={-360}
+          max={360}
+          step={1}
+          value={field.rotation}
+          onChange={(e) => updateProp(fieldId, 'rotation', Number(e.target.value))}
+          className="flex-1 bg-gray-800 border border-gray-700 text-gray-200 rounded px-2 py-0.5 text-[13px]"
+        />
+        <span className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.fieldRotationUnit}</span>
+        {field.rotation !== 0 && (
+          <button
+            type="button"
+            data-testid="rotation-reset"
+            className="p-1 text-gray-400 hover:text-sky-300"
+            onClick={() => updateProp(fieldId, 'rotation', 0)}
+            title={CUSTOM_FIELD_LABELS.fieldRotationReset}
+          >
+            <RotateCcw size={14} className="flex-shrink-0" />
+          </button>
+        )}
+      </div>
 
       <div className="text-[10px] text-gray-500 uppercase tracking-wider border-t border-gray-800 pt-1 mt-1">
         {CUSTOM_FIELD_LABELS.fieldStyleTitle}

@@ -27,6 +27,7 @@ function makeField(overrides: Partial<CustomField> = {}): CustomField {
     y: 100,
     width: 200,
     height: 80,
+    rotation: 0,
     zIndex: 1,
     locked: false,
     visible: true,
@@ -37,7 +38,7 @@ function makeField(overrides: Partial<CustomField> = {}): CustomField {
     element: { type: 'text-block', config: { content: 'Test', fontSize: 24, fontWeight: 400, fontFamily: '', textAlign: 'left', textTransform: 'none', letterSpacing: 0 } },
     style: { ...DEFAULT_FIELD_STYLE },
     ...overrides,
-  };
+  } as CustomField;
 }
 
 function setupFieldSelected(fieldOverrides: Partial<CustomField> = {}) {

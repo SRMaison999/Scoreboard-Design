@@ -5,6 +5,7 @@
 
 import { FieldElementRenderer } from './FieldElementRenderer';
 import { fieldBgStyle } from '@/utils/fieldStyle';
+import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import type { ScoreboardState } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { CustomField } from '@/types/customField';
@@ -28,6 +29,8 @@ export function StaticField({ field, state, colors, opacities }: {
         height: field.height,
         zIndex: field.zIndex,
         overflow: 'hidden',
+        transform: field.rotation !== 0 ? `rotate(${field.rotation}deg)` : undefined,
+        transformOrigin: 'center center',
         ...fieldBgStyle(field.style),
       }}
     >
@@ -57,6 +60,49 @@ export function StaticField({ field, state, colors, opacities }: {
           height={field.height}
         />
       )}
+    </div>
+  );
+}
+
+/** Indice affiche sur un canvas vide (aucun champ) */
+export function EmptyCanvasHint() {
+  return (
+    <div
+      data-testid="empty-canvas-hint"
+      style={{
+        position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center', gap: 8, pointerEvents: 'none',
+      }}
+    >
+      <span style={{ fontSize: 28, fontWeight: 700, color: 'rgba(148, 163, 184, 0.85)', letterSpacing: 2 }}>
+        {CUSTOM_FIELD_LABELS.emptyCanvasTitle}
+      </span>
+      <span style={{ fontSize: 18, color: 'rgba(148, 163, 184, 0.7)', maxWidth: 500, textAlign: 'center', lineHeight: 1.5 }}>
+        {CUSTOM_FIELD_LABELS.emptyCanvasHint}
+      </span>
+    </div>
+  );
+}
+
+/** Indicateur visuel de zone de depot lors du glisser-deposer */
+export function DropIndicatorOverlay() {
+  return (
+    <div
+      data-testid="drop-indicator"
+      style={{
+        position: 'absolute', inset: 0,
+        border: '3px dashed rgba(56, 189, 248, 0.6)',
+        backgroundColor: 'rgba(56, 189, 248, 0.08)',
+        borderRadius: 4, pointerEvents: 'none', zIndex: 9999,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}
+    >
+      <span style={{
+        backgroundColor: 'rgba(0, 0, 0, 0.75)', color: 'rgba(56, 189, 248, 1)',
+        padding: '8px 20px', borderRadius: 6, fontSize: 16, fontWeight: 600,
+      }}>
+        {CUSTOM_FIELD_LABELS.dropHint}
+      </span>
     </div>
   );
 }

@@ -1,13 +1,23 @@
 /**
- * Champ interactif sur le canvas : sélection, drag et resize.
- * Rendu sur le canvas (inline styles autorisés).
+ * Champ interactif sur le canvas : selection, drag, resize et rotation.
+ * Rendu sur le canvas (inline styles autorises).
  */
 
 import { FieldElementRenderer } from './FieldElementRenderer';
+import type { InlineEditProps } from './FieldElementRenderer';
+import {
+  ALL_HANDLES,
+  ROTATION_HANDLE_SIZE,
+  ROTATION_HANDLE_OFFSET,
+  buildHandlePosition,
+} from './InteractiveFieldHandles';
 import { fieldBgStyle } from '@/utils/fieldStyle';
+import type { RotationHandlers } from '@/hooks/useFieldRotation';
 import type { ScoreboardState } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { CustomField, ResizeHandle } from '@/types/customField';
+
+export type { RotationHandlers } from '@/hooks/useFieldRotation';
 
 export interface DragHandlers {
   readonly onPointerDown: (
@@ -34,6 +44,14 @@ export interface ResizeHandlers {
   readonly onResizeEnd: () => void;
 }
 
+export interface InlineEditHandlers {
+  readonly isEditing: boolean;
+  readonly originalContent: string;
+  readonly onDoubleClick: (fieldId: string) => void;
+  readonly onCommit: (newContent: string) => void;
+  readonly onCancel: () => void;
+}
+
 interface InteractiveFieldProps {
   readonly field: CustomField;
   readonly state: ScoreboardState;
@@ -42,99 +60,8 @@ interface InteractiveFieldProps {
   readonly isSelected: boolean;
   readonly drag: DragHandlers;
   readonly resize: ResizeHandlers;
-}
-
-/* --- Constantes des poignees de coin --- */
-
-const CORNER_SIZE = 14;
-const CORNER_OFFSET = -7;
-
-/* --- Constantes des poignees de bord --- */
-
-const EDGE_LONG = 20;
-const EDGE_SHORT = 8;
-
-interface HandleDescriptor {
-  handle: ResizeHandle;
-  cursor: string;
-  width: number;
-  height: number;
-  top?: number | string;
-  bottom?: number | string;
-  left?: number | string;
-  right?: number | string;
-}
-
-const CORNER_HANDLES: readonly HandleDescriptor[] = [
-  {
-    handle: 'top-left', cursor: 'nwse-resize',
-    width: CORNER_SIZE, height: CORNER_SIZE,
-    top: CORNER_OFFSET, left: CORNER_OFFSET,
-  },
-  {
-    handle: 'top-right', cursor: 'nesw-resize',
-    width: CORNER_SIZE, height: CORNER_SIZE,
-    top: CORNER_OFFSET, right: CORNER_OFFSET,
-  },
-  {
-    handle: 'bottom-left', cursor: 'nesw-resize',
-    width: CORNER_SIZE, height: CORNER_SIZE,
-    bottom: CORNER_OFFSET, left: CORNER_OFFSET,
-  },
-  {
-    handle: 'bottom-right', cursor: 'nwse-resize',
-    width: CORNER_SIZE, height: CORNER_SIZE,
-    bottom: CORNER_OFFSET, right: CORNER_OFFSET,
-  },
-];
-
-const EDGE_HANDLES: readonly HandleDescriptor[] = [
-  {
-    handle: 'top', cursor: 'n-resize',
-    width: EDGE_LONG, height: EDGE_SHORT,
-    top: -(EDGE_SHORT / 2), left: '50%',
-  },
-  {
-    handle: 'bottom', cursor: 's-resize',
-    width: EDGE_LONG, height: EDGE_SHORT,
-    bottom: -(EDGE_SHORT / 2), left: '50%',
-  },
-  {
-    handle: 'left', cursor: 'w-resize',
-    width: EDGE_SHORT, height: EDGE_LONG,
-    left: -(EDGE_SHORT / 2), top: '50%',
-  },
-  {
-    handle: 'right', cursor: 'e-resize',
-    width: EDGE_SHORT, height: EDGE_LONG,
-    right: -(EDGE_SHORT / 2), top: '50%',
-  },
-];
-
-const ALL_HANDLES: readonly HandleDescriptor[] = [
-  ...CORNER_HANDLES,
-  ...EDGE_HANDLES,
-];
-
-function buildHandlePosition(desc: HandleDescriptor): React.CSSProperties {
-  const pos: React.CSSProperties = {};
-
-  if (desc.top !== undefined) pos.top = desc.top;
-  if (desc.bottom !== undefined) pos.bottom = desc.bottom;
-  if (desc.left !== undefined) pos.left = desc.left;
-  if (desc.right !== undefined) pos.right = desc.right;
-
-  /* Centrer les poignees de bord sur l'axe perpendiculaire */
-  const needsHorizontalCenter = desc.handle === 'top' || desc.handle === 'bottom';
-  const needsVerticalCenter = desc.handle === 'left' || desc.handle === 'right';
-
-  if (needsHorizontalCenter) {
-    pos.transform = `translateX(-50%)`;
-  } else if (needsVerticalCenter) {
-    pos.transform = `translateY(-50%)`;
-  }
-
-  return pos;
+  readonly rotation?: RotationHandlers;
+  readonly inlineEdit?: InlineEditHandlers;
 }
 
 export function InteractiveField({
@@ -145,10 +72,38 @@ export function InteractiveField({
   isSelected,
   drag,
   resize,
+  rotation: rotationHandlers,
+  inlineEdit,
 }: InteractiveFieldProps) {
   if (!field.visible) return null;
 
   const isLocked = field.locked;
+  const isEditing = inlineEdit?.isEditing ?? false;
+  const isTextBlock = field.element.type === 'text-block';
+  const hasRotation = field.rotation !== 0;
+
+  const handleDoubleClick = (e: React.MouseEvent) => {
+    if (!isTextBlock || isLocked || !inlineEdit) return;
+    e.stopPropagation();
+    inlineEdit.onDoubleClick(field.id);
+  };
+
+  /* Construire les props d'edition inline pour le renderer */
+  const inlineEditRendererProps: InlineEditProps | undefined =
+    isEditing && inlineEdit
+      ? {
+          isEditing: true,
+          originalContent: inlineEdit.originalContent,
+          onCommit: inlineEdit.onCommit,
+          onCancel: inlineEdit.onCancel,
+        }
+      : undefined;
+
+  /* Determiner le curseur : text en mode edition, grab sinon */
+  const cursorStyle = isEditing ? 'text' : isLocked ? 'not-allowed' : 'grab';
+
+  /* Construire la transformation avec rotation */
+  const rotationTransform = hasRotation ? `rotate(${field.rotation}deg)` : undefined;
 
   return (
     <div
@@ -161,18 +116,25 @@ export function InteractiveField({
         width: field.width,
         height: field.height,
         zIndex: field.zIndex,
-        cursor: isLocked ? 'not-allowed' : 'grab',
+        cursor: cursorStyle,
+        transform: rotationTransform,
+        transformOrigin: 'center center',
         ...fieldBgStyle(field.style),
       }}
       onPointerDown={(e) => {
+        if (isEditing) return;
         if (!isLocked) {
           drag.onPointerDown(e, field.id, field.x, field.y);
         }
       }}
-      onPointerMove={drag.onPointerMove}
-      onPointerUp={drag.onPointerUp}
+      onPointerMove={isEditing ? undefined : drag.onPointerMove}
+      onPointerUp={isEditing ? undefined : drag.onPointerUp}
+      onDoubleClick={handleDoubleClick}
     >
-      <div style={{ width: '100%', height: '100%', overflow: 'hidden', pointerEvents: 'none' }}>
+      <div style={{
+        width: '100%', height: '100%', overflow: 'hidden',
+        pointerEvents: isEditing ? 'auto' : 'none',
+      }}>
         {field.scaleContent && field.initialWidth > 0 && field.initialHeight > 0 ? (
           <div style={{
             width: field.initialWidth,
@@ -187,6 +149,7 @@ export function InteractiveField({
               opacities={opacities}
               width={field.initialWidth}
               height={field.initialHeight}
+              inlineEdit={inlineEditRendererProps}
             />
           </div>
         ) : (
@@ -197,13 +160,14 @@ export function InteractiveField({
             opacities={opacities}
             width={field.width}
             height={field.height}
+            inlineEdit={inlineEditRendererProps}
           />
         )}
       </div>
 
       {isSelected && (
         <>
-          {/* Bordure de sélection */}
+          {/* Bordure de selection */}
           <div
             data-testid="selection-border"
             style={{
@@ -215,7 +179,7 @@ export function InteractiveField({
             }}
           />
 
-          {/* Poignées de redimensionnement (coins + bords) */}
+          {/* Poignees de redimensionnement (coins + bords) */}
           {!isLocked && ALL_HANDLES.map((desc) => (
             <div
               key={desc.handle}
@@ -246,6 +210,56 @@ export function InteractiveField({
               onPointerUp={resize.onResizeEnd}
             />
           ))}
+
+          {/* Poignee de rotation */}
+          {!isLocked && rotationHandlers && (
+            <>
+              {/* Ligne de connexion vers la poignee */}
+              <div
+                data-testid="rotation-line"
+                style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: -ROTATION_HANDLE_OFFSET,
+                  width: 1,
+                  height: ROTATION_HANDLE_OFFSET - ROTATION_HANDLE_SIZE / 2,
+                  backgroundColor: 'rgba(56, 189, 248, 0.6)',
+                  transform: 'translateX(-50%)',
+                  pointerEvents: 'none',
+                  zIndex: 9999,
+                }}
+              />
+              <div
+                data-testid="rotation-handle"
+                style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: -(ROTATION_HANDLE_OFFSET + ROTATION_HANDLE_SIZE / 2),
+                  width: ROTATION_HANDLE_SIZE,
+                  height: ROTATION_HANDLE_SIZE,
+                  backgroundColor: '#ffffff',
+                  border: '1.5px solid rgba(56, 189, 248, 0.9)',
+                  borderRadius: '50%',
+                  cursor: 'grab',
+                  zIndex: 9999,
+                  transform: 'translateX(-50%)',
+                }}
+                onPointerDown={(e) => {
+                  rotationHandlers.onRotateStart(
+                    e,
+                    field.id,
+                    field.x,
+                    field.y,
+                    field.width,
+                    field.height,
+                    field.rotation,
+                  );
+                }}
+                onPointerMove={rotationHandlers.onRotateMove}
+                onPointerUp={rotationHandlers.onRotateEnd}
+              />
+            </>
+          )}
         </>
       )}
     </div>
