@@ -233,7 +233,7 @@ Le diagnostic compare 6 points d'ancrage pour chaque champ : bord gauche, centre
 
 ### Panneau de propriétés (sidebar)
 
-Quand un champ est sélectionné, ses propriétés apparaissent directement dans le panneau latéral gauche, sous la bibliothèque et les couches. Un **panneau de propriétés secondaire** (300 px de large) peut aussi s'ouvrir entre le panneau éditeur et la preview, ce qui permet de garder la bibliothèque et les couches toujours visibles.
+Quand un champ est sélectionné, le panneau de propriétés remplace le contenu de l'onglet actif (bibliothèque, couches, etc.) et occupe toute la hauteur disponible. Cela offre un espace confortable pour configurer les propriétés sans avoir à scroller. Un bouton **retour** (flèche) en haut du panneau permet de revenir au contenu précédent (bibliothèque, couches, etc.). Cliquer sur ce bouton désélectionne le champ.
 
 Le panneau de propriétés affiche :
 

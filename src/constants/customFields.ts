@@ -315,7 +315,8 @@ export const CUSTOM_FIELD_LABELS = {
   freeLayoutTabPresets: 'Presets',
   freeLayoutNoSelection: 'S\u00e9lectionnez un champ sur le canvas pour voir ses propri\u00e9t\u00e9s.',
   freeLayoutAddHint: 'Cliquer pour ajouter, ou glisser sur le canvas',
-  freeLayoutFieldAdded: 'Champ ajout\u00e9 \u2014 configurez-le dans le panneau de propri\u00e9t\u00e9s ci-dessous',
+  freeLayoutFieldAdded: 'Champ ajout\u00e9 \u2014 s\u00e9lectionnez-le pour configurer ses propri\u00e9t\u00e9s',
+  freeLayoutBackToLibrary: 'Retour',
   freeLayoutCategoryAll: 'Tout',
 
   /* Ordre des couches (z-index) */

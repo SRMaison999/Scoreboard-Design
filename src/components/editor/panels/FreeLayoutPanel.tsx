@@ -1,11 +1,12 @@
 /**
  * Panneau principal du mode Layout libre.
- * Architecture \u00e0 deux zones :
- * - Haut : rail d'ic\u00f4nes (4 onglets) + contenu actif
- * - Bas : panneau de propri\u00e9t\u00e9s persistant (toujours visible)
+ * Architecture contextuelle :
+ * - Sans s\u00e9lection : rail d'ic\u00f4nes (4 onglets) + contenu actif en pleine hauteur
+ * - Avec s\u00e9lection : propri\u00e9t\u00e9s en pleine hauteur (remplace le contenu),
+ *   avec un bouton retour pour revenir \u00e0 la biblioth\u00e8que
  */
 
-import { Settings, Library, Layers, Bookmark } from 'lucide-react';
+import { Settings, Library, Layers, Bookmark, ArrowLeft } from 'lucide-react';
 import { IconRail } from '@/components/ui/IconRail';
 import { useEditorUIStore } from '@/stores/editorUIStore';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
@@ -28,7 +29,7 @@ const RAIL_ITEMS: readonly IconRailItem[] = [
   { id: 'presets', icon: Bookmark, label: CUSTOM_FIELD_LABELS.freeLayoutTabPresets },
 ];
 
-function PropertiesContent() {
+function PropertiesFullPanel({ onBack }: { readonly onBack: () => void }) {
   const selectedFieldIds = useScoreboardStore(
     (s) => s.customFieldsData?.selectedFieldIds ?? EMPTY_IDS,
   );
@@ -36,27 +37,33 @@ function PropertiesContent() {
     ? selectedFieldIds[0] ?? null
     : null;
 
-  if (selectedFieldIds.length >= 2) {
-    return (
-      <div className="p-3">
-        <MultiSelectionToolbar count={selectedFieldIds.length} />
-      </div>
-    );
-  }
-
-  if (singleSelectedId) {
-    return (
-      <div className="p-3">
-        <CustomFieldProperties fieldId={singleSelectedId} />
-      </div>
-    );
-  }
-
   return (
-    <div className="p-3">
-      <p className="text-[11px] text-gray-500">
-        {CUSTOM_FIELD_LABELS.freeLayoutNoSelection}
-      </p>
+    <div
+      className="flex flex-col h-full overflow-hidden"
+      data-testid="properties-full-panel"
+    >
+      <div className="px-3 py-1.5 border-b border-gray-800 flex-shrink-0 flex items-center gap-2">
+        <button
+          type="button"
+          className="p-1 text-gray-400 hover:text-sky-300"
+          onClick={onBack}
+          title={CUSTOM_FIELD_LABELS.freeLayoutBackToLibrary}
+          data-testid="properties-back-button"
+        >
+          <ArrowLeft size={14} className="flex-shrink-0" />
+        </button>
+        <h3 className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">
+          {CUSTOM_FIELD_LABELS.propertiesPanelTitle}
+        </h3>
+      </div>
+      <div className="flex-1 min-h-0 overflow-y-auto p-3">
+        {selectedFieldIds.length >= 2 && (
+          <MultiSelectionToolbar count={selectedFieldIds.length} />
+        )}
+        {singleSelectedId && (
+          <CustomFieldProperties fieldId={singleSelectedId} />
+        )}
+      </div>
     </div>
   );
 }
@@ -89,6 +96,10 @@ export function FreeLayoutPanel() {
   useCustomFieldKeyboard();
   const activeTab = useEditorUIStore((s) => s.activeFreeLayoutTab);
   const setTab = useEditorUIStore((s) => s.setFreeLayoutTab);
+  const hasSelection = useScoreboardStore(
+    (s) => (s.customFieldsData?.selectedFieldIds ?? EMPTY_IDS).length > 0,
+  );
+  const clearSelection = useScoreboardStore((s) => s.clearFieldSelection);
 
   return (
     <div className="flex h-full" data-testid="free-layout-panel">
@@ -98,25 +109,13 @@ export function FreeLayoutPanel() {
         onSelect={(id) => setTab(id as FreeLayoutTab)}
       />
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Zone haute : contenu de l'onglet actif */}
-        <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
-          <ActiveContent tab={activeTab} />
-        </div>
-
-        {/* Zone basse : propri\u00e9t\u00e9s persistantes */}
-        <div
-          className="border-t border-gray-700 bg-gray-900/50 flex flex-col max-h-[45%] min-h-[80px]"
-          data-testid="persistent-properties-panel"
-        >
-          <div className="px-3 py-1.5 border-b border-gray-800 flex-shrink-0">
-            <h3 className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">
-              {CUSTOM_FIELD_LABELS.propertiesPanelTitle}
-            </h3>
+        {hasSelection ? (
+          <PropertiesFullPanel onBack={clearSelection} />
+        ) : (
+          <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
+            <ActiveContent tab={activeTab} />
           </div>
-          <div className="flex-1 min-h-0 overflow-y-auto">
-            <PropertiesContent />
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
