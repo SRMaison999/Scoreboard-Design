@@ -10,6 +10,7 @@ import type { InlineEditHandlers } from './InteractiveField';
 import { FieldFontToolbar } from './FieldFontToolbar';
 import { SmartGuideOverlay } from './SmartGuideOverlay';
 import { StaticField, GridOverlay, EmptyCanvasHint, DropIndicatorOverlay } from './BodyType14Static';
+import { AlignmentDiagnosticOverlay } from './AlignmentDiagnosticOverlay';
 import { CanvasContextMenu } from './CanvasContextMenu';
 import type { ContextMenuPosition } from './CanvasContextMenu';
 import { useFieldDrag } from '@/hooks/useFieldDrag';
@@ -216,6 +217,15 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
       ))}
 
       {drag.isDragging && <SmartGuideOverlay guides={drag.activeGuides} />}
+
+      {!drag.isDragging && selectedField && (
+        <AlignmentDiagnosticOverlay
+          field={selectedField}
+          fields={fields}
+          canvasWidth={state.templateWidth}
+          canvasHeight={state.templateHeight}
+        />
+      )}
 
       {showToolbar && selectedField && fontInfo && (
         <FieldFontToolbar
