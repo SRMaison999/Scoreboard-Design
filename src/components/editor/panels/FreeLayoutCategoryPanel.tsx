@@ -1,12 +1,10 @@
 /**
  * Panneau affichant les éléments de la bibliothèque pour une catégorie donnée.
  * Utilisé dans la navigation du Layout libre.
- * Après ajout d'un champ, navigue automatiquement vers l'onglet Propriétés.
  */
 
 import { GripVertical } from 'lucide-react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
-import { useEditorUIStore } from '@/stores/editorUIStore';
 import { useLibraryDragDrop } from '@/hooks/useLibraryDragDrop';
 import { prepareFieldForAdd } from '@/utils/fieldConfig';
 import { cn } from '@/lib/utils';
@@ -28,7 +26,6 @@ export function FreeLayoutCategoryPanel({ category }: FreeLayoutCategoryPanelPro
   const templateWidth = useScoreboardStore((s) => s.templateWidth);
   const templateHeight = useScoreboardStore((s) => s.templateHeight);
   const addField = useScoreboardStore((s) => s.addCustomField);
-  const setFreeLayoutTab = useEditorUIStore((s) => s.setFreeLayoutTab);
   const { onDragStart } = useLibraryDragDrop();
 
   const items = LIBRARY_ELEMENTS.filter((el) => el.category === category);
@@ -42,7 +39,6 @@ export function FreeLayoutCategoryPanel({ category }: FreeLayoutCategoryPanelPro
     const x = Math.round((templateWidth - w) / 2);
     const y = Math.round((templateHeight - h) / 2);
     addField(config, x, y, w, h, label);
-    setFreeLayoutTab('properties');
   };
 
   return (

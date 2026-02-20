@@ -21,16 +21,13 @@ describe('CustomFieldProperties', () => {
     expect(container.innerHTML).toBe('');
   });
 
-  it('affiche les propriétés du champ sélectionné', () => {
+  it('affiche les propri\u00e9t\u00e9s de position du champ s\u00e9lectionn\u00e9', () => {
     useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
     const field = useScoreboardStore.getState().customFieldsData.fields[0];
 
     if (field) {
       render(<CustomFieldProperties fieldId={field.id} />);
       expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldPosition)).toBeInTheDocument();
-      expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldSize)).toBeInTheDocument();
-      expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldZIndex)).toBeInTheDocument();
-      expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldStyleTitle)).toBeInTheDocument();
     }
   });
 
@@ -67,12 +64,39 @@ describe('CustomFieldProperties', () => {
     }
   });
 
-  it('affiche les labels de style', () => {
+  it('affiche la section d\'ordre d\'affichage avec les boutons', () => {
     useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
     const field = useScoreboardStore.getState().customFieldsData.fields[0];
 
     if (field) {
       render(<CustomFieldProperties fieldId={field.id} />);
+      expect(screen.getByText(CUSTOM_FIELD_LABELS.zIndexOrderTitle)).toBeInTheDocument();
+      expect(screen.getByTestId('z-index-buttons')).toBeInTheDocument();
+    }
+  });
+
+  it('affiche les boutons de z-index', () => {
+    useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
+    const field = useScoreboardStore.getState().customFieldsData.fields[0];
+
+    if (field) {
+      render(<CustomFieldProperties fieldId={field.id} />);
+      expect(screen.getByTitle(CUSTOM_FIELD_LABELS.zIndexBringToFront)).toBeInTheDocument();
+      expect(screen.getByTitle(CUSTOM_FIELD_LABELS.zIndexBringForward)).toBeInTheDocument();
+      expect(screen.getByTitle(CUSTOM_FIELD_LABELS.zIndexSendBackward)).toBeInTheDocument();
+      expect(screen.getByTitle(CUSTOM_FIELD_LABELS.zIndexSendToBack)).toBeInTheDocument();
+    }
+  });
+
+  it('affiche les labels de style dans la section repliable', () => {
+    useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
+    const field = useScoreboardStore.getState().customFieldsData.fields[0];
+
+    if (field) {
+      render(<CustomFieldProperties fieldId={field.id} />);
+      /* La section style est ferm\u00e9e par d\u00e9faut, ouvrons-la */
+      const styleButton = screen.getByText(CUSTOM_FIELD_LABELS.fieldStyleTitle);
+      fireEvent.click(styleButton);
       expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldBgColor)).toBeInTheDocument();
       expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldBorderColor)).toBeInTheDocument();
       expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldBorderWidth)).toBeInTheDocument();
@@ -97,7 +121,6 @@ describe('CustomFieldProperties', () => {
 
     if (field) {
       render(<CustomFieldProperties fieldId={field.id} />);
-      expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldRotation)).toBeInTheDocument();
       const input = screen.getByTestId('rotation-input') as HTMLInputElement;
       expect(input.value).toBe('0');
     }

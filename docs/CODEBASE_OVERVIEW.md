@@ -329,11 +329,10 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 **TemplateManager** gere la sauvegarde/chargement/import/export de templates via modale.
 
 **Composants du constructeur de champs personnalisés (Body Type 14)** :
-- `CustomFieldsSection.tsx` : section principale regroupant bibliothèque, couches et presets
-- `CustomFieldLibrary.tsx` : palette d'éléments avec icônes Lucide et recherche
+- `CustomFieldsSection.tsx` : section principale avec rail de 4 onglets (Bibliothèque, Canvas, Calques, Presets) et panneau de propriétés persistant en bas
+- `CustomFieldLibrary.tsx` : palette d'éléments unifiée avec filtres horizontaux par catégorie (chips) et recherche
 - `CustomFieldList.tsx` : liste des couches avec réordonnancement, visibilité, verrouillage
-- `PropertiesPanel.tsx` : panneau de propriétés en deuxième colonne (300 px), s'ouvre quand un champ est sélectionné
-- `CustomFieldProperties.tsx` : contenu du panneau de propriétés (position, taille, style, alignement)
+- `CustomFieldProperties.tsx` : panneau de propriétés persistant (toujours visible en bas de la barre latérale quand un élément est sélectionné), avec sections repliables (position, z-index/rotation, style, config). Le z-index est contrôlé par 4 boutons d'action (premier plan, avancer, reculer, arrière-plan) au lieu d'un champ numérique
 - `FieldElementConfigEditor.tsx` : éditeurs de configuration spécifiques par type d'élément
 
 ### 5.3 Preview (`src/components/preview/`)
@@ -379,6 +378,7 @@ Le Layout libre (BodyType14) est le mode principal, proposé en premier dans l'i
 | `FieldFontToolbar.tsx` | Barre flottante de contrôle de taille de police au-dessus du champ sélectionné |
 | `FieldElementRenderer.tsx` | Rendu visuel d'un élément selon son type (switch/dispatch) |
 | `FieldMatchElements.tsx` | Renderers des éléments match : score, horloge, période, nom d'équipe, drapeau, temps morts, tirs au but |
+| `ZoneSelectionOverlay.tsx` | Overlay de sélection de zone par rectangle, extrait en composant autonome |
 
 ### 5.4 Operateur (`src/components/operator/`)
 

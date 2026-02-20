@@ -16,18 +16,12 @@ export type AppearanceSubTab = 'style' | 'fonts' | 'colors';
 export type AnimationsSubTab = 'animations' | 'export';
 export type IntegrationsSubTab = 'live' | 'multi' | 'sync' | 'broadcast';
 
-/* Onglets du panneau Layout libre */
+/* Onglets du panneau Layout libre (4 onglets + propri\u00e9t\u00e9s persistantes) */
 export type FreeLayoutTab =
   | 'canvas'
-  | 'match'
-  | 'text'
-  | 'data'
-  | 'players'
-  | 'media'
-  | 'composed'
+  | 'library'
   | 'layers'
-  | 'presets'
-  | 'properties';
+  | 'presets';
 
 /* Union de tous les sous-onglets possibles */
 export type SubTabId =

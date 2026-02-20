@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { FreeLayoutCategoryPanel } from '../FreeLayoutCategoryPanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
-import { useEditorUIStore } from '@/stores/editorUIStore';
 import { LIBRARY_CATEGORY_LABELS, CUSTOM_FIELD_LABELS, LIBRARY_ELEMENTS } from '@/constants/customFields';
 
 describe('FreeLayoutCategoryPanel', () => {
@@ -16,7 +15,7 @@ describe('FreeLayoutCategoryPanel', () => {
     vi.stubGlobal('BroadcastChannel', MockBroadcastChannel);
     useScoreboardStore.getState().resetState();
     useScoreboardStore.getState().update('bodyType', 14);
-    useEditorUIStore.setState({ activeFreeLayoutTab: 'match' });
+    /* Pas de dépendance à activeFreeLayoutTab */
   });
 
   it('affiche le titre de la cat\u00e9gorie Match', () => {
@@ -53,13 +52,12 @@ describe('FreeLayoutCategoryPanel', () => {
     expect(screen.getByText(CUSTOM_FIELD_LABELS.freeLayoutAddHint)).toBeInTheDocument();
   });
 
-  it('ajoute un champ au clic et navigue vers les propri\u00e9t\u00e9s', async () => {
+  it('ajoute un champ au clic', async () => {
     const user = userEvent.setup();
     render(<FreeLayoutCategoryPanel category="text" />);
 
     await user.click(screen.getByText('Bloc de texte'));
     expect(useScoreboardStore.getState().customFieldsData.fields).toHaveLength(1);
-    expect(useEditorUIStore.getState().activeFreeLayoutTab).toBe('properties');
   });
 
   it('affiche le data-testid correct', () => {

@@ -22,9 +22,9 @@ Les éléments visuels **lisent** les données du match. Par exemple, un éléme
 
 ## Étape 1 : Sélectionner le mode Layout libre
 
-1. Dans le **rail d'icônes** (bord gauche), cliquez sur la 1ère icône (**Modes**)
-2. Dans le panneau Modes, cliquez sur **Layout libre** (première option, catégorie "Personnalisé")
-3. Le canvas devient entièrement bleu (vierge), et le panneau **Contenu > Équipes** s'ouvre automatiquement
+1. Le Layout libre est le mode par défaut. Si un autre mode est actif, allez dans les paramètres du body type pour sélectionner **Layout libre** (catégorie "Personnalisé")
+2. Le canvas devient entièrement bleu (vierge)
+3. Le rail d'icônes à gauche affiche 4 onglets : **Bibliothèque**, **Canvas**, **Calques** et **Presets**
 
 ## Étape 2 : Configurer les équipes et le score
 
@@ -47,7 +47,7 @@ Ces données seront utilisées par tous les éléments de match que vous placere
 
 ## Étape 3 : Configurer les options du canvas
 
-Toujours dans l'onglet Équipes, sous la section Header, la section **Layout libre** propose trois options :
+Dans l'onglet **Canvas** (deuxième icône du rail), la section **Layout libre** propose trois options :
 
 | Option | Description |
 |--------|-------------|
@@ -55,9 +55,15 @@ Toujours dans l'onglet Équipes, sous la section Header, la section **Layout lib
 | Aimanter à la grille | Les éléments s'alignent sur une grille invisible (10, 20 ou 50 px) |
 | Afficher les guides | Affiche la grille en surimpression pour faciliter l'alignement |
 
+**Grille et Smart Guides simultanées :** l'aimantation à la grille et les guides intelligents (Smart Guides) fonctionnent désormais ensemble. La grille fournit la position de base, et les guides intelligents affinent l'alignement par rapport aux autres éléments. Il n'est plus nécessaire de choisir entre les deux.
+
+**Indicateur de coordonnées du curseur :** un petit indicateur (x, y px) apparaît en bas à droite du canvas. Il affiche en permanence la position du curseur en coordonnées canvas, ce qui facilite le positionnement précis des éléments.
+
 ## Étape 4 : Ajouter des éléments depuis la bibliothèque
 
-La section **Bibliothèque d'éléments** affiche tous les éléments disponibles, classés en 6 catégories :
+Cliquez sur la première icône du rail (**Bibliothèque**) pour accéder à la palette d'éléments. La bibliothèque regroupe tous les éléments dans un onglet unique avec des **filtres par catégorie** sous forme de puces horizontales (chips). Cliquez sur une catégorie pour filtrer la liste, ou laissez "Tous" pour tout voir.
+
+Les 6 catégories sont :
 
 | Catégorie | Éléments disponibles |
 |-----------|----------------------|
@@ -91,21 +97,28 @@ Un élément verrouillé ne peut être ni déplacé ni redimensionné.
 
 ## Étape 6 : Configurer un élément (panneau Propriétés)
 
-Le panneau **Propriétés** n'est pas visible par défaut. Il apparaît uniquement quand vous **cliquez sur un élément dans le canvas**. Une colonne supplémentaire s'insère alors entre le panneau éditeur et le preview. Quand aucun élément n'est sélectionné, cette colonne disparaît.
+Le panneau **Propriétés** est désormais **toujours visible en bas de la barre latérale**, quel que soit l'onglet actif (Bibliothèque, Canvas, Calques ou Presets). Il n'est plus nécessaire de basculer entre onglets pour accéder aux propriétés. Le contenu du panneau se met à jour automatiquement en fonction de l'élément sélectionné sur le canvas. Si aucun élément n'est sélectionné, le panneau affiche un message d'invitation.
 
-**Pour ouvrir le panneau Propriétés** : cliquez sur un élément dans le canvas.
-**Pour fermer le panneau** : cliquez sur le bouton X en haut du panneau, ou cliquez sur une zone vide du canvas.
-
-Le panneau Propriétés contient :
+Le panneau Propriétés est organisé en **sections repliables** que vous pouvez ouvrir ou fermer selon vos besoins :
 
 1. **Nom** : label de l'élément (pour l'identifier dans la liste des couches)
 2. **Alignement** : 6 boutons pour positionner rapidement l'élément
-3. **Position** : coordonnées X et Y en pixels
-4. **Taille** : largeur et hauteur en pixels
-5. **Z-Index** : ordre d'empilement
-6. **Style** : couleur de fond, bordure, opacité, padding
-7. **Configuration spécifique** : options qui dépendent du type d'élément (voir ci-dessous)
-8. **Actions** : boutons Dupliquer et Supprimer
+3. **Position** (repliable) : coordonnées X et Y, largeur et hauteur en pixels
+4. **Z-Index / Rotation** (repliable) : 4 boutons d'action pour le z-index et contrôle de rotation
+5. **Style** (repliable) : couleur de fond, bordure, opacité, padding
+6. **Configuration spécifique** (repliable) : options qui dépendent du type d'élément (voir ci-dessous)
+7. **Actions** : boutons Dupliquer et Supprimer
+
+### Contrôle du z-index
+
+L'ordre d'empilement ne se gère plus par un champ numérique, mais par **4 boutons d'action** :
+
+| Bouton | Action |
+|--------|--------|
+| **Premier plan** | Place l'élément tout devant (z-index maximum) |
+| **Avancer** | Monte l'élément d'un niveau |
+| **Reculer** | Descend l'élément d'un niveau |
+| **Arrière-plan** | Place l'élément tout derrière (z-index minimum) |
 
 ---
 
@@ -117,7 +130,7 @@ Le panneau Propriétés contient :
 
 **Comment l'utiliser :**
 1. Ajoutez un élément **Score** depuis la bibliothèque
-2. Cliquez dessus dans le canvas > le panneau Propriétés apparaît
+2. Cliquez dessus dans le canvas > ses propriétés s'affichent en bas de la barre latérale
 3. Dans **Côté**, choisissez **Gauche** (Score 1) ou **Droite** (Score 2)
 4. Optionnel : ajustez la **Taille de police** (0 = valeur globale)
 
@@ -273,14 +286,14 @@ Par défaut, tout nouvel élément est sur le côté **Gauche**.
 
 ## Étape 7 : Organiser les couches
 
-En bas du panneau éditeur, la section **Couches** liste tous les éléments du canvas :
-- Chaque élément affiche son nom et son z-index
+Cliquez sur la troisième icône du rail (**Calques**) pour accéder à la liste des couches. Tous les éléments du canvas y sont listés :
+- Chaque élément affiche son nom et une icône correspondant à son type
 - Cliquez sur un élément de la liste pour le sélectionner dans le canvas
-- Ajustez le z-index pour contrôler l'ordre d'affichage
+- Utilisez les boutons de z-index dans le panneau Propriétés (en bas) pour contrôler l'ordre d'affichage
 
 ## Presets (sauvegarder et charger des mises en page)
 
-La section **Presets** permet de :
+Cliquez sur la quatrième icône du rail (**Presets**) pour accéder aux presets. Cette section permet de :
 - **Sauvegarder le champ** : enregistre la configuration d'un seul élément pour le réutiliser
 - **Sauvegarder l'écran** : enregistre l'ensemble des éléments du canvas
 - **Charger un preset** : applique un preset sauvegardé précédemment
@@ -291,13 +304,13 @@ La section **Presets** permet de :
 
 Voici comment créer un scoreboard personnalisé avec deux équipes, leurs scores et une horloge :
 
-1. **Modes** > cliquez sur **Layout libre**
-2. Dans le panneau gauche, onglet **Équipes**, section **Header** :
+1. Sélectionnez le mode **Layout libre**
+2. Dans le panneau gauche, section **Header** :
    - Équipe 1 : sélectionnez **SUI - Suisse**
    - Équipe 2 : sélectionnez **CAN - Canada**
    - Score 1 : saisissez **3**
    - Score 2 : saisissez **1**
-3. Dans la **Bibliothèque**, cliquez sur **Forme** (catégorie Médias) > positionnez-la en haut comme fond de votre header
+3. Cliquez sur l'onglet **Bibliothèque** dans le rail, puis sur **Forme** (catégorie Médias) > positionnez-la en haut comme fond de votre header
 4. Cliquez sur **Nom d'équipe** (catégorie Match) > il affiche "SUI" + drapeau suisse (côté Gauche par défaut)
 5. Cliquez à nouveau sur **Nom d'équipe** > cliquez dessus dans le canvas > dans Propriétés, changez le **Côté** à **Droite** > il affiche "CAN" + drapeau canadien
 6. Ajoutez un **Score** > il affiche "3" (côté Gauche par défaut)

@@ -1,7 +1,7 @@
 /**
  * Hook pour le drag & drop natif des champs sur le canvas.
- * Supporte le deplacement individuel et multi-selection.
- * Integre les smart guides pour le snapping aux elements.
+ * Supporte le d\u00e9placement individuel et multi-s\u00e9lection.
+ * Int\u00e8gre les smart guides ET le snap grille simultan\u00e9ment.
  */
 
 import { useCallback, useRef, useState } from 'react';
@@ -16,7 +16,6 @@ interface DragState {
   startMouseX: number;
   startMouseY: number;
   startPositions: ReadonlyMap<string, { x: number; y: number; width: number; height: number }>;
-  /** ID du champ primaire (celui sous le curseur) pour le calcul de snap */
   primaryFieldSize: { width: number; height: number };
 }
 
@@ -35,14 +34,12 @@ export function useFieldDrag(scale: number) {
   const [activeGuides, setActiveGuides] = useState<readonly GuideLine[]>([]);
   const [draggedFieldIds, setDraggedFieldIds] = useState<readonly string[]>([]);
 
-  const { computeSnap } = useSmartGuides(fields, draggedFieldIds, canvasW, canvasH, !snapToGrid);
+  /* Smart guides toujours actives */
+  const { computeSnap } = useSmartGuides(fields, draggedFieldIds, canvasW, canvasH, true);
 
-  const snapValue = useCallback(
-    (value: number): number => {
-      if (!snapToGrid) return Math.round(value);
-      return Math.round(value / gridSize) * gridSize;
-    },
-    [snapToGrid, gridSize],
+  const snapToGridValue = useCallback(
+    (value: number): number => Math.round(value / gridSize) * gridSize,
+    [gridSize],
   );
 
   const onPointerDown = useCallback(
@@ -99,32 +96,31 @@ export function useFieldDrag(scale: number) {
       const dx = (e.clientX - drag.startMouseX) / scale;
       const dy = (e.clientY - drag.startMouseY) / scale;
 
-      /* Calculer la position du champ primaire pour le smart snap */
       const primaryStart = drag.startPositions.get(drag.fieldId);
       if (!primaryStart) return;
 
-      let primaryX: number;
-      let primaryY: number;
+      /* \u00c9tape 1 : calculer la position de base (avec snap grille si actif) */
+      let baseX = Math.round(primaryStart.x + dx);
+      let baseY = Math.round(primaryStart.y + dy);
 
       if (snapToGrid) {
-        /* En mode grille, utiliser le snap classique */
-        primaryX = snapValue(primaryStart.x + dx);
-        primaryY = snapValue(primaryStart.y + dy);
-        setActiveGuides([]);
-      } else {
-        /* En mode libre, utiliser les smart guides */
-        const result = computeSnap({
-          x: Math.round(primaryStart.x + dx),
-          y: Math.round(primaryStart.y + dy),
-          width: drag.primaryFieldSize.width,
-          height: drag.primaryFieldSize.height,
-        });
-        primaryX = result.x;
-        primaryY = result.y;
-        setActiveGuides(result.guides);
+        baseX = snapToGridValue(baseX);
+        baseY = snapToGridValue(baseY);
       }
 
-      /* Appliquer le meme delta a tous les champs deplacer */
+      /* \u00c9tape 2 : appliquer les smart guides par-dessus (toujours actives) */
+      const result = computeSnap({
+        x: baseX,
+        y: baseY,
+        width: drag.primaryFieldSize.width,
+        height: drag.primaryFieldSize.height,
+      });
+
+      const primaryX = result.x;
+      const primaryY = result.y;
+      setActiveGuides(result.guides);
+
+      /* Appliquer le m\u00eame delta \u00e0 tous les champs d\u00e9plac\u00e9s */
       const actualDx = primaryX - primaryStart.x;
       const actualDy = primaryY - primaryStart.y;
 
@@ -136,7 +132,7 @@ export function useFieldDrag(scale: number) {
         }
       }
     },
-    [scale, snapToGrid, snapValue, computeSnap, updatePosition],
+    [scale, snapToGrid, snapToGridValue, computeSnap, updatePosition],
   );
 
   const onPointerUp = useCallback(() => {
