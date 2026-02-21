@@ -127,9 +127,6 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
   const handleContextMenu = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     if (zone.active) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / canvasScale;
-    const y = (e.clientY - rect.top) / canvasScale;
 
     const target = e.target as HTMLElement;
     const fieldEl = target.closest('[data-field-id]');
@@ -140,8 +137,8 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
       selectField(targetField.id);
     }
 
-    setContextMenu({ position: { x, y }, targetField });
-  }, [canvasScale, fields, selectedIds, selectField, zone.active]);
+    setContextMenu({ position: { x: e.clientX, y: e.clientY }, targetField });
+  }, [fields, selectedIds, selectField, zone.active]);
 
   const closeContextMenu = useCallback(() => setContextMenu(null), []);
 
@@ -269,9 +266,6 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
         <CanvasContextMenu
           position={contextMenu.position}
           targetField={contextMenu.targetField}
-          canvasWidth={state.templateWidth}
-          canvasHeight={state.templateHeight}
-          canvasScale={canvasScale}
           onClose={closeContextMenu}
         />
       )}
