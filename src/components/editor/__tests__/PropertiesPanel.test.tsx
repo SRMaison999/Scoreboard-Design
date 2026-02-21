@@ -1,9 +1,10 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { PropertiesPanel } from '../PropertiesPanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
+import { EDITOR_LABELS } from '@/constants/labels';
 
 const TEXT_ELEMENT = {
   type: 'text-block' as const,
@@ -17,13 +18,26 @@ const TEXT_ELEMENT = {
 
 describe('PropertiesPanel', () => {
   beforeEach(() => {
+    const MockBroadcastChannel = vi.fn(function (this: { onmessage: null; postMessage: ReturnType<typeof vi.fn>; close: ReturnType<typeof vi.fn> }) {
+      this.onmessage = null;
+      this.postMessage = vi.fn();
+      this.close = vi.fn();
+    });
+    vi.stubGlobal('BroadcastChannel', MockBroadcastChannel);
     useScoreboardStore.getState().resetState();
     useScoreboardStore.getState().update('bodyType', 14);
   });
 
-  it('ne rend rien sans champ s\u00e9lectionn\u00e9', () => {
-    const { container } = render(<PropertiesPanel />);
-    expect(container.firstChild).toBeNull();
+  it('affiche les donn\u00e9es du match sans champ s\u00e9lectionn\u00e9', () => {
+    render(<PropertiesPanel />);
+    expect(screen.getByTestId('properties-panel')).toBeInTheDocument();
+    expect(screen.getByText(CUSTOM_FIELD_LABELS.propertiesPanelMatchData)).toBeInTheDocument();
+    expect(screen.getByText(EDITOR_LABELS.sectionHeader)).toBeInTheDocument();
+  });
+
+  it('n\u2019affiche pas le bouton fermer sans s\u00e9lection', () => {
+    render(<PropertiesPanel />);
+    expect(screen.queryByTestId('properties-panel-close')).not.toBeInTheDocument();
   });
 
   it('affiche le panneau quand un champ est s\u00e9lectionn\u00e9', () => {
@@ -39,7 +53,7 @@ describe('PropertiesPanel', () => {
     expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldPosition)).toBeInTheDocument();
   });
 
-  it('ferme le panneau avec le bouton X', async () => {
+  it('ferme la s\u00e9lection avec le bouton X et revient aux donn\u00e9es du match', async () => {
     const user = userEvent.setup();
     useScoreboardStore.getState().addCustomField(TEXT_ELEMENT, 50, 50, 200, 100);
     render(<PropertiesPanel />);

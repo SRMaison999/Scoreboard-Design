@@ -54,17 +54,17 @@ describe('ContentPanel', () => {
     expect(screen.getByText(/Photos des joueurs/)).toBeInTheDocument();
   });
 
-  it('affiche le header en mode Layout libre pleine page', () => {
+  it('affiche le FreeLayoutPanel en mode Layout libre pleine page', () => {
     useScoreboardStore.getState().update('bodyType', 14);
     useScoreboardStore.getState().updateCustomFieldsOption('fullPageMode', true);
     render(<ContentPanel />);
-    expect(screen.getByText('Header')).toBeInTheDocument();
+    expect(screen.getByTestId('free-layout-panel')).toBeInTheDocument();
   });
 
-  it('affiche le header en mode Layout libre sans pleine page', () => {
+  it('affiche le FreeLayoutPanel en mode Layout libre sans pleine page', () => {
     useScoreboardStore.getState().update('bodyType', 14);
     useScoreboardStore.getState().updateCustomFieldsOption('fullPageMode', false);
     render(<ContentPanel />);
-    expect(screen.getByText('Header')).toBeInTheDocument();
+    expect(screen.getByTestId('free-layout-panel')).toBeInTheDocument();
   });
 });

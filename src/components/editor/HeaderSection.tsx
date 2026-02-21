@@ -36,6 +36,7 @@ export function HeaderSection() {
           options={NATION_OPTIONS}
           value={team1}
           onChange={(v) => update('team1', v)}
+          placeholder={EDITOR_LABELS.teamSelectPlaceholder}
           className="flex-1"
         />
         <Select
@@ -43,6 +44,7 @@ export function HeaderSection() {
           options={NATION_OPTIONS}
           value={team2}
           onChange={(v) => update('team2', v)}
+          placeholder={EDITOR_LABELS.teamSelectPlaceholder}
           className="flex-1"
         />
       </div>

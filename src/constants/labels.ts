@@ -51,6 +51,7 @@ export const EDITOR_LABELS = {
   /* Champs */
   team1Label: 'Équipe 1',
   team2Label: 'Équipe 2',
+  teamSelectPlaceholder: 'Choisir\u2026',
   teamDisplayName1Label: 'Nom affiché 1',
   teamDisplayName2Label: 'Nom affiché 2',
   teamDisplayNameHint: 'Si vide, le code pays est utilisé',
