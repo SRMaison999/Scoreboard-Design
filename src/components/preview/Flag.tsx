@@ -19,6 +19,9 @@ const EMPTY_OVERRIDES: Record<string, string> = {};
  * 4. Fallback texte (code NOC sur fond gris)
  */
 export function Flag({ code, w = 77, h = 50, flagOverrides = EMPTY_OVERRIDES }: FlagProps) {
+  /* Code vide : ne rien afficher */
+  if (!code) return null;
+
   const baseStyle: CSSProperties = {
     width: w,
     height: h,

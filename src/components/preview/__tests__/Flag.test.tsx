@@ -44,4 +44,9 @@ describe('Flag', () => {
     expect(img).not.toBeInTheDocument();
     expect(screen.getByText('ZZZ')).toBeInTheDocument();
   });
+
+  it('ne rend rien quand le code est vide', () => {
+    const { container } = render(<Flag code="" />);
+    expect(container.firstChild).toBeNull();
+  });
 });

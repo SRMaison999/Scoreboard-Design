@@ -158,6 +158,7 @@ export const CUSTOM_FIELD_LABELS = {
   /* Panneau de propri\u00e9t\u00e9s secondaire */
   propertiesPanelTitle: 'Propri\u00e9t\u00e9s',
   propertiesPanelClose: 'Fermer le panneau',
+  propertiesPanelMatchData: 'Donn\u00e9es du match',
 
   /* Barre flottante taille de police */
   fontToolbarLabel: 'Taille',
@@ -212,7 +213,7 @@ export const CUSTOM_FIELD_LABELS = {
   /* \u00c9tat vide du canvas */
   emptyCanvasTitle: 'Canvas vide',
   emptyCanvasHint: 'Glissez un \u00e9l\u00e9ment depuis la biblioth\u00e8que ou cliquez pour l\u2019ajouter au centre.',
-  emptyCanvasStepTeams: 'Configurez d\u2019abord les \u00e9quipes dans la section Header ci-dessus',
+  emptyCanvasStepTeams: 'Configurez d\u2019abord les \u00e9quipes dans le panneau Donn\u00e9es du match \u00e0 droite',
   emptyCanvasStepAdd: 'Puis ajoutez des \u00e9l\u00e9ments depuis la biblioth\u00e8que',
 
   /* Indice Header en mode Layout libre */

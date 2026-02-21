@@ -17,7 +17,6 @@ import {
 } from '@/constants/customFields';
 import { FIELD_MAX_FIELDS } from '@/types/customField';
 import { LibraryIcon } from '@/components/editor/LibraryIcon';
-import { HeaderSection } from '@/components/editor/HeaderSection';
 import type { LibraryElement, LibraryCategory } from '@/types/customField';
 
 const ALL_CATEGORIES: readonly (LibraryCategory | 'all')[] = [
@@ -77,13 +76,6 @@ export function FreeLayoutLibraryPanel() {
       </div>
 
       <div className="flex-1 min-h-0 overflow-y-auto">
-        {/* HeaderSection visible quand le filtre "match" ou "all" est actif */}
-        {(activeCategory === 'match' || activeCategory === 'all') && (
-          <div className="p-3 border-b border-gray-800">
-            <HeaderSection />
-          </div>
-        )}
-
         <div className="p-3">
           {isFull && (
             <p className="text-[11px] text-red-400 mb-2">{CUSTOM_FIELD_LABELS.maxFieldsReached}</p>
