@@ -38,21 +38,22 @@ describe('PropertiesPanel', () => {
     useEditorUIStore.setState({ matchDataVisible: false });
   });
 
-  it('affiche le placeholder sans champ s\u00e9lectionn\u00e9 et sans donn\u00e9es match', () => {
+  it('affiche le placeholder sans champ s\u00e9lectionn\u00e9', () => {
     render(<PropertiesPanel />);
     expect(screen.getByTestId('properties-panel')).toBeInTheDocument();
     expect(screen.getByText(CUSTOM_FIELD_LABELS.freeLayoutNoSelection)).toBeInTheDocument();
   });
 
-  it('n\u2019affiche pas le bouton fermer sans s\u00e9lection ni donn\u00e9es match', () => {
+  it('n\u2019affiche pas le bouton fermer sans s\u00e9lection', () => {
     render(<PropertiesPanel />);
     expect(screen.queryByTestId('properties-panel-close')).not.toBeInTheDocument();
   });
 
-  it('affiche les donn\u00e9es du match quand matchDataVisible est true', () => {
+  it('n\u2019affiche pas les donn\u00e9es du match sans s\u00e9lection m\u00eame si matchDataVisible', () => {
     useEditorUIStore.setState({ matchDataVisible: true });
     render(<PropertiesPanel />);
-    expect(screen.getByText(CUSTOM_FIELD_LABELS.propertiesPanelMatchData)).toBeInTheDocument();
+    expect(screen.queryByTestId('match-data-section')).not.toBeInTheDocument();
+    expect(screen.getByText(CUSTOM_FIELD_LABELS.freeLayoutNoSelection)).toBeInTheDocument();
   });
 
   it('affiche le panneau quand un champ texte est s\u00e9lectionn\u00e9', () => {
@@ -105,13 +106,14 @@ describe('PropertiesPanel', () => {
     expect(useEditorUIStore.getState().matchDataVisible).toBe(true);
   });
 
-  it('affiche le toggle donn\u00e9es du match dans le header quand pas de match data', () => {
+  it('affiche le toggle donn\u00e9es du match pour un champ non-match s\u00e9lectionn\u00e9', () => {
+    useScoreboardStore.getState().addCustomField(TEXT_ELEMENT, 50, 50, 200, 100);
     render(<PropertiesPanel />);
     expect(screen.getByTestId('match-data-toggle')).toBeInTheDocument();
   });
 
-  it('masque le toggle donn\u00e9es du match dans le header quand match data visible', () => {
-    useEditorUIStore.setState({ matchDataVisible: true });
+  it('masque le toggle quand un champ match est s\u00e9lectionn\u00e9', () => {
+    useScoreboardStore.getState().addCustomField(TEAM_NAME_ELEMENT, 50, 50, 600, 160);
     render(<PropertiesPanel />);
     expect(screen.queryByTestId('match-data-toggle')).not.toBeInTheDocument();
   });
