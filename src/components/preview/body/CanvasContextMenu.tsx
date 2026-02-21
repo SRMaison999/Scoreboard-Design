@@ -27,6 +27,7 @@ interface CanvasContextMenuProps {
   readonly targetField: CustomField | null;
   readonly canvasWidth: number;
   readonly canvasHeight: number;
+  readonly canvasScale: number;
   readonly onClose: () => void;
 }
 
@@ -45,6 +46,7 @@ export function CanvasContextMenu({
   targetField,
   canvasWidth,
   canvasHeight,
+  canvasScale,
   onClose,
 }: CanvasContextMenuProps) {
   const fields = useScoreboardStore((s) => s.customFieldsData.fields);
@@ -169,11 +171,14 @@ export function CanvasContextMenu({
         onPaste: handlePaste, onSelectAll: handleSelectAll, onToggleGrid: handleToggleGrid,
       });
 
-  /* Clamping du menu dans le canvas */
+  /* Taille reelle du menu apres inverse scale (en coordonnees canvas) */
+  const inverseScale = 1 / canvasScale;
   const menuHeight = entries.reduce((h, e) =>
     h + (isSeparator(e) ? SEPARATOR_HEIGHT : ITEM_HEIGHT), MENU_PADDING * 2);
-  const clampedX = Math.min(position.x, canvasWidth - MENU_WIDTH - 4);
-  const clampedY = Math.min(position.y, canvasHeight - menuHeight - 4);
+  const scaledMenuW = MENU_WIDTH * inverseScale;
+  const scaledMenuH = menuHeight * inverseScale;
+  const clampedX = Math.min(position.x, canvasWidth - scaledMenuW - 4);
+  const clampedY = Math.min(position.y, canvasHeight - scaledMenuH - 4);
 
   return (
     <div
@@ -182,6 +187,8 @@ export function CanvasContextMenu({
         position: 'absolute',
         left: Math.max(0, clampedX),
         top: Math.max(0, clampedY),
+        transform: `scale(${inverseScale})`,
+        transformOrigin: 'top left',
         width: MENU_WIDTH,
         backgroundColor: 'rgba(30, 30, 36, 0.98)',
         border: '1px solid rgba(255, 255, 255, 0.12)',

@@ -84,6 +84,7 @@ describe('CanvasContextMenu', () => {
         targetField={makeField('f1')}
         canvasWidth={1920}
         canvasHeight={1080}
+        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -97,6 +98,7 @@ describe('CanvasContextMenu', () => {
         targetField={makeField('f1')}
         canvasWidth={1920}
         canvasHeight={1080}
+        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -118,6 +120,7 @@ describe('CanvasContextMenu', () => {
         targetField={makeField('f1', { locked: true })}
         canvasWidth={1920}
         canvasHeight={1080}
+        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -131,6 +134,7 @@ describe('CanvasContextMenu', () => {
         targetField={null}
         canvasWidth={1920}
         canvasHeight={1080}
+        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -148,6 +152,7 @@ describe('CanvasContextMenu', () => {
         targetField={makeField('f1')}
         canvasWidth={1920}
         canvasHeight={1080}
+        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -165,6 +170,7 @@ describe('CanvasContextMenu', () => {
         targetField={makeField('f1')}
         canvasWidth={1920}
         canvasHeight={1080}
+        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -180,6 +186,7 @@ describe('CanvasContextMenu', () => {
         targetField={makeField('f1')}
         canvasWidth={1920}
         canvasHeight={1080}
+        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -195,6 +202,7 @@ describe('CanvasContextMenu', () => {
         targetField={null}
         canvasWidth={1920}
         canvasHeight={1080}
+        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -210,6 +218,7 @@ describe('CanvasContextMenu', () => {
         targetField={makeField('f1')}
         canvasWidth={1920}
         canvasHeight={1080}
+        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -224,6 +233,7 @@ describe('CanvasContextMenu', () => {
         targetField={null}
         canvasWidth={1920}
         canvasHeight={1080}
+        canvasScale={1}
         onClose={onClose}
       />,
     );

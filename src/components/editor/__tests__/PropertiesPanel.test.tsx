@@ -47,6 +47,13 @@ describe('PropertiesPanel', () => {
     expect(screen.getByText(CUSTOM_FIELD_LABELS.propertiesPanelTitle)).toBeInTheDocument();
   });
 
+  it('affiche les donn\u00e9es du match repliables avec un champ s\u00e9lectionn\u00e9', () => {
+    useScoreboardStore.getState().addCustomField(TEXT_ELEMENT, 50, 50, 200, 100);
+    render(<PropertiesPanel />);
+    expect(screen.getByTestId('match-data-section')).toBeInTheDocument();
+    expect(screen.getByText(CUSTOM_FIELD_LABELS.propertiesPanelMatchData)).toBeInTheDocument();
+  });
+
   it('affiche les propri\u00e9t\u00e9s du champ s\u00e9lectionn\u00e9', () => {
     useScoreboardStore.getState().addCustomField(TEXT_ELEMENT, 50, 50, 200, 100);
     render(<PropertiesPanel />);
