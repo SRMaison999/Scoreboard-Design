@@ -11,7 +11,12 @@ const NATION_OPTIONS = HOCKEY_NATIONS.map((n) => ({
   label: `${n.noc} - ${n.name}`,
 }));
 
-export function HeaderSection() {
+interface HeaderSectionProps {
+  /** Quand true, ne rend pas le wrapper Section (utilis\u00e9 quand d\u00e9j\u00e0 imbriqu\u00e9) */
+  readonly embedded?: boolean;
+}
+
+function HeaderFields() {
   const team1 = useScoreboardStore((s) => s.team1);
   const team2 = useScoreboardStore((s) => s.team2);
   const displayName1 = useScoreboardStore((s) => s.teamDisplayName1);
@@ -24,7 +29,7 @@ export function HeaderSection() {
   const update = useScoreboardStore((s) => s.update);
 
   return (
-    <Section title={EDITOR_LABELS.sectionHeader}>
+    <>
       {bodyType === 14 && (
         <p className="text-[11px] text-sky-400/70 -mt-1 mb-1">
           {CUSTOM_FIELD_LABELS.headerLayoutLibreHint}
@@ -93,6 +98,22 @@ export function HeaderSection() {
           onChange={(v) => update('score2', v)}
         />
       </div>
+    </>
+  );
+}
+
+export function HeaderSection({ embedded = false }: HeaderSectionProps) {
+  if (embedded) {
+    return (
+      <div className="flex flex-col gap-2">
+        <HeaderFields />
+      </div>
+    );
+  }
+
+  return (
+    <Section title={EDITOR_LABELS.sectionHeader}>
+      <HeaderFields />
     </Section>
   );
 }

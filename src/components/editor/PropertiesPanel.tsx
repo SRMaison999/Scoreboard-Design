@@ -1,14 +1,15 @@
 /**
  * Panneau de propri\u00e9t\u00e9s affich\u00e9 \u00e0 droite du canvas de preview.
- * Toujours visible en mode Layout libre (Body Type 14) :
- * - Sans s\u00e9lection : affiche les donn\u00e9es du match (HeaderSection)
- * - S\u00e9lection unique : affiche les propri\u00e9t\u00e9s du champ
- * - S\u00e9lection multiple : affiche la barre multi-s\u00e9lection
+ * Toujours visible en mode Layout libre (Body Type 14).
+ * Le HeaderSection (donn\u00e9es du match) est toujours accessible :
+ * - Sans s\u00e9lection : affich\u00e9 en plein
+ * - Avec s\u00e9lection : repliable au-dessus des propri\u00e9t\u00e9s du champ
  */
 
 import { X } from 'lucide-react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
+import { Section } from '@/components/ui/Section';
 import { CustomFieldProperties } from './CustomFieldProperties';
 import { MultiSelectionToolbar } from './MultiSelectionToolbar';
 import { HeaderSection } from './HeaderSection';
@@ -26,9 +27,6 @@ export function PropertiesPanel() {
     : null;
 
   const hasSelection = selectedFieldIds.length > 0;
-  const title = hasSelection
-    ? CUSTOM_FIELD_LABELS.propertiesPanelTitle
-    : CUSTOM_FIELD_LABELS.propertiesPanelMatchData;
 
   return (
     <div
@@ -37,7 +35,9 @@ export function PropertiesPanel() {
     >
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
         <span className="text-xs font-bold text-sky-300 uppercase tracking-widest">
-          {title}
+          {hasSelection
+            ? CUSTOM_FIELD_LABELS.propertiesPanelTitle
+            : CUSTOM_FIELD_LABELS.propertiesPanelMatchData}
         </span>
         {hasSelection && (
           <button
@@ -52,7 +52,20 @@ export function PropertiesPanel() {
         )}
       </div>
       <div className="flex-1 min-h-0 overflow-y-auto p-4">
-        {!hasSelection && <HeaderSection />}
+        {/* Donn\u00e9es du match : toujours pr\u00e9sentes, repliables quand un champ est s\u00e9lectionn\u00e9 */}
+        {hasSelection ? (
+          <div className="mb-3 pb-3 border-b border-gray-800" data-testid="match-data-section">
+            <Section
+              title={CUSTOM_FIELD_LABELS.propertiesPanelMatchData}
+              defaultOpen={false}
+            >
+              <HeaderSection embedded />
+            </Section>
+          </div>
+        ) : (
+          <HeaderSection />
+        )}
+
         {singleSelectedId && (
           <CustomFieldProperties fieldId={singleSelectedId} />
         )}
