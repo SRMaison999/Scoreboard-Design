@@ -82,9 +82,6 @@ describe('CanvasContextMenu', () => {
       <CanvasContextMenu
         position={{ x: 100, y: 100 }}
         targetField={makeField('f1')}
-        canvasWidth={1920}
-        canvasHeight={1080}
-        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -96,9 +93,6 @@ describe('CanvasContextMenu', () => {
       <CanvasContextMenu
         position={{ x: 100, y: 100 }}
         targetField={makeField('f1')}
-        canvasWidth={1920}
-        canvasHeight={1080}
-        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -118,9 +112,6 @@ describe('CanvasContextMenu', () => {
       <CanvasContextMenu
         position={{ x: 100, y: 100 }}
         targetField={makeField('f1', { locked: true })}
-        canvasWidth={1920}
-        canvasHeight={1080}
-        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -132,9 +123,6 @@ describe('CanvasContextMenu', () => {
       <CanvasContextMenu
         position={{ x: 100, y: 100 }}
         targetField={null}
-        canvasWidth={1920}
-        canvasHeight={1080}
-        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -150,9 +138,6 @@ describe('CanvasContextMenu', () => {
       <CanvasContextMenu
         position={{ x: 100, y: 100 }}
         targetField={makeField('f1')}
-        canvasWidth={1920}
-        canvasHeight={1080}
-        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -168,9 +153,6 @@ describe('CanvasContextMenu', () => {
       <CanvasContextMenu
         position={{ x: 100, y: 100 }}
         targetField={makeField('f1')}
-        canvasWidth={1920}
-        canvasHeight={1080}
-        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -184,9 +166,6 @@ describe('CanvasContextMenu', () => {
       <CanvasContextMenu
         position={{ x: 100, y: 100 }}
         targetField={makeField('f1')}
-        canvasWidth={1920}
-        canvasHeight={1080}
-        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -200,9 +179,6 @@ describe('CanvasContextMenu', () => {
       <CanvasContextMenu
         position={{ x: 100, y: 100 }}
         targetField={null}
-        canvasWidth={1920}
-        canvasHeight={1080}
-        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -216,9 +192,6 @@ describe('CanvasContextMenu', () => {
       <CanvasContextMenu
         position={{ x: 100, y: 100 }}
         targetField={makeField('f1')}
-        canvasWidth={1920}
-        canvasHeight={1080}
-        canvasScale={1}
         onClose={onClose}
       />,
     );
@@ -226,22 +199,15 @@ describe('CanvasContextMenu', () => {
     expect(onClose).toHaveBeenCalled();
   });
 
-  it('clampe la position du menu dans le canvas', () => {
+  it('utilise position: fixed pour le positionnement viewport', () => {
     render(
       <CanvasContextMenu
-        position={{ x: 1900, y: 1050 }}
+        position={{ x: 200, y: 300 }}
         targetField={null}
-        canvasWidth={1920}
-        canvasHeight={1080}
-        canvasScale={1}
         onClose={onClose}
       />,
     );
     const menu = screen.getByTestId('canvas-context-menu');
-    const left = parseInt(menu.style.left, 10);
-    const top = parseInt(menu.style.top, 10);
-    /* Le menu doit \u00eatre d\u00e9cal\u00e9 pour rester dans les limites */
-    expect(left).toBeLessThanOrEqual(1920);
-    expect(top).toBeLessThanOrEqual(1080);
+    expect(menu.style.position).toBe('fixed');
   });
 });

@@ -1,10 +1,11 @@
 /**
  * Menu contextuel pour le canvas du mode Layout libre.
- * Affich\u00e9 au clic droit sur un champ ou sur le fond du canvas.
- * Utilise des styles inline (composant canvas, capturable en image).
+ * Rendu en portail dans document.body pour ne pas \u00eatre affect\u00e9 par le scale du canvas.
+ * Positionn\u00e9 aux coordonn\u00e9es viewport (clientX/clientY).
  */
 
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { useClipboardStore } from '@/stores/clipboardStore';
 import {
@@ -25,30 +26,26 @@ export interface ContextMenuPosition {
 interface CanvasContextMenuProps {
   readonly position: ContextMenuPosition;
   readonly targetField: CustomField | null;
-  readonly canvasWidth: number;
-  readonly canvasHeight: number;
-  readonly canvasScale: number;
   readonly onClose: () => void;
 }
 
 /* --- Constantes de style --- */
 
 const EMPTY_IDS: readonly string[] = [];
-const MENU_WIDTH = 320;
-const MENU_PADDING = 8;
-const ITEM_HEIGHT = 44;
-const SEPARATOR_HEIGHT = 13;
+const MENU_WIDTH = 260;
+const MENU_PADDING = 6;
+const ITEM_HEIGHT = 36;
+const SEPARATOR_HEIGHT = 9;
+const VIEWPORT_MARGIN = 8;
 
 /* --- Composant --- */
 
 export function CanvasContextMenu({
   position,
   targetField,
-  canvasWidth,
-  canvasHeight,
-  canvasScale,
   onClose,
 }: CanvasContextMenuProps) {
+  const menuRef = useRef<HTMLDivElement>(null);
   const fields = useScoreboardStore((s) => s.customFieldsData.fields);
   const selectedIds = useScoreboardStore((s) => s.customFieldsData?.selectedFieldIds ?? EMPTY_IDS);
   const showGuides = useScoreboardStore((s) => s.customFieldsData.showGuides);
@@ -79,13 +76,17 @@ export function CanvasContextMenu({
 
   /* Fermer au clic externe */
   useEffect(() => {
-    const handler = () => onClose();
+    const handler = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        onClose();
+      }
+    };
     const id = window.setTimeout(() => {
-      document.addEventListener('click', handler);
+      document.addEventListener('mousedown', handler);
     }, 0);
     return () => {
       window.clearTimeout(id);
-      document.removeEventListener('click', handler);
+      document.removeEventListener('mousedown', handler);
     };
   }, [onClose]);
 
@@ -171,24 +172,22 @@ export function CanvasContextMenu({
         onPaste: handlePaste, onSelectAll: handleSelectAll, onToggleGrid: handleToggleGrid,
       });
 
-  /* Taille reelle du menu apres inverse scale (en coordonnees canvas) */
-  const inverseScale = 1 / canvasScale;
+  /* Clamper la position pour rester dans le viewport */
   const menuHeight = entries.reduce((h, e) =>
     h + (isSeparator(e) ? SEPARATOR_HEIGHT : ITEM_HEIGHT), MENU_PADDING * 2);
-  const scaledMenuW = MENU_WIDTH * inverseScale;
-  const scaledMenuH = menuHeight * inverseScale;
-  const clampedX = Math.min(position.x, canvasWidth - scaledMenuW - 4);
-  const clampedY = Math.min(position.y, canvasHeight - scaledMenuH - 4);
+  const vw = typeof window !== 'undefined' ? window.innerWidth : 1920;
+  const vh = typeof window !== 'undefined' ? window.innerHeight : 1080;
+  const clampedX = Math.min(position.x, vw - MENU_WIDTH - VIEWPORT_MARGIN);
+  const clampedY = Math.min(position.y, vh - menuHeight - VIEWPORT_MARGIN);
 
-  return (
+  const menu = (
     <div
+      ref={menuRef}
       data-testid="canvas-context-menu"
       style={{
-        position: 'absolute',
-        left: Math.max(0, clampedX),
-        top: Math.max(0, clampedY),
-        transform: `scale(${inverseScale})`,
-        transformOrigin: 'top left',
+        position: 'fixed',
+        left: Math.max(VIEWPORT_MARGIN, clampedX),
+        top: Math.max(VIEWPORT_MARGIN, clampedY),
         width: MENU_WIDTH,
         backgroundColor: 'rgba(30, 30, 36, 0.98)',
         border: '1px solid rgba(255, 255, 255, 0.12)',
@@ -204,7 +203,7 @@ export function CanvasContextMenu({
         isSeparator(entry) ? (
           <div
             key={`sep-${i}`}
-            style={{ height: 1, margin: '5px 10px', backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
+            style={{ height: 1, margin: '4px 10px', backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
           />
         ) : (
           <MenuItemRow key={entry.label} label={entry.label} shortcut={entry.shortcut} disabled={entry.disabled} onClick={entry.action} />
@@ -212,6 +211,8 @@ export function CanvasContextMenu({
       )}
     </div>
   );
+
+  return createPortal(menu, document.body);
 }
 
 /* --- Sous-composant item --- */
@@ -231,12 +232,14 @@ function MenuItemRow({ label, shortcut, disabled, onClick }: {
         alignItems: 'center',
         justifyContent: 'space-between',
         height: ITEM_HEIGHT,
-        padding: '0 18px',
+        padding: '0 14px',
         borderRadius: 6,
         cursor: disabled ? 'default' : 'pointer',
         color: disabled ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.92)',
-        fontSize: 19,
+        fontSize: 14,
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         userSelect: 'none',
+        whiteSpace: 'nowrap',
       }}
       onClick={disabled ? undefined : onClick}
       onMouseEnter={(e) => {
@@ -250,7 +253,7 @@ function MenuItemRow({ label, shortcut, disabled, onClick }: {
     >
       <span>{label}</span>
       {shortcut && (
-        <span style={{ fontSize: 15, color: 'rgba(255, 255, 255, 0.45)', marginLeft: 24 }}>
+        <span style={{ fontSize: 12, color: 'rgba(255, 255, 255, 0.45)', marginLeft: 20 }}>
           {shortcut}
         </span>
       )}
