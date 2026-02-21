@@ -271,6 +271,7 @@ function InteractiveCanvas({ state, colors, opacities, canvasScale }: {
           targetField={contextMenu.targetField}
           canvasWidth={state.templateWidth}
           canvasHeight={state.templateHeight}
+          canvasScale={canvasScale}
           onClose={closeContextMenu}
         />
       )}
