@@ -13,6 +13,7 @@ import { FONT_OPTIONS, FONT_CATEGORY_LABELS, FONT_CATEGORY_ORDER } from '@/const
 import type { FieldElementConfig } from '@/types/customField';
 import { updateFieldElementConfig } from '@/utils/fieldConfig';
 import { ShapeEditor, SeparatorEditor, ImageEditor } from './FieldVisualEditors';
+import { TeamNationSelector } from './TeamNationSelector';
 
 interface FieldElementConfigEditorProps {
   readonly fieldId: string;
@@ -312,6 +313,7 @@ export function FieldElementConfigEditor({ fieldId, element }: FieldElementConfi
       return (
         <div className="flex flex-col gap-2">
           <SideSelector fieldId={fieldId} element={element} />
+          <TeamNationSelector element={element} />
           <FontSizeOverrideInput fieldId={fieldId} element={element} />
         </div>
       );
@@ -319,11 +321,18 @@ export function FieldElementConfigEditor({ fieldId, element }: FieldElementConfi
       return (
         <div className="flex flex-col gap-2">
           <SideSelector fieldId={fieldId} element={element} />
+          <TeamNationSelector element={element} />
           <ShowFlagToggle fieldId={fieldId} element={element} />
           <FontSizeOverrideInput fieldId={fieldId} element={element} />
         </div>
       );
     case 'flag-display':
+      return (
+        <div className="flex flex-col gap-2">
+          <SideSelector fieldId={fieldId} element={element} />
+          <TeamNationSelector element={element} />
+        </div>
+      );
     case 'penalty-column':
       return <SideSelector fieldId={fieldId} element={element} />;
     case 'header-block':

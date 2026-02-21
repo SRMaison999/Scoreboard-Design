@@ -235,6 +235,8 @@ Le diagnostic compare 6 points d'ancrage pour chaque champ : bord gauche, centre
 
 Quand un champ est sélectionné, un panneau de propriétés (300 px de large) apparaît à droite du canvas de preview. Cela permet de garder la bibliothèque et les couches toujours visibles à gauche, tout en disposant d'un espace confortable pour configurer les propriétés sans scroller. Un bouton **X** en haut du panneau permet de le fermer (et désélectionne le champ). Le panneau supporte aussi la multi-sélection (alignement et distribution).
 
+Quand aucun champ n'est sélectionné, le panneau affiche un bouton **Données du match** qui permet d'accéder directement à la configuration des équipes (sélection de nation, noms affichés, scores, drapeaux). Ce bouton est également accessible via l'icône dans le header du panneau. Les champs de type Score, Nom d'équipe et Drapeau intègrent aussi un **sélecteur de nation** directement dans leurs propriétés, pour choisir l'équipe sans quitter le panneau.
+
 Le panneau de propriétés affiche :
 
 #### Identification
@@ -269,11 +271,11 @@ Paramètres spécifiques selon le type d'élément (voir tableau ci-dessous).
 | Type | Paramètres configurables |
 |------|------------------------|
 | **Bloc de texte** | Contenu, taille de police, famille de police, épaisseur (graisse), alignement (gauche/centre/droite), casse (normal/majuscules), espacement des lettres |
-| **Score** | Côté (gauche = équipe 1, droite = équipe 2), taille de police, famille de police |
-| **Nom d'équipe** | Côté (gauche/droite), taille de police, famille de police, nom libre ou code NOC |
+| **Score** | Côté (gauche = équipe 1, droite = équipe 2), **sélection de la nation** (dropdown avec toutes les nations de hockey), nom affiché, score, taille de police, famille de police |
+| **Nom d'équipe** | Côté (gauche/droite), **sélection de la nation** (dropdown), nom affiché, score, afficher le drapeau, taille de police, famille de police |
 | **Horloge** | Afficher la période, afficher le cadre, taille de police, famille de police |
 | **Période** | Taille de police, famille de police |
-| **Drapeau** | Côté (gauche/droite) |
+| **Drapeau** | Côté (gauche/droite), **sélection de la nation** (dropdown), nom affiché, score |
 | **Colonne de pénalités** | Côté (gauche/droite) |
 | **Forme** | Type (rectangle, cercle, arrondi), couleur de remplissage, couleur de bordure, rayon (pour arrondi) |
 | **Séparateur** | Orientation (horizontale/verticale), épaisseur, couleur |

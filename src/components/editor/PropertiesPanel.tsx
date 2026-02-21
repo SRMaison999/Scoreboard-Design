@@ -5,7 +5,7 @@
  * quand un champ de type match est s\u00e9lectionn\u00e9 ou demand\u00e9 explicitement.
  */
 
-import { X } from 'lucide-react';
+import { X, Users } from 'lucide-react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { useEditorUIStore } from '@/stores/editorUIStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
@@ -72,17 +72,30 @@ export function PropertiesPanel() {
         <span className="text-xs font-bold text-sky-300 uppercase tracking-widest">
           {panelTitle}
         </span>
-        {(hasSelection || showMatchData) && (
-          <button
-            type="button"
-            onClick={handleClose}
-            className="p-1 text-gray-500 hover:text-gray-300"
-            title={CUSTOM_FIELD_LABELS.propertiesPanelClose}
-            data-testid="properties-panel-close"
-          >
-            <X size={14} className="flex-shrink-0" />
-          </button>
-        )}
+        <div className="flex items-center gap-1">
+          {!showMatchData && (
+            <button
+              type="button"
+              onClick={() => setMatchDataVisible(true)}
+              className="p-1 text-gray-500 hover:text-sky-400 transition-colors"
+              title={CUSTOM_FIELD_LABELS.matchDataOpenButton}
+              data-testid="match-data-toggle"
+            >
+              <Users size={14} className="flex-shrink-0" />
+            </button>
+          )}
+          {(hasSelection || showMatchData) && (
+            <button
+              type="button"
+              onClick={handleClose}
+              className="p-1 text-gray-500 hover:text-gray-300"
+              title={CUSTOM_FIELD_LABELS.propertiesPanelClose}
+              data-testid="properties-panel-close"
+            >
+              <X size={14} className="flex-shrink-0" />
+            </button>
+          )}
+        </div>
       </div>
       <div className="flex-1 min-h-0 overflow-y-auto p-4">
         {/* Donn\u00e9es du match : visibles uniquement si un champ match est s\u00e9lectionn\u00e9 ou demand\u00e9 */}
@@ -109,9 +122,27 @@ export function PropertiesPanel() {
         )}
 
         {!hasSelection && !showMatchData && (
-          <p className="text-[12px] text-gray-500">
-            {CUSTOM_FIELD_LABELS.freeLayoutNoSelection}
-          </p>
+          <div className="flex flex-col gap-3">
+            <p className="text-[12px] text-gray-500">
+              {CUSTOM_FIELD_LABELS.freeLayoutNoSelection}
+            </p>
+            <button
+              type="button"
+              onClick={() => setMatchDataVisible(true)}
+              className="flex items-center gap-3 w-full text-left rounded-md border border-gray-800 bg-gray-900 p-3 hover:border-sky-400 hover:bg-sky-950/30 transition-colors cursor-pointer"
+              data-testid="match-data-empty-button"
+            >
+              <Users size={20} className="flex-shrink-0 text-sky-400" />
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[13px] font-medium text-gray-200">
+                  {CUSTOM_FIELD_LABELS.matchDataOpenButton}
+                </span>
+                <span className="text-[11px] text-gray-500">
+                  {CUSTOM_FIELD_LABELS.matchDataOpenHint}
+                </span>
+              </div>
+            </button>
+          </div>
         )}
       </div>
     </div>
