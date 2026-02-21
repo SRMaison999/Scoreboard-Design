@@ -5,7 +5,6 @@ import { FreeLayoutPanel } from '../FreeLayoutPanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { useEditorUIStore } from '@/stores/editorUIStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
-import { EDITOR_LABELS } from '@/constants/labels';
 
 describe('FreeLayoutPanel', () => {
   beforeEach(() => {
@@ -33,12 +32,9 @@ describe('FreeLayoutPanel', () => {
     expect(screen.getByLabelText(CUSTOM_FIELD_LABELS.freeLayoutTabPresets)).toBeInTheDocument();
   });
 
-  it('affiche la section Donn\u00e9es du match avec les dropdowns \u00e9quipe', () => {
+  it('ne contient pas de section Donn\u00e9es du match (g\u00e9r\u00e9e dans PropertiesPanel)', () => {
     render(<FreeLayoutPanel />);
-    expect(screen.getByTestId('free-layout-match-data')).toBeInTheDocument();
-    expect(screen.getByText(CUSTOM_FIELD_LABELS.propertiesPanelMatchData)).toBeInTheDocument();
-    expect(screen.getByText(EDITOR_LABELS.team1Label)).toBeInTheDocument();
-    expect(screen.getByText(EDITOR_LABELS.team2Label)).toBeInTheDocument();
+    expect(screen.queryByTestId('free-layout-match-data')).not.toBeInTheDocument();
   });
 
   it('change d\'onglet au clic sur un bouton du rail', async () => {
@@ -71,12 +67,5 @@ describe('FreeLayoutPanel', () => {
     useEditorUIStore.setState({ activeFreeLayoutTab: 'library' });
     render(<FreeLayoutPanel />);
     expect(screen.getByTestId('free-layout-library-panel')).toBeInTheDocument();
-  });
-
-  it('conserve la section Donn\u00e9es du match quel que soit l\'onglet actif', () => {
-    useEditorUIStore.setState({ activeFreeLayoutTab: 'canvas' });
-    render(<FreeLayoutPanel />);
-    expect(screen.getByTestId('free-layout-match-data')).toBeInTheDocument();
-    expect(screen.getByText(EDITOR_LABELS.team1Label)).toBeInTheDocument();
   });
 });

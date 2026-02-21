@@ -1,14 +1,12 @@
 /**
  * Panneau principal du mode Layout libre.
- * Contient en haut la section "Donn\u00e9es du match" (\u00e9quipes, scores)
- * toujours visible, puis le contenu actif (biblioth\u00e8que, canvas,
- * couches, presets). Les propri\u00e9t\u00e9s du champ s\u00e9lectionn\u00e9 sont
- * affich\u00e9es dans un panneau s\u00e9par\u00e9 \u00e0 droite du canvas (PropertiesPanel).
+ * Contient le contenu actif (biblioth\u00e8que, canvas, couches, presets).
+ * Les donn\u00e9es du match (\u00e9quipes, scores, drapeaux) sont g\u00e9r\u00e9es
+ * exclusivement dans le PropertiesPanel (\u00e0 droite du canvas).
  */
 
 import { Settings, Library, Layers, Bookmark } from 'lucide-react';
 import { IconRail } from '@/components/ui/IconRail';
-import { Section } from '@/components/ui/Section';
 import { useEditorUIStore } from '@/stores/editorUIStore';
 import { useCustomFieldKeyboard } from '@/hooks/useCustomFieldKeyboard';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
@@ -16,7 +14,6 @@ import { FreeLayoutLibraryPanel } from './FreeLayoutLibraryPanel';
 import { FreeLayoutCanvasPanel } from './FreeLayoutCanvasPanel';
 import { FreeLayoutPresetsPanel } from './FreeLayoutPresetsPanel';
 import { CustomFieldList } from '@/components/editor/CustomFieldList';
-import { HeaderSection } from '@/components/editor/HeaderSection';
 import type { FreeLayoutTab, IconRailItem } from '@/types/editor';
 
 const RAIL_ITEMS: readonly IconRailItem[] = [
@@ -63,12 +60,6 @@ export function FreeLayoutPanel() {
         onSelect={(id) => setTab(id as FreeLayoutTab)}
       />
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Donn\u00e9es du match : toujours visible en haut du panneau gauche */}
-        <div className="px-3 py-2 border-b border-gray-800" data-testid="free-layout-match-data">
-          <Section title={CUSTOM_FIELD_LABELS.propertiesPanelMatchData}>
-            <HeaderSection embedded />
-          </Section>
-        </div>
         <div className="flex-1 min-h-0 overflow-hidden">
           <ActiveContent tab={activeTab} />
         </div>
