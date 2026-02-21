@@ -91,6 +91,11 @@ export const CUSTOM_FIELD_LABELS = {
   configSide: 'C\u00f4t\u00e9',
   configSideLeft: 'Gauche',
   configSideRight: 'Droite',
+  configTeamNation: '\u00c9quipe',
+  configTeamNationPlaceholder: 'Choisir une \u00e9quipe\u2026',
+  configTeamDisplayName: 'Nom affich\u00e9',
+  configTeamDisplayNameHint: 'Si vide, le code pays est utilis\u00e9',
+  configTeamScore: 'Score',
   configShowFlag: 'Afficher le drapeau',
   configShowLabel: 'Afficher le label',
   configShowPeriod: 'Afficher la p\u00e9riode',
@@ -218,6 +223,10 @@ export const CUSTOM_FIELD_LABELS = {
 
   /* Indice Header en mode Layout libre */
   headerLayoutLibreHint: 'Ces donn\u00e9es sont utilis\u00e9es par les \u00e9l\u00e9ments Score, Nom d\u2019\u00e9quipe et Drapeau sur le canvas.',
+
+  /* Bouton d'acc\u00e8s aux donn\u00e9es du match */
+  matchDataOpenButton: 'Donn\u00e9es du match',
+  matchDataOpenHint: 'Configurer les \u00e9quipes, scores et drapeaux',
 
   /* Labels lisibles pour les types d\u2019\u00e9l\u00e9ments */
   elementTypeLabels: {

@@ -333,8 +333,9 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 - `CustomFieldLibrary.tsx` : palette d'éléments unifiée avec filtres horizontaux par catégorie (chips) et recherche
 - `CustomFieldList.tsx` : liste des couches avec réordonnancement, visibilité, verrouillage
 - `CustomFieldProperties.tsx` : propriétés du champ avec sections repliables (position, z-index/rotation, style, config). Le z-index est contrôlé par 4 boutons d'action (premier plan, avancer, reculer, arrière-plan) au lieu d'un champ numérique
-- `PropertiesPanel.tsx` : panneau latéral droit (300 px) affiché à droite du canvas quand un ou plusieurs champs sont sélectionnés. Supporte la sélection simple (propriétés complètes) et multiple (alignement/distribution)
-- `FieldElementConfigEditor.tsx` : éditeurs de configuration spécifiques par type d'élément
+- `PropertiesPanel.tsx` : panneau latéral droit (300 px) affiché à droite du canvas quand un ou plusieurs champs sont sélectionnés. Supporte la sélection simple (propriétés complètes) et multiple (alignement/distribution). Inclut un bouton d'accès rapide aux données du match (équipes, scores, drapeaux) visible dans l'état vide et dans le header
+- `TeamNationSelector.tsx` : sélecteur de nation intégré directement dans les propriétés des champs team-name, score-display et flag-display. Affiche le dropdown de nation, le nom affiché et le score pour le côté (gauche/droite) du champ sélectionné
+- `FieldElementConfigEditor.tsx` : éditeurs de configuration spécifiques par type d'élément. Les types liés aux équipes (team-name, score-display, flag-display) intègrent le TeamNationSelector pour permettre la sélection directe de la nation
 
 ### 5.3 Preview (`src/components/preview/`)
 

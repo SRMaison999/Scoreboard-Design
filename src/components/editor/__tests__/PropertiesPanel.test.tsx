@@ -92,6 +92,30 @@ describe('PropertiesPanel', () => {
     expect(useScoreboardStore.getState().customFieldsData.selectedFieldIds).toEqual([]);
   });
 
+  it('affiche le bouton Donn\u00e9es du match dans l\u2019\u00e9tat vide', () => {
+    render(<PropertiesPanel />);
+    expect(screen.getByTestId('match-data-empty-button')).toBeInTheDocument();
+    expect(screen.getByText(CUSTOM_FIELD_LABELS.matchDataOpenButton)).toBeInTheDocument();
+  });
+
+  it('ouvre les donn\u00e9es du match au clic sur le bouton \u00e9tat vide', async () => {
+    const user = userEvent.setup();
+    render(<PropertiesPanel />);
+    await user.click(screen.getByTestId('match-data-empty-button'));
+    expect(useEditorUIStore.getState().matchDataVisible).toBe(true);
+  });
+
+  it('affiche le toggle donn\u00e9es du match dans le header quand pas de match data', () => {
+    render(<PropertiesPanel />);
+    expect(screen.getByTestId('match-data-toggle')).toBeInTheDocument();
+  });
+
+  it('masque le toggle donn\u00e9es du match dans le header quand match data visible', () => {
+    useEditorUIStore.setState({ matchDataVisible: true });
+    render(<PropertiesPanel />);
+    expect(screen.queryByTestId('match-data-toggle')).not.toBeInTheDocument();
+  });
+
   it('affiche la barre multi-s\u00e9lection quand 2+ champs sont s\u00e9lectionn\u00e9s', () => {
     useScoreboardStore.getState().addCustomField(TEXT_ELEMENT, 50, 50, 200, 100);
     useScoreboardStore.getState().addCustomField(TEXT_ELEMENT, 300, 50, 200, 100);
