@@ -11,6 +11,8 @@ export interface EditorUIState {
   readonly activeFreeLayoutTab: FreeLayoutTab;
   /** Filtre de cat\u00e9gorie actif dans la biblioth\u00e8que unifi\u00e9e */
   readonly activeLibraryCategory: LibraryCategory | 'all';
+  /** Affiche la section donn\u00e9es du match dans le panneau de droite */
+  readonly matchDataVisible: boolean;
 }
 
 export interface EditorUIActions {
@@ -24,6 +26,8 @@ export interface EditorUIActions {
   setFreeLayoutTab: (tab: FreeLayoutTab) => void;
   /** Change le filtre de cat\u00e9gorie dans la biblioth\u00e8que */
   setLibraryCategory: (cat: LibraryCategory | 'all') => void;
+  /** Affiche ou masque les donn\u00e9es du match dans le panneau de droite */
+  setMatchDataVisible: (visible: boolean) => void;
 }
 
 export type EditorUIStore = EditorUIState & EditorUIActions;
@@ -33,11 +37,13 @@ export const useEditorUIStore = create<EditorUIStore>()((set) => ({
   activeContentSubTab: 'teams',
   activeFreeLayoutTab: 'library',
   activeLibraryCategory: 'all',
+  matchDataVisible: false,
 
   setRailTab: (tab) => set({ activeRailTab: tab }),
   setContentSubTab: (tab) => set({ activeContentSubTab: tab }),
   setFreeLayoutTab: (tab) => set({ activeFreeLayoutTab: tab }),
   setLibraryCategory: (cat) => set({ activeLibraryCategory: cat }),
+  setMatchDataVisible: (visible) => set({ matchDataVisible: visible }),
   navigateTo: (railTab, contentSubTab) =>
     set((s) => ({
       activeRailTab: railTab,

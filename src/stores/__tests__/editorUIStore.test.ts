@@ -6,10 +6,11 @@ describe('editorUIStore', () => {
     useEditorUIStore.setState({
       activeRailTab: 'content',
       activeContentSubTab: 'teams',
+      matchDataVisible: false,
     });
   });
 
-  it('a les valeurs par défaut correctes', () => {
+  it('a les valeurs par d\u00e9faut correctes', () => {
     const state = useEditorUIStore.getState();
     expect(state.activeRailTab).toBe('content');
     expect(state.activeContentSubTab).toBe('teams');
@@ -32,7 +33,7 @@ describe('editorUIStore', () => {
     expect(state.activeContentSubTab).toBe('teams');
   });
 
-  it('navigue sans changer le sous-onglet si non spécifié', () => {
+  it('navigue sans changer le sous-onglet si non sp\u00e9cifi\u00e9', () => {
     useEditorUIStore.getState().setContentSubTab('match');
     useEditorUIStore.getState().navigateTo('appearance');
     const state = useEditorUIStore.getState();
@@ -56,5 +57,16 @@ describe('editorUIStore', () => {
   it('change le filtre de cat\u00e9gorie avec setLibraryCategory', () => {
     useEditorUIStore.getState().setLibraryCategory('match');
     expect(useEditorUIStore.getState().activeLibraryCategory).toBe('match');
+  });
+
+  it('a la valeur par d\u00e9faut de matchDataVisible', () => {
+    expect(useEditorUIStore.getState().matchDataVisible).toBe(false);
+  });
+
+  it('change matchDataVisible avec setMatchDataVisible', () => {
+    useEditorUIStore.getState().setMatchDataVisible(true);
+    expect(useEditorUIStore.getState().matchDataVisible).toBe(true);
+    useEditorUIStore.getState().setMatchDataVisible(false);
+    expect(useEditorUIStore.getState().matchDataVisible).toBe(false);
   });
 });

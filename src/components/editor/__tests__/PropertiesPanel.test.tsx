@@ -3,8 +3,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { PropertiesPanel } from '../PropertiesPanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
+import { useEditorUIStore } from '@/stores/editorUIStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
-import { EDITOR_LABELS } from '@/constants/labels';
 
 const TEXT_ELEMENT = {
   type: 'text-block' as const,
@@ -13,6 +13,15 @@ const TEXT_ELEMENT = {
     textAlign: 'center' as const, textTransform: 'none' as const,
     fontFamily: '',
     letterSpacing: 0,
+  },
+};
+
+const TEAM_NAME_ELEMENT = {
+  type: 'team-name' as const,
+  config: {
+    side: 'left' as const,
+    showFlag: true,
+    fontSizeOverride: 0,
   },
 };
 
@@ -26,29 +35,41 @@ describe('PropertiesPanel', () => {
     vi.stubGlobal('BroadcastChannel', MockBroadcastChannel);
     useScoreboardStore.getState().resetState();
     useScoreboardStore.getState().update('bodyType', 14);
+    useEditorUIStore.setState({ matchDataVisible: false });
   });
 
-  it('affiche les donn\u00e9es du match sans champ s\u00e9lectionn\u00e9', () => {
+  it('affiche le placeholder sans champ s\u00e9lectionn\u00e9 et sans donn\u00e9es match', () => {
     render(<PropertiesPanel />);
     expect(screen.getByTestId('properties-panel')).toBeInTheDocument();
-    expect(screen.getByText(CUSTOM_FIELD_LABELS.propertiesPanelMatchData)).toBeInTheDocument();
-    expect(screen.getByText(EDITOR_LABELS.sectionHeader)).toBeInTheDocument();
+    expect(screen.getByText(CUSTOM_FIELD_LABELS.freeLayoutNoSelection)).toBeInTheDocument();
   });
 
-  it('n\u2019affiche pas le bouton fermer sans s\u00e9lection', () => {
+  it('n\u2019affiche pas le bouton fermer sans s\u00e9lection ni donn\u00e9es match', () => {
     render(<PropertiesPanel />);
     expect(screen.queryByTestId('properties-panel-close')).not.toBeInTheDocument();
   });
 
-  it('affiche le panneau quand un champ est s\u00e9lectionn\u00e9', () => {
+  it('affiche les donn\u00e9es du match quand matchDataVisible est true', () => {
+    useEditorUIStore.setState({ matchDataVisible: true });
+    render(<PropertiesPanel />);
+    expect(screen.getByText(CUSTOM_FIELD_LABELS.propertiesPanelMatchData)).toBeInTheDocument();
+  });
+
+  it('affiche le panneau quand un champ texte est s\u00e9lectionn\u00e9', () => {
     useScoreboardStore.getState().addCustomField(TEXT_ELEMENT, 50, 50, 200, 100);
     render(<PropertiesPanel />);
     expect(screen.getByTestId('properties-panel')).toBeInTheDocument();
     expect(screen.getByText(CUSTOM_FIELD_LABELS.propertiesPanelTitle)).toBeInTheDocument();
   });
 
-  it('affiche les donn\u00e9es du match repliables avec un champ s\u00e9lectionn\u00e9', () => {
+  it('n\u2019affiche pas les donn\u00e9es du match pour un champ texte', () => {
     useScoreboardStore.getState().addCustomField(TEXT_ELEMENT, 50, 50, 200, 100);
+    render(<PropertiesPanel />);
+    expect(screen.queryByTestId('match-data-section')).not.toBeInTheDocument();
+  });
+
+  it('affiche les donn\u00e9es du match pour un champ nom d\u2019\u00e9quipe', () => {
+    useScoreboardStore.getState().addCustomField(TEAM_NAME_ELEMENT, 50, 50, 600, 160);
     render(<PropertiesPanel />);
     expect(screen.getByTestId('match-data-section')).toBeInTheDocument();
     expect(screen.getByText(CUSTOM_FIELD_LABELS.propertiesPanelMatchData)).toBeInTheDocument();
@@ -60,7 +81,7 @@ describe('PropertiesPanel', () => {
     expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldPosition)).toBeInTheDocument();
   });
 
-  it('ferme la s\u00e9lection avec le bouton X et revient aux donn\u00e9es du match', async () => {
+  it('ferme la s\u00e9lection avec le bouton X', async () => {
     const user = userEvent.setup();
     useScoreboardStore.getState().addCustomField(TEXT_ELEMENT, 50, 50, 200, 100);
     render(<PropertiesPanel />);

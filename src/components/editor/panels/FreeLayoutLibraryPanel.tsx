@@ -1,7 +1,7 @@
 /**
  * Panneau de biblioth\u00e8que unifi\u00e9 pour le mode Layout libre.
  * Regroupe toutes les cat\u00e9gories d'\u00e9l\u00e9ments avec des filtres horizontaux.
- * Affiche le HeaderSection quand la cat\u00e9gorie "match" est active.
+ * Cliquer sur un \u00e9l\u00e9ment de cat\u00e9gorie "match" ouvre les donn\u00e9es du match dans le panneau droit.
  */
 
 import { GripVertical } from 'lucide-react';
@@ -28,6 +28,13 @@ const CATEGORY_FILTER_LABELS: Readonly<Record<LibraryCategory | 'all', string>> 
   ...LIBRARY_CATEGORY_LABELS,
 };
 
+/** Types d'\u00e9l\u00e9ments qui utilisent les donn\u00e9es du match (noms d'\u00e9quipe, scores, drapeaux) */
+const MATCH_DATA_TYPES = new Set([
+  'team-name',
+  'score-display',
+  'flag-display',
+]);
+
 export function FreeLayoutLibraryPanel() {
   const fields = useScoreboardStore((s) => s.customFieldsData.fields);
   const templateWidth = useScoreboardStore((s) => s.templateWidth);
@@ -35,6 +42,7 @@ export function FreeLayoutLibraryPanel() {
   const addField = useScoreboardStore((s) => s.addCustomField);
   const activeCategory = useEditorUIStore((s) => s.activeLibraryCategory);
   const setCategory = useEditorUIStore((s) => s.setLibraryCategory);
+  const setMatchDataVisible = useEditorUIStore((s) => s.setMatchDataVisible);
   const { onDragStart } = useLibraryDragDrop();
 
   const isFull = fields.length >= FIELD_MAX_FIELDS;
@@ -50,6 +58,10 @@ export function FreeLayoutLibraryPanel() {
     const x = Math.round((templateWidth - w) / 2);
     const y = Math.round((templateHeight - h) / 2);
     addField(config, x, y, w, h, label);
+
+    if (MATCH_DATA_TYPES.has(el.type)) {
+      setMatchDataVisible(true);
+    }
   };
 
   return (
