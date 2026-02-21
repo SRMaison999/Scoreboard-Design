@@ -5,6 +5,7 @@ import { PropertiesPanel } from '../PropertiesPanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { useEditorUIStore } from '@/stores/editorUIStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
+import { EDITOR_LABELS } from '@/constants/labels';
 
 const TEXT_ELEMENT = {
   type: 'text-block' as const,
@@ -74,6 +75,26 @@ describe('PropertiesPanel', () => {
     render(<PropertiesPanel />);
     expect(screen.getByTestId('match-data-section')).toBeInTheDocument();
     expect(screen.getByText(CUSTOM_FIELD_LABELS.propertiesPanelMatchData)).toBeInTheDocument();
+  });
+
+  it('affiche les dropdowns \u00c9quipe 1 et \u00c9quipe 2 pour un champ nom d\u2019\u00e9quipe', () => {
+    useScoreboardStore.getState().addCustomField(TEAM_NAME_ELEMENT, 50, 50, 600, 160);
+    render(<PropertiesPanel />);
+    expect(screen.getByText(EDITOR_LABELS.team1Label)).toBeInTheDocument();
+    expect(screen.getByText(EDITOR_LABELS.team2Label)).toBeInTheDocument();
+    expect(screen.getByTestId('team-nation-selector')).toBeInTheDocument();
+  });
+
+  it('affiche les dropdowns \u00c9quipe 1 et \u00c9quipe 2 pour un champ drapeau', () => {
+    const FLAG_ELEMENT = {
+      type: 'flag-display' as const,
+      config: { side: 'left' as const },
+    };
+    useScoreboardStore.getState().addCustomField(FLAG_ELEMENT, 50, 50, 120, 80);
+    render(<PropertiesPanel />);
+    expect(screen.getByText(EDITOR_LABELS.team1Label)).toBeInTheDocument();
+    expect(screen.getByText(EDITOR_LABELS.team2Label)).toBeInTheDocument();
+    expect(screen.getByTestId('team-nation-selector')).toBeInTheDocument();
   });
 
   it('affiche les propri\u00e9t\u00e9s du champ s\u00e9lectionn\u00e9', () => {

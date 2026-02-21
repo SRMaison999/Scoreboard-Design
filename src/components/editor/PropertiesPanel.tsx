@@ -9,7 +9,6 @@ import { X, Users } from 'lucide-react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { useEditorUIStore } from '@/stores/editorUIStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
-import { Section } from '@/components/ui/Section';
 import { CustomFieldProperties } from './CustomFieldProperties';
 import { MultiSelectionToolbar } from './MultiSelectionToolbar';
 import { HeaderSection } from './HeaderSection';
@@ -99,15 +98,14 @@ export function PropertiesPanel() {
         </div>
       </div>
       <div className="flex-1 min-h-0 overflow-y-auto p-4">
-        {/* Données du match : visibles uniquement si un champ match est sélectionné */}
+        {/* Données du match : visibles directement (sans section repliable)
+             quand un champ match est sélectionné */}
         {showMatchData && hasSelection && (
           <div className="mb-3 pb-3 border-b border-gray-800" data-testid="match-data-section">
-            <Section
-              title={CUSTOM_FIELD_LABELS.propertiesPanelMatchData}
-              defaultOpen
-            >
-              <HeaderSection embedded />
-            </Section>
+            <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+              {CUSTOM_FIELD_LABELS.propertiesPanelMatchData}
+            </p>
+            <HeaderSection embedded />
           </div>
         )}
 
