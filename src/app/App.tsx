@@ -7,6 +7,7 @@ import { useOutputSyncSender } from '@/hooks/useOutputSync';
 import { useUserManual } from '@/hooks/useUserManual';
 import { EditorPanel } from '@/components/editor/EditorPanel';
 import { ScoreboardPreview } from '@/components/preview/ScoreboardPreview';
+import { PropertiesPanel } from '@/components/editor/PropertiesPanel';
 import { TemplateManager } from '@/components/editor/TemplateManager';
 import { UserManual } from '@/components/common/UserManual';
 import { EDITOR_LABELS } from '@/constants/labels';
@@ -129,8 +130,11 @@ export function App() {
           </div>
         </div>
 
-        <div className="flex-1 flex items-center justify-center p-6 bg-gray-950 overflow-hidden">
-          <ScoreboardPreview state={state} onInlineEdit={handleInlineEdit} />
+        <div className="flex-1 flex overflow-hidden">
+          <div className="flex-1 flex items-center justify-center p-6 bg-gray-950 overflow-hidden">
+            <ScoreboardPreview state={state} onInlineEdit={handleInlineEdit} />
+          </div>
+          {state.bodyType === 14 && <PropertiesPanel />}
         </div>
       </div>
 

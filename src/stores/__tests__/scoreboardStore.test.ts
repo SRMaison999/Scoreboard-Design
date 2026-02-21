@@ -12,6 +12,26 @@ describe('scoreboardStore', () => {
       useScoreboardStore.getState().update('team1', 'CAN');
       expect(useScoreboardStore.getState().team1).toBe('CAN');
     });
+
+    it('active showFlagTeam1 quand team1 est un code pays', () => {
+      useScoreboardStore.getState().update('team1', 'CAN');
+      expect(useScoreboardStore.getState().showFlagTeam1).toBe(true);
+    });
+
+    it('desactive showFlagTeam1 quand team1 n\'est pas un code pays', () => {
+      useScoreboardStore.getState().update('team1', 'CLUB1');
+      expect(useScoreboardStore.getState().showFlagTeam1).toBe(false);
+    });
+
+    it('active showFlagTeam2 quand team2 est un code pays', () => {
+      useScoreboardStore.getState().update('team2', 'FIN');
+      expect(useScoreboardStore.getState().showFlagTeam2).toBe(true);
+    });
+
+    it('desactive showFlagTeam2 quand team2 est vide', () => {
+      useScoreboardStore.getState().update('team2', '');
+      expect(useScoreboardStore.getState().showFlagTeam2).toBe(false);
+    });
   });
 
   describe('couleurs', () => {
@@ -270,6 +290,8 @@ describe('scoreboardStore', () => {
         templateWidth: s.templateWidth,
         templateHeight: s.templateHeight,
         fontSizes: { ...s.fontSizes },
+        showFlagTeam1: s.showFlagTeam1,
+        showFlagTeam2: s.showFlagTeam2,
         logoMode: s.logoMode,
         showCompetitionLogo: s.showCompetitionLogo,
         competitionLogoPosition: s.competitionLogoPosition,

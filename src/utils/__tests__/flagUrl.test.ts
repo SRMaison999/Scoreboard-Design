@@ -15,7 +15,7 @@ vi.mock('@/utils/svg', () => ({
   svgToDataUri: (svg: string) => `data:image/svg+xml;charset=utf-8,MOCK_${svg.length}`,
 }));
 
-import { resolveFlagUrl, getRawFlagSvg } from '@/utils/flagUrl';
+import { resolveFlagUrl, getRawFlagSvg, isCountryCode } from '@/utils/flagUrl';
 
 describe('resolveFlagUrl', () => {
   beforeEach(() => {
@@ -62,5 +62,21 @@ describe('getRawFlagSvg', () => {
 
   it('retourne une cha\u00eene vide pour un NOC inconnu', () => {
     expect(getRawFlagSvg('XYZ')).toBe('');
+  });
+});
+
+describe('isCountryCode', () => {
+  it('retourne true pour un code pays connu', () => {
+    expect(isCountryCode('CAN')).toBe(true);
+    expect(isCountryCode('USA')).toBe(true);
+  });
+
+  it('retourne false pour un code inconnu', () => {
+    expect(isCountryCode('XYZ')).toBe(false);
+    expect(isCountryCode('CLUB1')).toBe(false);
+  });
+
+  it('retourne false pour une chaine vide', () => {
+    expect(isCountryCode('')).toBe(false);
   });
 });

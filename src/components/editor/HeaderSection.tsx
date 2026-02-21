@@ -18,6 +18,8 @@ export function HeaderSection() {
   const displayName2 = useScoreboardStore((s) => s.teamDisplayName2);
   const score1 = useScoreboardStore((s) => s.score1);
   const score2 = useScoreboardStore((s) => s.score2);
+  const showFlagTeam1 = useScoreboardStore((s) => s.showFlagTeam1);
+  const showFlagTeam2 = useScoreboardStore((s) => s.showFlagTeam2);
   const bodyType = useScoreboardStore((s) => s.bodyType);
   const update = useScoreboardStore((s) => s.update);
 
@@ -43,6 +45,24 @@ export function HeaderSection() {
           onChange={(v) => update('team2', v)}
           className="flex-1"
         />
+      </div>
+      <div className="flex gap-4">
+        <label className="flex items-center gap-1.5 text-[11px] text-gray-300 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={showFlagTeam1}
+            onChange={(e) => update('showFlagTeam1', e.target.checked)}
+          />
+          {EDITOR_LABELS.showFlagTeam1}
+        </label>
+        <label className="flex items-center gap-1.5 text-[11px] text-gray-300 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={showFlagTeam2}
+            onChange={(e) => update('showFlagTeam2', e.target.checked)}
+          />
+          {EDITOR_LABELS.showFlagTeam2}
+        </label>
       </div>
       <div className="flex gap-2">
         <InputField

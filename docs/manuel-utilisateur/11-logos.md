@@ -23,6 +23,10 @@ L'application supporte quatre types de logos :
 
 L'application int\u00e8gre 31 drapeaux SVG correspondant aux nations de hockey (codes NOC). Ces drapeaux sont affich\u00e9s automatiquement dans l'en-t\u00eate du scoreboard et dans certains body types (goal, fiche joueur, classement, score final, roster).
 
+### Affichage automatique par \u00e9quipe
+
+Quand un code pays reconnu est s\u00e9lectionn\u00e9 comme \u00e9quipe, le drapeau correspondant s'affiche automatiquement. Deux cases \u00e0 cocher ind\u00e9pendantes (**Drapeau \u00e9quipe 1** et **Drapeau \u00e9quipe 2**) dans la section Header permettent de masquer ou r\u00e9afficher le drapeau individuellement. Lors d'un changement d'\u00e9quipe, la case est automatiquement coch\u00e9e si le nouveau code est un pays, ou d\u00e9coch\u00e9e sinon (par exemple pour un code de club).
+
 ### Remplacer un drapeau
 
 1. Dans le panneau \u00e9diteur, ouvrir la section **Logos**

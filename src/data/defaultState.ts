@@ -97,6 +97,9 @@ export const DEFAULT_STATE: ScoreboardState = {
 
   fontSizes: { ...DEFAULT_FONT_SIZES },
 
+  showFlagTeam1: true,
+  showFlagTeam2: true,
+
   logoMode: 'flag',
   showCompetitionLogo: false,
   competitionLogoPosition: 'top-right',

@@ -32,6 +32,8 @@ interface HeaderProps {
   readonly shootoutLeft?: readonly ShootoutAttempt[];
   readonly shootoutRight?: readonly ShootoutAttempt[];
   readonly logoMode?: LogoMode;
+  readonly showFlagTeam1?: boolean;
+  readonly showFlagTeam2?: boolean;
   readonly teamLogos?: Record<string, string>;
   readonly flagOverrides?: Record<string, string>;
   readonly scorePopLeft?: boolean;
@@ -108,24 +110,25 @@ function measureCapHeight(fontFamily: string, fontSize: number, fontWeight: numb
   return measured > 0 ? Math.round(measured) : Math.round(fontSize * 0.72);
 }
 
-function TeamBadge({ code, logoMode, teamLogos, flagOverrides, flagHeight }: {
+function TeamBadge({ code, logoMode, showFlagEnabled, teamLogos, flagOverrides, flagHeight }: {
   readonly code: string;
   readonly logoMode: LogoMode;
+  readonly showFlagEnabled: boolean;
   readonly teamLogos: Record<string, string>;
   readonly flagOverrides: Record<string, string>;
   readonly flagHeight: number;
 }) {
   const logoUrl = teamLogos[`team-${code}`] ?? '';
-  const showFlag = logoMode === 'flag' || logoMode === 'both' || !logoUrl;
+  const wantsFlag = showFlagEnabled && (logoMode === 'flag' || logoMode === 'both' || !logoUrl);
   const showLogo = (logoMode === 'logo' || logoMode === 'both') && logoUrl;
   const flagW = Math.round(flagHeight * FLAG_ASPECT);
 
-  if (showLogo && !showFlag) {
+  if (showLogo && !wantsFlag) {
     const logoStyle: CSSProperties = { width: flagW, height: flagHeight, objectFit: 'contain', flexShrink: 0 };
     return <img src={logoUrl} alt="" style={logoStyle} />;
   }
 
-  if (showLogo && showFlag) {
+  if (showLogo && wantsFlag) {
     const smallH = Math.round(flagHeight * 0.68);
     const smallW = Math.round(smallH * FLAG_ASPECT);
     const logoStyle: CSSProperties = { width: flagHeight, height: flagHeight, objectFit: 'contain', flexShrink: 0 };
@@ -136,6 +139,8 @@ function TeamBadge({ code, logoMode, teamLogos, flagOverrides, flagHeight }: {
       </div>
     );
   }
+
+  if (!wantsFlag) return null;
 
   return <Flag code={code} w={flagW} h={flagHeight} flagOverrides={flagOverrides} />;
 }
@@ -150,8 +155,8 @@ export function Header({
   fontSizeTeamName = 80, fontSizeScore = 80,
   showTimeouts = false, timeoutsLeft = 0, timeoutsRight = 0,
   showShootout = false, shootoutLeft = [], shootoutRight = [],
-  logoMode = 'flag', teamLogos = EMPTY_LOGOS,
-  flagOverrides = EMPTY_FLAG_OVERRIDES,
+  logoMode = 'flag', showFlagTeam1 = true, showFlagTeam2 = true,
+  teamLogos = EMPTY_LOGOS, flagOverrides = EMPTY_FLAG_OVERRIDES,
   scorePopLeft = false, scorePopRight = false,
   onEdit,
 }: HeaderProps) {
@@ -188,7 +193,7 @@ export function Header({
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-            <TeamBadge code={team1} logoMode={logoMode} teamLogos={teamLogos} flagOverrides={flagOverrides} flagHeight={flagH1} />
+            <TeamBadge code={team1} logoMode={logoMode} showFlagEnabled={showFlagTeam1} teamLogos={teamLogos} flagOverrides={flagOverrides} flagHeight={flagH1} />
             {showShootout && <ShootoutDisplay attempts={shootoutLeft} color={c('teamName')} />}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -216,7 +221,7 @@ export function Header({
             {showTimeouts && <TimeoutDots count={timeoutsRight} maxTimeouts={maxTimeouts} />}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-            <TeamBadge code={team2} logoMode={logoMode} teamLogos={teamLogos} flagOverrides={flagOverrides} flagHeight={flagH2} />
+            <TeamBadge code={team2} logoMode={logoMode} showFlagEnabled={showFlagTeam2} teamLogos={teamLogos} flagOverrides={flagOverrides} flagHeight={flagH2} />
             {showShootout && <ShootoutDisplay attempts={shootoutRight} color={c('teamName')} />}
           </div>
         </div>

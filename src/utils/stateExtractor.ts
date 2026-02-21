@@ -5,6 +5,7 @@ import type { ScoreboardStore } from '@/stores/scoreboardStore';
 const STATE_KEYS: readonly (keyof ScoreboardState)[] = [
   'bodyType', 'bgMode', 'showPenalties',
   'team1', 'team2', 'score1', 'score2',
+  'showFlagTeam1', 'showFlagTeam2',
   'time', 'period', 'showClock', 'clockBoxMode', 'clockTenthsThreshold',
   'periodOptions', 'demoRunning',
   'titleCenter', 'titleLeft', 'titleRight',

@@ -156,6 +156,17 @@ CAN, USA, RUS, SWE, FIN, CZE, SVK, SUI, GER, DEN, NOR, LAT, AUT, FRA, BLR, KAZ, 
 
 Chaque équipe est accompagnée de son drapeau SVG embarqué dans l'application. Les drapeaux peuvent être remplacés par des images personnalisées via l'onglet **Drapeaux** de la section Logos.
 
+### Drapeaux automatiques
+
+Quand un code pays est sélectionné (un code reconnu dans le registre des drapeaux), le drapeau correspondant s'affiche **automatiquement** à côté du nom de l'équipe.
+
+Deux cases à cocher **Drapeau équipe 1** et **Drapeau équipe 2** permettent de contrôler individuellement la visibilité de chaque drapeau :
+
+- **Cochée** : le drapeau est affiché
+- **Décochée** : le drapeau est masqué
+
+Ce comportement est automatique : lorsque l'utilisateur change d'équipe, la case est automatiquement cochée si le nouveau code correspond à un pays connu, ou décochée dans le cas contraire (par exemple pour un code de club). L'utilisateur peut toujours modifier manuellement la visibilité après la sélection.
+
 ## Scores
 
 Les scores sont saisis sous forme de texte libre. En mode opérateur, des boutons +/- permettent de les incrémenter/décrémenter rapidement.

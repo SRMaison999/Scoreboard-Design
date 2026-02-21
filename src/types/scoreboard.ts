@@ -153,6 +153,10 @@ export interface ScoreboardState {
   /* Tailles de police individuelles */
   fontSizes: FontSizeConfig;
 
+  /* Drapeaux par équipe (auto-détecté si le code est un pays) */
+  showFlagTeam1: boolean;
+  showFlagTeam2: boolean;
+
   /* Logos */
   logoMode: LogoMode;
   showCompetitionLogo: boolean;

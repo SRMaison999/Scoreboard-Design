@@ -97,4 +97,34 @@ describe('Header', () => {
     expect(flagEl.style.height).toBe('29px');
     expect(flagEl.style.width).toBe('45px');
   });
+
+  it('masque le drapeau de l\'equipe 1 quand showFlagTeam1 est false', () => {
+    const { container } = render(
+      <Header {...baseProps} showFlagTeam1={false} showFlagTeam2={true} />,
+    );
+    const svgs = container.querySelectorAll('svg');
+    expect(svgs).toHaveLength(1);
+  });
+
+  it('masque le drapeau de l\'equipe 2 quand showFlagTeam2 est false', () => {
+    const { container } = render(
+      <Header {...baseProps} showFlagTeam1={true} showFlagTeam2={false} />,
+    );
+    const svgs = container.querySelectorAll('svg');
+    expect(svgs).toHaveLength(1);
+  });
+
+  it('masque les deux drapeaux quand showFlagTeam1 et showFlagTeam2 sont false', () => {
+    const { container } = render(
+      <Header {...baseProps} showFlagTeam1={false} showFlagTeam2={false} />,
+    );
+    const svgs = container.querySelectorAll('svg');
+    expect(svgs).toHaveLength(0);
+  });
+
+  it('affiche les deux drapeaux par defaut (props non fournies)', () => {
+    const { container } = render(<Header {...baseProps} />);
+    const svgs = container.querySelectorAll('svg');
+    expect(svgs.length).toBeGreaterThanOrEqual(2);
+  });
 });

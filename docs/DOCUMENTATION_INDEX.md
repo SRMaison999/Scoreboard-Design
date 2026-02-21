@@ -73,7 +73,7 @@
 | Panneau calques | Renommage inline, icones de type, multi-selection | Termine |
 | Performance | React.memo sur les composants de rendu critiques | Termine |
 | Rail 4 onglets | Fusion des 10 onglets du rail en 4 (bibliotheque, canvas, calques, presets) avec filtres par categorie | Termine |
-| Panneau proprietes persistant | Proprietes toujours visibles en bas de la barre laterale, independamment de l'onglet actif | Termine |
+| Panneau proprietes lateral droit | Panneau de 300px affiche a droite du canvas quand un champ est selectionne, supporte selection simple et multiple | Termine |
 | Sections repliables | Position, z-index/rotation, style et config element dans des sections repliables | Termine |
 | Boutons z-index | Remplacement du champ numerique z-index par 4 boutons d'action (premier plan, avancer, reculer, arriere-plan) | Termine |
 | Grille + Smart Guides simultanees | La grille et les guides intelligents fonctionnent desormais ensemble (non exclusifs) | Termine |
