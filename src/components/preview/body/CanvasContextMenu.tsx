@@ -32,10 +32,10 @@ interface CanvasContextMenuProps {
 /* --- Constantes de style --- */
 
 const EMPTY_IDS: readonly string[] = [];
-const MENU_WIDTH = 260;
-const MENU_PADDING = 6;
-const ITEM_HEIGHT = 36;
-const SEPARATOR_HEIGHT = 9;
+const MENU_WIDTH = 300;
+const MENU_PADDING = 8;
+const ITEM_HEIGHT = 42;
+const SEPARATOR_HEIGHT = 11;
 const VIEWPORT_MARGIN = 8;
 
 /* --- Composant --- */
@@ -194,7 +194,8 @@ export function CanvasContextMenu({
         borderRadius: 10,
         padding: MENU_PADDING,
         zIndex: 99999,
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6)',
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06)',
+        backdropFilter: 'blur(12px)',
       }}
       onClick={(e) => e.stopPropagation()}
       onContextMenu={(e) => e.preventDefault()}
@@ -236,8 +237,9 @@ function MenuItemRow({ label, shortcut, disabled, onClick }: {
         borderRadius: 6,
         cursor: disabled ? 'default' : 'pointer',
         color: disabled ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.92)',
-        fontSize: 14,
+        fontSize: 15,
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontWeight: 400,
         userSelect: 'none',
         whiteSpace: 'nowrap',
       }}
@@ -253,7 +255,7 @@ function MenuItemRow({ label, shortcut, disabled, onClick }: {
     >
       <span>{label}</span>
       {shortcut && (
-        <span style={{ fontSize: 12, color: 'rgba(255, 255, 255, 0.45)', marginLeft: 20 }}>
+        <span style={{ fontSize: 13, color: 'rgba(255, 255, 255, 0.45)', marginLeft: 24 }}>
           {shortcut}
         </span>
       )}
