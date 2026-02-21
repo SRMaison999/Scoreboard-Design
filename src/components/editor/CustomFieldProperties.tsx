@@ -63,6 +63,11 @@ export function CustomFieldProperties({ fieldId }: CustomFieldPropertiesProps) {
         onChange={(v) => updateProp(fieldId, 'label', v)}
       />
 
+      {/* Configuration sp\u00e9cifique \u00e0 l'\u00e9l\u00e9ment — en premier pour acc\u00e8s imm\u00e9diat */}
+      <Section title={CUSTOM_FIELD_LABELS.elementTypeLabels[field.element.type] ?? field.element.type}>
+        <FieldElementConfigEditor fieldId={fieldId} element={field.element} />
+      </Section>
+
       {/* Alignement + verrouillage proportions */}
       <div className="flex items-center gap-1 pt-1">
         <button type="button" className="p-1 hover:text-sky-300 text-gray-400" onClick={() => handleAlign('align-left')} title={CUSTOM_FIELD_LABELS.alignLeft}>
@@ -96,7 +101,7 @@ export function CustomFieldProperties({ fieldId }: CustomFieldPropertiesProps) {
       </div>
 
       {/* Position et taille */}
-      <Section title={CUSTOM_FIELD_LABELS.fieldPosition} defaultOpen>
+      <Section title={CUSTOM_FIELD_LABELS.fieldPosition} defaultOpen={false}>
         <div className="grid grid-cols-2 gap-2">
           <div>
             <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.fieldX}</label>
@@ -154,7 +159,7 @@ export function CustomFieldProperties({ fieldId }: CustomFieldPropertiesProps) {
       </Section>
 
       {/* Ordre d'affichage + rotation */}
-      <Section title={CUSTOM_FIELD_LABELS.zIndexOrderTitle} defaultOpen>
+      <Section title={CUSTOM_FIELD_LABELS.zIndexOrderTitle} defaultOpen={false}>
         <div className="flex items-center gap-1" data-testid="z-index-buttons">
           <button type="button" className="p-1 hover:text-sky-300 text-gray-400 disabled:opacity-30 disabled:cursor-not-allowed" onClick={handleBringToFront} disabled={field.zIndex >= maxZ} title={CUSTOM_FIELD_LABELS.zIndexBringToFront}>
             <ChevronsUp size={14} className="flex-shrink-0" />
@@ -232,11 +237,6 @@ export function CustomFieldProperties({ fieldId }: CustomFieldPropertiesProps) {
 
       {/* Effets visuels */}
       <FieldEffectsEditor fieldId={fieldId} />
-
-      {/* Configuration sp\u00e9cifique \u00e0 l'\u00e9l\u00e9ment */}
-      <Section title={CUSTOM_FIELD_LABELS.elementTypeLabels[field.element.type] ?? field.element.type}>
-        <FieldElementConfigEditor fieldId={fieldId} element={field.element} />
-      </Section>
 
       <div className="flex gap-2 mt-1">
         <Button variant="ghost" onClick={() => duplicateField(fieldId)}>

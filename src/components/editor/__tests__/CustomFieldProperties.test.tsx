@@ -42,45 +42,49 @@ describe('CustomFieldProperties', () => {
     }
   });
 
-  it('affiche les labels de position X et Y', () => {
+  it('affiche les labels de position X et Y apr\u00e8s ouverture de la section', () => {
     useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
     const field = useScoreboardStore.getState().customFieldsData.fields[0];
 
     if (field) {
       render(<CustomFieldProperties fieldId={field.id} />);
+      fireEvent.click(screen.getByText(CUSTOM_FIELD_LABELS.fieldPosition));
       expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldX)).toBeInTheDocument();
       expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldY)).toBeInTheDocument();
     }
   });
 
-  it('affiche les labels de taille largeur et hauteur', () => {
+  it('affiche les labels de taille largeur et hauteur apr\u00e8s ouverture', () => {
     useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
     const field = useScoreboardStore.getState().customFieldsData.fields[0];
 
     if (field) {
       render(<CustomFieldProperties fieldId={field.id} />);
+      fireEvent.click(screen.getByText(CUSTOM_FIELD_LABELS.fieldPosition));
       expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldWidth)).toBeInTheDocument();
       expect(screen.getByText(CUSTOM_FIELD_LABELS.fieldHeight)).toBeInTheDocument();
     }
   });
 
-  it('affiche la section d\'ordre d\'affichage avec les boutons', () => {
+  it('affiche la section d\'ordre d\'affichage avec les boutons apr\u00e8s ouverture', () => {
     useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
     const field = useScoreboardStore.getState().customFieldsData.fields[0];
 
     if (field) {
       render(<CustomFieldProperties fieldId={field.id} />);
       expect(screen.getByText(CUSTOM_FIELD_LABELS.zIndexOrderTitle)).toBeInTheDocument();
+      fireEvent.click(screen.getByText(CUSTOM_FIELD_LABELS.zIndexOrderTitle));
       expect(screen.getByTestId('z-index-buttons')).toBeInTheDocument();
     }
   });
 
-  it('affiche les boutons de z-index', () => {
+  it('affiche les boutons de z-index apr\u00e8s ouverture', () => {
     useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
     const field = useScoreboardStore.getState().customFieldsData.fields[0];
 
     if (field) {
       render(<CustomFieldProperties fieldId={field.id} />);
+      fireEvent.click(screen.getByText(CUSTOM_FIELD_LABELS.zIndexOrderTitle));
       expect(screen.getByTitle(CUSTOM_FIELD_LABELS.zIndexBringToFront)).toBeInTheDocument();
       expect(screen.getByTitle(CUSTOM_FIELD_LABELS.zIndexBringForward)).toBeInTheDocument();
       expect(screen.getByTitle(CUSTOM_FIELD_LABELS.zIndexSendBackward)).toBeInTheDocument();
@@ -121,6 +125,7 @@ describe('CustomFieldProperties', () => {
 
     if (field) {
       render(<CustomFieldProperties fieldId={field.id} />);
+      fireEvent.click(screen.getByText(CUSTOM_FIELD_LABELS.zIndexOrderTitle));
       const input = screen.getByTestId('rotation-input') as HTMLInputElement;
       expect(input.value).toBe('0');
     }
@@ -132,6 +137,7 @@ describe('CustomFieldProperties', () => {
 
     if (field) {
       render(<CustomFieldProperties fieldId={field.id} />);
+      fireEvent.click(screen.getByText(CUSTOM_FIELD_LABELS.zIndexOrderTitle));
       expect(screen.queryByTestId('rotation-reset')).not.toBeInTheDocument();
     }
   });
@@ -143,6 +149,7 @@ describe('CustomFieldProperties', () => {
     if (field) {
       useScoreboardStore.getState().updateCustomFieldProp(field.id, 'rotation', 45);
       render(<CustomFieldProperties fieldId={field.id} />);
+      fireEvent.click(screen.getByText(CUSTOM_FIELD_LABELS.zIndexOrderTitle));
       expect(screen.getByTestId('rotation-reset')).toBeInTheDocument();
     }
   });
@@ -153,6 +160,7 @@ describe('CustomFieldProperties', () => {
 
     if (field) {
       render(<CustomFieldProperties fieldId={field.id} />);
+      fireEvent.click(screen.getByText(CUSTOM_FIELD_LABELS.zIndexOrderTitle));
       const input = screen.getByTestId('rotation-input');
       fireEvent.change(input, { target: { value: '90' } });
       const updated = useScoreboardStore.getState().customFieldsData.fields[0];
@@ -167,6 +175,7 @@ describe('CustomFieldProperties', () => {
     if (field) {
       useScoreboardStore.getState().updateCustomFieldProp(field.id, 'rotation', 45);
       render(<CustomFieldProperties fieldId={field.id} />);
+      fireEvent.click(screen.getByText(CUSTOM_FIELD_LABELS.zIndexOrderTitle));
       fireEvent.click(screen.getByTestId('rotation-reset'));
       const updated = useScoreboardStore.getState().customFieldsData.fields[0];
       expect(updated?.rotation).toBe(0);
