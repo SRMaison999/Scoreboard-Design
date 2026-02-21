@@ -269,6 +269,16 @@ export const useScoreboardStore = create<ScoreboardStore>()(
     {
       name: 'scoreboard-state',
       version: 8,
+      onRehydrateStorage: () => {
+        return () => {
+          /* selectedFieldIds est un etat de runtime, pas persistant.
+             Le vider au rechargement evite les selections fantomes. */
+          const s = useScoreboardStore.getState();
+          if (s.customFieldsData.selectedFieldIds.length > 0) {
+            s.clearFieldSelection();
+          }
+        };
+      },
       migrate: (persisted: unknown) => {
         const state = persisted as Record<string, unknown>;
         if (state['logoMode'] === undefined) {

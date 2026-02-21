@@ -1,8 +1,8 @@
 /**
- * Panneau de propri\u00e9t\u00e9s affich\u00e9 \u00e0 droite du canvas de preview.
+ * Panneau de propriétés affiché à droite du canvas de preview.
  * Toujours visible en mode Layout libre (Body Type 14).
- * Les donn\u00e9es du match (HeaderSection) sont affich\u00e9es uniquement
- * quand un champ de type match est s\u00e9lectionn\u00e9 ou demand\u00e9 explicitement.
+ * Les données du match (HeaderSection) sont affichées uniquement
+ * quand un champ de type match est sélectionné sur le canvas.
  */
 
 import { X, Users } from 'lucide-react';
@@ -16,7 +16,7 @@ import { HeaderSection } from './HeaderSection';
 
 const EMPTY_IDS: readonly string[] = [];
 
-/** Types d'\u00e9l\u00e9ments qui n\u00e9cessitent les donn\u00e9es du match */
+/** Types d'éléments qui nécessitent les données du match */
 const MATCH_DATA_TYPES = new Set([
   'team-name',
   'score-display',
@@ -48,7 +48,10 @@ export function PropertiesPanel() {
 
   const hasSelection = selectedFieldIds.length > 0;
   const needsMatchData = selectedType !== null && MATCH_DATA_TYPES.has(selectedType);
-  const showMatchData = needsMatchData || matchDataVisible;
+
+  /* Les données du match ne s'affichent que si un champ match est sélectionné
+     OU si l'utilisateur a ouvert manuellement la section ET qu'il y a une sélection */
+  const showMatchData = needsMatchData || (matchDataVisible && hasSelection);
 
   const handleClose = () => {
     if (hasSelection) {
@@ -59,9 +62,7 @@ export function PropertiesPanel() {
 
   const panelTitle = hasSelection
     ? CUSTOM_FIELD_LABELS.propertiesPanelTitle
-    : showMatchData
-      ? CUSTOM_FIELD_LABELS.propertiesPanelMatchData
-      : CUSTOM_FIELD_LABELS.propertiesPanelTitle;
+    : CUSTOM_FIELD_LABELS.propertiesPanelTitle;
 
   return (
     <div
@@ -73,7 +74,7 @@ export function PropertiesPanel() {
           {panelTitle}
         </span>
         <div className="flex items-center gap-1">
-          {!showMatchData && (
+          {hasSelection && !needsMatchData && !matchDataVisible && (
             <button
               type="button"
               onClick={() => setMatchDataVisible(true)}
@@ -84,7 +85,7 @@ export function PropertiesPanel() {
               <Users size={14} className="flex-shrink-0" />
             </button>
           )}
-          {(hasSelection || showMatchData) && (
+          {hasSelection && (
             <button
               type="button"
               onClick={handleClose}
@@ -98,7 +99,7 @@ export function PropertiesPanel() {
         </div>
       </div>
       <div className="flex-1 min-h-0 overflow-y-auto p-4">
-        {/* Donn\u00e9es du match : visibles uniquement si un champ match est s\u00e9lectionn\u00e9 ou demand\u00e9 */}
+        {/* Données du match : visibles uniquement si un champ match est sélectionné */}
         {showMatchData && hasSelection && (
           <div className="mb-3 pb-3 border-b border-gray-800" data-testid="match-data-section">
             <Section
@@ -110,10 +111,6 @@ export function PropertiesPanel() {
           </div>
         )}
 
-        {showMatchData && !hasSelection && (
-          <HeaderSection />
-        )}
-
         {singleSelectedId && (
           <CustomFieldProperties fieldId={singleSelectedId} />
         )}
@@ -121,7 +118,7 @@ export function PropertiesPanel() {
           <MultiSelectionToolbar count={selectedFieldIds.length} />
         )}
 
-        {!hasSelection && !showMatchData && (
+        {!hasSelection && (
           <div className="flex flex-col gap-3">
             <p className="text-[12px] text-gray-500">
               {CUSTOM_FIELD_LABELS.freeLayoutNoSelection}

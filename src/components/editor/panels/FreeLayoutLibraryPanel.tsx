@@ -8,6 +8,9 @@ import { GripVertical } from 'lucide-react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { useEditorUIStore } from '@/stores/editorUIStore';
 import { useLibraryDragDrop } from '@/hooks/useLibraryDragDrop';
+/* Note: les données du match (dropdowns d'équipe) s'affichent automatiquement
+   dans le PropertiesPanel quand un champ match est sélectionné sur le canvas.
+   Pas besoin de piloter matchDataVisible manuellement ici. */
 import { prepareFieldForAdd } from '@/utils/fieldConfig';
 import { cn } from '@/lib/utils';
 import {
@@ -28,13 +31,6 @@ const CATEGORY_FILTER_LABELS: Readonly<Record<LibraryCategory | 'all', string>> 
   ...LIBRARY_CATEGORY_LABELS,
 };
 
-/** Types d'\u00e9l\u00e9ments qui utilisent les donn\u00e9es du match (noms d'\u00e9quipe, scores, drapeaux) */
-const MATCH_DATA_TYPES = new Set([
-  'team-name',
-  'score-display',
-  'flag-display',
-]);
-
 export function FreeLayoutLibraryPanel() {
   const fields = useScoreboardStore((s) => s.customFieldsData.fields);
   const templateWidth = useScoreboardStore((s) => s.templateWidth);
@@ -42,7 +38,6 @@ export function FreeLayoutLibraryPanel() {
   const addField = useScoreboardStore((s) => s.addCustomField);
   const activeCategory = useEditorUIStore((s) => s.activeLibraryCategory);
   const setCategory = useEditorUIStore((s) => s.setLibraryCategory);
-  const setMatchDataVisible = useEditorUIStore((s) => s.setMatchDataVisible);
   const { onDragStart } = useLibraryDragDrop();
 
   const isFull = fields.length >= FIELD_MAX_FIELDS;
@@ -58,10 +53,6 @@ export function FreeLayoutLibraryPanel() {
     const x = Math.round((templateWidth - w) / 2);
     const y = Math.round((templateHeight - h) / 2);
     addField(config, x, y, w, h, label);
-
-    if (MATCH_DATA_TYPES.has(el.type)) {
-      setMatchDataVisible(true);
-    }
   };
 
   return (
