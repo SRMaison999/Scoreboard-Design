@@ -91,6 +91,12 @@ export function CustomFieldList() {
 
   return (
     <div className="flex flex-col gap-0.5" data-testid="custom-field-list">
+      {selectedIds.length > 1 && (
+        <div className="flex items-center gap-1 px-2 py-1 text-[11px] text-sky-400 bg-sky-900/20 rounded mb-0.5" data-testid="multi-select-indicator">
+          <span className="font-medium">{selectedIds.length}</span>
+          <span>{CUSTOM_FIELD_LABELS.multiSelectionCount}</span>
+        </div>
+      )}
       {sorted.map((field, idx) => (
         <div
           key={field.id}

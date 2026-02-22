@@ -26,7 +26,7 @@ function makeField(overrides: Partial<CustomField> & { id: string }): CustomFiel
     initialHeight: h,
     element: {
       type: 'text-block',
-      config: { content: '', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0 },
+      config: { content: '', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0, textColor: '#ffffff' },
     },
     style: DEFAULT_FIELD_STYLE,
     ...overrides,

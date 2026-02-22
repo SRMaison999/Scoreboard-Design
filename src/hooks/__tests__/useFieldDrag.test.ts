@@ -17,7 +17,7 @@ describe('useFieldDrag', () => {
   });
 
   it('sélectionne le champ au pointerDown', () => {
-    const element = { type: 'text-block' as const, config: { content: 'a', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
+    const element = { type: 'text-block' as const, config: { content: 'a', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0, textColor: '#ffffff' } };
     useScoreboardStore.getState().addCustomField(element, 50, 50, 200, 100);
     const fieldId = useScoreboardStore.getState().customFieldsData.fields[0]?.id ?? '';
 

@@ -42,7 +42,7 @@ export const EDITOR_LABELS = {
   sectionStats: 'Lignes de stats',
   sectionPlayerStats: 'Stats joueur',
   sectionPenaltiesPrefix: 'Pénalités',
-  sectionColorsBg: 'Couleurs - Background',
+  sectionColorsBg: 'Couleurs - Arrière-plan',
   sectionColorsHeader: 'Couleurs - Header',
   sectionColorsBody: 'Couleurs - Corps',
   sectionColorsPenalties: 'Couleurs - Pénalités',

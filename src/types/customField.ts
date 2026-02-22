@@ -63,6 +63,7 @@ export interface TextBlockConfig {
   readonly textAlign: 'left' | 'center' | 'right';
   readonly textTransform: 'none' | 'uppercase' | 'lowercase';
   readonly letterSpacing: number;
+  readonly textColor: string;
 }
 
 export interface ScoreDisplayConfig {

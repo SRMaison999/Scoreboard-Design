@@ -31,7 +31,7 @@ describe('SavePresetModal', () => {
   });
 
   it('le bouton sauvegarder est d\u00e9sactiv\u00e9 sans nom', () => {
-    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
+    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0, textColor: '#ffffff' } };
     useScoreboardStore.getState().addCustomField(element, 50, 50, 200, 100);
     render(<SavePresetModal open onClose={() => {}} defaultScope="layout" />);
     const saveBtn = screen.getByText(CUSTOM_FIELD_LABELS.presetSave);
@@ -40,7 +40,7 @@ describe('SavePresetModal', () => {
 
   it('sauvegarde un preset layout avec un nom', async () => {
     const user = userEvent.setup();
-    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
+    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0, textColor: '#ffffff' } };
     useScoreboardStore.getState().addCustomField(element, 50, 50, 200, 100);
 
     const onClose = vi.fn();
@@ -64,7 +64,7 @@ describe('SavePresetModal', () => {
   });
 
   it('affiche le nombre de champs capturés en mode zone', () => {
-    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
+    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0, textColor: '#ffffff' } };
     const zoneFields = [{
       id: 'z1', label: 'Zone 1', x: 0, y: 0, width: 100, height: 80,
       rotation: 0, zIndex: 1, locked: false, visible: true, lockAspectRatio: false,
@@ -79,7 +79,7 @@ describe('SavePresetModal', () => {
   });
 
   it('masque le sélecteur de portée en mode zone', () => {
-    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
+    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0, textColor: '#ffffff' } };
     const zoneFields = [{
       id: 'z1', label: 'Zone 1', x: 0, y: 0, width: 100, height: 80,
       rotation: 0, zIndex: 1, locked: false, visible: true, lockAspectRatio: false,
@@ -94,7 +94,7 @@ describe('SavePresetModal', () => {
 
   it('sauvegarde un preset avec les champs de zone', async () => {
     const user = userEvent.setup();
-    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0 } };
+    const element = { type: 'text-block' as const, config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center' as const, textTransform: 'none' as const, letterSpacing: 0, textColor: '#ffffff' } };
     const zoneFields = [{
       id: 'z1', label: 'Zone 1', x: 0, y: 0, width: 100, height: 80,
       rotation: 0, zIndex: 1, locked: false, visible: true, lockAspectRatio: false,

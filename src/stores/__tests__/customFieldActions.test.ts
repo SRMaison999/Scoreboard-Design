@@ -12,6 +12,7 @@ const TEXT_ELEMENT: FieldElementConfig = {
     textAlign: 'center',
     textTransform: 'uppercase',
     letterSpacing: 2,
+    textColor: '#ffffff',
   },
 };
 

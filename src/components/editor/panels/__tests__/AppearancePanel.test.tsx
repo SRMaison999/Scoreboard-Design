@@ -40,6 +40,6 @@ describe('AppearancePanel', () => {
     render(<AppearancePanel />);
 
     await user.click(screen.getByRole('tab', { name: /Couleurs/i }));
-    expect(screen.getByText(/Couleurs - Background/)).toBeInTheDocument();
+    expect(screen.getByText(/Couleurs - Arrière-plan/)).toBeInTheDocument();
   });
 });

@@ -7,7 +7,7 @@ import type { FieldElementConfig } from '@/types/customField';
 
 const textElement: FieldElementConfig = {
   type: 'text-block',
-  config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0 },
+  config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0, textColor: '#ffffff' },
 };
 
 describe('CustomFieldProperties', () => {
@@ -179,6 +179,44 @@ describe('CustomFieldProperties', () => {
       fireEvent.click(screen.getByTestId('rotation-reset'));
       const updated = useScoreboardStore.getState().customFieldsData.fields[0];
       expect(updated?.rotation).toBe(0);
+    }
+  });
+
+  it('affiche le toggle de verrouillage et bascule l\'état', () => {
+    useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
+    const field = useScoreboardStore.getState().customFieldsData.fields[0];
+
+    if (field) {
+      render(<CustomFieldProperties fieldId={field.id} />);
+      const lockBtn = screen.getByTestId('field-lock-toggle');
+      expect(lockBtn).toBeInTheDocument();
+
+      fireEvent.click(lockBtn);
+      const updated = useScoreboardStore.getState().customFieldsData.fields[0];
+      expect(updated?.locked).toBe(true);
+
+      fireEvent.click(lockBtn);
+      const unlocked = useScoreboardStore.getState().customFieldsData.fields[0];
+      expect(unlocked?.locked).toBe(false);
+    }
+  });
+
+  it('affiche le toggle de visibilité et bascule l\'état', () => {
+    useScoreboardStore.getState().addCustomField(textElement, 50, 60, 200, 100);
+    const field = useScoreboardStore.getState().customFieldsData.fields[0];
+
+    if (field) {
+      render(<CustomFieldProperties fieldId={field.id} />);
+      const visBtn = screen.getByTestId('field-visibility-toggle');
+      expect(visBtn).toBeInTheDocument();
+
+      fireEvent.click(visBtn);
+      const updated = useScoreboardStore.getState().customFieldsData.fields[0];
+      expect(updated?.visible).toBe(false);
+
+      fireEvent.click(visBtn);
+      const visible = useScoreboardStore.getState().customFieldsData.fields[0];
+      expect(visible?.visible).toBe(true);
     }
   });
 });

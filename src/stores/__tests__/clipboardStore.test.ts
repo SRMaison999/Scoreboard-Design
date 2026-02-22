@@ -14,6 +14,7 @@ function makeField(id: string): CustomField {
       textAlign: 'center',
       textTransform: 'none',
       letterSpacing: 0,
+      textColor: '#ffffff',
     },
   };
   return {

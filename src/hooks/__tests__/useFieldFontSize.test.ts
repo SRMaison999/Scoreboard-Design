@@ -52,6 +52,7 @@ describe('useFieldFontSize', () => {
         content: 'Test', fontSize: 30, fontWeight: 400, fontFamily: '',
         textAlign: 'center' as const, textTransform: 'none' as const,
         letterSpacing: 0,
+        textColor: '#ffffff',
       },
     };
     useScoreboardStore.getState().addCustomField(element, 0, 0, 200, 100);
@@ -68,6 +69,7 @@ describe('useFieldFontSize', () => {
         content: 'Test', fontSize: 30, fontWeight: 400, fontFamily: '',
         textAlign: 'center' as const, textTransform: 'none' as const,
         letterSpacing: 0,
+        textColor: '#ffffff',
       },
     };
     useScoreboardStore.getState().addCustomField(element, 0, 0, 200, 100);
@@ -90,6 +92,7 @@ describe('useFieldFontSize', () => {
         content: 'Test', fontSize: 30, fontWeight: 400, fontFamily: '',
         textAlign: 'center' as const, textTransform: 'none' as const,
         letterSpacing: 0,
+        textColor: '#ffffff',
       },
     };
     useScoreboardStore.getState().addCustomField(element, 0, 0, 200, 100);
@@ -139,6 +142,7 @@ describe('useFieldFontSize', () => {
         content: 'Test', fontSize: 30, fontWeight: 400, fontFamily: '',
         textAlign: 'center' as const, textTransform: 'none' as const,
         letterSpacing: 0,
+        textColor: '#ffffff',
       },
     };
     useScoreboardStore.getState().addCustomField(element, 0, 0, 200, 100);
@@ -160,6 +164,7 @@ describe('useFieldFontSize', () => {
         content: 'Test', fontSize: 30, fontWeight: 400, fontFamily: '',
         textAlign: 'center' as const, textTransform: 'none' as const,
         letterSpacing: 0,
+        textColor: '#ffffff',
       },
     };
     useScoreboardStore.getState().addCustomField(element, 0, 0, 200, 100);
@@ -181,6 +186,7 @@ describe('useFieldFontSize', () => {
         content: 'Test', fontSize: 30, fontWeight: 400, fontFamily: '',
         textAlign: 'center' as const, textTransform: 'none' as const,
         letterSpacing: 0,
+        textColor: '#ffffff',
       },
     };
     useScoreboardStore.getState().addCustomField(element, 0, 0, 200, 100);
@@ -201,6 +207,7 @@ describe('useFieldFontSize', () => {
         content: 'Test', fontSize: 30, fontWeight: 400, fontFamily: '',
         textAlign: 'center' as const, textTransform: 'none' as const,
         letterSpacing: 0,
+        textColor: '#ffffff',
       },
     };
     useScoreboardStore.getState().addCustomField(element, 0, 0, 200, 100);
@@ -225,6 +232,7 @@ describe('useFieldFontSize', () => {
         content: 'Test', fontSize: 50, fontWeight: 400, fontFamily: '',
         textAlign: 'center' as const, textTransform: 'none' as const,
         letterSpacing: 0,
+        textColor: '#ffffff',
       },
     };
     useScoreboardStore.getState().addCustomField(element, 0, 0, 200, 100);

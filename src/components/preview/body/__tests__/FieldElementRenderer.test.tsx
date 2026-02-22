@@ -17,7 +17,7 @@ describe('FieldElementRenderer', () => {
   it('rend un text-block avec son contenu', () => {
     const element: FieldElementConfig = {
       type: 'text-block',
-      config: { content: 'Mon texte', fontSize: 24, fontWeight: 600, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0 },
+      config: { content: 'Mon texte', fontSize: 24, fontWeight: 600, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0, textColor: '#ffffff' },
     };
     render(<FieldElementRenderer element={element} {...defaultProps} />);
     expect(screen.getByText('Mon texte')).toBeInTheDocument();

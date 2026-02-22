@@ -13,6 +13,7 @@ const TEXT_ELEMENT = {
     textAlign: 'center' as const, textTransform: 'none' as const,
     fontFamily: '',
     letterSpacing: 0,
+    textColor: '#ffffff',
   },
 };
 

@@ -7,7 +7,7 @@ import type { CustomField, FieldElementConfig } from '@/types/customField';
 function makeField(x: number, y: number, w = 100, h = 80): CustomField {
   const element: FieldElementConfig = {
     type: 'text-block',
-    config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0 },
+    config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0, textColor: '#ffffff' },
   };
   return {
     id: `f-${x}-${y}`, label: 'Test', x, y, width: w, height: h,

@@ -15,6 +15,7 @@ export function Section({ title, defaultOpen = true, children }: SectionProps) {
       <button
         type="button"
         onClick={() => setOpen(!open)}
+        aria-expanded={open}
         className="flex items-center justify-between border-b border-gray-800 pb-1 cursor-pointer"
       >
         <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">

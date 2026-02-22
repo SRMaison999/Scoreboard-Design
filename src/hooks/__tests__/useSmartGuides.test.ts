@@ -19,7 +19,7 @@ function makeField(overrides: Partial<CustomField> & { id: string }): CustomFiel
     scaleContent: true,
     initialWidth: overrides.width ?? 100,
     initialHeight: overrides.height ?? 100,
-    element: { type: 'text-block', config: { content: '', fontSize: 24, fontWeight: 400, fontFamily: '', textAlign: 'left', textTransform: 'none', letterSpacing: 0 } },
+    element: { type: 'text-block', config: { content: '', fontSize: 24, fontWeight: 400, fontFamily: '', textAlign: 'left', textTransform: 'none', letterSpacing: 0, textColor: '#ffffff' } },
     style: { ...DEFAULT_FIELD_STYLE },
     ...overrides,
   } as CustomField;

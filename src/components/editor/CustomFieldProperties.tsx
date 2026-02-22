@@ -9,6 +9,7 @@ import {
   AlignStartHorizontal, AlignCenterHorizontal, AlignEndHorizontal,
   Ratio, RotateCcw,
   ChevronsUp, ChevronUp, ChevronDown, ChevronsDown,
+  Lock, Unlock, Eye, EyeOff,
 } from 'lucide-react';
 import { InputField } from '@/components/ui/InputField';
 import { Button } from '@/components/ui/Button';
@@ -97,6 +98,25 @@ export function CustomFieldProperties({ fieldId }: CustomFieldPropertiesProps) {
           title={CUSTOM_FIELD_LABELS.fieldLockAspectRatio}
         >
           <Ratio size={14} className="flex-shrink-0" />
+        </button>
+        <div className="w-px h-4 bg-gray-700 mx-1" />
+        <button
+          type="button"
+          data-testid="field-lock-toggle"
+          className={`p-1 flex-shrink-0 ${field.locked ? 'text-amber-400' : 'text-gray-400 hover:text-sky-300'}`}
+          onClick={() => updateProp(fieldId, 'locked', !field.locked)}
+          title={CUSTOM_FIELD_LABELS.fieldLocked}
+        >
+          {field.locked ? <Lock size={14} className="flex-shrink-0" /> : <Unlock size={14} className="flex-shrink-0" />}
+        </button>
+        <button
+          type="button"
+          data-testid="field-visibility-toggle"
+          className={`p-1 flex-shrink-0 ${field.visible ? 'text-gray-400 hover:text-sky-300' : 'text-red-400'}`}
+          onClick={() => updateProp(fieldId, 'visible', !field.visible)}
+          title={CUSTOM_FIELD_LABELS.fieldVisible}
+        >
+          {field.visible ? <Eye size={14} className="flex-shrink-0" /> : <EyeOff size={14} className="flex-shrink-0" />}
         </button>
       </div>
 

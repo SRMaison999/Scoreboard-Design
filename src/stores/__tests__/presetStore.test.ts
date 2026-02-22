@@ -21,7 +21,7 @@ const MOCK_FIELD: CustomField = {
   initialHeight: 100,
   element: {
     type: 'text-block',
-    config: { content: 'Test', fontSize: 24, fontWeight: 600, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0 },
+    config: { content: 'Test', fontSize: 24, fontWeight: 600, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0, textColor: '#ffffff' },
   },
   style: DEFAULT_FIELD_STYLE,
 };

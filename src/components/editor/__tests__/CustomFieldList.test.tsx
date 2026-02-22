@@ -8,7 +8,7 @@ import type { FieldElementConfig } from '@/types/customField';
 
 const textElement: FieldElementConfig = {
   type: 'text-block',
-  config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0 },
+  config: { content: 'test', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0, textColor: '#ffffff' },
 };
 
 describe('CustomFieldList', () => {
@@ -97,6 +97,24 @@ describe('CustomFieldList', () => {
     await user.keyboard('{Enter}');
 
     expect(useScoreboardStore.getState().customFieldsData.fields[0]?.label).toBe('Nouveau nom');
+  });
+
+  it('affiche l\'indicateur de multi-sélection quand 2+ champs sélectionnés', () => {
+    useScoreboardStore.getState().addCustomField(textElement, 0, 0, 200, 100);
+    useScoreboardStore.getState().addCustomField(textElement, 100, 0, 200, 100);
+    const fields = useScoreboardStore.getState().customFieldsData.fields;
+    useScoreboardStore.getState().selectCustomField(fields[0]!.id);
+    useScoreboardStore.getState().toggleFieldSelection(fields[1]!.id);
+
+    render(<CustomFieldList />);
+    expect(screen.getByTestId('multi-select-indicator')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
+  });
+
+  it('ne montre pas l\'indicateur avec un seul champ sélectionné', () => {
+    useScoreboardStore.getState().addCustomField(textElement, 0, 0, 200, 100);
+    render(<CustomFieldList />);
+    expect(screen.queryByTestId('multi-select-indicator')).not.toBeInTheDocument();
   });
 
   it('annule le renommage avec Echap', async () => {

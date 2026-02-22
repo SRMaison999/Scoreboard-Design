@@ -5,7 +5,7 @@ import { ColorSection } from '@/components/editor/ColorSection';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 
 async function expandBgSection(user: ReturnType<typeof userEvent.setup>) {
-  await user.click(screen.getByText('Couleurs - Background'));
+  await user.click(screen.getByText('Couleurs - Arrière-plan'));
 }
 
 describe('ColorSection', () => {
