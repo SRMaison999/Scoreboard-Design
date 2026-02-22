@@ -8,9 +8,6 @@ import { GripVertical } from 'lucide-react';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { useEditorUIStore } from '@/stores/editorUIStore';
 import { useLibraryDragDrop } from '@/hooks/useLibraryDragDrop';
-/* Note: les données du match (dropdowns d'équipe) s'affichent automatiquement
-   dans le PropertiesPanel quand un champ match est sélectionné sur le canvas.
-   Pas besoin de piloter matchDataVisible manuellement ici. */
 import { prepareFieldForAdd } from '@/utils/fieldConfig';
 import { cn } from '@/lib/utils';
 import {

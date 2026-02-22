@@ -1,9 +1,8 @@
 /**
  * Panneau de propriétés affiché à droite du canvas de preview.
  * Toujours visible en mode Layout libre (Body Type 14).
- * La section "Données du match" (équipes, scores, drapeaux) est TOUJOURS
- * affichée en haut du panneau en mode Layout libre, car tous les éléments
- * match (score, nom d'équipe, drapeau) en dépendent.
+ * C'est l'UNIQUE emplacement de la section "Données du match"
+ * (équipes, scores, drapeaux) : tous les contrôles match sont ici.
  */
 
 import { X } from 'lucide-react';
