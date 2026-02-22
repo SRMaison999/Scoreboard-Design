@@ -3,7 +3,7 @@
  * Gere le drag start cote bibliotheque et le drop cote canvas.
  */
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { CUSTOM_FIELD_LABELS, LIBRARY_ELEMENTS } from '@/constants/customFields';
 import type { FieldElementType, LibraryElement } from '@/types/customField';
 
@@ -72,8 +72,12 @@ interface CanvasDropResult {
 interface UseLibraryDragDropReturn {
   /** Indique si un drag de bibliotheque survole le canvas */
   readonly isDragOver: boolean;
+  /** Ref indiquant si un drag est en cours ou vient de se terminer (pour bloquer onClick) */
+  readonly wasDragged: React.RefObject<boolean>;
   /** Gestionnaire onDragStart pour les elements de la bibliotheque */
   readonly onDragStart: (e: React.DragEvent, elementType: FieldElementType) => void;
+  /** Gestionnaire onDragEnd pour le bouton source (reinitialise le flag de drag) */
+  readonly onDragEnd: () => void;
   /** Gestionnaire onDragOver pour le canvas */
   readonly onDragOver: (e: React.DragEvent) => void;
   /** Gestionnaire onDragLeave pour le canvas */
@@ -87,13 +91,22 @@ interface UseLibraryDragDropReturn {
  */
 export function useLibraryDragDrop(): UseLibraryDragDropReturn {
   const [isDragOver, setIsDragOver] = useState(false);
+  const wasDragged = useRef(false);
 
   const onDragStart = useCallback(
     (e: React.DragEvent, elementType: FieldElementType) => {
+      wasDragged.current = true;
       handleDragStart(e, elementType);
     },
     [],
   );
+
+  const onDragEnd = useCallback(() => {
+    /* Garder le flag actif un frame pour bloquer le click residuel */
+    requestAnimationFrame(() => {
+      wasDragged.current = false;
+    });
+  }, []);
 
   const onDragOver = useCallback((e: React.DragEvent) => {
     if (!isLibraryDrag(e)) return;
@@ -131,5 +144,5 @@ export function useLibraryDragDrop(): UseLibraryDragDropReturn {
     [],
   );
 
-  return { isDragOver, onDragStart, onDragOver, onDragLeave, onDrop };
+  return { isDragOver, wasDragged, onDragStart, onDragEnd, onDragOver, onDragLeave, onDrop };
 }

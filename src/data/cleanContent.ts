@@ -1,3 +1,4 @@
+import { DEFAULT_CUSTOM_FIELDS_DATA } from '@/types/customField';
 import type { ScoreboardState } from '@/types/scoreboard';
 
 /**
@@ -99,4 +100,6 @@ export const CLEAN_CONTENT: Partial<ScoreboardState> = {
     title: '',
     matches: [],
   },
+
+  customFieldsData: structuredClone(DEFAULT_CUSTOM_FIELDS_DATA),
 };

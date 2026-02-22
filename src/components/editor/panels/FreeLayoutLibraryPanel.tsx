@@ -35,7 +35,7 @@ export function FreeLayoutLibraryPanel() {
   const addField = useScoreboardStore((s) => s.addCustomField);
   const activeCategory = useEditorUIStore((s) => s.activeLibraryCategory);
   const setCategory = useEditorUIStore((s) => s.setLibraryCategory);
-  const { onDragStart } = useLibraryDragDrop();
+  const { onDragStart, onDragEnd, wasDragged } = useLibraryDragDrop();
 
   const isFull = fields.length >= FIELD_MAX_FIELDS;
   const items = activeCategory === 'all'
@@ -43,7 +43,7 @@ export function FreeLayoutLibraryPanel() {
     : LIBRARY_ELEMENTS.filter((el) => el.category === activeCategory);
 
   const handleAdd = (el: LibraryElement) => {
-    if (isFull) return;
+    if (isFull || wasDragged.current) return;
     const { config, label } = prepareFieldForAdd(el, fields);
     const w = Math.min(el.defaultWidth, templateWidth);
     const h = Math.min(el.defaultHeight, templateHeight);
@@ -90,6 +90,7 @@ export function FreeLayoutLibraryPanel() {
                 draggable={!isFull}
                 onClick={() => handleAdd(el)}
                 onDragStart={(e) => onDragStart(e, el.type)}
+                onDragEnd={onDragEnd}
                 title={isFull ? CUSTOM_FIELD_LABELS.maxFieldsReached : CUSTOM_FIELD_LABELS.dragTooltip}
                 className={cn(
                   'group flex items-start gap-2 text-left rounded-md px-3 py-2',
