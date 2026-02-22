@@ -11,11 +11,13 @@ import { PropertiesPanel } from '@/components/editor/PropertiesPanel';
 import { TemplateManager } from '@/components/editor/TemplateManager';
 import { UserManual } from '@/components/common/UserManual';
 import { EDITOR_LABELS } from '@/constants/labels';
+import { useToastStore } from '@/stores/toastStore';
 import { captureScreenshot, buildScreenshotFilename } from '@/utils/screenshot';
 import { generateSpec, downloadSpec } from '@/utils/specGenerator';
 import { generateExplanation, downloadExplanation } from '@/utils/specExplanation';
 import { extractState } from '@/utils/stateExtractor';
 import { Camera, Printer, Radio, BookOpen, FileCode } from 'lucide-react';
+import { ToastContainer } from '@/components/ui/ToastContainer';
 import '@/styles/index.css';
 import '@/styles/print.css';
 
@@ -41,12 +43,16 @@ export function App() {
     window.location.href = isElectron ? '#/operator' : '/operator';
   }, [isElectron]);
 
+  const addToast = useToastStore((s) => s.addToast);
+
   const handleScreenshot = useCallback(() => {
     const el = document.querySelector<HTMLElement>('[data-testid="scoreboard-canvas"]');
     if (!el) return;
     const filename = buildScreenshotFilename(state.team1, state.team2);
-    void captureScreenshot(el, filename);
-  }, [state.team1, state.team2]);
+    void captureScreenshot(el, filename).then(() => {
+      addToast(EDITOR_LABELS.screenshotSuccess);
+    });
+  }, [state.team1, state.team2, addToast]);
 
   const handlePrint = useCallback(() => {
     window.print();
@@ -138,6 +144,7 @@ export function App() {
         </div>
       </div>
 
+      <ToastContainer />
       <UserManual
         open={manual.isOpen}
         onClose={manual.close}

@@ -6,6 +6,7 @@ import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { useTemplateStore } from '@/stores/templateStore';
 import { extractState } from '@/utils/stateExtractor';
 import { EDITOR_LABELS } from '@/constants/labels';
+import { useToastStore } from '@/stores/toastStore';
 import { PRESET_TEMPLATES } from '@/data/presetTemplates';
 import type { ScoreboardTemplate } from '@/types/template';
 
@@ -18,6 +19,7 @@ export function TemplateManager() {
 
   const state = useScoreboardStore();
   const { templates, fetchTemplates, saveTemplate, deleteTemplate, duplicateTemplate, renameTemplate, exportTemplate, importTemplate } = useTemplateStore();
+  const addToast = useToastStore((s) => s.addToast);
 
   useEffect(() => {
     void fetchTemplates();
@@ -45,12 +47,14 @@ export function TemplateManager() {
     if (!name) return;
     await saveTemplate(name, extractState(state));
     closeModal();
-  }, [inputValue, state, saveTemplate, closeModal]);
+    addToast(EDITOR_LABELS.templateSaved);
+  }, [inputValue, state, saveTemplate, closeModal, addToast]);
 
   const handleLoad = useCallback((template: ScoreboardTemplate) => {
     state.loadState(template.state);
     closeModal();
-  }, [state, closeModal]);
+    addToast(EDITOR_LABELS.templateLoaded);
+  }, [state, closeModal, addToast]);
 
   const handleLoadPreset = useCallback((presetState: ScoreboardTemplate['state']) => {
     state.loadState(presetState);
@@ -61,11 +65,13 @@ export function TemplateManager() {
     if (!activeTemplate) return;
     await deleteTemplate(activeTemplate.id);
     closeModal();
-  }, [activeTemplate, deleteTemplate, closeModal]);
+    addToast(EDITOR_LABELS.templateDeleted);
+  }, [activeTemplate, deleteTemplate, closeModal, addToast]);
 
   const handleDuplicate = useCallback(async (id: string) => {
     await duplicateTemplate(id);
-  }, [duplicateTemplate]);
+    addToast(EDITOR_LABELS.templateDuplicated);
+  }, [duplicateTemplate, addToast]);
 
   const handleExport = useCallback(async (id: string) => {
     await exportTemplate(id);
@@ -90,11 +96,12 @@ export function TemplateManager() {
     if (!file) return;
     try {
       await importTemplate(file);
+      addToast(EDITOR_LABELS.templateLoaded);
     } catch {
-      /* Import error silently handled */
+      addToast(EDITOR_LABELS.templateImportError, 'error');
     }
     if (fileInputRef.current) fileInputRef.current.value = '';
-  }, [importTemplate]);
+  }, [importTemplate, addToast]);
 
   const openRename = useCallback((template: ScoreboardTemplate) => {
     setActiveTemplate(template);
