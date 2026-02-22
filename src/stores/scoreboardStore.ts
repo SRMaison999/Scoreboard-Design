@@ -271,12 +271,11 @@ export const useScoreboardStore = create<ScoreboardStore>()(
       version: 8,
       onRehydrateStorage: () => {
         return () => {
-          /* selectedFieldIds est un etat de runtime, pas persistant.
-             Le vider au rechargement evite les selections fantomes. */
+          /* Repartir d'un contenu vierge a chaque chargement.
+             Les reglages techniques (couleurs, polices, dimensions) sont
+             preserves, seuls les donnees de contenu sont reinitialises. */
           const s = useScoreboardStore.getState();
-          if (s.customFieldsData.selectedFieldIds.length > 0) {
-            s.clearFieldSelection();
-          }
+          s.clearContent();
         };
       },
       migrate: (persisted: unknown) => {

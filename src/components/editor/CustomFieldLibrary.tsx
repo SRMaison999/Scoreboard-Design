@@ -27,7 +27,7 @@ export function CustomFieldLibrary() {
   const templateWidth = useScoreboardStore((s) => s.templateWidth);
   const templateHeight = useScoreboardStore((s) => s.templateHeight);
   const addField = useScoreboardStore((s) => s.addCustomField);
-  const { onDragStart } = useLibraryDragDrop();
+  const { onDragStart, onDragEnd, wasDragged } = useLibraryDragDrop();
 
   const filtered = useMemo(() => {
     if (!search.trim()) return LIBRARY_ELEMENTS;
@@ -38,7 +38,7 @@ export function CustomFieldLibrary() {
   const isFull = fields.length >= FIELD_MAX_FIELDS;
 
   const handleAdd = (el: LibraryElement) => {
-    if (isFull) return;
+    if (isFull || wasDragged.current) return;
     const { config, label } = prepareFieldForAdd(el, fields);
 
     const w = Math.min(el.defaultWidth, templateWidth);
@@ -79,6 +79,7 @@ export function CustomFieldLibrary() {
                   draggable={!isFull}
                   onClick={() => handleAdd(el)}
                   onDragStart={(e) => onDragStart(e, el.type)}
+                  onDragEnd={onDragEnd}
                   title={isFull ? CUSTOM_FIELD_LABELS.maxFieldsReached : CUSTOM_FIELD_LABELS.dragTooltip}
                   className={cn(
                     'group flex items-center gap-1.5 text-[12px] text-gray-300 rounded px-1.5 py-1 text-left',
