@@ -7,11 +7,13 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ZoomBar } from '@/components/preview/ZoomBar';
 import { useCanvasViewStore } from '@/stores/canvasViewStore';
+import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 
 describe('ZoomBar', () => {
   beforeEach(() => {
     useCanvasViewStore.setState({ zoom: 1, panX: 0, panY: 0, baseScale: 1 });
+    useScoreboardStore.getState().resetState();
   });
 
   it('affiche le pourcentage effectif (zoom * baseScale * 100)', () => {
@@ -84,9 +86,32 @@ describe('ZoomBar', () => {
     expect(screen.getByTestId('zoom-bar')).toBeInTheDocument();
   });
 
-  it('les boutons contiennent des icônes Lucide', () => {
+  it('les boutons contiennent des icônes Lucide (sans layout libre)', () => {
     const { container } = render(<ZoomBar />);
     const svgs = container.querySelectorAll('svg');
     expect(svgs.length).toBe(4);
+  });
+
+  it('affiche les boutons undo/redo en mode layout libre', () => {
+    useScoreboardStore.getState().update('bodyType', 14);
+    render(<ZoomBar />);
+    expect(screen.getByTitle(/Annuler/)).toBeInTheDocument();
+    expect(screen.getByTitle(/Rétablir/)).toBeInTheDocument();
+  });
+
+  it('les boutons undo/redo sont désactivés sans historique', () => {
+    useScoreboardStore.getState().update('bodyType', 14);
+    render(<ZoomBar />);
+    const undoBtn = screen.getByTitle(/Annuler/);
+    const redoBtn = screen.getByTitle(/Rétablir/);
+    expect(undoBtn).toBeDisabled();
+    expect(redoBtn).toBeDisabled();
+  });
+
+  it('ne montre pas les boutons undo/redo hors layout libre', () => {
+    useScoreboardStore.getState().update('bodyType', 1);
+    render(<ZoomBar />);
+    expect(screen.queryByTitle(/Annuler/)).not.toBeInTheDocument();
+    expect(screen.queryByTitle(/Rétablir/)).not.toBeInTheDocument();
   });
 });
