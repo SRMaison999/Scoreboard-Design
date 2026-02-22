@@ -61,7 +61,7 @@ describe('customField types et constantes', () => {
   it('FieldElementConfig union accepte un text-block', () => {
     const config: FieldElementConfig = {
       type: 'text-block',
-      config: { content: 'test', fontSize: 24, fontWeight: 600, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0 },
+      config: { content: 'test', fontSize: 24, fontWeight: 600, fontFamily: '', textAlign: 'center', textTransform: 'none', letterSpacing: 0, textColor: '#ffffff' },
     };
     expect(config.type).toBe('text-block');
   });
@@ -82,7 +82,7 @@ describe('customField types et constantes', () => {
       rotation: 0, zIndex: 1,
       locked: false, visible: true, lockAspectRatio: false,
       scaleContent: true, initialWidth: 100, initialHeight: 80,
-      element: { type: 'text-block', config: { content: 'a', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'left', textTransform: 'none', letterSpacing: 0 } },
+      element: { type: 'text-block', config: { content: 'a', fontSize: 20, fontWeight: 400, fontFamily: '', textAlign: 'left', textTransform: 'none', letterSpacing: 0, textColor: '#ffffff' } },
       style: { ...DEFAULT_FIELD_STYLE },
     };
     expect(field.id).toBe('test-id');

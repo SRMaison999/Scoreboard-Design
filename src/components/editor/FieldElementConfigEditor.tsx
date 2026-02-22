@@ -129,16 +129,27 @@ function TextBlockEditor({ fieldId, element }: {
           ]}
         />
       </div>
-      <div>
-        <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.configTextLetterSpacing}</label>
-        <input
-          type="number"
-          min={0}
-          max={20}
-          value={c.letterSpacing}
-          onChange={(e) => patch({ letterSpacing: Number(e.target.value) })}
-          className="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded px-2 py-0.5 text-[13px]"
-        />
+      <div className="grid grid-cols-2 gap-2">
+        <div>
+          <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.configTextLetterSpacing}</label>
+          <input
+            type="number"
+            min={0}
+            max={20}
+            value={c.letterSpacing}
+            onChange={(e) => patch({ letterSpacing: Number(e.target.value) })}
+            className="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded px-2 py-0.5 text-[13px]"
+          />
+        </div>
+        <div>
+          <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.configTextColor}</label>
+          <input
+            type="color"
+            value={c.textColor || '#ffffff'}
+            onChange={(e) => patch({ textColor: e.target.value })}
+            className="w-full h-7 bg-gray-800 border border-gray-700 rounded cursor-pointer"
+          />
+        </div>
       </div>
     </div>
   );

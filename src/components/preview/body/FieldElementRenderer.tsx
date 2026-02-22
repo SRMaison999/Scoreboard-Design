@@ -46,6 +46,7 @@ function TextBlockElement({ element }: {
     readonly fontWeight: number; readonly fontFamily?: string;
     readonly textAlign: string;
     readonly textTransform: string; readonly letterSpacing: number;
+    readonly textColor?: string;
   } };
 }) {
   const c = element.config;
@@ -57,7 +58,7 @@ function TextBlockElement({ element }: {
       fontFamily: c.fontFamily || undefined,
       textAlign: c.textAlign as 'left' | 'center' | 'right',
       textTransform: c.textTransform as 'none' | 'uppercase' | 'lowercase',
-      letterSpacing: c.letterSpacing, color: '#ffffff',
+      letterSpacing: c.letterSpacing, color: c.textColor || '#ffffff',
       overflow: 'hidden', whiteSpace: 'pre-wrap',
     }}>
       {c.content}

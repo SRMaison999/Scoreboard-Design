@@ -16,6 +16,7 @@ describe('FieldElementConfigEditor', () => {
         textAlign: 'center',
         textTransform: 'none',
         letterSpacing: 0,
+        textColor: '#ffffff',
       },
     };
     render(<FieldElementConfigEditor fieldId="f1" element={element} />);

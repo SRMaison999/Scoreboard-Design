@@ -14,6 +14,7 @@ const TEXT_BLOCK_ELEMENT: FieldElementConfig = {
     textAlign: 'center',
     textTransform: 'none',
     letterSpacing: 0,
+    textColor: '#ffffff',
   },
 };
 

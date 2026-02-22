@@ -17,6 +17,7 @@ function makeField(id: string, overrides?: Partial<CustomField>): CustomField {
       textAlign: 'center',
       textTransform: 'none',
       letterSpacing: 0,
+      textColor: '#ffffff',
     },
   };
   return {

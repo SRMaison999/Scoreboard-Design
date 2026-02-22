@@ -52,6 +52,7 @@ export function makeTextField(
         textAlign: options?.textAlign ?? 'center',
         textTransform: options?.textTransform ?? 'uppercase',
         letterSpacing: options?.letterSpacing ?? 0,
+        textColor: '#ffffff',
       },
     },
     style: { ...baseStyle },

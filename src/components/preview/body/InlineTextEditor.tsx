@@ -88,7 +88,7 @@ export function InlineTextEditor({
         textAlign: config.textAlign,
         textTransform: config.textTransform,
         letterSpacing: config.letterSpacing,
-        color: '#ffffff',
+        color: (config as { textColor?: string }).textColor || '#ffffff',
         overflow: 'hidden',
         whiteSpace: 'pre-wrap',
         outline: 'none',

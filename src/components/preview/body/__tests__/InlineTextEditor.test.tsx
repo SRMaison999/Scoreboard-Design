@@ -11,6 +11,7 @@ const DEFAULT_CONFIG: TextBlockConfig = {
   textAlign: 'center',
   textTransform: 'none',
   letterSpacing: 0,
+  textColor: '#ffffff',
 };
 
 describe('InlineTextEditor', () => {

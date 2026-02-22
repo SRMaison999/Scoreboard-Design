@@ -14,6 +14,7 @@ const textElement: FieldElementConfig = {
     textAlign: 'center',
     textTransform: 'none',
     letterSpacing: 0,
+    textColor: '#ffffff',
   },
 };
 

@@ -35,7 +35,7 @@ function makeField(overrides: Partial<CustomField> = {}): CustomField {
     scaleContent: true,
     initialWidth: 200,
     initialHeight: 80,
-    element: { type: 'text-block', config: { content: 'Test', fontSize: 24, fontWeight: 400, fontFamily: '', textAlign: 'left', textTransform: 'none', letterSpacing: 0 } },
+    element: { type: 'text-block', config: { content: 'Test', fontSize: 24, fontWeight: 400, fontFamily: '', textAlign: 'left', textTransform: 'none', letterSpacing: 0, textColor: '#ffffff' } },
     style: { ...DEFAULT_FIELD_STYLE },
     ...overrides,
   } as CustomField;
