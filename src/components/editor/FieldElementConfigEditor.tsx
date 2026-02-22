@@ -92,10 +92,10 @@ function TextBlockEditor({ fieldId, element }: {
           value={String(c.fontWeight)}
           onChange={(v) => patch({ fontWeight: Number(v) })}
           options={[
-            { value: '400', label: 'Normal' },
-            { value: '500', label: 'Medium' },
-            { value: '600', label: 'Semi-bold' },
-            { value: '700', label: 'Bold' },
+            { value: '400', label: CUSTOM_FIELD_LABELS.fontWeightNormal },
+            { value: '500', label: CUSTOM_FIELD_LABELS.fontWeightMedium },
+            { value: '600', label: CUSTOM_FIELD_LABELS.fontWeightSemiBold },
+            { value: '700', label: CUSTOM_FIELD_LABELS.fontWeightBold },
           ]}
         />
       </div>
@@ -130,7 +130,7 @@ function TextBlockEditor({ fieldId, element }: {
         />
       </div>
       <div>
-        <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.configSeparatorThickness}</label>
+        <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.configTextLetterSpacing}</label>
         <input
           type="number"
           min={0}

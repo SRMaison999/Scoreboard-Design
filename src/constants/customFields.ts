@@ -125,6 +125,18 @@ export const CUSTOM_FIELD_LABELS = {
   configSeparatorThickness: '\u00c9paisseur',
   configSeparatorColor: 'Couleur',
 
+  /* Espacement des lettres */
+  configTextLetterSpacing: 'Espacement des lettres',
+
+  /* Graisses de police */
+  fontWeightNormal: 'Normal',
+  fontWeightMedium: 'Moyen',
+  fontWeightSemiBold: 'Semi-gras',
+  fontWeightBold: 'Gras',
+
+  /* Couleur du texte */
+  configTextColor: 'Couleur du texte',
+
   /* Police de caract\u00e8res */
   configFontFamily: 'Police',
   configFontFamilyGlobal: 'Police globale',
