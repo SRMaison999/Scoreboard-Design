@@ -10,12 +10,13 @@ import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 
 export function ZoomBar() {
   const zoom = useCanvasViewStore((s) => s.zoom);
+  const baseScale = useCanvasViewStore((s) => s.baseScale);
   const zoomIn = useCanvasViewStore((s) => s.zoomIn);
   const zoomOut = useCanvasViewStore((s) => s.zoomOut);
   const zoomToFit = useCanvasViewStore((s) => s.zoomToFit);
   const zoomTo100 = useCanvasViewStore((s) => s.zoomTo100);
 
-  const zoomPercent = Math.round(zoom * 100);
+  const zoomPercent = Math.round(zoom * baseScale * 100);
 
   return (
     <div

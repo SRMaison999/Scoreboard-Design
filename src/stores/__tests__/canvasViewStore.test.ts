@@ -8,7 +8,7 @@ import { useCanvasViewStore } from '@/stores/canvasViewStore';
 
 describe('canvasViewStore', () => {
   beforeEach(() => {
-    useCanvasViewStore.setState({ zoom: 1, panX: 0, panY: 0 });
+    useCanvasViewStore.setState({ zoom: 1, panX: 0, panY: 0, baseScale: 1 });
   });
 
   /* --- Valeurs par défaut --- */
@@ -18,6 +18,7 @@ describe('canvasViewStore', () => {
     expect(state.zoom).toBe(1);
     expect(state.panX).toBe(0);
     expect(state.panY).toBe(0);
+    expect(state.baseScale).toBe(1);
   });
 
   /* --- setZoom --- */
@@ -59,6 +60,13 @@ describe('canvasViewStore', () => {
     const state = useCanvasViewStore.getState();
     expect(state.panX).toBe(-200);
     expect(state.panY).toBe(-300);
+  });
+
+  /* --- setBaseScale --- */
+
+  it('setBaseScale met à jour le facteur de base', () => {
+    useCanvasViewStore.getState().setBaseScale(0.5);
+    expect(useCanvasViewStore.getState().baseScale).toBe(0.5);
   });
 
   /* --- zoomIn --- */
@@ -116,15 +124,39 @@ describe('canvasViewStore', () => {
 
   /* --- zoomTo100 --- */
 
-  it('zoomTo100 réinitialise le zoom à 1 et le pan à (0, 0)', () => {
-    useCanvasViewStore.getState().setZoom(0.5);
+  it('zoomTo100 calcule le zoom pour 100% réel quand baseScale = 0.5', () => {
+    useCanvasViewStore.getState().setBaseScale(0.5);
     useCanvasViewStore.getState().setPan(-200, 300);
     useCanvasViewStore.getState().zoomTo100();
 
     const state = useCanvasViewStore.getState();
-    expect(state.zoom).toBe(1);
+    expect(state.zoom).toBe(2);
     expect(state.panX).toBe(0);
     expect(state.panY).toBe(0);
+  });
+
+  it('zoomTo100 calcule le zoom pour 100% réel quand baseScale = 0.33', () => {
+    useCanvasViewStore.getState().setBaseScale(0.33);
+    useCanvasViewStore.getState().zoomTo100();
+
+    const state = useCanvasViewStore.getState();
+    expect(state.zoom).toBeCloseTo(1 / 0.33, 2);
+  });
+
+  it('zoomTo100 clampe le zoom au maximum si baseScale est très petit', () => {
+    useCanvasViewStore.getState().setBaseScale(0.1);
+    useCanvasViewStore.getState().zoomTo100();
+
+    const state = useCanvasViewStore.getState();
+    expect(state.zoom).toBe(4);
+  });
+
+  it('zoomTo100 ne fait rien si baseScale est 0', () => {
+    useCanvasViewStore.getState().setBaseScale(0);
+    useCanvasViewStore.getState().setZoom(2);
+    useCanvasViewStore.getState().zoomTo100();
+
+    expect(useCanvasViewStore.getState().zoom).toBe(2);
   });
 
   /* --- Enchaînements --- */

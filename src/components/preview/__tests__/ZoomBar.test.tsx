@@ -11,27 +11,34 @@ import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 
 describe('ZoomBar', () => {
   beforeEach(() => {
-    useCanvasViewStore.setState({ zoom: 1, panX: 0, panY: 0 });
+    useCanvasViewStore.setState({ zoom: 1, panX: 0, panY: 0, baseScale: 1 });
   });
 
-  it('affiche le pourcentage de zoom par défaut (100 %)', () => {
+  it('affiche le pourcentage effectif (zoom * baseScale * 100)', () => {
+    render(<ZoomBar />);
+    const percentage = screen.getByTestId('zoom-percentage');
+    expect(percentage).toHaveTextContent('100');
+  });
+
+  it('affiche le pourcentage effectif quand baseScale = 0.5', () => {
+    useCanvasViewStore.setState({ zoom: 1, baseScale: 0.5 });
+    render(<ZoomBar />);
+    const percentage = screen.getByTestId('zoom-percentage');
+    expect(percentage).toHaveTextContent('50');
+  });
+
+  it('affiche 100% quand zoom compense le baseScale', () => {
+    useCanvasViewStore.setState({ zoom: 2, baseScale: 0.5 });
     render(<ZoomBar />);
     const percentage = screen.getByTestId('zoom-percentage');
     expect(percentage).toHaveTextContent('100');
   });
 
   it('affiche le pourcentage de zoom arrondi', () => {
-    useCanvasViewStore.setState({ zoom: 0.333 });
+    useCanvasViewStore.setState({ zoom: 0.333, baseScale: 1 });
     render(<ZoomBar />);
     const percentage = screen.getByTestId('zoom-percentage');
     expect(percentage).toHaveTextContent('33');
-  });
-
-  it('affiche un pourcentage correct à 200 %', () => {
-    useCanvasViewStore.setState({ zoom: 2 });
-    render(<ZoomBar />);
-    const percentage = screen.getByTestId('zoom-percentage');
-    expect(percentage).toHaveTextContent('200');
   });
 
   it('le bouton zoom avant appelle zoomIn', () => {
@@ -51,7 +58,7 @@ describe('ZoomBar', () => {
   });
 
   it('le bouton ajuster à l\'écran réinitialise le zoom et le pan', () => {
-    useCanvasViewStore.setState({ zoom: 2, panX: 100, panY: -50 });
+    useCanvasViewStore.setState({ zoom: 2, panX: 100, panY: -50, baseScale: 0.5 });
     render(<ZoomBar />);
     const btn = screen.getByTitle(/Ajuster.*cran \(Ctrl\+0\)/);
     fireEvent.click(btn);
@@ -61,13 +68,13 @@ describe('ZoomBar', () => {
     expect(state.panY).toBe(0);
   });
 
-  it('le bouton 100 % réinitialise le zoom et le pan', () => {
-    useCanvasViewStore.setState({ zoom: 0.5, panX: -200, panY: 300 });
+  it('le bouton 100% calcule le zoom réel basé sur baseScale', () => {
+    useCanvasViewStore.setState({ zoom: 1, panX: -200, panY: 300, baseScale: 0.5 });
     render(<ZoomBar />);
     const btn = screen.getByTitle(/Zoom 100.*% \(Ctrl\+1\)/);
     fireEvent.click(btn);
     const state = useCanvasViewStore.getState();
-    expect(state.zoom).toBe(1);
+    expect(state.zoom).toBe(2);
     expect(state.panX).toBe(0);
     expect(state.panY).toBe(0);
   });

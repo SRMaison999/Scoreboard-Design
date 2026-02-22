@@ -126,6 +126,7 @@ export interface ScoreboardActions {
   resetCustomFieldScale: (fieldId: string) => void;
   reorderCustomField: (fieldId: string, newZIndex: number) => void;
   selectCustomField: (fieldId: string | null) => void;
+  selectFields: (fieldIds: readonly string[]) => void;
   toggleFieldSelection: (fieldId: string) => void;
   selectAllFields: () => void;
   clearFieldSelection: () => void;

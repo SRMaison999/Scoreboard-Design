@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useScaling } from '@/hooks/useScaling';
 import { usePlayerPhotos } from '@/hooks/usePlayerPhotos';
 import { useLogos } from '@/hooks/useLogos';
@@ -23,6 +23,12 @@ export function ScoreboardPreview({ state, onInlineEdit }: ScoreboardPreviewProp
   const scale = useScaling(wrapRef, w, h);
 
   const isLayoutLibre = state.bodyType === 14;
+  const setBaseScale = useCanvasViewStore((s) => s.setBaseScale);
+
+  useEffect(() => {
+    if (isLayoutLibre) setBaseScale(scale);
+  }, [scale, isLayoutLibre, setBaseScale]);
+
   const zoom = useCanvasViewStore((s) => s.zoom);
   const panX = useCanvasViewStore((s) => s.panX);
   const panY = useCanvasViewStore((s) => s.panY);

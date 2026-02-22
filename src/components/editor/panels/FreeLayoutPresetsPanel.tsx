@@ -22,6 +22,7 @@ export function FreeLayoutPresetsPanel() {
   const fieldsCount = useScoreboardStore((s) => s.customFieldsData.fields.length);
   const zoneSelectionActive = useScoreboardStore((s) => s.customFieldsData.zoneSelectionActive);
   const updateOption = useScoreboardStore((s) => s.updateCustomFieldsOption);
+  const selectFields = useScoreboardStore((s) => s.selectFields);
   const capturedFields = useZoneSelectionStore((s) => s.capturedFields);
   const clearCapturedFields = useZoneSelectionStore((s) => s.clearCapturedFields);
 
@@ -32,12 +33,10 @@ export function FreeLayoutPresetsPanel() {
 
   useEffect(() => {
     if (capturedFields && capturedFields.length > 0) {
-      setZoneFields(capturedFields);
-      setSaveScope('layout');
-      setSaveOpen(true);
+      selectFields(capturedFields.map((f) => f.id));
       clearCapturedFields();
     }
-  }, [capturedFields, clearCapturedFields]);
+  }, [capturedFields, clearCapturedFields, selectFields]);
 
   const handleOpenSaveField = () => {
     setZoneFields(undefined);

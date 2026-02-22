@@ -236,6 +236,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { reorderCustomFieldDraft(s, fieldId, newZIndex); }),
       selectCustomField: (fieldId) =>
         set((s) => { s.customFieldsData.selectedFieldIds = fieldId ? [fieldId] : []; }),
+      selectFields: (fieldIds) =>
+        set((s) => { s.customFieldsData.selectedFieldIds = [...fieldIds]; }),
       toggleFieldSelection: (fieldId) =>
         set((s) => {
           const ids = s.customFieldsData.selectedFieldIds;
