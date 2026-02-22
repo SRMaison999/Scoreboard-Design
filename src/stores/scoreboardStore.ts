@@ -269,15 +269,11 @@ export const useScoreboardStore = create<ScoreboardStore>()(
     {
       name: 'scoreboard-state',
       version: 8,
-      onRehydrateStorage: () => {
-        return () => {
-          /* Repartir d'un contenu vierge a chaque chargement.
-             Les reglages techniques (couleurs, polices, dimensions) sont
-             preserves, seuls les donnees de contenu sont reinitialises. */
-          const s = useScoreboardStore.getState();
-          s.clearContent();
-        };
-      },
+      merge: (persistedState, currentState) => ({
+        ...currentState,
+        ...(persistedState as Partial<ScoreboardStore>),
+        ...structuredClone(CLEAN_CONTENT),
+      }),
       migrate: (persisted: unknown) => {
         const state = persisted as Record<string, unknown>;
         if (state['logoMode'] === undefined) {
