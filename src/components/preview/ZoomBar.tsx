@@ -40,6 +40,7 @@ export function ZoomBar() {
         type="button"
         onClick={zoomOut}
         title={CUSTOM_FIELD_LABELS.zoomOut}
+        aria-label={CUSTOM_FIELD_LABELS.zoomOut}
         className={cn(
           'p-1 rounded text-gray-400 hover:text-gray-100',
           'hover:bg-gray-700 transition-colors',
@@ -60,6 +61,7 @@ export function ZoomBar() {
         type="button"
         onClick={zoomIn}
         title={CUSTOM_FIELD_LABELS.zoomIn}
+        aria-label={CUSTOM_FIELD_LABELS.zoomIn}
         className={cn(
           'p-1 rounded text-gray-400 hover:text-gray-100',
           'hover:bg-gray-700 transition-colors',
@@ -76,6 +78,7 @@ export function ZoomBar() {
             onClick={undo}
             disabled={!canUndo}
             title={`${CUSTOM_FIELD_LABELS.undoAction} (Ctrl+Z)`}
+            aria-label={`${CUSTOM_FIELD_LABELS.undoAction} (Ctrl+Z)`}
             className={cn(
               'p-1 rounded transition-colors',
               canUndo ? 'text-gray-400 hover:text-gray-100 hover:bg-gray-700' : 'text-gray-600 cursor-not-allowed',
@@ -88,6 +91,7 @@ export function ZoomBar() {
             onClick={redo}
             disabled={!canRedo}
             title={`${CUSTOM_FIELD_LABELS.redoAction} (Ctrl+Y)`}
+            aria-label={`${CUSTOM_FIELD_LABELS.redoAction} (Ctrl+Y)`}
             className={cn(
               'p-1 rounded transition-colors',
               canRedo ? 'text-gray-400 hover:text-gray-100 hover:bg-gray-700' : 'text-gray-600 cursor-not-allowed',
@@ -104,6 +108,7 @@ export function ZoomBar() {
         type="button"
         onClick={zoomToFit}
         title={`${CUSTOM_FIELD_LABELS.zoomToFit} (Ctrl+0)`}
+        aria-label={`${CUSTOM_FIELD_LABELS.zoomToFit} (Ctrl+0)`}
         className={cn(
           'p-1 rounded text-gray-400 hover:text-gray-100',
           'hover:bg-gray-700 transition-colors',
@@ -116,6 +121,7 @@ export function ZoomBar() {
         type="button"
         onClick={zoomTo100}
         title={`${CUSTOM_FIELD_LABELS.zoom100} (Ctrl+1)`}
+        aria-label={`${CUSTOM_FIELD_LABELS.zoom100} (Ctrl+1)`}
         className={cn(
           'p-1 rounded text-gray-400 hover:text-gray-100',
           'hover:bg-gray-700 transition-colors',

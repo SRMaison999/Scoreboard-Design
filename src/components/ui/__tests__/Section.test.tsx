@@ -31,4 +31,15 @@ describe('Section', () => {
     await user.click(screen.getByRole('button'));
     expect(screen.getByText('Contenu')).toBeInTheDocument();
   });
+
+  it('expose aria-expanded selon l\'état ouvert/fermé', async () => {
+    const user = userEvent.setup();
+    render(
+      <Section title="Test"><p>Contenu</p></Section>,
+    );
+    const btn = screen.getByRole('button');
+    expect(btn).toHaveAttribute('aria-expanded', 'true');
+    await user.click(btn);
+    expect(btn).toHaveAttribute('aria-expanded', 'false');
+  });
 });
