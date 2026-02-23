@@ -1,8 +1,8 @@
 /**
  * Panneau de propriétés affiché à droite du canvas de preview.
- * Toujours visible en mode Layout libre (Body Type 14).
- * C'est l'UNIQUE emplacement de la section "Données du match"
- * (équipes, scores, drapeaux) : tous les contrôles match sont ici.
+ * Visible en mode Layout libre (Body Type 14).
+ * La section "Données du match" (équipes, scores, drapeaux) n'apparaît
+ * que lorsqu'un champ de type "Nom d'équipe" ou "Drapeau" est sélectionné.
  */
 
 import { X } from 'lucide-react';
@@ -11,14 +11,28 @@ import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import { CustomFieldProperties } from './CustomFieldProperties';
 import { MultiSelectionToolbar } from './MultiSelectionToolbar';
 import { HeaderSection } from './HeaderSection';
+import type { FieldElementType } from '@/types/customField';
 
 const EMPTY_IDS: readonly string[] = [];
+
+const TEAM_RELATED_TYPES: ReadonlySet<FieldElementType> = new Set([
+  'team-name',
+  'flag-display',
+]);
 
 export function PropertiesPanel() {
   const selectedFieldIds = useScoreboardStore(
     (s) => s.customFieldsData?.selectedFieldIds ?? EMPTY_IDS,
   );
   const clearSelection = useScoreboardStore((s) => s.clearFieldSelection);
+
+  const hasTeamRelatedSelection = useScoreboardStore((s) => {
+    const ids = s.customFieldsData?.selectedFieldIds ?? EMPTY_IDS;
+    if (ids.length === 0) return false;
+    return s.customFieldsData.fields.some(
+      (f) => ids.includes(f.id) && TEAM_RELATED_TYPES.has(f.element.type),
+    );
+  });
 
   const singleSelectedId = selectedFieldIds.length === 1
     ? selectedFieldIds[0] ?? null
@@ -48,13 +62,14 @@ export function PropertiesPanel() {
         )}
       </div>
       <div className="flex-1 min-h-0 overflow-y-auto p-4">
-        {/* Données du match : TOUJOURS visible en mode Layout libre */}
-        <div className="mb-3 pb-3 border-b border-gray-800" data-testid="match-data-section">
-          <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
-            {CUSTOM_FIELD_LABELS.propertiesPanelMatchData}
-          </p>
-          <HeaderSection embedded />
-        </div>
+        {hasTeamRelatedSelection && (
+          <div className="mb-3 pb-3 border-b border-gray-800" data-testid="match-data-section">
+            <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+              {CUSTOM_FIELD_LABELS.propertiesPanelMatchData}
+            </p>
+            <HeaderSection embedded />
+          </div>
+        )}
 
         {singleSelectedId && (
           <CustomFieldProperties fieldId={singleSelectedId} />
