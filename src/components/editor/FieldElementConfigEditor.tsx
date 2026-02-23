@@ -13,6 +13,7 @@ import { updateFieldElementConfig } from '@/utils/fieldConfig';
 import { ShapeEditor, SeparatorEditor, ImageEditor } from './FieldVisualEditors';
 import { ClockDataEditor, TimeoutEditor, ShootoutEditor } from './FieldMatchEditors';
 import { TextBlockEditor } from './FieldTextEditor';
+import { StatLineDataEditor, BarCompareDataEditor, PenaltyColumnEditor, HeaderBlockFullEditor, BodyTypeEmbeddedInfo } from './FieldDataEditors';
 import { TeamNationSelector } from './TeamNationSelector';
 
 interface FieldElementConfigEditorProps {
@@ -84,25 +85,6 @@ function ShowFlagToggle({ fieldId, element }: {
   );
 }
 
-function HeaderBlockEditor({ fieldId, element }: {
-  readonly fieldId: string;
-  readonly element: Extract<FieldElementConfig, { type: 'header-block' }>;
-}) {
-  const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
-  const c = element.config;
-
-  return (
-    <label className="flex items-center gap-2 text-[12px] text-gray-300">
-      <input
-        type="checkbox"
-        checked={c.showClock}
-        onChange={(e) => updateFieldElementConfig(updateElement, fieldId, element, { showClock: e.target.checked })}
-      />
-      {CUSTOM_FIELD_LABELS.configShowClock}
-    </label>
-  );
-}
-
 function ClockDisplayEditor({ fieldId, element }: {
   readonly fieldId: string;
   readonly element: Extract<FieldElementConfig, { type: 'clock-display' }>;
@@ -130,50 +112,6 @@ function ClockDisplayEditor({ fieldId, element }: {
         {CUSTOM_FIELD_LABELS.configShowBox}
       </label>
       <FontSizeOverrideInput fieldId={fieldId} element={element} />
-    </div>
-  );
-}
-
-function StatLineEditor({ fieldId, element }: {
-  readonly fieldId: string;
-  readonly element: Extract<FieldElementConfig, { type: 'stat-line' }>;
-}) {
-  const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
-  const statsCount = useScoreboardStore((s) => s.stats.length);
-
-  return (
-    <div>
-      <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.configStatIndex}</label>
-      <input
-        type="number"
-        min={0}
-        max={Math.max(0, statsCount - 1)}
-        value={element.config.statIndex}
-        onChange={(e) => updateFieldElementConfig(updateElement, fieldId, element, { statIndex: Number(e.target.value) })}
-        className="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded px-2 py-0.5 text-[13px]"
-      />
-    </div>
-  );
-}
-
-function BarCompareEditor({ fieldId, element }: {
-  readonly fieldId: string;
-  readonly element: Extract<FieldElementConfig, { type: 'bar-compare' }>;
-}) {
-  const updateElement = useScoreboardStore((s) => s.updateCustomFieldElement);
-  const rowsCount = useScoreboardStore((s) => s.barChartData.rows.length);
-
-  return (
-    <div>
-      <label className="text-[11px] text-gray-400">{CUSTOM_FIELD_LABELS.configBarIndex}</label>
-      <input
-        type="number"
-        min={0}
-        max={Math.max(0, rowsCount - 1)}
-        value={element.config.barIndex}
-        onChange={(e) => updateFieldElementConfig(updateElement, fieldId, element, { barIndex: Number(e.target.value) })}
-        className="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded px-2 py-0.5 text-[13px]"
-      />
     </div>
   );
 }
@@ -244,9 +182,14 @@ export function FieldElementConfigEditor({ fieldId, element }: FieldElementConfi
         </div>
       );
     case 'penalty-column':
-      return <SideSelector fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <SideSelector fieldId={fieldId} element={element} />
+          <PenaltyColumnEditor element={element} />
+        </div>
+      );
     case 'header-block':
-      return <HeaderBlockEditor fieldId={fieldId} element={element} />;
+      return <HeaderBlockFullEditor fieldId={fieldId} element={element} />;
     case 'clock-display':
       return <ClockDisplayEditor fieldId={fieldId} element={element} />;
     case 'period-display':
@@ -257,9 +200,9 @@ export function FieldElementConfigEditor({ fieldId, element }: FieldElementConfi
         </div>
       );
     case 'stat-line':
-      return <StatLineEditor fieldId={fieldId} element={element} />;
+      return <StatLineDataEditor fieldId={fieldId} element={element} />;
     case 'bar-compare':
-      return <BarCompareEditor fieldId={fieldId} element={element} />;
+      return <BarCompareDataEditor fieldId={fieldId} element={element} />;
     case 'player-photo':
       return <PlayerPhotoEditor fieldId={fieldId} element={element} />;
     case 'shape-block':
@@ -273,6 +216,9 @@ export function FieldElementConfigEditor({ fieldId, element }: FieldElementConfi
     case 'shootout-display':
       return <ShootoutEditor />;
     default:
+      if (/^body-type-\d+$/.test(element.type)) {
+        return <BodyTypeEmbeddedInfo element={element} />;
+      }
       return null;
   }
 }

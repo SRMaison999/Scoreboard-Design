@@ -66,7 +66,13 @@ describe('FieldElementConfigEditor', () => {
     };
     render(<FieldElementConfigEditor fieldId="f1" element={element} />);
     expect(screen.getByText(CUSTOM_FIELD_LABELS.configShowClock)).toBeInTheDocument();
-    expect(screen.getByRole('checkbox')).toBeChecked();
+    expect(screen.getByText(CUSTOM_FIELD_LABELS.configHeaderTeamsHint)).toBeInTheDocument();
+    const checkboxes = screen.getAllByRole('checkbox');
+    const clockCheckbox = checkboxes.find((cb) => {
+      const label = cb.closest('label');
+      return label?.textContent?.includes(CUSTOM_FIELD_LABELS.configShowClock);
+    });
+    expect(clockCheckbox).toBeChecked();
   });
 
   it('affiche l editeur de header-block avec horloge desactivee', () => {
@@ -75,7 +81,12 @@ describe('FieldElementConfigEditor', () => {
       config: { showClock: false },
     };
     render(<FieldElementConfigEditor fieldId="f1" element={element} />);
-    expect(screen.getByRole('checkbox')).not.toBeChecked();
+    const checkboxes = screen.getAllByRole('checkbox');
+    const clockCheckbox = checkboxes.find((cb) => {
+      const label = cb.closest('label');
+      return label?.textContent?.includes(CUSTOM_FIELD_LABELS.configShowClock);
+    });
+    expect(clockCheckbox).not.toBeChecked();
   });
 
   it('affiche l editeur de clock-display avec les checkboxes', () => {
