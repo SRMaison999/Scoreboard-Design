@@ -140,6 +140,39 @@ export const CUSTOM_FIELD_LABELS = {
   configShootoutPending: 'En attente',
   configShootoutEmpty: 'Aucun tir enregistré',
 
+  /* Ligne de statistique */
+  configStatLabel: 'Label',
+  configStatValLeft: 'Valeur G',
+  configStatValRight: 'Valeur D',
+  configStatAdd: 'Ajouter une ligne',
+  configStatRemove: 'Supprimer cette ligne',
+  configStatEmpty: 'Aucune statistique. Ajoutez-en une.',
+
+  /* Barre comparative */
+  configBarLabel: 'Label',
+  configBarValLeft: 'Valeur G',
+  configBarValRight: 'Valeur D',
+  configBarFormat: 'Format',
+  configBarFormatPercent: 'Pourcentage',
+  configBarFormatAbsolute: 'Absolue',
+  configBarAdd: 'Ajouter une barre',
+  configBarRemove: 'Supprimer cette barre',
+  configBarEmpty: 'Aucune barre. Ajoutez-en une.',
+
+  /* Pénalités */
+  configPenaltyTime: 'Temps',
+  configPenaltyNumber: 'Numéro',
+  configPenaltyAdd: 'Ajouter une pénalité',
+  configPenaltyRemove: 'Supprimer',
+  configPenaltyEmpty: 'Aucune pénalité',
+
+  /* Header complet */
+  configHeaderTeamsHint: 'Le header affiche les équipes, scores et horloge.',
+
+  /* Body types imbriqués */
+  configBodyTypeEmbedded: 'Body type imbriqué',
+  configBodyTypeEmbeddedHint: 'Ce champ affiche un body type complet.',
+
   /* Image — zone de dépôt */
   configImageDropLabel: 'Image',
   configImageDropHint: 'Cliquer ou glisser un fichier ici',
