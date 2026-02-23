@@ -51,6 +51,22 @@ export function createDefaultFieldConfig(el: LibraryElement): FieldElementConfig
       return { type: 'bar-compare', config: { barIndex: 0 } };
     case 'player-photo':
       return { type: 'player-photo', config: { photoKey: '', shape: 'circle' } };
+    case 'player-row':
+      return { type: 'player-row', config: { playerName: '', playerNumber: '', position: '', showNumber: true, showPosition: false, fontSize: 24, textColor: '#ffffff' } };
+    case 'player-list':
+      return { type: 'player-list', config: { title: '', players: [], showNumbers: true, showPositions: true, fontSize: 20, textColor: '#ffffff', titleColor: '#ffffff' } };
+    case 'goal-scorer':
+      return { type: 'goal-scorer', config: { scorerName: '', scorerNumber: '', scorerPhoto: '', showPhoto: true, showNumber: true, fontSize: 32, textColor: '#ffffff' } };
+    case 'goal-assists':
+      return { type: 'goal-assists', config: { assist1Name: '', assist1Number: '', assist2Name: '', assist2Number: '', showNumbers: true, fontSize: 20, textColor: '#ffffff' } };
+    case 'goal-details':
+      return { type: 'goal-details', config: { goalTime: '', goalPeriod: '', goalCountMatch: '', goalCountTournament: '', showPeriod: true, showCount: true, fontSize: 20, textColor: '#ffffff' } };
+    case 'staff-row':
+      return { type: 'staff-row', config: { role: '', name: '', fontSize: 20, textColor: '#ffffff' } };
+    case 'staff-list':
+      return { type: 'staff-list', config: { title: '', members: [], fontSize: 18, textColor: '#ffffff', titleColor: '#ffffff' } };
+    case 'data-table':
+      return { type: 'data-table', config: { title: '', columns: [], rows: [], showHeader: true, fontSize: 16, headerColor: '#ffffff', textColor: '#ffffff' } };
     case 'image-block':
       return { type: 'image-block', config: { src: '', objectFit: 'cover' } };
     case 'shape-block':

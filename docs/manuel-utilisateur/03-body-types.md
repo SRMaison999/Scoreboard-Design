@@ -26,14 +26,17 @@ Quand activé, le header du scoreboard (drapeaux, noms d'équipes, scores, horlo
 
 ### Bibliothèque d'éléments
 
-La bibliothèque propose plus de 25 éléments répartis en 6 catégories :
+La bibliothèque propose plus de 35 éléments répartis en 9 catégories :
 
 | Catégorie | Éléments disponibles | Description |
 |-----------|---------------------|-------------|
 | **Match** | Score, Horloge, Période, Nom d'équipe, Drapeau, Temps morts, Tirs au but | Éléments liés aux données du match en cours. Le score et l'horloge se mettent à jour automatiquement en mode opérateur. |
 | **Texte** | Bloc de texte | Zone de texte libre avec contenu, taille, graisse, alignement et casse configurables. |
 | **Données** | Ligne de stat, Barre comparative | Éléments de visualisation statistique. |
-| **Joueurs** | Photo joueur | Photo circulaire d'un joueur (depuis la galerie de photos). |
+| **Joueurs** | Photo joueur, Ligne joueur, Liste de joueurs | Photo circulaire, ligne individuelle (nom, numéro, position) ou liste complète de joueurs avec titre et positions hockey. |
+| **But** | Buteur, Assistants, Détails du but | Éléments atomiques pour composer des affichages de célébration de but : buteur avec photo, 1 ou 2 assistants, temps et période du but. |
+| **Équipe** | Membre du staff, Liste du staff | Ligne individuelle ou liste complète de membres du staff (rôle + nom). |
+| **Tableau** | Tableau de données | Tableau configurable avec colonnes, lignes, en-têtes et surlignage. Idéal pour classements, statistiques tabulaires. |
 | **Médias** | Image, Forme (rectangle, cercle, arrondi), Séparateur (ligne) | Éléments décoratifs et structurels pour habiller le scoreboard. |
 | **Composés** | Header complet, Colonne de pénalités, Types 1-13 intégrés | Blocs complets réutilisant les layouts prédéfinis comme éléments individuels. |
 
@@ -280,6 +283,14 @@ Paramètres spécifiques selon le type d'élément (voir tableau ci-dessous).
 | **Forme** | Type (rectangle, cercle, arrondi), couleur de remplissage, couleur de bordure, rayon (pour arrondi) |
 | **Séparateur** | Orientation (horizontale/verticale), épaisseur, couleur |
 | **Image** | Sélecteur de fichier avec aperçu, ajustement (couvrir, contenir, étirer) |
+| **Ligne joueur** | Nom, numéro, position, afficher numéro, afficher position, taille de police, couleur du texte |
+| **Liste de joueurs** | Titre, liste de joueurs (numéro, nom, position), afficher numéros, afficher positions, couleurs |
+| **Buteur** | Nom, numéro, photo (optionnelle), afficher numéro, afficher photo, taille de police, couleur |
+| **Assistants** | Noms et numéros des 2 assistants, afficher numéros, taille de police, couleur |
+| **Détails du but** | Temps, période, décomptes (match et tournoi), afficher période, afficher décomptes |
+| **Membre du staff** | Rôle et nom, taille de police, couleur du texte |
+| **Liste du staff** | Titre, liste de membres (rôle + nom), couleur du titre, taille de police, couleur du texte |
+| **Tableau de données** | Titre, colonnes (label, alignement), lignes (valeurs par colonne, surlignage), en-tête, couleurs |
 
 ### Panneau des couches
 

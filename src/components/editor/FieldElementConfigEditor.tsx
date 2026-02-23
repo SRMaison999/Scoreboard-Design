@@ -14,6 +14,9 @@ import { ShapeEditor, SeparatorEditor, ImageEditor } from './FieldVisualEditors'
 import { ClockDataEditor, TimeoutEditor, ShootoutEditor } from './FieldMatchEditors';
 import { TextBlockEditor } from './FieldTextEditor';
 import { StatLineDataEditor, BarCompareDataEditor, PenaltyColumnEditor, HeaderBlockFullEditor, BodyTypeEmbeddedInfo } from './FieldDataEditors';
+import { PlayerRowEditor, PlayerListEditor } from './FieldPlayerEditors';
+import { GoalScorerEditor, GoalAssistsEditor, GoalDetailsEditor } from './FieldGoalEditors';
+import { StaffRowEditor, StaffListEditor, DataTableEditor } from './FieldTeamEditors';
 import { TeamNationSelector } from './TeamNationSelector';
 
 interface FieldElementConfigEditorProps {
@@ -205,6 +208,22 @@ export function FieldElementConfigEditor({ fieldId, element }: FieldElementConfi
       return <BarCompareDataEditor fieldId={fieldId} element={element} />;
     case 'player-photo':
       return <PlayerPhotoEditor fieldId={fieldId} element={element} />;
+    case 'player-row':
+      return <PlayerRowEditor fieldId={fieldId} element={element} />;
+    case 'player-list':
+      return <PlayerListEditor fieldId={fieldId} element={element} />;
+    case 'goal-scorer':
+      return <GoalScorerEditor fieldId={fieldId} element={element} />;
+    case 'goal-assists':
+      return <GoalAssistsEditor fieldId={fieldId} element={element} />;
+    case 'goal-details':
+      return <GoalDetailsEditor fieldId={fieldId} element={element} />;
+    case 'staff-row':
+      return <StaffRowEditor fieldId={fieldId} element={element} />;
+    case 'staff-list':
+      return <StaffListEditor fieldId={fieldId} element={element} />;
+    case 'data-table':
+      return <DataTableEditor fieldId={fieldId} element={element} />;
     case 'shape-block':
       return <ShapeEditor fieldId={fieldId} element={element} />;
     case 'separator-line':

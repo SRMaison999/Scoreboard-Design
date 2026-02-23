@@ -3,6 +3,9 @@
  * Permet de placer librement des éléments sur le canvas.
  */
 
+export type { PlayerRowConfig, PlayerListConfig, PlayerListEntry, GoalScorerConfig, GoalAssistsConfig, GoalDetailsConfig, StaffRowConfig, StaffListConfig, StaffListEntry, DataTableConfig, DataTableColumn, DataTableRow } from './freeLayoutConfigs';
+import type { PlayerRowConfig, PlayerListConfig, GoalScorerConfig, GoalAssistsConfig, GoalDetailsConfig, StaffRowConfig, StaffListConfig, DataTableConfig } from './freeLayoutConfigs';
+
 /* --- Catégories de la bibliothèque d'éléments --- */
 
 export type LibraryCategory =
@@ -10,6 +13,9 @@ export type LibraryCategory =
   | 'text'
   | 'data'
   | 'players'
+  | 'goal'
+  | 'team'
+  | 'table'
   | 'media'
   | 'composed';
 
@@ -31,6 +37,17 @@ export type FieldElementType =
   | 'bar-compare'
   /* Joueurs */
   | 'player-photo'
+  | 'player-row'
+  | 'player-list'
+  /* But */
+  | 'goal-scorer'
+  | 'goal-assists'
+  | 'goal-details'
+  /* Équipe / Staff */
+  | 'staff-row'
+  | 'staff-list'
+  /* Tableau */
+  | 'data-table'
   /* Médias */
   | 'image-block'
   | 'shape-block'
@@ -157,6 +174,14 @@ export type FieldElementConfig =
   | { readonly type: 'stat-line'; readonly config: StatLineConfig }
   | { readonly type: 'bar-compare'; readonly config: BarCompareConfig }
   | { readonly type: 'player-photo'; readonly config: PlayerPhotoConfig }
+  | { readonly type: 'player-row'; readonly config: PlayerRowConfig }
+  | { readonly type: 'player-list'; readonly config: PlayerListConfig }
+  | { readonly type: 'goal-scorer'; readonly config: GoalScorerConfig }
+  | { readonly type: 'goal-assists'; readonly config: GoalAssistsConfig }
+  | { readonly type: 'goal-details'; readonly config: GoalDetailsConfig }
+  | { readonly type: 'staff-row'; readonly config: StaffRowConfig }
+  | { readonly type: 'staff-list'; readonly config: StaffListConfig }
+  | { readonly type: 'data-table'; readonly config: DataTableConfig }
   | { readonly type: 'image-block'; readonly config: ImageBlockConfig }
   | { readonly type: 'shape-block'; readonly config: ShapeBlockConfig }
   | { readonly type: 'separator-line'; readonly config: SeparatorLineConfig }
@@ -179,25 +204,15 @@ export type FieldElementConfig =
 /* --- Style d'un champ --- */
 
 export interface FieldShadow {
-  offsetX: number;
-  offsetY: number;
-  blur: number;
-  color: string;
-  opacity: number;
+  offsetX: number; offsetY: number; blur: number; color: string; opacity: number;
 }
 
 export interface FieldStyle {
-  backgroundColor: string;
-  backgroundOpacity: number;
-  borderColor: string;
-  borderWidth: number;
-  borderRadius: number;
+  backgroundColor: string; backgroundOpacity: number;
+  borderColor: string; borderWidth: number; borderRadius: number;
   padding: number;
-  /** Opacite globale de l'element (0-100) */
-  opacity: number;
-  /** Ombre portee */
+  opacity: number; /** 0-100 */
   shadow: FieldShadow | null;
-  /** Flou d'arriere-plan en pixels */
   backdropBlur: number;
 }
 
@@ -249,17 +264,9 @@ export interface LibraryElement {
   readonly icon: string;
 }
 
-/* --- Type de poignée de redimensionnement --- */
+/* --- Type de poignee de redimensionnement --- */
 
-export type ResizeHandle =
-  | 'top'
-  | 'bottom'
-  | 'left'
-  | 'right'
-  | 'top-left'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-right';
+export type ResizeHandle = 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
 /* --- Constantes de dimensions --- */
 
