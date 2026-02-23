@@ -155,7 +155,15 @@ export function PlayerPhotoElement({ element, width, height }: {
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         color: 'rgba(255,255,255,0.4)', fontSize: 11, overflow: 'hidden',
       }}>
-        {c.photoKey || 'Photo'}
+        {c.photoKey.startsWith('data:') ? (
+          <img
+            src={c.photoKey}
+            alt=""
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        ) : (
+          c.photoKey || 'Photo'
+        )}
       </div>
     </div>
   );

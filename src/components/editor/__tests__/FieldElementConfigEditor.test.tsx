@@ -102,12 +102,13 @@ describe('FieldElementConfigEditor', () => {
     expect(screen.getByRole('checkbox')).toBeChecked();
   });
 
-  it('ne rend rien pour un type sans editeur specifique', () => {
+  it('affiche l editeur de temps morts pour un timeout-display', () => {
     const element: FieldElementConfig = {
       type: 'timeout-display',
       config: {},
     };
-    const { container } = render(<FieldElementConfigEditor fieldId="f1" element={element} />);
-    expect(container.innerHTML).toBe('');
+    render(<FieldElementConfigEditor fieldId="f1" element={element} />);
+    expect(screen.getByTestId('timeout-left-input')).toBeInTheDocument();
+    expect(screen.getByTestId('timeout-right-input')).toBeInTheDocument();
   });
 });

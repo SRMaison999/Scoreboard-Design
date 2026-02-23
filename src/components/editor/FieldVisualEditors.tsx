@@ -3,11 +3,11 @@
  * Extraits de FieldElementConfigEditor pour respecter la limite de 300 lignes.
  */
 
-import { useRef, useCallback } from 'react';
-import { Upload } from 'lucide-react';
+import { useRef, useCallback, useState, type DragEvent } from 'react';
+import { Upload, X, ImageIcon } from 'lucide-react';
 import { InputField } from '@/components/ui/InputField';
 import { Select } from '@/components/ui/Select';
-import { Button } from '@/components/ui/Button';
+import { cn } from '@/lib/utils';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 import { updateFieldElementConfig } from '@/utils/fieldConfig';
@@ -123,10 +123,10 @@ export function ImageEditor({ fieldId, element }: {
   const c = element.config;
   const patch = (p: Record<string, unknown>) => updateFieldElementConfig(updateElement, fieldId, element, p);
   const fileRef = useRef<HTMLInputElement>(null);
+  const [dragging, setDragging] = useState(false);
+  const hasImage = c.src.length > 0;
 
-  const handleFile = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const processFile = useCallback((file: File) => {
     const reader = new FileReader();
     reader.onload = () => {
       if (typeof reader.result === 'string') {
@@ -134,37 +134,84 @@ export function ImageEditor({ fieldId, element }: {
       }
     };
     reader.readAsDataURL(file);
-    e.target.value = '';
   }, [updateElement, fieldId, element]);
+
+  const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) processFile(file);
+    if (fileRef.current) fileRef.current.value = '';
+  }, [processFile]);
+
+  const handleDrop = useCallback((e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setDragging(false);
+    const file = e.dataTransfer.files[0];
+    if (file) processFile(file);
+  }, [processFile]);
+
+  const handleDragOver = useCallback((e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setDragging(true);
+  }, []);
 
   return (
     <div className="flex flex-col gap-2">
-      <InputField
-        label={CUSTOM_FIELD_LABELS.configImageSrc}
-        value={c.src.startsWith('data:') ? '(fichier local)' : c.src}
-        onChange={(v) => patch({ src: v })}
-      />
+      {hasImage ? (
+        <div className="relative group" data-testid="image-preview">
+          <div className="w-full h-24 rounded-lg border border-gray-700 overflow-hidden bg-gray-900">
+            <img src={c.src} alt="" className="w-full h-full object-contain" />
+          </div>
+          <div className="absolute inset-0 rounded-lg bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+            <button
+              type="button"
+              className="p-1.5 rounded-md bg-gray-800 text-gray-300 hover:text-sky-300 hover:bg-gray-700 transition-colors"
+              onClick={() => fileRef.current?.click()}
+              title={CUSTOM_FIELD_LABELS.configImageBrowse}
+            >
+              <Upload size={14} className="flex-shrink-0" />
+            </button>
+            <button
+              type="button"
+              className="p-1.5 rounded-md bg-gray-800 text-gray-300 hover:text-red-400 hover:bg-gray-700 transition-colors"
+              onClick={() => patch({ src: '' })}
+              title={CUSTOM_FIELD_LABELS.configImageRemove}
+              data-testid="image-remove-btn"
+            >
+              <X size={14} className="flex-shrink-0" />
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+          onDragLeave={() => setDragging(false)}
+          onClick={() => fileRef.current?.click()}
+          data-testid="image-dropzone"
+          className={cn(
+            'flex flex-col items-center justify-center gap-1.5 rounded-lg border-2 border-dashed p-4 cursor-pointer transition-colors',
+            dragging
+              ? 'border-sky-400 bg-sky-950/30'
+              : 'border-gray-700 hover:border-gray-500 bg-gray-900/50',
+          )}
+        >
+          <ImageIcon size={20} className={cn('flex-shrink-0', dragging ? 'text-sky-400' : 'text-gray-500')} />
+          <span className="text-xs text-gray-400">{CUSTOM_FIELD_LABELS.configImageDropHint}</span>
+        </div>
+      )}
       <input
         ref={fileRef}
         type="file"
         accept="image/*"
-        onChange={handleFile}
+        onChange={handleFileChange}
         className="hidden"
         data-testid="image-file-input"
       />
-      <Button
-        variant="ghost"
-        className="flex items-center gap-2 w-full justify-start"
-        onClick={() => fileRef.current?.click()}
-      >
-        <Upload size={14} className="flex-shrink-0" />
-        {CUSTOM_FIELD_LABELS.configImageBrowse}
-      </Button>
-      {c.src.startsWith('data:') && (
-        <div className="w-full h-16 rounded border border-gray-700 overflow-hidden">
-          <img src={c.src} alt="" className="w-full h-full object-contain" />
-        </div>
-      )}
+      <InputField
+        label={CUSTOM_FIELD_LABELS.configImageSrc}
+        value={c.src.startsWith('data:') ? '' : c.src}
+        onChange={(v) => patch({ src: v })}
+      />
       <Select
         label={CUSTOM_FIELD_LABELS.configImageFit}
         value={c.objectFit}
