@@ -125,6 +125,29 @@ export const CUSTOM_FIELD_LABELS = {
   configSeparatorThickness: '\u00c9paisseur',
   configSeparatorColor: 'Couleur',
 
+  /* Horloge et période */
+  configClockTime: 'Temps',
+  configClockPeriod: 'Période',
+  configClockPeriodHint: 'Ex. : 1st PERIOD, 2nd PERIOD',
+
+  /* Temps morts */
+  configTimeoutsCount: 'Temps morts restants',
+
+  /* Tirs au but */
+  configShootoutAdd: 'Ajouter un tir',
+  configShootoutScored: 'But',
+  configShootoutMissed: 'Raté',
+  configShootoutPending: 'En attente',
+  configShootoutEmpty: 'Aucun tir enregistré',
+
+  /* Image — zone de dépôt */
+  configImageDropLabel: 'Image',
+  configImageDropHint: 'Cliquer ou glisser un fichier ici',
+  configImageRemove: 'Supprimer l\u2019image',
+
+  /* Photo joueur — upload */
+  configPlayerPhotoUpload: 'Photo du joueur',
+
   /* Espacement des lettres */
   configTextLetterSpacing: 'Espacement des lettres',
 
