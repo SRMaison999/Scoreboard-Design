@@ -26,6 +26,11 @@ const TEAM_NAME_ELEMENT = {
   },
 };
 
+const FLAG_ELEMENT = {
+  type: 'flag-display' as const,
+  config: { side: 'left' as const },
+};
+
 describe('PropertiesPanel', () => {
   beforeEach(() => {
     const MockBroadcastChannel = vi.fn(function (this: { onmessage: null; postMessage: ReturnType<typeof vi.fn>; close: ReturnType<typeof vi.fn> }) {
@@ -49,16 +54,15 @@ describe('PropertiesPanel', () => {
     expect(screen.queryByTestId('properties-panel-close')).not.toBeInTheDocument();
   });
 
-  it('affiche toujours la section Données du match, même sans sélection', () => {
+  it('n\u2019affiche pas la section Données du match sans sélection', () => {
     render(<PropertiesPanel />);
-    expect(screen.getByTestId('match-data-section')).toBeInTheDocument();
-    expect(screen.getByText(CUSTOM_FIELD_LABELS.propertiesPanelMatchData)).toBeInTheDocument();
+    expect(screen.queryByTestId('match-data-section')).not.toBeInTheDocument();
   });
 
-  it('affiche les dropdowns Équipe 1 et Équipe 2 sans sélection', () => {
+  it('n\u2019affiche pas la section Données du match pour un champ texte', () => {
+    useScoreboardStore.getState().addCustomField(TEXT_ELEMENT, 50, 50, 200, 100);
     render(<PropertiesPanel />);
-    expect(screen.getByText(EDITOR_LABELS.team1Label)).toBeInTheDocument();
-    expect(screen.getByText(EDITOR_LABELS.team2Label)).toBeInTheDocument();
+    expect(screen.queryByTestId('match-data-section')).not.toBeInTheDocument();
   });
 
   it('affiche le panneau quand un champ texte est sélectionné', () => {
@@ -68,13 +72,7 @@ describe('PropertiesPanel', () => {
     expect(screen.getByText(CUSTOM_FIELD_LABELS.propertiesPanelTitle)).toBeInTheDocument();
   });
 
-  it('affiche les données du match même pour un champ texte', () => {
-    useScoreboardStore.getState().addCustomField(TEXT_ELEMENT, 50, 50, 200, 100);
-    render(<PropertiesPanel />);
-    expect(screen.getByTestId('match-data-section')).toBeInTheDocument();
-  });
-
-  it('affiche les données du match pour un champ nom d\u2019équipe', () => {
+  it('affiche la section Données du match pour un champ nom d\u2019équipe', () => {
     useScoreboardStore.getState().addCustomField(TEAM_NAME_ELEMENT, 50, 50, 600, 160);
     render(<PropertiesPanel />);
     expect(screen.getByTestId('match-data-section')).toBeInTheDocument();
@@ -90,10 +88,6 @@ describe('PropertiesPanel', () => {
   });
 
   it('affiche les dropdowns Équipe 1 et Équipe 2 pour un champ drapeau', () => {
-    const FLAG_ELEMENT = {
-      type: 'flag-display' as const,
-      config: { side: 'left' as const },
-    };
     useScoreboardStore.getState().addCustomField(FLAG_ELEMENT, 50, 50, 120, 80);
     render(<PropertiesPanel />);
     expect(screen.getByText(EDITOR_LABELS.team1Label)).toBeInTheDocument();
@@ -127,5 +121,27 @@ describe('PropertiesPanel', () => {
     render(<PropertiesPanel />);
 
     expect(screen.getByText(CUSTOM_FIELD_LABELS.multiSelectionCount, { exact: false })).toBeInTheDocument();
+  });
+
+  it('affiche la section Données du match en multi-sélection si un champ est de type équipe', () => {
+    useScoreboardStore.getState().addCustomField(TEXT_ELEMENT, 50, 50, 200, 100);
+    useScoreboardStore.getState().addCustomField(TEAM_NAME_ELEMENT, 300, 50, 600, 160);
+    const fields = useScoreboardStore.getState().customFieldsData.fields;
+    useScoreboardStore.getState().selectCustomField(fields[0]!.id);
+    useScoreboardStore.getState().toggleFieldSelection(fields[1]!.id);
+    render(<PropertiesPanel />);
+
+    expect(screen.getByTestId('match-data-section')).toBeInTheDocument();
+  });
+
+  it('n\u2019affiche pas la section Données du match en multi-sélection de champs texte uniquement', () => {
+    useScoreboardStore.getState().addCustomField(TEXT_ELEMENT, 50, 50, 200, 100);
+    useScoreboardStore.getState().addCustomField(TEXT_ELEMENT, 300, 50, 200, 100);
+    const fields = useScoreboardStore.getState().customFieldsData.fields;
+    useScoreboardStore.getState().selectCustomField(fields[0]!.id);
+    useScoreboardStore.getState().toggleFieldSelection(fields[1]!.id);
+    render(<PropertiesPanel />);
+
+    expect(screen.queryByTestId('match-data-section')).not.toBeInTheDocument();
   });
 });
