@@ -13,8 +13,11 @@ module.exports = {
     'dist/**/*',
     'electron/**/*',
     'public/icon.svg',
+    'public/icon.png',
   ],
+  icon: 'build/icon.png',
   win: {
+    icon: 'build/icon.png',
     target: [
       {
         target: 'nsis',
@@ -31,10 +34,12 @@ module.exports = {
     artifactName: 'ScoreboardEditor-Setup-${version}.${ext}',
   },
   mac: {
+    icon: 'build/icon.png',
     target: ['dmg'],
     category: 'public.app-category.utilities',
   },
   linux: {
+    icon: 'build/icon.png',
     target: ['AppImage', 'deb'],
     category: 'Utility',
   },
