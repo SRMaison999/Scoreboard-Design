@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { ff, scaleFontSize } from '@/utils/font';
+import { ff, scaleFontSize, measureCapHeight } from '@/utils/font';
 
 describe('ff', () => {
   it('retourne la font-family pour oswald', () => {
@@ -51,5 +51,25 @@ describe('scaleFontSize', () => {
 
   it('retourne 0 pour un scale de 0%', () => {
     expect(scaleFontSize(30, 0)).toBe(0);
+  });
+});
+
+describe('measureCapHeight', () => {
+  it('retourne un fallback proportionnel quand Canvas n\u2019est pas disponible', () => {
+    const result = measureCapHeight('sans-serif', 80, 700, 'USA');
+    /* jsdom ne supporte pas getContext('2d'), le fallback est fontSize * 0.72 */
+    expect(result).toBe(Math.round(80 * 0.72));
+  });
+
+  it('retourne un entier positif', () => {
+    const result = measureCapHeight('sans-serif', 48, 700, 'CAN');
+    expect(result).toBeGreaterThan(0);
+    expect(Number.isInteger(result)).toBe(true);
+  });
+
+  it('varie proportionnellement avec la taille de police', () => {
+    const small = measureCapHeight('sans-serif', 20, 700, 'FRA');
+    const large = measureCapHeight('sans-serif', 60, 700, 'FRA');
+    expect(large).toBeGreaterThan(small);
   });
 });

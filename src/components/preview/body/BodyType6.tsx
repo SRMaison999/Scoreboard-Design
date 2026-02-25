@@ -122,6 +122,7 @@ export function BodyType6({
                 width: TEAM_W,
                 fontWeight: 700,
                 letterSpacing: 3,
+                lineHeight: 1,
               }}
             >
               {row.team}

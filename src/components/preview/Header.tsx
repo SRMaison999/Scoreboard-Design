@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Flag } from './Flag';
 import { InlineEdit } from './InlineEdit';
 import { hexToRgba } from '@/utils/color';
-import { ff } from '@/utils/font';
+import { ff, measureCapHeight } from '@/utils/font';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
 import type { ShootoutAttempt } from '@/types/bodyTypes/shootout';
@@ -96,20 +96,6 @@ function ShootoutDisplay({ attempts, color }: { readonly attempts: readonly Shoo
 
 const FLAG_ASPECT = 1.54;
 
-/** Measure the actual capital letter height using Canvas 2D text metrics. */
-function measureCapHeight(fontFamily: string, fontSize: number, fontWeight: number, text: string): number {
-  if (typeof document === 'undefined') return Math.round(fontSize * 0.72);
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return Math.round(fontSize * 0.72);
-  ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
-  const metrics = ctx.measureText(text);
-  const ascent = metrics.actualBoundingBoxAscent ?? 0;
-  const descent = metrics.actualBoundingBoxDescent ?? 0;
-  const measured = ascent + descent;
-  return measured > 0 ? Math.round(measured) : Math.round(fontSize * 0.72);
-}
-
 function TeamBadge({ code, logoMode, showFlagEnabled, teamLogos, flagOverrides, flagHeight }: {
   readonly code: string;
   readonly logoMode: LogoMode;
@@ -185,6 +171,7 @@ export function Header({
 
   const teamStyle: React.CSSProperties = {
     fontSize: fontSizeTeamName, fontWeight: 700, letterSpacing: 6,
+    lineHeight: 1,
     textShadow: '0 3px 15px rgba(0,0,0,0.5)', color: c('teamName'),
   };
 

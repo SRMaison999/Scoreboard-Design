@@ -4,9 +4,10 @@
  * Chaque element supporte un fontSizeOverride local (0 = utiliser la valeur globale).
  */
 
+import { useMemo } from 'react';
 import { Flag } from '@/components/preview/Flag';
 import { hexToRgba } from '@/utils/color';
-import { ff } from '@/utils/font';
+import { ff, measureCapHeight } from '@/utils/font';
 import type { ScoreboardState } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 
@@ -91,14 +92,18 @@ export function TeamNameElement({ state, colors, opacities, element }: {
   const name = displayName || code;
   const fontSize = resolveFontSize(element.config.fontSizeOverride, state.fontSizes.teamName);
   const showFlag = element.config.showFlag !== false;
-  const flagH = Math.round(fontSize * 0.72);
+  const fontFamily = ff(state.fontTeams);
+  const flagH = useMemo(
+    () => measureCapHeight(fontFamily, fontSize, 700, name),
+    [fontFamily, fontSize, name],
+  );
   const flagW = Math.round(flagH * FLAG_ASPECT);
   return (
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12,
-      fontSize, fontWeight: 700,
-      fontFamily: ff(state.fontTeams), color: col(colors, opacities, 'teamName'),
+      fontSize, fontWeight: 700, lineHeight: 1,
+      fontFamily, color: col(colors, opacities, 'teamName'),
       letterSpacing: 4, textTransform: 'uppercase',
     }}>
       {isLeft && showFlag && <Flag code={code} w={flagW} h={flagH} />}

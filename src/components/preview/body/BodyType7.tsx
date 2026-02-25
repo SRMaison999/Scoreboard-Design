@@ -84,6 +84,7 @@ export function BodyType7({
               fontSize: scaleFontSize(48, sc),
               fontWeight: 700,
               letterSpacing: 4,
+              lineHeight: 1,
               color: col('statVal'),
             }}
           >
@@ -108,6 +109,7 @@ export function BodyType7({
               fontSize: scaleFontSize(48, sc),
               fontWeight: 700,
               letterSpacing: 4,
+              lineHeight: 1,
               color: col('statVal'),
             }}
           >
