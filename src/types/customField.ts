@@ -3,8 +3,8 @@
  * Permet de placer librement des éléments sur le canvas.
  */
 
-export type { PlayerRowConfig, PlayerListConfig, PlayerListEntry, GoalScorerConfig, GoalAssistsConfig, GoalDetailsConfig, StaffRowConfig, StaffListConfig, StaffListEntry, DataTableConfig, DataTableColumn, DataTableRow } from './freeLayoutConfigs';
-import type { PlayerRowConfig, PlayerListConfig, GoalScorerConfig, GoalAssistsConfig, GoalDetailsConfig, StaffRowConfig, StaffListConfig, DataTableConfig } from './freeLayoutConfigs';
+export type { PlayerRowConfig, PlayerListConfig, PlayerListEntry, GoalScorerConfig, GoalAssistsConfig, GoalDetailsConfig, StaffRowConfig, StaffListConfig, StaffListEntry, DataTableConfig, DataTableColumn, DataTableRow, TimelineEventConfig, TimelineListConfig, TimelineEventEntry, TimelineEventKind, ScheduleMatchConfig, ScheduleListConfig, ScheduleMatchEntry, ScheduleMatchStatus, PlayerCardConfig, PlayerCardStatEntry, PeriodScoreRowConfig, PeriodScoreEntry } from './freeLayoutConfigs';
+import type { PlayerRowConfig, PlayerListConfig, GoalScorerConfig, GoalAssistsConfig, GoalDetailsConfig, StaffRowConfig, StaffListConfig, DataTableConfig, TimelineEventConfig, TimelineListConfig, ScheduleMatchConfig, ScheduleListConfig, PlayerCardConfig, PeriodScoreRowConfig } from './freeLayoutConfigs';
 
 /* --- Catégories de la bibliothèque d'éléments --- */
 
@@ -16,59 +16,25 @@ export type LibraryCategory =
   | 'goal'
   | 'team'
   | 'table'
+  | 'event'
+  | 'schedule'
   | 'media'
   | 'composed';
 
-/* --- Types d'éléments disponibles --- */
-
 export type FieldElementType =
-  /* Match */
-  | 'score-display'
-  | 'clock-display'
-  | 'period-display'
-  | 'team-name'
-  | 'flag-display'
-  | 'timeout-display'
-  | 'shootout-display'
-  /* Texte */
-  | 'text-block'
-  /* Données */
-  | 'stat-line'
-  | 'bar-compare'
-  /* Joueurs */
-  | 'player-photo'
-  | 'player-row'
-  | 'player-list'
-  /* But */
-  | 'goal-scorer'
-  | 'goal-assists'
-  | 'goal-details'
-  /* Équipe / Staff */
-  | 'staff-row'
-  | 'staff-list'
-  /* Tableau */
-  | 'data-table'
-  /* Médias */
-  | 'image-block'
-  | 'shape-block'
-  | 'separator-line'
-  /* Composés (body types existants) */
-  | 'body-type-1'
-  | 'body-type-2'
-  | 'body-type-3'
-  | 'body-type-4'
-  | 'body-type-5'
-  | 'body-type-6'
-  | 'body-type-7'
-  | 'body-type-8'
-  | 'body-type-9'
-  | 'body-type-10'
-  | 'body-type-11'
-  | 'body-type-12'
-  | 'body-type-13'
-  /* Sections existantes */
-  | 'header-block'
-  | 'penalty-column';
+  | 'score-display' | 'clock-display' | 'period-display' | 'team-name'
+  | 'flag-display' | 'timeout-display' | 'shootout-display'
+  | 'text-block' | 'stat-line' | 'bar-compare'
+  | 'player-photo' | 'player-row' | 'player-list' | 'player-card'
+  | 'goal-scorer' | 'goal-assists' | 'goal-details'
+  | 'staff-row' | 'staff-list' | 'data-table'
+  | 'timeline-event' | 'timeline-list'
+  | 'schedule-match' | 'schedule-list' | 'period-score-row'
+  | 'image-block' | 'shape-block' | 'separator-line'
+  | 'body-type-1' | 'body-type-2' | 'body-type-3' | 'body-type-4'
+  | 'body-type-5' | 'body-type-6' | 'body-type-7' | 'body-type-8'
+  | 'body-type-9' | 'body-type-10' | 'body-type-11' | 'body-type-12'
+  | 'body-type-13' | 'header-block' | 'penalty-column';
 
 /* --- Configuration spécifique par type d'élément --- */
 
@@ -182,6 +148,12 @@ export type FieldElementConfig =
   | { readonly type: 'staff-row'; readonly config: StaffRowConfig }
   | { readonly type: 'staff-list'; readonly config: StaffListConfig }
   | { readonly type: 'data-table'; readonly config: DataTableConfig }
+  | { readonly type: 'timeline-event'; readonly config: TimelineEventConfig }
+  | { readonly type: 'timeline-list'; readonly config: TimelineListConfig }
+  | { readonly type: 'schedule-match'; readonly config: ScheduleMatchConfig }
+  | { readonly type: 'schedule-list'; readonly config: ScheduleListConfig }
+  | { readonly type: 'player-card'; readonly config: PlayerCardConfig }
+  | { readonly type: 'period-score-row'; readonly config: PeriodScoreRowConfig }
   | { readonly type: 'image-block'; readonly config: ImageBlockConfig }
   | { readonly type: 'shape-block'; readonly config: ShapeBlockConfig }
   | { readonly type: 'separator-line'; readonly config: SeparatorLineConfig }

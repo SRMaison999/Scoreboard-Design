@@ -67,6 +67,18 @@ export function createDefaultFieldConfig(el: LibraryElement): FieldElementConfig
       return { type: 'staff-list', config: { title: '', members: [], fontSize: 18, textColor: '#ffffff', titleColor: '#ffffff' } };
     case 'data-table':
       return { type: 'data-table', config: { title: '', columns: [], rows: [], showHeader: true, fontSize: 16, headerColor: '#ffffff', textColor: '#ffffff' } };
+    case 'timeline-event':
+      return { type: 'timeline-event', config: { period: '', time: '', kind: 'goal', description: '', team: '', fontSize: 18, textColor: '#ffffff' } };
+    case 'timeline-list':
+      return { type: 'timeline-list', config: { title: '', events: [], fontSize: 16, textColor: '#ffffff', titleColor: '#ffffff' } };
+    case 'schedule-match':
+      return { type: 'schedule-match', config: { date: '', time: '', teamLeft: '', teamRight: '', scoreLeft: '', scoreRight: '', status: 'upcoming', venue: '', fontSize: 18, textColor: '#ffffff' } };
+    case 'schedule-list':
+      return { type: 'schedule-list', config: { title: '', matches: [], fontSize: 16, textColor: '#ffffff', titleColor: '#ffffff' } };
+    case 'player-card':
+      return { type: 'player-card', config: { title: '', subtitle: '', playerName: '', playerNumber: '', playerTeam: '', playerPhoto: '', stats: [], fontSize: 24, textColor: '#ffffff', titleColor: '#ffffff' } };
+    case 'period-score-row':
+      return { type: 'period-score-row', config: { periods: [], fontSize: 18, headerColor: '#ffffff', textColor: '#ffffff' } };
     case 'image-block':
       return { type: 'image-block', config: { src: '', objectFit: 'cover' } };
     case 'shape-block':

@@ -100,6 +100,107 @@ export interface StaffListConfig {
   readonly titleColor: string;
 }
 
+/* --- Configs : Evenement / Chronologie --- */
+
+export type TimelineEventKind = 'goal' | 'penalty' | 'timeout' | 'period';
+
+export interface TimelineEventEntry {
+  readonly period: string;
+  readonly time: string;
+  readonly kind: TimelineEventKind;
+  readonly description: string;
+  readonly team: string;
+}
+
+export interface TimelineEventConfig {
+  readonly period: string;
+  readonly time: string;
+  readonly kind: TimelineEventKind;
+  readonly description: string;
+  readonly team: string;
+  readonly fontSize: number;
+  readonly textColor: string;
+}
+
+export interface TimelineListConfig {
+  readonly title: string;
+  readonly events: TimelineEventEntry[];
+  readonly fontSize: number;
+  readonly textColor: string;
+  readonly titleColor: string;
+}
+
+/* --- Configs : Calendrier / Schedule --- */
+
+export type ScheduleMatchStatus = 'upcoming' | 'live' | 'finished';
+
+export interface ScheduleMatchEntry {
+  readonly date: string;
+  readonly time: string;
+  readonly teamLeft: string;
+  readonly teamRight: string;
+  readonly scoreLeft: string;
+  readonly scoreRight: string;
+  readonly status: ScheduleMatchStatus;
+  readonly venue: string;
+}
+
+export interface ScheduleMatchConfig {
+  readonly date: string;
+  readonly time: string;
+  readonly teamLeft: string;
+  readonly teamRight: string;
+  readonly scoreLeft: string;
+  readonly scoreRight: string;
+  readonly status: ScheduleMatchStatus;
+  readonly venue: string;
+  readonly fontSize: number;
+  readonly textColor: string;
+}
+
+export interface ScheduleListConfig {
+  readonly title: string;
+  readonly matches: ScheduleMatchEntry[];
+  readonly fontSize: number;
+  readonly textColor: string;
+  readonly titleColor: string;
+}
+
+/* --- Configs : Fiche joueur --- */
+
+export interface PlayerCardStatEntry {
+  readonly label: string;
+  readonly value: string;
+}
+
+export interface PlayerCardConfig {
+  readonly title: string;
+  readonly subtitle: string;
+  readonly playerName: string;
+  readonly playerNumber: string;
+  readonly playerTeam: string;
+  readonly playerPhoto: string;
+  readonly stats: PlayerCardStatEntry[];
+  readonly fontSize: number;
+  readonly textColor: string;
+  readonly titleColor: string;
+}
+
+/* --- Config : Score par periode --- */
+
+export interface PeriodScoreEntry {
+  readonly period: string;
+  readonly scoreLeft: string;
+  readonly scoreRight: string;
+}
+
+export interface PeriodScoreRowConfig {
+  readonly periods: PeriodScoreEntry[];
+  readonly fontSize: number;
+  readonly headerColor: string;
+  readonly textColor: string;
+}
+
 /* --- Config : Tableau de donnees --- */
 
 export interface DataTableConfig {

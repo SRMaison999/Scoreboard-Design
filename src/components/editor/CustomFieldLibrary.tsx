@@ -19,7 +19,7 @@ import { FIELD_MAX_FIELDS } from '@/types/customField';
 import { LibraryIcon } from './LibraryIcon';
 import type { LibraryCategory, LibraryElement } from '@/types/customField';
 
-const CATEGORIES: LibraryCategory[] = ['match', 'text', 'data', 'players', 'goal', 'team', 'table', 'media', 'composed'];
+const CATEGORIES: LibraryCategory[] = ['match', 'text', 'data', 'players', 'goal', 'team', 'table', 'event', 'schedule', 'media', 'composed'];
 
 export function CustomFieldLibrary() {
   const [search, setSearch] = useState('');

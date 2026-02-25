@@ -17,6 +17,8 @@ export const LIBRARY_CATEGORY_LABELS: Readonly<Record<LibraryCategory, string>> 
   goal: 'But',
   team: '\u00c9quipe',
   table: 'Tableau',
+  event: '\u00c9v\u00e9nement',
+  schedule: 'Calendrier',
   media: 'M\u00e9dias',
   composed: 'Compos\u00e9s',
 };
@@ -235,6 +237,67 @@ export const CUSTOM_FIELD_LABELS = {
   configTableEmptyRows: 'Aucune ligne.',
   configTableCellValue: 'Valeur',
 
+  /* \u00c9v\u00e9nement (timeline-event) */
+  configEventPeriod: 'P\u00e9riode',
+  configEventTime: 'Temps',
+  configEventKind: 'Type',
+  configEventKindGoal: 'But',
+  configEventKindPenalty: 'P\u00e9nalit\u00e9',
+  configEventKindTimeout: 'Temps mort',
+  configEventKindPeriod: 'P\u00e9riode',
+  configEventDescription: 'Description',
+  configEventTeam: '\u00c9quipe',
+
+  /* Chronologie (timeline-list) */
+  configTimelineTitle: 'Titre',
+  configTimelineAdd: 'Ajouter un \u00e9v\u00e9nement',
+  configTimelineRemove: 'Retirer',
+  configTimelineEmpty: 'Aucun \u00e9v\u00e9nement. Ajoutez-en un.',
+  configTimelineTitleColor: 'Couleur du titre',
+
+  /* Match (schedule-match) */
+  configMatchDate: 'Date',
+  configMatchTime: 'Heure',
+  configMatchTeamLeft: '\u00c9quipe gauche',
+  configMatchTeamRight: '\u00c9quipe droite',
+  configMatchScoreLeft: 'Score G',
+  configMatchScoreRight: 'Score D',
+  configMatchStatus: 'Statut',
+  configMatchStatusUpcoming: '\u00c0 venir',
+  configMatchStatusLive: 'En cours',
+  configMatchStatusFinished: 'Termin\u00e9',
+  configMatchVenue: 'Lieu',
+
+  /* Programme (schedule-list) */
+  configScheduleTitle: 'Titre',
+  configScheduleAdd: 'Ajouter un match',
+  configScheduleRemove: 'Retirer',
+  configScheduleEmpty: 'Aucun match. Ajoutez-en un.',
+  configScheduleTitleColor: 'Couleur du titre',
+
+  /* Fiche joueur (player-card) */
+  configCardTitle: 'Titre',
+  configCardSubtitle: 'Sous-titre',
+  configCardPlayerName: 'Nom du joueur',
+  configCardPlayerNumber: 'Num\u00e9ro',
+  configCardPlayerTeam: '\u00c9quipe',
+  configCardPlayerPhoto: 'Photo du joueur',
+  configCardTitleColor: 'Couleur du titre',
+  configCardStatLabel: 'Label',
+  configCardStatValue: 'Valeur',
+  configCardAddStat: 'Ajouter une statistique',
+  configCardRemoveStat: 'Retirer',
+  configCardEmptyStats: 'Aucune statistique.',
+
+  /* Score par p\u00e9riode (period-score-row) */
+  configPeriodScoreAdd: 'Ajouter une p\u00e9riode',
+  configPeriodScoreRemove: 'Retirer',
+  configPeriodScoreEmpty: 'Aucune p\u00e9riode. Ajoutez-en une.',
+  configPeriodScorePeriodLabel: 'P\u00e9riode',
+  configPeriodScoreLeft: 'Score G',
+  configPeriodScoreRight: 'Score D',
+  configPeriodScoreHeaderColor: 'Couleur de l\u2019en-t\u00eate',
+
   /* Header complet */
   configHeaderTeamsHint: 'Le header affiche les \u00e9quipes, scores et horloge.',
 
@@ -391,6 +454,12 @@ export const CUSTOM_FIELD_LABELS = {
     'staff-row': 'Membre du staff',
     'staff-list': 'Liste du staff',
     'data-table': 'Tableau de donn\u00e9es',
+    'timeline-event': '\u00c9v\u00e9nement',
+    'timeline-list': 'Chronologie',
+    'schedule-match': 'Match',
+    'schedule-list': 'Programme',
+    'player-card': 'Fiche joueur',
+    'period-score-row': 'Score par p\u00e9riode',
   } as Readonly<Record<string, string>>,
 
   /* Raccourcis clavier */

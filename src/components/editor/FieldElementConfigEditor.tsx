@@ -17,6 +17,9 @@ import { StatLineDataEditor, BarCompareDataEditor, PenaltyColumnEditor, HeaderBl
 import { PlayerRowEditor, PlayerListEditor } from './FieldPlayerEditors';
 import { GoalScorerEditor, GoalAssistsEditor, GoalDetailsEditor } from './FieldGoalEditors';
 import { StaffRowEditor, StaffListEditor, DataTableEditor } from './FieldTeamEditors';
+import { TimelineEventEditor, TimelineListEditor } from './FieldEventEditors';
+import { ScheduleMatchEditor, ScheduleListEditor } from './FieldScheduleEditors';
+import { PlayerCardEditor, PeriodScoreRowEditor } from './FieldCardEditors';
 import { TeamNationSelector } from './TeamNationSelector';
 
 interface FieldElementConfigEditorProps {
@@ -224,6 +227,18 @@ export function FieldElementConfigEditor({ fieldId, element }: FieldElementConfi
       return <StaffListEditor fieldId={fieldId} element={element} />;
     case 'data-table':
       return <DataTableEditor fieldId={fieldId} element={element} />;
+    case 'timeline-event':
+      return <TimelineEventEditor fieldId={fieldId} element={element} />;
+    case 'timeline-list':
+      return <TimelineListEditor fieldId={fieldId} element={element} />;
+    case 'schedule-match':
+      return <ScheduleMatchEditor fieldId={fieldId} element={element} />;
+    case 'schedule-list':
+      return <ScheduleListEditor fieldId={fieldId} element={element} />;
+    case 'player-card':
+      return <PlayerCardEditor fieldId={fieldId} element={element} />;
+    case 'period-score-row':
+      return <PeriodScoreRowEditor fieldId={fieldId} element={element} />;
     case 'shape-block':
       return <ShapeEditor fieldId={fieldId} element={element} />;
     case 'separator-line':

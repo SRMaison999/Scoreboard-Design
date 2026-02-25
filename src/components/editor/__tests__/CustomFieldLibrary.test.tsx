@@ -24,7 +24,8 @@ describe('CustomFieldLibrary', () => {
   it('affiche les catégories', () => {
     render(<CustomFieldLibrary />);
     for (const label of Object.values(LIBRARY_CATEGORY_LABELS)) {
-      expect(screen.getByText(label)).toBeInTheDocument();
+      const matches = screen.getAllByText(label);
+      expect(matches.length).toBeGreaterThan(0);
     }
   });
 

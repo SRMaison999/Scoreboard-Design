@@ -229,6 +229,80 @@ export const LIBRARY_ELEMENTS: readonly LibraryElement[] = [
     icon: 'table',
   },
 
+  /* --- \u00c9v\u00e9nement / Chronologie --- */
+  {
+    type: 'timeline-event',
+    label: '\u00c9v\u00e9nement',
+    description: 'Un \u00e9v\u00e9nement du match (but, p\u00e9nalit\u00e9, temps mort)',
+    category: 'event',
+    defaultWidth: 500,
+    defaultHeight: 50,
+    minWidth: 250,
+    minHeight: 40,
+    icon: 'activity',
+  },
+  {
+    type: 'timeline-list',
+    label: 'Chronologie',
+    description: 'Liste chronologique des \u00e9v\u00e9nements du match',
+    category: 'event',
+    defaultWidth: 600,
+    defaultHeight: 300,
+    minWidth: 300,
+    minHeight: 120,
+    icon: 'list',
+  },
+
+  /* --- Calendrier --- */
+  {
+    type: 'schedule-match',
+    label: 'Match',
+    description: 'Un match (date, heure, \u00e9quipes, score, statut)',
+    category: 'schedule',
+    defaultWidth: 550,
+    defaultHeight: 50,
+    minWidth: 300,
+    minHeight: 40,
+    icon: 'calendar-days',
+  },
+  {
+    type: 'schedule-list',
+    label: 'Programme',
+    description: 'Liste de matchs \u00e0 venir ou termin\u00e9s',
+    category: 'schedule',
+    defaultWidth: 650,
+    defaultHeight: 300,
+    minWidth: 350,
+    minHeight: 120,
+    icon: 'calendar-range',
+  },
+
+  /* --- Fiche joueur (joueurs) --- */
+  {
+    type: 'player-card',
+    label: 'Fiche joueur',
+    description: 'Fiche compl\u00e8te : photo, nom, \u00e9quipe et statistiques',
+    category: 'players',
+    defaultWidth: 500,
+    defaultHeight: 450,
+    minWidth: 250,
+    minHeight: 200,
+    icon: 'id-card',
+  },
+
+  /* --- Score par p\u00e9riode (match) --- */
+  {
+    type: 'period-score-row',
+    label: 'Score par p\u00e9riode',
+    description: 'D\u00e9tail des scores par p\u00e9riode (P1, P2, P3, OT\u2026)',
+    category: 'match',
+    defaultWidth: 500,
+    defaultHeight: 60,
+    minWidth: 250,
+    minHeight: 40,
+    icon: 'columns',
+  },
+
   /* --- M\u00e9dias --- */
   {
     type: 'image-block',

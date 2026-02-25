@@ -26,17 +26,19 @@ Quand activé, le header du scoreboard (drapeaux, noms d'équipes, scores, horlo
 
 ### Bibliothèque d'éléments
 
-La bibliothèque propose plus de 35 éléments répartis en 9 catégories :
+La bibliothèque propose plus de 43 éléments répartis en 11 catégories :
 
 | Catégorie | Éléments disponibles | Description |
 |-----------|---------------------|-------------|
-| **Match** | Score, Horloge, Période, Nom d'équipe, Drapeau, Temps morts, Tirs au but | Éléments liés aux données du match en cours. Le score et l'horloge se mettent à jour automatiquement en mode opérateur. |
+| **Match** | Score, Horloge, Période, Nom d'équipe, Drapeau, Temps morts, Tirs au but, Score par période | Éléments liés aux données du match en cours. Le score par période affiche un tableau P1/P2/P3/OT avec les scores de chaque équipe. |
 | **Texte** | Bloc de texte | Zone de texte libre avec contenu, taille, graisse, alignement et casse configurables. |
 | **Données** | Ligne de stat, Barre comparative | Éléments de visualisation statistique. |
-| **Joueurs** | Photo joueur, Ligne joueur, Liste de joueurs | Photo circulaire, ligne individuelle (nom, numéro, position) ou liste complète de joueurs avec titre et positions hockey. |
+| **Joueurs** | Photo joueur, Ligne joueur, Liste de joueurs, Fiche joueur | Photo circulaire, ligne individuelle (nom, numéro, position), liste complète de joueurs, ou fiche joueur complète avec photo, nom, équipe et statistiques. |
 | **But** | Buteur, Assistants, Détails du but | Éléments atomiques pour composer des affichages de célébration de but : buteur avec photo, 1 ou 2 assistants, temps et période du but. |
 | **Équipe** | Membre du staff, Liste du staff | Ligne individuelle ou liste complète de membres du staff (rôle + nom). |
 | **Tableau** | Tableau de données | Tableau configurable avec colonnes, lignes, en-têtes et surlignage. Idéal pour classements, statistiques tabulaires. |
+| **Événement** | Événement, Chronologie | Événement unique (but, pénalité, temps mort, changement de période) ou chronologie complète avec liste d'événements triés. |
+| **Calendrier** | Match, Programme | Match unique (date, heure, équipes, score, statut) ou programme complet avec liste de matchs à venir et terminés. |
 | **Médias** | Image, Forme (rectangle, cercle, arrondi), Séparateur (ligne) | Éléments décoratifs et structurels pour habiller le scoreboard. |
 | **Composés** | Header complet, Colonne de pénalités, Types 1-13 intégrés | Blocs complets réutilisant les layouts prédéfinis comme éléments individuels. |
 

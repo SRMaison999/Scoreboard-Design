@@ -17,6 +17,9 @@ import { StatLineElement, BarCompareElement, PlayerPhotoElement } from './FieldD
 import { PlayerRowElement, PlayerListElement } from './FieldPlayerElements';
 import { GoalScorerElement, GoalAssistsElement, GoalDetailsElement } from './FieldGoalElements';
 import { StaffRowElement, StaffListElement, DataTableElement } from './FieldTeamElements';
+import { TimelineEventElement, TimelineListElement } from './FieldEventElements';
+import { ScheduleMatchElement, ScheduleListElement } from './FieldScheduleElements';
+import { PlayerCardElement, PeriodScoreRowElement } from './FieldCardElements';
 import { HeaderBlockElement, PenaltyColumnElement } from './FieldComposedElements';
 import { EmbeddedBodyType } from './FieldEmbeddedBodyType';
 import { InlineTextEditor } from './InlineTextEditor';
@@ -213,6 +216,18 @@ export const FieldElementRenderer = memo(function FieldElementRenderer({
       return <StaffListElement element={element} />;
     case 'data-table':
       return <DataTableElement element={element} />;
+    case 'timeline-event':
+      return <TimelineEventElement element={element} />;
+    case 'timeline-list':
+      return <TimelineListElement element={element} />;
+    case 'schedule-match':
+      return <ScheduleMatchElement element={element} />;
+    case 'schedule-list':
+      return <ScheduleListElement element={element} />;
+    case 'player-card':
+      return <PlayerCardElement element={element} height={height} />;
+    case 'period-score-row':
+      return <PeriodScoreRowElement element={element} />;
     case 'header-block':
       return <HeaderBlockElement state={state} colors={colors} opacities={opacities} />;
     case 'penalty-column':
