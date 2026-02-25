@@ -3,6 +3,9 @@
  * Permet de placer librement des éléments sur le canvas.
  */
 
+export type { PlayerRowConfig, PlayerListConfig, PlayerListEntry, GoalScorerConfig, GoalAssistsConfig, GoalDetailsConfig, StaffRowConfig, StaffListConfig, StaffListEntry, DataTableConfig, DataTableColumn, DataTableRow, TimelineEventConfig, TimelineListConfig, TimelineEventEntry, TimelineEventKind, ScheduleMatchConfig, ScheduleListConfig, ScheduleMatchEntry, ScheduleMatchStatus, PlayerCardConfig, PlayerCardStatEntry, PeriodScoreRowConfig, PeriodScoreEntry } from './freeLayoutConfigs';
+import type { PlayerRowConfig, PlayerListConfig, GoalScorerConfig, GoalAssistsConfig, GoalDetailsConfig, StaffRowConfig, StaffListConfig, DataTableConfig, TimelineEventConfig, TimelineListConfig, ScheduleMatchConfig, ScheduleListConfig, PlayerCardConfig, PeriodScoreRowConfig } from './freeLayoutConfigs';
+
 /* --- Catégories de la bibliothèque d'éléments --- */
 
 export type LibraryCategory =
@@ -10,48 +13,28 @@ export type LibraryCategory =
   | 'text'
   | 'data'
   | 'players'
+  | 'goal'
+  | 'team'
+  | 'table'
+  | 'event'
+  | 'schedule'
   | 'media'
   | 'composed';
 
-/* --- Types d'éléments disponibles --- */
-
 export type FieldElementType =
-  /* Match */
-  | 'score-display'
-  | 'clock-display'
-  | 'period-display'
-  | 'team-name'
-  | 'flag-display'
-  | 'timeout-display'
-  | 'shootout-display'
-  /* Texte */
-  | 'text-block'
-  /* Données */
-  | 'stat-line'
-  | 'bar-compare'
-  /* Joueurs */
-  | 'player-photo'
-  /* Médias */
-  | 'image-block'
-  | 'shape-block'
-  | 'separator-line'
-  /* Composés (body types existants) */
-  | 'body-type-1'
-  | 'body-type-2'
-  | 'body-type-3'
-  | 'body-type-4'
-  | 'body-type-5'
-  | 'body-type-6'
-  | 'body-type-7'
-  | 'body-type-8'
-  | 'body-type-9'
-  | 'body-type-10'
-  | 'body-type-11'
-  | 'body-type-12'
-  | 'body-type-13'
-  /* Sections existantes */
-  | 'header-block'
-  | 'penalty-column';
+  | 'score-display' | 'clock-display' | 'period-display' | 'team-name'
+  | 'flag-display' | 'timeout-display' | 'shootout-display'
+  | 'text-block' | 'stat-line' | 'bar-compare'
+  | 'player-photo' | 'player-row' | 'player-list' | 'player-card'
+  | 'goal-scorer' | 'goal-assists' | 'goal-details'
+  | 'staff-row' | 'staff-list' | 'data-table'
+  | 'timeline-event' | 'timeline-list'
+  | 'schedule-match' | 'schedule-list' | 'period-score-row'
+  | 'image-block' | 'shape-block' | 'separator-line'
+  | 'body-type-1' | 'body-type-2' | 'body-type-3' | 'body-type-4'
+  | 'body-type-5' | 'body-type-6' | 'body-type-7' | 'body-type-8'
+  | 'body-type-9' | 'body-type-10' | 'body-type-11' | 'body-type-12'
+  | 'body-type-13' | 'header-block' | 'penalty-column';
 
 /* --- Configuration spécifique par type d'élément --- */
 
@@ -157,6 +140,20 @@ export type FieldElementConfig =
   | { readonly type: 'stat-line'; readonly config: StatLineConfig }
   | { readonly type: 'bar-compare'; readonly config: BarCompareConfig }
   | { readonly type: 'player-photo'; readonly config: PlayerPhotoConfig }
+  | { readonly type: 'player-row'; readonly config: PlayerRowConfig }
+  | { readonly type: 'player-list'; readonly config: PlayerListConfig }
+  | { readonly type: 'goal-scorer'; readonly config: GoalScorerConfig }
+  | { readonly type: 'goal-assists'; readonly config: GoalAssistsConfig }
+  | { readonly type: 'goal-details'; readonly config: GoalDetailsConfig }
+  | { readonly type: 'staff-row'; readonly config: StaffRowConfig }
+  | { readonly type: 'staff-list'; readonly config: StaffListConfig }
+  | { readonly type: 'data-table'; readonly config: DataTableConfig }
+  | { readonly type: 'timeline-event'; readonly config: TimelineEventConfig }
+  | { readonly type: 'timeline-list'; readonly config: TimelineListConfig }
+  | { readonly type: 'schedule-match'; readonly config: ScheduleMatchConfig }
+  | { readonly type: 'schedule-list'; readonly config: ScheduleListConfig }
+  | { readonly type: 'player-card'; readonly config: PlayerCardConfig }
+  | { readonly type: 'period-score-row'; readonly config: PeriodScoreRowConfig }
   | { readonly type: 'image-block'; readonly config: ImageBlockConfig }
   | { readonly type: 'shape-block'; readonly config: ShapeBlockConfig }
   | { readonly type: 'separator-line'; readonly config: SeparatorLineConfig }
@@ -179,25 +176,15 @@ export type FieldElementConfig =
 /* --- Style d'un champ --- */
 
 export interface FieldShadow {
-  offsetX: number;
-  offsetY: number;
-  blur: number;
-  color: string;
-  opacity: number;
+  offsetX: number; offsetY: number; blur: number; color: string; opacity: number;
 }
 
 export interface FieldStyle {
-  backgroundColor: string;
-  backgroundOpacity: number;
-  borderColor: string;
-  borderWidth: number;
-  borderRadius: number;
+  backgroundColor: string; backgroundOpacity: number;
+  borderColor: string; borderWidth: number; borderRadius: number;
   padding: number;
-  /** Opacite globale de l'element (0-100) */
-  opacity: number;
-  /** Ombre portee */
+  opacity: number; /** 0-100 */
   shadow: FieldShadow | null;
-  /** Flou d'arriere-plan en pixels */
   backdropBlur: number;
 }
 
@@ -249,17 +236,9 @@ export interface LibraryElement {
   readonly icon: string;
 }
 
-/* --- Type de poignée de redimensionnement --- */
+/* --- Type de poignee de redimensionnement --- */
 
-export type ResizeHandle =
-  | 'top'
-  | 'bottom'
-  | 'left'
-  | 'right'
-  | 'top-left'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-right';
+export type ResizeHandle = 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
 /* --- Constantes de dimensions --- */
 

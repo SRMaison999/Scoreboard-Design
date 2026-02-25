@@ -9,7 +9,7 @@ import type { LibraryCategory } from '@/types/customField';
 describe('customFields constantes', () => {
   describe('LIBRARY_CATEGORY_LABELS', () => {
     it('contient un label pour chaque catégorie', () => {
-      const categories: LibraryCategory[] = ['match', 'text', 'data', 'players', 'media', 'composed'];
+      const categories: LibraryCategory[] = ['match', 'text', 'data', 'players', 'goal', 'team', 'table', 'event', 'schedule', 'media', 'composed'];
       for (const cat of categories) {
         expect(LIBRARY_CATEGORY_LABELS[cat]).toBeTruthy();
         expect(typeof LIBRARY_CATEGORY_LABELS[cat]).toBe('string');
@@ -65,13 +65,18 @@ describe('customFields constantes', () => {
       }
     });
 
-    it('contient les 6 catégories', () => {
+    it('contient les 11 catégories', () => {
       const categories = new Set(LIBRARY_ELEMENTS.map((el) => el.category));
-      expect(categories.size).toBe(6);
+      expect(categories.size).toBe(11);
       expect(categories.has('match')).toBe(true);
       expect(categories.has('text')).toBe(true);
       expect(categories.has('data')).toBe(true);
       expect(categories.has('players')).toBe(true);
+      expect(categories.has('goal')).toBe(true);
+      expect(categories.has('team')).toBe(true);
+      expect(categories.has('table')).toBe(true);
+      expect(categories.has('event')).toBe(true);
+      expect(categories.has('schedule')).toBe(true);
       expect(categories.has('media')).toBe(true);
       expect(categories.has('composed')).toBe(true);
     });

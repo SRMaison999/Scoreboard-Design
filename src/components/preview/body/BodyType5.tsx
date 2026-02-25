@@ -89,7 +89,7 @@ export function BodyType5({
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <Flag code={playerTeam} w={50} h={32} flagOverrides={flagOverrides} />
-        <span style={{ fontSize: scaleFontSize(22, sc), letterSpacing: 4, color: col('statLabel') }}>
+        <span style={{ fontSize: scaleFontSize(22, sc), letterSpacing: 4, lineHeight: 1, color: col('statLabel') }}>
           {playerTeam}
         </span>
       </div>

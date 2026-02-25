@@ -20,7 +20,7 @@ import { LibraryIcon } from '@/components/editor/LibraryIcon';
 import type { LibraryElement, LibraryCategory } from '@/types/customField';
 
 const ALL_CATEGORIES: readonly (LibraryCategory | 'all')[] = [
-  'all', 'match', 'text', 'data', 'players', 'media', 'composed',
+  'all', 'match', 'text', 'data', 'players', 'goal', 'team', 'table', 'event', 'schedule', 'media', 'composed',
 ];
 
 const CATEGORY_FILTER_LABELS: Readonly<Record<LibraryCategory | 'all', string>> = {

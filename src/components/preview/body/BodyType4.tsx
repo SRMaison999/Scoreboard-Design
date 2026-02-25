@@ -72,6 +72,7 @@ export function BodyType4({
             fontSize: scaleFontSize(36, sc),
             fontWeight: 700,
             letterSpacing: 6,
+            lineHeight: 1,
             color: col('statVal'),
           }}
         >

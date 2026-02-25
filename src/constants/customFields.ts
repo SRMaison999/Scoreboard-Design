@@ -14,6 +14,11 @@ export const LIBRARY_CATEGORY_LABELS: Readonly<Record<LibraryCategory, string>> 
   text: 'Texte',
   data: 'Donn\u00e9es',
   players: 'Joueurs',
+  goal: 'But',
+  team: '\u00c9quipe',
+  table: 'Tableau',
+  event: '\u00c9v\u00e9nement',
+  schedule: 'Calendrier',
   media: 'M\u00e9dias',
   composed: 'Compos\u00e9s',
 };
@@ -166,8 +171,135 @@ export const CUSTOM_FIELD_LABELS = {
   configPenaltyRemove: 'Supprimer',
   configPenaltyEmpty: 'Aucune pénalité',
 
+  /* Joueur (player-row) */
+  configPlayerName: 'Nom du joueur',
+  configPlayerNumber: 'Num\u00e9ro',
+  configPlayerPosition: 'Position',
+  configPlayerShowNumber: 'Afficher le num\u00e9ro',
+  configPlayerShowPosition: 'Afficher la position',
+
+  /* Liste de joueurs (player-list) */
+  configPlayerListTitle: 'Titre du groupe',
+  configPlayerListTitlePlaceholder: 'Ex. : Ligne 1, Gardiens...',
+  configPlayerListShowNumbers: 'Afficher les num\u00e9ros',
+  configPlayerListShowPositions: 'Afficher les positions',
+  configPlayerListAdd: 'Ajouter un joueur',
+  configPlayerListRemove: 'Retirer',
+  configPlayerListEmpty: 'Aucun joueur. Ajoutez-en un.',
+  configPlayerListTitleColor: 'Couleur du titre',
+
+  /* Buteur (goal-scorer) */
+  configGoalScorerName: 'Nom du buteur',
+  configGoalScorerNumber: 'Num\u00e9ro',
+  configGoalScorerPhoto: 'Photo du buteur',
+  configGoalScorerShowPhoto: 'Afficher la photo',
+  configGoalScorerShowNumber: 'Afficher le num\u00e9ro',
+
+  /* Assistants (goal-assists) */
+  configGoalAssist1Name: 'Assistant 1 \u2014 Nom',
+  configGoalAssist1Number: 'Assistant 1 \u2014 Num\u00e9ro',
+  configGoalAssist2Name: 'Assistant 2 \u2014 Nom',
+  configGoalAssist2Number: 'Assistant 2 \u2014 Num\u00e9ro',
+  configGoalAssistsShowNumbers: 'Afficher les num\u00e9ros',
+
+  /* D\u00e9tails du but (goal-details) */
+  configGoalTime: 'Temps du but',
+  configGoalPeriod: 'P\u00e9riode',
+  configGoalCountMatch: 'Buts (match)',
+  configGoalCountTournament: 'Buts (tournoi)',
+  configGoalShowPeriod: 'Afficher la p\u00e9riode',
+  configGoalShowCount: 'Afficher le compteur',
+
+  /* Staff (staff-row) */
+  configStaffRole: 'R\u00f4le',
+  configStaffRolePlaceholder: 'Ex. : Entra\u00eeneur, Adjoint...',
+  configStaffName: 'Nom',
+
+  /* Liste du staff (staff-list) */
+  configStaffListTitle: 'Titre',
+  configStaffListTitlePlaceholder: 'Ex. : Staff technique',
+  configStaffListAdd: 'Ajouter un membre',
+  configStaffListRemove: 'Retirer',
+  configStaffListEmpty: 'Aucun membre. Ajoutez-en un.',
+  configStaffListTitleColor: 'Couleur du titre',
+
+  /* Tableau de donn\u00e9es (data-table) */
+  configTableTitle: 'Titre du tableau',
+  configTableShowHeader: 'Afficher l\u2019en-t\u00eate',
+  configTableHeaderColor: 'Couleur de l\u2019en-t\u00eate',
+  configTableAddColumn: 'Ajouter une colonne',
+  configTableRemoveColumn: 'Supprimer la colonne',
+  configTableAddRow: 'Ajouter une ligne',
+  configTableRemoveRow: 'Supprimer la ligne',
+  configTableColumnLabel: 'Label de colonne',
+  configTableColumnAlign: 'Alignement',
+  configTableEmptyColumns: 'Aucune colonne. Ajoutez-en une.',
+  configTableEmptyRows: 'Aucune ligne.',
+  configTableCellValue: 'Valeur',
+
+  /* \u00c9v\u00e9nement (timeline-event) */
+  configEventPeriod: 'P\u00e9riode',
+  configEventTime: 'Temps',
+  configEventKind: 'Type',
+  configEventKindGoal: 'But',
+  configEventKindPenalty: 'P\u00e9nalit\u00e9',
+  configEventKindTimeout: 'Temps mort',
+  configEventKindPeriod: 'P\u00e9riode',
+  configEventDescription: 'Description',
+  configEventTeam: '\u00c9quipe',
+
+  /* Chronologie (timeline-list) */
+  configTimelineTitle: 'Titre',
+  configTimelineAdd: 'Ajouter un \u00e9v\u00e9nement',
+  configTimelineRemove: 'Retirer',
+  configTimelineEmpty: 'Aucun \u00e9v\u00e9nement. Ajoutez-en un.',
+  configTimelineTitleColor: 'Couleur du titre',
+
+  /* Match (schedule-match) */
+  configMatchDate: 'Date',
+  configMatchTime: 'Heure',
+  configMatchTeamLeft: '\u00c9quipe gauche',
+  configMatchTeamRight: '\u00c9quipe droite',
+  configMatchScoreLeft: 'Score G',
+  configMatchScoreRight: 'Score D',
+  configMatchStatus: 'Statut',
+  configMatchStatusUpcoming: '\u00c0 venir',
+  configMatchStatusLive: 'En cours',
+  configMatchStatusFinished: 'Termin\u00e9',
+  configMatchVenue: 'Lieu',
+
+  /* Programme (schedule-list) */
+  configScheduleTitle: 'Titre',
+  configScheduleAdd: 'Ajouter un match',
+  configScheduleRemove: 'Retirer',
+  configScheduleEmpty: 'Aucun match. Ajoutez-en un.',
+  configScheduleTitleColor: 'Couleur du titre',
+
+  /* Fiche joueur (player-card) */
+  configCardTitle: 'Titre',
+  configCardSubtitle: 'Sous-titre',
+  configCardPlayerName: 'Nom du joueur',
+  configCardPlayerNumber: 'Num\u00e9ro',
+  configCardPlayerTeam: '\u00c9quipe',
+  configCardPlayerPhoto: 'Photo du joueur',
+  configCardTitleColor: 'Couleur du titre',
+  configCardStatLabel: 'Label',
+  configCardStatValue: 'Valeur',
+  configCardAddStat: 'Ajouter une statistique',
+  configCardRemoveStat: 'Retirer',
+  configCardEmptyStats: 'Aucune statistique.',
+
+  /* Score par p\u00e9riode (period-score-row) */
+  configPeriodScoreAdd: 'Ajouter une p\u00e9riode',
+  configPeriodScoreRemove: 'Retirer',
+  configPeriodScoreEmpty: 'Aucune p\u00e9riode. Ajoutez-en une.',
+  configPeriodScorePeriodLabel: 'P\u00e9riode',
+  configPeriodScoreLeft: 'Score G',
+  configPeriodScoreRight: 'Score D',
+  configPeriodScoreHeaderColor: 'Couleur de l\u2019en-t\u00eate',
+
   /* Header complet */
-  configHeaderTeamsHint: 'Le header affiche les équipes, scores et horloge.',
+  configHeaderTeamsHint: 'Le header affiche les \u00e9quipes, scores et horloge.',
 
   /* Body types imbriqués */
   configBodyTypeEmbedded: 'Body type imbriqué',
@@ -314,6 +446,20 @@ export const CUSTOM_FIELD_LABELS = {
     'separator-line': 'S\u00e9parateur',
     'header-block': 'Header complet',
     'penalty-column': 'Colonne de p\u00e9nalit\u00e9s',
+    'player-row': 'Joueur',
+    'player-list': 'Liste de joueurs',
+    'goal-scorer': 'Buteur',
+    'goal-assists': 'Assistants',
+    'goal-details': 'D\u00e9tails du but',
+    'staff-row': 'Membre du staff',
+    'staff-list': 'Liste du staff',
+    'data-table': 'Tableau de donn\u00e9es',
+    'timeline-event': '\u00c9v\u00e9nement',
+    'timeline-list': 'Chronologie',
+    'schedule-match': 'Match',
+    'schedule-list': 'Programme',
+    'player-card': 'Fiche joueur',
+    'period-score-row': 'Score par p\u00e9riode',
   } as Readonly<Record<string, string>>,
 
   /* Raccourcis clavier */

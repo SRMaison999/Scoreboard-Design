@@ -27,7 +27,7 @@ describe('FreeLayoutLibraryPanel', () => {
   it('affiche les filtres de cat\u00e9gorie sous forme d\'onglets', () => {
     render(<FreeLayoutLibraryPanel />);
     const tabs = screen.getAllByRole('tab');
-    expect(tabs.length).toBe(7);
+    expect(tabs.length).toBe(12);
     expect(tabs[0]?.textContent).toBe(CUSTOM_FIELD_LABELS.freeLayoutCategoryAll);
   });
 

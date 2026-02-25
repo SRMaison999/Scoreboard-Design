@@ -79,3 +79,4 @@
 | Grille + Smart Guides simultanees | La grille et les guides intelligents fonctionnent desormais ensemble (non exclusifs) | Termine |
 | Coordonnees curseur | Indicateur de position du curseur (x, y px) en bas a droite du canvas | Termine |
 | ZoneSelectionOverlay | Extraction de la zone de selection en composant autonome | Termine |
+| Elements atomiques libres | 8 nouveaux types d'elements (joueurs, but, staff, tableau) pour composer librement sans dependance aux presets | Termine |

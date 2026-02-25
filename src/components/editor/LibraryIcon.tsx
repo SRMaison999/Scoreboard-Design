@@ -8,6 +8,8 @@ import {
   Type, BarChart2, GitCompare, User, Image, Square, Minus,
   LayoutDashboard, Columns, AlignCenter, Trophy,
   ListOrdered, FileText, Users, Calendar,
+  UserRound, CircleDot, Handshake, Briefcase, UsersRound, Table,
+  Activity, List, CalendarDays, CalendarRange,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -21,6 +23,10 @@ const ICON_MAP: Record<string, LucideIcon> = {
   'list-ordered': ListOrdered, 'file-text': FileText,
   users: Users, calendar: Calendar,
   'flag-triangle-right': Flag, 'id-card': User, 'bar-chart': BarChart2,
+  'user-round': UserRound, 'circle-dot': CircleDot, handshake: Handshake,
+  briefcase: Briefcase, 'users-round': UsersRound, table: Table,
+  activity: Activity, list: List,
+  'calendar-days': CalendarDays, 'calendar-range': CalendarRange,
 };
 
 export function LibraryIcon({ name }: { readonly name: string }) {

@@ -336,6 +336,12 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 - `PropertiesPanel.tsx` : panneau latéral droit (300 px) affiché à droite du canvas quand un ou plusieurs champs sont sélectionnés. Supporte la sélection simple (propriétés complètes) et multiple (alignement/distribution). Inclut un bouton d'accès rapide aux données du match (équipes, scores, drapeaux) visible dans l'état vide et dans le header
 - `TeamNationSelector.tsx` : sélecteur de nation intégré directement dans les propriétés des champs team-name, score-display et flag-display. Affiche le dropdown de nation, le nom affiché et le score pour le côté (gauche/droite) du champ sélectionné
 - `FieldElementConfigEditor.tsx` : éditeurs de configuration spécifiques par type d'élément. Les types liés aux équipes (team-name, score-display, flag-display) intègrent le TeamNationSelector pour permettre la sélection directe de la nation
+- `FieldPlayerEditors.tsx` : éditeurs pour les éléments joueurs (ligne joueur, liste de joueurs avec gestion des positions hockey)
+- `FieldGoalEditors.tsx` : éditeurs pour les éléments but (buteur avec photo, assistants, détails)
+- `FieldTeamEditors.tsx` : éditeurs pour les éléments équipe et tableau (staff, liste du staff, tableau de données configurable)
+- `FieldEventEditors.tsx` : éditeurs pour les éléments événement (événement unique, chronologie avec liste d'événements)
+- `FieldScheduleEditors.tsx` : éditeurs pour les éléments calendrier (match unique, programme avec liste de matchs)
+- `FieldCardEditors.tsx` : éditeurs pour la fiche joueur (photo, stats) et le score par période
 
 ### 5.3 Preview (`src/components/preview/`)
 
@@ -380,6 +386,12 @@ Le Layout libre (BodyType14) est le mode principal, proposé en premier dans l'i
 | `FieldFontToolbar.tsx` | Barre flottante de contrôle de taille de police au-dessus du champ sélectionné |
 | `FieldElementRenderer.tsx` | Rendu visuel d'un élément selon son type (switch/dispatch) |
 | `FieldMatchElements.tsx` | Renderers des éléments match : score, horloge, période, nom d'équipe, drapeau, temps morts, tirs au but |
+| `FieldPlayerElements.tsx` | Renderers des éléments joueurs : ligne joueur, liste de joueurs |
+| `FieldGoalElements.tsx` | Renderers des éléments but : buteur (avec photo), assistants, détails du but |
+| `FieldTeamElements.tsx` | Renderers des éléments équipe/tableau : membre du staff, liste du staff, tableau de données |
+| `FieldEventElements.tsx` | Renderers des éléments événement : événement unique (but/pénalité/temps mort), chronologie |
+| `FieldScheduleElements.tsx` | Renderers des éléments calendrier : match unique, programme (liste de matchs) |
+| `FieldCardElements.tsx` | Renderers de la fiche joueur (photo, nom, équipe, stats) et du score par période |
 | `ZoneSelectionOverlay.tsx` | Overlay de sélection de zone par rectangle, extrait en composant autonome |
 
 ### 5.4 Operateur (`src/components/operator/`)
@@ -429,6 +441,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 | `sync.ts` | `SyncRole`, `SyncPeer`, `SyncMessage`, `SyncConfig` |
 | `broadcast.ts` | `BroadcastStatus`, `BroadcastConfig`, `DEFAULT_BROADCAST_CONFIG` |
 | `customField.ts` | `CustomField`, `FieldElementConfig`, `FieldStyle`, `LibraryElement`, `LibraryCategory` |
+| `freeLayoutConfigs.ts` | Configs des éléments atomiques du Layout libre : `PlayerRowConfig`, `PlayerListConfig`, `GoalScorerConfig`, `GoalAssistsConfig`, `GoalDetailsConfig`, `StaffRowConfig`, `StaffListConfig`, `DataTableConfig`, `TimelineEventConfig`, `TimelineListConfig`, `ScheduleMatchConfig`, `ScheduleListConfig`, `PlayerCardConfig`, `PeriodScoreRowConfig` |
 
 ---
 
@@ -444,7 +457,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 | `fontSizes.ts` | FONT_SIZES (tailles auto par nombre de lignes) |
 | `phases.ts` | Phases de match par defaut |
 | `bodyTypes.ts` | Definitions des 14 body types (Layout libre en premier) |
-| `customFields.ts` | Bibliothèque d'éléments (25+), labels et catégories du constructeur de champs |
+| `customFields.ts` | Bibliothèque d'éléments (43+), labels et catégories (11) du constructeur de champs |
 | `resolutions.ts` | Presets de resolution (Full HD, 4K, 720p, etc.) |
 | `nations.ts` | 31 nations de hockey avec codes NOC |
 
@@ -480,7 +493,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 
 **Setup** : `src/test/setup.ts`
 
-**Couverture** : 151 fichiers de test, 997 tests.
+**Couverture** : 205 fichiers de test, 1550 tests.
 
 | Categorie | Nombre | Exemples |
 |-----------|--------|----------|

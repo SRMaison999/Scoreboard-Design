@@ -52,6 +52,7 @@ export function BodyType12({
             fontWeight: 600,
             letterSpacing: 5,
             textTransform: 'uppercase',
+            lineHeight: 1,
             color: col('titleText'),
           }}
         >
