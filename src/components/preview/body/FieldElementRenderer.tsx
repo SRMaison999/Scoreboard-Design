@@ -233,7 +233,7 @@ export const FieldElementRenderer = memo(function FieldElementRenderer({
     case 'penalty-column':
       return <PenaltyColumnElement state={state} colors={colors} opacities={opacities} element={element} />;
     default: {
-      /* Body types 1-13 imbriques dans le Layout libre */
+      /* Body types 2-14 imbriques dans le Layout libre */
       const bodyMatch = element.type.match(/^body-type-(\d+)$/);
       if (bodyMatch?.[1]) {
         const bodyId = parseInt(bodyMatch[1], 10);

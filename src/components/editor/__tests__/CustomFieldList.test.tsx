@@ -14,7 +14,7 @@ const textElement: FieldElementConfig = {
 describe('CustomFieldList', () => {
   beforeEach(() => {
     useScoreboardStore.getState().resetState();
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
   });
 
   it('affiche un message si aucun champ', () => {

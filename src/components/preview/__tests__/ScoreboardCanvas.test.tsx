@@ -3,33 +3,35 @@ import { render, screen } from '@testing-library/react';
 import { ScoreboardCanvas } from '@/components/preview/ScoreboardCanvas';
 import { DEFAULT_STATE } from '@/data/defaultState';
 
+const STATS_STATE = { ...DEFAULT_STATE, bodyType: 14 as const };
+
 describe('ScoreboardCanvas', () => {
   it('rend le canvas avec les equipes par defaut', () => {
-    render(<ScoreboardCanvas state={DEFAULT_STATE} />);
+    render(<ScoreboardCanvas state={STATS_STATE} />);
     expect(screen.getByText('SVK')).toBeInTheDocument();
     expect(screen.getByText('FIN')).toBeInTheDocument();
   });
 
   it('affiche les scores', () => {
-    render(<ScoreboardCanvas state={DEFAULT_STATE} />);
+    render(<ScoreboardCanvas state={STATS_STATE} />);
     const scores = screen.getAllByText('1');
     expect(scores.length).toBeGreaterThanOrEqual(2);
   });
 
   it('affiche le temps et la periode', () => {
-    render(<ScoreboardCanvas state={DEFAULT_STATE} />);
+    render(<ScoreboardCanvas state={STATS_STATE} />);
     expect(screen.getByText('20:00')).toBeInTheDocument();
     expect(screen.getByText('1st PERIOD')).toBeInTheDocument();
   });
 
-  it('affiche le titre et les stats pour body type 1', () => {
-    render(<ScoreboardCanvas state={DEFAULT_STATE} />);
+  it('affiche le titre et les stats pour body type 14 (stats centrees)', () => {
+    render(<ScoreboardCanvas state={STATS_STATE} />);
     expect(screen.getByText('GAME STATISTICS')).toBeInTheDocument();
     expect(screen.getByText('GAME')).toBeInTheDocument();
   });
 
   it('affiche les penalites quand showPenalties est actif', () => {
-    const state = { ...DEFAULT_STATE, showPenalties: true };
+    const state = { ...STATS_STATE, showPenalties: true };
     render(<ScoreboardCanvas state={state} />);
     expect(screen.getByText('1:52')).toBeInTheDocument();
     expect(screen.getByText('24')).toBeInTheDocument();
@@ -44,7 +46,7 @@ describe('ScoreboardCanvas', () => {
 
   it('utilise un fond uni en mode uniform', () => {
     const state = {
-      ...DEFAULT_STATE,
+      ...STATS_STATE,
       bgMode: 'uniform' as const,
       colors: { ...DEFAULT_STATE.colors, bgTop: '#ff0000' },
     };
@@ -54,7 +56,7 @@ describe('ScoreboardCanvas', () => {
   });
 
   it('utilise un dégradé en mode gradient', () => {
-    const state = { ...DEFAULT_STATE, bgMode: 'gradient' as const };
+    const state = { ...STATS_STATE, bgMode: 'gradient' as const };
     render(<ScoreboardCanvas state={state} />);
     const canvas = screen.getByTestId('scoreboard-canvas');
     expect(canvas.style.background).toContain('linear-gradient');
@@ -92,7 +94,7 @@ describe('ScoreboardCanvas', () => {
 
   it('passe les logos d\'équipe au Header', () => {
     const logos = { 'team-SVK': 'data:image/webp;base64,svk' };
-    const state = { ...DEFAULT_STATE, logoMode: 'logo' as const };
+    const state = { ...STATS_STATE, logoMode: 'logo' as const };
     const { container } = render(<ScoreboardCanvas state={state} logos={logos} />);
     const images = container.querySelectorAll('img');
     expect(images.length).toBeGreaterThanOrEqual(1);
@@ -100,7 +102,7 @@ describe('ScoreboardCanvas', () => {
 
   it('affiche le logo de compétition quand activé', () => {
     const logos = { 'competition-iihf': 'data:image/webp;base64,iihf' };
-    const state = { ...DEFAULT_STATE, showCompetitionLogo: true, competitionLogoSize: 80 };
+    const state = { ...STATS_STATE, showCompetitionLogo: true, competitionLogoSize: 80 };
     const { container } = render(<ScoreboardCanvas state={state} logos={logos} />);
     const images = container.querySelectorAll('img');
     const iihfImg = Array.from(images).find((img) => img.getAttribute('src') === 'data:image/webp;base64,iihf');
@@ -109,7 +111,7 @@ describe('ScoreboardCanvas', () => {
 
   it('affiche le logo sponsor quand activé', () => {
     const logos = { 'sponsor-nike': 'data:image/webp;base64,nike' };
-    const state = { ...DEFAULT_STATE, showSponsorLogo: true, sponsorLogoSize: 60 };
+    const state = { ...STATS_STATE, showSponsorLogo: true, sponsorLogoSize: 60 };
     const { container } = render(<ScoreboardCanvas state={state} logos={logos} />);
     const images = container.querySelectorAll('img');
     const nikeImg = Array.from(images).find((img) => img.getAttribute('src') === 'data:image/webp;base64,nike');

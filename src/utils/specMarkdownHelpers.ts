@@ -19,7 +19,7 @@ export function asArray(data: unknown): unknown[] {
 }
 
 export function buildLayoutOverview(spec: ScoreboardSpec): string {
-  const isType14 = spec.body.type === 14;
+  const isLayoutLibre = spec.body.type === 1;
   const hasPenalties = spec.header.penalties.show;
 
   const lines = [
@@ -28,7 +28,7 @@ export function buildLayoutOverview(spec: ScoreboardSpec): string {
     '```',
   ];
 
-  if (isType14) {
+  if (isLayoutLibre) {
     lines.push(
       `+${'='.repeat(58)}+`,
       `| CANVAS (${spec.canvas.width}x${spec.canvas.height})${' '.repeat(20)}|`,

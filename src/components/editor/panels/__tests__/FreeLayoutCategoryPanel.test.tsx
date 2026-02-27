@@ -14,7 +14,7 @@ describe('FreeLayoutCategoryPanel', () => {
     });
     vi.stubGlobal('BroadcastChannel', MockBroadcastChannel);
     useScoreboardStore.getState().resetState();
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
     /* Pas de dépendance à activeFreeLayoutTab */
   });
 

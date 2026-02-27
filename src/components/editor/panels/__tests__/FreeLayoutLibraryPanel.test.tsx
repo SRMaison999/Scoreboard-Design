@@ -15,7 +15,7 @@ describe('FreeLayoutLibraryPanel', () => {
     });
     vi.stubGlobal('BroadcastChannel', MockBroadcastChannel);
     useScoreboardStore.getState().resetState();
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
     useEditorUIStore.setState({ activeLibraryCategory: 'all' });
   });
 

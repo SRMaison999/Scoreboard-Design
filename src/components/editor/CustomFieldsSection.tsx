@@ -1,5 +1,5 @@
 /**
- * Section éditeur pour le constructeur de champs personnalisés (Type 14).
+ * Section éditeur pour le constructeur de champs personnalisés (Type 1).
  * Contient les options du canvas, la bibliothèque, la liste des champs et les presets.
  */
 

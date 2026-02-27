@@ -53,11 +53,11 @@ describe('createDefaultFieldConfig', () => {
   });
 
   it('cree une config pour les body types composes', () => {
-    const el = LIBRARY_ELEMENTS.find((e) => e.type === 'body-type-1');
+    const el = LIBRARY_ELEMENTS.find((e) => e.type === 'body-type-14');
     expect(el).toBeDefined();
     const config = createDefaultFieldConfig(el!);
-    expect(config.type).toBe('body-type-1');
-    expect((config.config as { bodyTypeId: number }).bodyTypeId).toBe(1);
+    expect(config.type).toBe('body-type-14');
+    expect((config.config as { bodyTypeId: number }).bodyTypeId).toBe(14);
   });
 });
 

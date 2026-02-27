@@ -1,5 +1,5 @@
 /**
- * Actions Zustand pour la gestion des champs personnalisés (type 14).
+ * Actions Zustand pour la gestion des champs personnalisés (type 1).
  * Extraites du store principal pour respecter la limite de 300 lignes.
  */
 

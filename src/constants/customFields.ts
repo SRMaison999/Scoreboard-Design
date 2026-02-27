@@ -28,7 +28,7 @@ export const LIBRARY_CATEGORY_LABELS: Readonly<Record<LibraryCategory, string>> 
 export const CUSTOM_FIELD_LABELS = {
   /* Section principale */
   sectionCustomFields: 'Layout libre',
-  bodyType14Label: 'Layout libre (champs personnalis\u00e9s)',
+  bodyType1Label: 'Layout libre (champs personnalis\u00e9s)',
 
   /* Modes */
   fullPageMode: 'Mode pleine page',
@@ -523,7 +523,7 @@ export const CUSTOM_FIELD_LABELS = {
   /* R\u00e8gles du canvas */
   rulerUnit: 'px',
 
-  /* Mod\u00e8les hockey (presets bodyType 14) */
+  /* Mod\u00e8les hockey (presets bodyType 1) */
   hockeyPresetTitle: 'Mod\u00e8les hockey',
   hockeyPresetSimpleScore: 'Score simple',
   hockeyPresetWithPenalties: 'Score avec p\u00e9nalit\u00e9s',

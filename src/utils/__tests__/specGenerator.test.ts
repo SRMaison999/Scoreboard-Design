@@ -61,16 +61,16 @@ describe('generateSpec', () => {
     expect(spec.body.data).toBeTruthy();
   });
 
-  it('inclut les donnees du type 14 (layout libre)', () => {
-    const spec = generateSpec(stateWith({ bodyType: 14 }));
-    expect(spec.body.type).toBe(14);
+  it('inclut les donnees du type 1 (layout libre)', () => {
+    const spec = generateSpec(stateWith({ bodyType: 1 }));
+    expect(spec.body.type).toBe(1);
     expect(spec.body.label).toBe('Layout libre');
     const data = spec.body.data as Record<string, unknown>;
     expect(data.selectedFieldIds).toEqual([]);
   });
 
-  it('inclut les donnees des types 1-3 (stats avec titres)', () => {
-    const spec = generateSpec(stateWith({ bodyType: 1, titleCenter: 'STATS' }));
+  it('inclut les donnees du type 14 (stats centrees avec titres)', () => {
+    const spec = generateSpec(stateWith({ bodyType: 14, titleCenter: 'STATS' }));
     const data = spec.body.data as Record<string, unknown>;
     expect(data.titles).toEqual({ center: 'STATS', left: DEFAULT_STATE.titleLeft, right: DEFAULT_STATE.titleRight });
   });

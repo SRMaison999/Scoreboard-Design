@@ -14,6 +14,8 @@ describe('ContentPanel', () => {
     });
     vi.stubGlobal('BroadcastChannel', MockBroadcastChannel);
     useScoreboardStore.getState().resetState();
+    /* Utiliser Stats centrées (type 14) par défaut pour tester les onglets standard */
+    useScoreboardStore.getState().update('bodyType', 14);
     useEditorUIStore.setState({ activeRailTab: 'content', activeContentSubTab: 'teams' });
   });
 
@@ -55,14 +57,14 @@ describe('ContentPanel', () => {
   });
 
   it('affiche le FreeLayoutPanel en mode Layout libre pleine page', () => {
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
     useScoreboardStore.getState().updateCustomFieldsOption('fullPageMode', true);
     render(<ContentPanel />);
     expect(screen.getByTestId('free-layout-panel')).toBeInTheDocument();
   });
 
   it('affiche le FreeLayoutPanel en mode Layout libre sans pleine page', () => {
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
     useScoreboardStore.getState().updateCustomFieldsOption('fullPageMode', false);
     render(<ContentPanel />);
     expect(screen.getByTestId('free-layout-panel')).toBeInTheDocument();

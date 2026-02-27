@@ -3,7 +3,7 @@ import type { ManualChapter } from '@/types/userManual';
 export const ch03b: ManualChapter = {
   id: 'layout-libre',
   title: 'Layout libre',
-  content: `Le **Layout libre** (mode 14) est le mode le plus puissant du Scoreboard Editor. Contrairement aux 13 autres modes qui imposent une mise en page fixe, le Layout libre affiche un canvas entièrement vierge sur lequel vous placez librement des éléments visuels.
+  content: `Le **Layout libre** (mode 1) est le mode le plus puissant du Scoreboard Editor. Contrairement aux 13 autres modes qui imposent une mise en page fixe, le Layout libre affiche un canvas entièrement vierge sur lequel vous placez librement des éléments visuels.
 
 **Idéal pour :** créer un affichage sur mesure, concevoir des mises en page originales, assembler des éléments de différentes natures sur un même écran.
 
@@ -207,7 +207,7 @@ L'ordre d'empilement ne se gère plus par un champ numérique, mais par **4 bout
 
 **Ce qu'il affiche :** une ligne de statistiques (valeur gauche + libellé + valeur droite).
 
-**Options :** **Ligne de stat** (index) : sélectionnez quelle ligne de statistiques afficher (0 = première, 1 = deuxième, etc.). Les statistiques se configurent dans les modes body types 1 à 3.
+**Options :** **Ligne de stat** (index) : sélectionnez quelle ligne de statistiques afficher (0 = première, 1 = deuxième, etc.). Les statistiques se configurent dans les types d'affichage dédiés (Stats centrées, Stats gauche/droite, Stats joueur).
 
 ### Barre comparative (catégorie Données)
 
@@ -253,7 +253,7 @@ L'ordre d'empilement ne se gère plus par un champ numérique, mais par **4 bout
 
 ### Header complet (catégorie Composés)
 
-**Ce qu'il affiche :** un bloc complet contenant automatiquement : drapeaux/logos, noms d'équipes, scores, temps morts et tirs au but. C'est l'équivalent du header des modes classiques (1 à 13).
+**Ce qu'il affiche :** un bloc complet contenant automatiquement : drapeaux/logos, noms d'équipes, scores, temps morts et tirs au but. C'est l'équivalent du header des modes à agencement fixe (types 2 à 14).
 
 **Options :** **Afficher l'horloge** (cocher pour inclure le temps dans le header).
 

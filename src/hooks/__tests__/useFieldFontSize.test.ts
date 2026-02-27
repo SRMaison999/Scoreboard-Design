@@ -36,7 +36,7 @@ describe('hasEditableFontSize', () => {
 describe('useFieldFontSize', () => {
   beforeEach(() => {
     useScoreboardStore.getState().resetState();
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
   });
 
   it('retourne hasFontControl false sans champ sélectionné', () => {

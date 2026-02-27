@@ -31,7 +31,7 @@ export function useCustomFieldKeyboard() {
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (bodyType !== 14) return;
+      if (bodyType !== 1) return;
 
       const target = e.target as HTMLElement;
       const isInput = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT';

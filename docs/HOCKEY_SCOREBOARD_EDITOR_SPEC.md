@@ -4,7 +4,7 @@
 
 **Version :** 1.0
 **Date :** 14 février 2026
-**Statut :** Prototype fonctionnel (artifact React) → Application de production
+**Statut :** Outil de conception de templates (en développement)
 
 ---
 
@@ -12,7 +12,7 @@
 
 ### 1.1 Objectif
 
-Éditeur visuel de templates de scoreboard pour retransmissions de hockey sur glace. L'application permet de concevoir, personnaliser et exploiter en direct des affichages de scores, statistiques et classements de joueurs destinés à être incrustés dans un flux vidéo broadcast ou affichés sur un écran dédié.
+Éditeur visuel de templates de scoreboard pour le hockey sur glace. L'application permet de concevoir, personnaliser et prévisualiser des maquettes d'affichages de scores, statistiques et classements de joueurs. L'application est en cours de développement et sert actuellement à la conception de designs. L'exploitation en direct et l'intégration broadcast constituent des objectifs futurs.
 
 ### 1.2 Contexte d'utilisation
 
@@ -74,11 +74,11 @@ OVERTIME (5:00), OVERTIME 2 (5:00)
 
 #### 2.2.3 Corps — Modèles de layout
 
-Le Layout libre (Body Type 14 dans le code) est le mode principal, proposé en premier dans l'interface. Il offre un canvas entièrement libre pour composer des scoreboards sur mesure avec glisser-déposer, redimensionnement, bibliothèque d'éléments (25+), presets, historique undo/redo, sélection de police par champ, scaling proportionnel et sélection de zone. Voir la section 3.3.1 et le manuel utilisateur (chapitre 3) pour les détails complets.
+Le Layout libre (Body Type 1) est le mode principal, proposé en premier dans l'interface. Il offre un canvas entièrement libre pour composer des scoreboards sur mesure avec glisser-déposer, redimensionnement, bibliothèque d'éléments (25+), presets, historique undo/redo, sélection de police par champ, scaling proportionnel et sélection de zone. Voir la section 3.3.1 et le manuel utilisateur (chapitre 3) pour les détails complets.
 
-Les types prédéfinis 1-13 offrent des agencements fixes pour des cas d'utilisation courants :
+Les types prédéfinis 2-14 offrent des agencements fixes pour des cas d'utilisation courants :
 
-**Type 1 : Titre centré + lignes symétriques**
+**Type 14 : Titre centré + lignes centrées**
 
 ```
             GAME STATISTICS
@@ -91,7 +91,7 @@ Les types prédéfinis 1-13 offrent des agencements fixes pour des cas d'utilisa
 - Grille CSS 3 colonnes : `1fr [labelW]px 1fr`
 - Taille de police automatique selon le nombre de lignes (1–8)
 
-**Type 2 : Deux titres + lignes asymétriques**
+**Type 2 : Deux titres + lignes gauche/droite**
 
 ```
 POWER PLAY         PENALTY KILLING
@@ -232,7 +232,7 @@ interface ScoreboardState {
   showPlayerPhoto: boolean;
   playerStats: PlayerStat[];
 
-  // Type 1 & 2
+  // Type 14 & 2
   stats: StatLine[];
 
   // Penalties
@@ -330,7 +330,7 @@ Technique de rendu des drapeaux :
 | Horloge (temps) | 80px | 40–120px |
 | Période | 22px | 12–40px |
 | Titres | 30px | 16–60px |
-| Valeurs stats (type 1/2) | auto (FONT_SIZES) | 24–120px |
+| Valeurs stats (type 14/2) | auto (FONT_SIZES) | 24–120px |
 | Labels stats | auto (FONT_SIZES) | 16–60px |
 | Valeurs/labels (type 3) | fs.val × 0.55 | 20–80px |
 | Temps pénalité | 60px | 30–80px |
@@ -446,7 +446,7 @@ Technique de rendu des drapeaux :
 
 ### 3.3 Priorité basse — Fonctionnalités futures
 
-#### 3.3.1 Layout libre (Body Type 14 — Mode principal)
+#### 3.3.1 Layout libre (Body Type 1 — Mode principal)
 
 Le Layout libre est le mode principal de l'application. Il permet de composer un scoreboard entièrement sur mesure en plaçant des éléments visuels sur un canvas libre.
 
@@ -495,9 +495,9 @@ interface CustomField {
 }
 ```
 
-Le Layout libre est implémenté dans `BodyType14.tsx` avec les sous-composants `InteractiveField`, `FieldFontToolbar`, `FieldElementRenderer` et `FieldMatchElements`.
+Le Layout libre est implémenté dans `BodyType14.tsx` (le fichier conserve son nom historique) avec les sous-composants `InteractiveField`, `FieldFontToolbar`, `FieldElementRenderer` et `FieldMatchElements`. Dans le code, l'identifiant est désormais `1` (et non plus `14`).
 
-#### 3.3.2 Modèles de corps prédéfinis (Types 1-13)
+#### 3.3.2 Modèles de corps à agencement fixe (Types 2-14)
 
 Chaque type de corps est un composant indépendant (`BodyTypeN.tsx`) avec sa propre interface de données. Le système est conçu comme un **registre de plugins** : ajouter un nouveau type = ajouter un composant + une entrée dans le registre, sans toucher au reste du code.
 
@@ -573,7 +573,7 @@ interface HighlightRule {
 - Lignes de comparaison symétriques (valeur G / label / valeur D)
 - Mise en évidence automatique de la meilleure valeur (bold ou couleur)
 - Option : barre de progression entre les valeurs
-- Réutilise le layout du Type 1 pour les lignes de stats
+- Réutilise le layout du Type 14 pour les lignes de stats
 
 ```typescript
 interface HeadToHeadData {
@@ -1251,7 +1251,7 @@ src/
 │   │   ├── FontSection.tsx        # Polices
 │   │   ├── FontSizeSection.tsx    # Tailles de police
 │   │   ├── TitleSection.tsx       # Titres
-│   │   ├── StatsSection.tsx       # Lignes de stats (type 1/2)
+│   │   ├── StatsSection.tsx       # Lignes de stats (type 14/2)
 │   │   ├── PlayerStatsSection.tsx # Stats joueur (type 3)
 │   │   ├── PenaltySection.tsx     # Pénalités
 │   │   ├── ColorSection.tsx       # Couleurs + presets
@@ -1267,8 +1267,8 @@ src/
 │   │   ├── ClockOverlay.tsx       # Horloge superposée
 │   │   ├── body/                  # Registre de body types
 │   │   │   ├── BodyTypeRegistry.ts    # Registre dynamique
-│   │   │   ├── BodyType14.tsx         # Layout libre (mode principal)
-│   │   │   ├── BodyType1.tsx          # Symétrique
+│   │   │   ├── BodyType14.tsx         # Layout libre (type 1, mode principal)
+│   │   │   ├── BodyType1.tsx          # Stats centrées (type 14)
 │   │   │   ├── BodyType2.tsx          # Asymétrique
 │   │   │   ├── BodyType3.tsx          # Joueur/variable
 │   │   │   ├── BodyType4.tsx          # Classement

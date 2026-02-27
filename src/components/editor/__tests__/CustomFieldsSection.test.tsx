@@ -8,7 +8,7 @@ import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 describe('CustomFieldsSection', () => {
   beforeEach(() => {
     useScoreboardStore.getState().resetState();
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
   });
 
   it('rend la section principale', () => {

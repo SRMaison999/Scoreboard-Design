@@ -1,5 +1,5 @@
 /**
- * Body Type 14 : Layout libre avec champs personnalis\u00e9s.
+ * Body Type 1 : Layout libre avec champs personnalis\u00e9s.
  * Rend les champs positionn\u00e9s librement sur un canvas absolu.
  * En mode interactif (\u00e9diteur), permet le drag, resize, la s\u00e9lection,
  * le menu contextuel et l'indicateur de coordonn\u00e9es.

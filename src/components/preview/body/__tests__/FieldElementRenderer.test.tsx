@@ -105,10 +105,10 @@ describe('FieldElementRenderer', () => {
     expect(container.firstChild).toBeInTheDocument();
   });
 
-  it('rend un body-type-1 imbrique dans le Layout libre', () => {
+  it('rend un body-type-14 imbrique dans le Layout libre', () => {
     const element: FieldElementConfig = {
-      type: 'body-type-1',
-      config: { bodyTypeId: 1 },
+      type: 'body-type-14',
+      config: { bodyTypeId: 14 },
     };
     const { container } = render(<FieldElementRenderer element={element} {...defaultProps} />);
     expect(container.firstChild).toBeInTheDocument();

@@ -53,7 +53,7 @@ export const useScoreboardStore = create<ScoreboardStore>()(
       applyPreset: (preset: ColorPreset) =>
         set((s) => { s.colors = { ...preset.colors }; s.opacities = { ...DEFAULT_OPACITIES }; }),
 
-      /* Stats (type 1/2) */
+      /* Stats (type 14/2) */
       updateStat: (index: number, field: string, value: string) =>
         set((s) => { const st = s.stats[index]; if (st) (st as Record<string, string>)[field] = value; }),
       addStat: () =>
@@ -213,7 +213,7 @@ export const useScoreboardStore = create<ScoreboardStore>()(
       updateFontSize: (key: FontSizeKey, value: number) =>
         set((s) => { s.fontSizes[key] = value; }),
 
-      /* Custom Fields (type 14) */
+      /* Custom Fields (type 1) */
       addCustomField: (element, x, y, width, height, label) =>
         set((s) => { addCustomFieldDraft(s, element, x, y, width, height, label); }),
       removeCustomField: (fieldId) =>
@@ -270,7 +270,7 @@ export const useScoreboardStore = create<ScoreboardStore>()(
     })),
     {
       name: 'scoreboard-state',
-      version: 8,
+      version: 9,
       merge: (persistedState, currentState) => ({
         ...currentState,
         ...(persistedState as Partial<ScoreboardStore>),
@@ -278,6 +278,18 @@ export const useScoreboardStore = create<ScoreboardStore>()(
       }),
       migrate: (persisted: unknown) => {
         const state = persisted as Record<string, unknown>;
+        /* Migration v9 : swap bodyType 1 <-> 14 (Layout libre devient 1, Stats centrées devient 14) */
+        if (state['bodyType'] === 14) {
+          state['bodyType'] = 1;
+        } else if (state['bodyType'] === 1) {
+          state['bodyType'] = 14;
+        }
+        if (state['fontSizes'] && typeof state['fontSizes'] === 'object') {
+          const fs = state['fontSizes'] as Record<string, unknown>;
+          const tmp = fs['bodyScale1'];
+          fs['bodyScale1'] = fs['bodyScale14'];
+          fs['bodyScale14'] = tmp;
+        }
         if (state['logoMode'] === undefined) {
           state['logoMode'] = 'flag';
           state['showCompetitionLogo'] = false;

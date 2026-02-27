@@ -21,7 +21,7 @@ Ouvrez l'application dans votre navigateur. Le scoreboard s'affiche avec les par
 
 ### \u00c9tape 2 : Choisir un mode d'affichage
 
-Dans le **rail d'ic\u00f4nes** (tout \u00e0 gauche), cliquez sur la 1\u00e8re ic\u00f4ne (grille). Le **panneau Modes** s'ouvre et propose 14 types d'affichage organis\u00e9s par cat\u00e9gorie. Cliquez sur le mode souhait\u00e9 (par exemple **Stats sym\u00e9triques**). L'application bascule automatiquement vers le panneau de contenu pour que vous puissiez remplir les donn\u00e9es.
+Dans le **rail d'ic\u00f4nes** (tout \u00e0 gauche), cliquez sur la 1\u00e8re ic\u00f4ne (grille). Le **panneau Modes** s'ouvre et propose 14 types d'affichage organis\u00e9s par cat\u00e9gorie. Cliquez sur le mode souhait\u00e9 (par exemple **Stats centr\u00e9es**). L'application bascule automatiquement vers le panneau de contenu pour que vous puissiez remplir les donn\u00e9es.
 
 ### \u00c9tape 3 : Remplir les donn\u00e9es
 

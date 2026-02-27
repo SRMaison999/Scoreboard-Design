@@ -8,7 +8,7 @@ import { CUSTOM_FIELD_LABELS, LIBRARY_ELEMENTS, LIBRARY_CATEGORY_LABELS } from '
 describe('CustomFieldLibrary', () => {
   beforeEach(() => {
     useScoreboardStore.getState().resetState();
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
   });
 
   it('rend le titre de la bibliothèque', () => {

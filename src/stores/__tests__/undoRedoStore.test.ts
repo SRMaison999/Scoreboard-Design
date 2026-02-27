@@ -27,7 +27,7 @@ describe('undoRedoStore', () => {
   beforeEach(() => {
     vi.useFakeTimers();
     useScoreboardStore.getState().resetState();
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
     useUndoRedoStore.getState().clear();
     resetUndoRedoListener();
     initUndoRedoListener();

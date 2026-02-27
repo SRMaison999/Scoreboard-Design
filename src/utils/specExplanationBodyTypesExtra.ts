@@ -1,5 +1,5 @@
 /**
- * Fonctions d'explication pour les body types 10-14.
+ * Fonctions d'explication pour les body types 10-13 et le type 1 (Layout libre).
  * Suite de specExplanationBodyTypes.ts.
  */
 
@@ -93,7 +93,7 @@ export function explainType14(data: unknown): string[] {
   const d = asRecord(data);
   const fields = asArray(d.fields);
   return [
-    heading(3, 'Layout libre (type 14)'),
+    heading(3, 'Layout libre (type 1)'),
     '',
     'En mode layout libre, il n\'y a ni header ni colonnes de penalites.',
     'Chaque champ est positionne librement sur le canvas.',

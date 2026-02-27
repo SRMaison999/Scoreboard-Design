@@ -1,8 +1,10 @@
 # Manuel utilisateur - Sortie broadcast
 
+> **Avertissement :** les fonctionnalités décrites dans ce chapitre (fenêtre de sortie, intégration OBS/vMix/Wirecast, fond transparent) sont implémentées dans le code mais n'ont pas encore été validées en conditions de production broadcast. L'application est actuellement un outil de conception de templates, pas un système de production opérationnel.
+
 ## Fenêtre de sortie
 
-La fenêtre de sortie affiche le scoreboard dans une fenêtre séparée, sans interface éditeur. Cette fenêtre est conçue pour être capturée par un logiciel de diffusion (OBS, vMix, Wirecast).
+La fenêtre de sortie affiche le scoreboard dans une fenêtre séparée, sans interface éditeur. À terme, cette fenêtre est destinée à être capturée par un logiciel de diffusion (OBS, vMix, Wirecast).
 
 ## Ouvrir la fenêtre de sortie
 

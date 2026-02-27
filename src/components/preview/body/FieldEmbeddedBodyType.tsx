@@ -1,5 +1,5 @@
 /**
- * Rend un body type (1-13) a l'interieur d'un champ personnalise du Layout libre.
+ * Rend un body type (2-14) a l'interieur d'un champ personnalise du Layout libre.
  * Reutilise les composants BodyType existants avec le state courant.
  */
 
@@ -38,8 +38,6 @@ export function EmbeddedBodyType({ bodyTypeId, state, colors, opacities }: Embed
   };
 
   switch (bodyTypeId) {
-    case 1:
-      return <BodyType1 stats={state.stats} titleCenter={state.titleCenter} {...shared} />;
     case 2:
       return <BodyType2 stats={state.stats} titleLeft={state.titleLeft} titleRight={state.titleRight} {...shared} />;
     case 3:
@@ -64,6 +62,8 @@ export function EmbeddedBodyType({ bodyTypeId, state, colors, opacities }: Embed
       return <BodyType12 rosterData={state.rosterData} {...shared} />;
     case 13:
       return <BodyType13 scheduleData={state.scheduleData} {...shared} />;
+    case 14:
+      return <BodyType1 stats={state.stats} titleCenter={state.titleCenter} {...shared} />;
     default:
       return null;
   }

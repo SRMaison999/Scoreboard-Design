@@ -74,7 +74,7 @@ describe('AlignmentDiagnosticOverlay', () => {
   it('le clic sur un badge appelle updateCustomFieldPosition', () => {
     /* Ajouter un champ dans le store pour que updateCustomFieldPosition fonctionne */
     const store = useScoreboardStore.getState();
-    store.update('bodyType', 14);
+    store.update('bodyType', 1);
     const element = {
       type: 'shape-block' as const,
       config: { shape: 'rectangle' as const, fillColor: '#fff', fillOpacity: 100, borderColor: '', borderWidth: 0, borderRadius: 0 },

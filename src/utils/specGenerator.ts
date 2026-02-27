@@ -13,7 +13,7 @@ import type { ColorMap, OpacityMap } from '@/types/colors';
 const SPEC_VERSION = '1.0';
 
 const BODY_TYPE_NAMES: Readonly<Record<BodyTypeId, string>> = {
-  1: 'Stats centrées',
+  1: 'Layout libre',
   2: 'Stats gauche/droite',
   3: 'Stats joueur',
   4: 'Célébration de but',
@@ -26,7 +26,7 @@ const BODY_TYPE_NAMES: Readonly<Record<BodyTypeId, string>> = {
   11: 'Barres comparatives',
   12: 'Composition d\'équipe',
   13: 'Calendrier',
-  14: 'Layout libre',
+  14: 'Stats centrées',
 };
 
 interface SpecTeam {
@@ -102,7 +102,10 @@ function buildFont(id: string): SpecFont {
 
 function getBodyData(state: ScoreboardState): unknown {
   switch (state.bodyType) {
-    case 1: return { stats: structuredClone(state.stats), titles: { center: state.titleCenter, left: state.titleLeft, right: state.titleRight } };
+    case 1: return structuredClone({
+      ...state.customFieldsData,
+      selectedFieldIds: [],
+    });
     case 2: return { stats: structuredClone(state.stats), titles: { center: state.titleCenter, left: state.titleLeft, right: state.titleRight } };
     case 3: return { playerStats: structuredClone(state.playerStats), showPhoto: state.showPlayerPhoto, titles: { center: state.titleCenter } };
     case 4: return structuredClone(state.goalData);
@@ -115,10 +118,7 @@ function getBodyData(state: ScoreboardState): unknown {
     case 11: return structuredClone(state.barChartData);
     case 12: return structuredClone(state.rosterData);
     case 13: return structuredClone(state.scheduleData);
-    case 14: return structuredClone({
-      ...state.customFieldsData,
-      selectedFieldIds: [],
-    });
+    case 14: return { stats: structuredClone(state.stats), titles: { center: state.titleCenter, left: state.titleLeft, right: state.titleRight } };
     default: return null;
   }
 }

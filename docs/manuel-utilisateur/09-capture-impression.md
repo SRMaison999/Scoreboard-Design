@@ -84,4 +84,4 @@ Le fichier `.md` contient :
 
 Ces fichiers sont destinés aux développeurs qui doivent reproduire un écran spécifique. Le JSON fournit les valeurs brutes, le Markdown fournit le contexte visuel et les explications de positionnement.
 
-Fonctionne pour **tous les body types** (1-14), pas uniquement le Layout libre.
+Fonctionne pour **tous les types d'affichage** (types 1 à 14).

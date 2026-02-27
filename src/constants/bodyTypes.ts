@@ -9,20 +9,20 @@ export const BODY_TYPE_CATEGORY_LABELS = {
 
 export const BODY_TYPES: readonly BodyTypeOption[] = [
   {
-    id: 14,
+    id: 1,
     label: 'Layout libre',
     description: 'Composez votre propre affichage en pla\u00e7ant librement les \u00e9l\u00e9ments',
     category: 'custom',
   },
   {
-    id: 1,
-    label: 'Stats sym\u00e9triques',
+    id: 14,
+    label: 'Stats centr\u00e9es',
     description: 'Titre centr\u00e9, lignes de stats \u00e9quilibr\u00e9es gauche/droite',
     category: 'stats',
   },
   {
     id: 2,
-    label: 'Stats asym\u00e9triques',
+    label: 'Stats gauche/droite',
     description: 'Deux titres gauche/droite, lignes de stats ind\u00e9pendantes',
     category: 'stats',
   },

@@ -53,7 +53,7 @@ interface BodyProps {
   readonly canvasScale?: number;
 }
 
-function BodyRenderer({ state, colors, opacities, fontBody, fontSizes, playerPhotos, flagOverrides, canvasScale }: BodyProps) {
+function BodyRenderer({ state, colors, opacities, fontBody, fontSizes, playerPhotos, flagOverrides }: BodyProps) {
   const shared = { showPenalties: state.showPenalties, colors, opacities, fontBody, fontSizes };
 
   switch (state.bodyType) {
@@ -81,8 +81,6 @@ function BodyRenderer({ state, colors, opacities, fontBody, fontSizes, playerPho
       return <BodyType12 rosterData={state.rosterData} flagOverrides={flagOverrides} {...shared} />;
     case 13:
       return <BodyType13 scheduleData={state.scheduleData} {...shared} />;
-    case 14:
-      return <BodyType14 state={state} colors={colors} opacities={opacities} canvasScale={canvasScale} />;
     default:
       return <BodyType1 stats={state.stats} titleCenter={state.titleCenter} {...shared} />;
   }
@@ -197,8 +195,8 @@ export function ScoreboardCanvas({
         }}
       />
 
-      {/* En mode Layout libre (type 14), le canvas est vierge : ni header ni pénalités */}
-      {state.bodyType !== 14 && (
+      {/* En mode Layout libre (type 1), le canvas est vierge : ni header ni pénalités */}
+      {state.bodyType !== 1 && (
       <div style={{ position: 'relative', zIndex: 1, flexShrink: 0, padding: '14px 96px 10px' }}>
         <Header
           team1={state.team1}
@@ -254,7 +252,7 @@ export function ScoreboardCanvas({
         <SponsorLogoRenderer logos={logos} position={state.sponsorLogoPosition} size={state.sponsorLogoSize} />
       )}
 
-      {state.bodyType === 14 ? (
+      {state.bodyType === 1 ? (
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
           <BodyType14 state={state} colors={colors} opacities={opacities} canvasScale={canvasScale} />
         </div>
