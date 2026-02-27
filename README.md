@@ -613,21 +613,22 @@ Le projet dispose d'une documentation technique complète dans le répertoire `d
 
 ### Manuel utilisateur
 
-Le [manuel utilisateur](docs/manuel-utilisateur/) comprend **13 chapitres** en français couvrant l'ensemble des fonctionnalités :
+Le [manuel utilisateur](docs/manuel-utilisateur/) est intégré à l'application et comprend **14 chapitres** en français couvrant l'ensemble des fonctionnalités. Il inclut une **barre de recherche intelligente** (insensible aux accents, surlignage des résultats, extraits de contexte) :
 
 1. Introduction
 2. Guide de l'éditeur
 3. Types d'affichage (body types)
-4. Personnalisation visuelle
-5. Horloge et phases
-6. Templates
-7. Mode opérateur
-8. Sortie broadcast
-9. Capture et impression
-10. Photos de joueurs
-11. Logos
-12. Animations et export
-13. Intégrations
+4. Layout libre (prise en main, éléments, tutoriels)
+5. Personnalisation visuelle
+6. Horloge et phases
+7. Templates
+8. Mode opérateur
+9. Sortie broadcast
+10. Capture et impression
+11. Photos de joueurs
+12. Logos
+13. Animations et export
+14. Intégrations
 
 ---
 

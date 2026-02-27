@@ -90,7 +90,7 @@ export const ch03d: ManualChapter = {
 7. Ajoutez une **Forme** rectangle fine (400x2 px, couleur blanche) comme séparateur horizontal
 8. Ajoutez plusieurs **Bloc de texte** pour les statistiques :
 - "Buts : 12" - taille 24
-- "Assists : 31" - taille 24
+- "Aides : 31" - taille 24
 - "Points : 43" - taille 24
 - "+/- : +15" - taille 24
 9. Alignez les blocs de statistiques verticalement à droite de la photo
