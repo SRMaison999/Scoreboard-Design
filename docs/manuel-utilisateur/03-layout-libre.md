@@ -59,7 +59,7 @@
 
 ---
 
-Le Layout libre est le mode principal de l'application et le type d'affichage par défaut au lancement. Il offre un canvas entièrement vierge sur lequel l'utilisateur compose son scoreboard en plaçant, déplaçant et redimensionnant librement des éléments visuels. Avec plus de 43 éléments disponibles dans 11 catégories, un système de couches, des guides d'alignement, un historique undo/redo de 50 niveaux et des presets réutilisables, le Layout libre permet de créer n'importe quel design de scoreboard imaginable.
+Le Layout libre est le mode principal de l'application et le type d'affichage par défaut au lancement. Il offre un canvas entièrement vierge sur lequel l'utilisateur compose son scoreboard en plaçant, déplaçant et redimensionnant librement des éléments visuels. Avec 43 éléments disponibles dans 11 catégories, un système de couches, des guides d'alignement, un historique undo/redo de 50 niveaux et des presets réutilisables, le Layout libre permet de créer n'importe quel design de scoreboard imaginable.
 
 **Cas d'utilisation :**
 - Concevoir un affichage sur mesure qui ne correspond à aucun des 13 types à agencement fixe
@@ -79,7 +79,7 @@ Quand activé, le header du scoreboard (drapeaux, noms d'équipes, scores, horlo
 
 ## Bibliothèque d'éléments
 
-La bibliothèque propose plus de 43 éléments répartis en 11 catégories :
+La bibliothèque propose 43 éléments répartis en 11 catégories :
 
 | Catégorie | Éléments disponibles | Description |
 |-----------|---------------------|-------------|
@@ -122,8 +122,8 @@ Un **champ de recherche** en haut de la bibliothèque permet de filtrer les él�
 
 ### Rotation
 - Le champ sélectionné affiche une **poignée de rotation** (cercle) au-dessus, reliée par une ligne.
-- **Tirer** la poignée de rotation pour faire pivoter le champ.
-- La rotation s'effectue par incréments de **15 degrés** avec magnétisme automatique.
+- **Tirer** la poignée de rotation pour faire pivoter le champ librement.
+- **Shift** maintenu pendant la rotation : active le magnétisme par incréments de **15 degrés**.
 - L'angle de rotation est affiché dans les propriétés du champ.
 
 ### Édition de texte inline
@@ -219,7 +219,7 @@ Chaque champ peut avoir des effets visuels configurables dans le panneau de prop
 | Effet | Description |
 |-------|-------------|
 | **Opacité** | Transparence globale du champ (0-100%) |
-| **Ombre portée** | Ombre configurable (décalage X/Y, flou, étendue, couleur) |
+| **Ombre portée** | Ombre configurable (décalage X/Y, flou, couleur, opacité) |
 | **Flou d'arrière-plan** | Effet de flou (backdrop blur) sur le contenu derrière le champ |
 
 ## Modèles hockey prédéfinis
@@ -252,7 +252,7 @@ Si le champ est trop près du bord supérieur du canvas, la barre se repositionn
 
 ## Sélection de police par champ
 
-Chaque champ texte peut avoir sa propre police de caractères, indépendante des autres champs et des 3 zones de police globales. Dans le panneau de propriétés du champ, un sélecteur de police permet de choisir parmi les 25 polices disponibles (organisées par catégorie). La police sélectionnée s'applique uniquement au champ concerné.
+Chaque champ de type **Bloc de texte** peut avoir sa propre police de caractères, indépendante des autres champs et des 3 zones de police globales. Dans le panneau de propriétés du champ, un sélecteur de police permet de choisir parmi les 25 polices disponibles (organisées par catégorie). La police sélectionnée s'applique uniquement au champ concerné. Les autres types de champs textuels (Score, Horloge, Période, Nom d'équipe) permettent uniquement de personnaliser la taille de police.
 
 ## Sélection d'images
 
@@ -273,7 +273,7 @@ Pour les champs "Nom d'équipe", le sélecteur propose à la fois les 31 codes N
 | Option | Description |
 |--------|-------------|
 | **Afficher les guides** | Superpose une grille en pointillés sur le canvas pour faciliter l'alignement visuel. |
-| **Taille de la grille** | Configurable (8 px par défaut). Les valeurs habituelles sont 8, 16, 24 ou 32 px. |
+| **Taille de la grille** | Configurable (20 px par défaut). Les valeurs disponibles sont 10, 20 ou 50 px. |
 | **Aimanter à la grille** | Les champs s'alignent automatiquement sur les intersections de la grille lors du déplacement. |
 
 ## Diagnostic d'alignement
@@ -346,6 +346,19 @@ Paramètres spécifiques selon le type d'élément (voir tableau ci-dessous).
 | **Membre du staff** | Rôle et nom, taille de police, couleur du texte |
 | **Liste du staff** | Titre, liste de membres (rôle + nom), couleur du titre, taille de police, couleur du texte |
 | **Tableau de données** | Titre, colonnes (label, alignement), lignes (valeurs par colonne, surlignage), en-tête, couleurs |
+| **Temps morts** | Aucune configuration spécifique (utilise les données de l'onglet Match) |
+| **Tirs au but** | Aucune configuration spécifique (utilise les données de l'onglet Match) |
+| **Ligne de stat** | Index de la ligne de statistique à afficher |
+| **Barre comparative** | Index de la barre à afficher |
+| **Photo joueur** | Clé photo (référence dans Médias > Photos), forme (cercle ou carré) |
+| **Fiche joueur** | Titre, sous-titre, nom, numéro, équipe, photo, liste de statistiques (label + valeur), taille de police, couleurs |
+| **Score par période** | Périodes (label P1/P2/P3/OT + scores gauche/droite), taille de police, couleur d'en-tête, couleur du texte |
+| **Événement** | Période, temps, type (but, pénalité, temps mort, période), description, équipe, taille de police, couleur |
+| **Chronologie** | Titre, liste d'événements (période, temps, type, description, équipe), taille de police, couleurs |
+| **Match** | Date, heure, équipe gauche, équipe droite, scores, statut (à venir, en cours, terminé), lieu, taille de police, couleur |
+| **Programme** | Titre, liste de matchs (date, heure, équipes, scores, statut, lieu), taille de police, couleurs |
+| **Header complet** | Afficher l'horloge (oui/non) |
+| **Types embarqués (2-14)** | Identifiant du body type à afficher |
 
 ## Panneau des couches
 
@@ -364,7 +377,7 @@ La liste des champs affiche tous les éléments dans l'ordre des couches (Z-inde
 
 ## Sélection de zone
 
-L'outil de **sélection de zone** permet de dessiner un rectangle sur le canvas. Tous les champs entièrement inclus dans la zone dessinée sont automatiquement sélectionnés et regroupés. Ce regroupement peut ensuite être sauvegardé comme preset pour une réutilisation rapide.
+L'outil de **sélection de zone** permet de dessiner un rectangle sur le canvas. Tous les champs dont le centre est inclus dans la zone dessinée sont automatiquement sélectionnés. Ce regroupement peut ensuite être sauvegardé comme preset pour une réutilisation rapide.
 
 **Utilisation :**
 1. Activer l'outil de sélection de zone dans la barre d'outils
@@ -438,8 +451,8 @@ Les éléments visuels sont des **vues** sur les données. Modifier le score dan
 | Niveaux d'historique undo/redo | 50 |
 | Taille de police minimale | 8 px |
 | Taille de police maximale | 300 px |
-| Taille de grille | 8, 16, 24 ou 32 px |
-| Snap de rotation | 15 degrés |
+| Taille de grille | 10, 20 ou 50 px (20 px par défaut) |
+| Snap de rotation | 15 degrés (avec Shift) |
 
 ### Bonnes pratiques
 

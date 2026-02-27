@@ -26,8 +26,8 @@ const layoutLibre: ManualChapter = {
 export const MANUAL_CHAPTERS: readonly ManualChapter[] = [
   ch01,
   ch02,
-  ch03,
   layoutLibre,
+  ch03,
   ch04,
   ch05,
   ch06,
