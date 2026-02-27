@@ -3,7 +3,7 @@ import type { ManualChapter } from '@/types/userManual';
 export const ch03: ManualChapter = {
   id: 'body-types',
   title: "Types d'affichage",
-  content: `Le scoreboard propose 14 types d'affichage (modes) pour le corps du scoreboard. Chaque mode a sa propre mise en page et ses propres champs de donn\u00e9es.
+  content: `Le scoreboard propose 14 types d'affichage (modes) pour le corps du scoreboard. Chaque mode a sa propre mise en page et ses propres champs de donn\u00e9es. Le **Layout libre**, le mode le plus flexible, est couvert dans son propre chapitre (voir le chapitre pr\u00e9c\u00e9dent). Ce chapitre d\u00e9taille les 13 autres types d'affichage.
 
 ## Comment choisir un mode
 
@@ -12,15 +12,7 @@ export const ch03: ManualChapter = {
 3. Cliquez sur le mode souhait\u00e9
 4. L'application bascule automatiquement vers **Contenu > \u00c9quipes** pour vous permettre de remplir les donn\u00e9es
 
-## Layout libre (mode 14)
-
-Canvas enti\u00e8rement vierge sur lequel vous placez librement des \u00e9l\u00e9ments visuels. C'est le mode le plus puissant et le plus flexible.
-
-**Consultez le chapitre d\u00e9di\u00e9 "Layout libre" pour le guide complet pas \u00e0 pas** (biblioth\u00e8que d'\u00e9l\u00e9ments, manipulation sur le canvas, panneau Propri\u00e9t\u00e9s, couches, presets).
-
----
-
-## Stats centr\u00e9es (mode 14)
+## Stats centr\u00e9es (mode 1)
 
 Titre centr\u00e9 et lignes de statistiques avec valeur gauche / label central / valeur droite.
 
