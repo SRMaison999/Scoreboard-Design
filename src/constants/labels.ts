@@ -565,4 +565,12 @@ export const EDITOR_LABELS = {
   userManualClose: 'Fermer',
   userManualChapter: 'Chapitre',
   userManualTableOfContents: 'Table des mati\u00e8res',
+
+  /* Recherche dans le manuel */
+  userManualSearchPlaceholder: 'Rechercher dans le manuel\u2026',
+  userManualSearchResultCount: 'r\u00e9sultat(s)',
+  userManualSearchInChapters: 'chapitre(s)',
+  userManualSearchNoResults: 'Aucun r\u00e9sultat pour cette recherche',
+  userManualSearchMinChars: 'Saisissez au moins 2 caract\u00e8res',
+  userManualSearchMatchCount: 'correspondance(s)',
 } as const;

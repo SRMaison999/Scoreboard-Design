@@ -17,7 +17,9 @@
 |----------|-------------|
 | [manuel-utilisateur/01-introduction.md](./manuel-utilisateur/01-introduction.md) | Presentation de l'application et prise en main |
 | [manuel-utilisateur/02-editeur.md](./manuel-utilisateur/02-editeur.md) | Guide complet du panneau editeur |
-| [manuel-utilisateur/03-layout-libre.md](./manuel-utilisateur/03-layout-libre.md) | Layout libre : composition sur mesure avec canvas libre |
+| [manuel-utilisateur/03-layout-libre.md](./manuel-utilisateur/03-layout-libre.md) | Layout libre : prise en main et principes fondamentaux |
+| [manuel-utilisateur/03b-layout-elements.md](./manuel-utilisateur/03b-layout-elements.md) | Layout libre : guide detaille de chaque type d'element, couches et presets |
+| [manuel-utilisateur/03c-layout-tutoriels.md](./manuel-utilisateur/03c-layout-tutoriels.md) | Layout libre : tutoriels pas a pas (5 exemples complets) |
 | [manuel-utilisateur/04-body-types.md](./manuel-utilisateur/04-body-types.md) | Les 13 types d'affichage predéfinis (types 1-13) |
 | [manuel-utilisateur/05-personnalisation.md](./manuel-utilisateur/05-personnalisation.md) | Couleurs, polices, dimensions, presets, mise a l'echelle par corps |
 | [manuel-utilisateur/06-horloge-et-phases.md](./manuel-utilisateur/06-horloge-et-phases.md) | Configuration de l'horloge, des phases et du mode demo |
@@ -81,3 +83,5 @@
 | Coordonnees curseur | Indicateur de position du curseur (x, y px) en bas a droite du canvas | Termine |
 | ZoneSelectionOverlay | Extraction de la zone de selection en composant autonome | Termine |
 | Elements atomiques libres | 8 nouveaux types d'elements (joueurs, but, staff, tableau) pour composer librement sans dependance aux presets | Termine |
+| Manuel utilisateur : recherche | Barre de recherche intelligente dans le manuel embarque (insensible aux accents, surlignage, extraits de contexte) | Termine |
+| Manuel utilisateur : chapitres Layout libre | Reorganisation en 3 sous-chapitres (prise en main, elements, tutoriels pas a pas) | Termine |

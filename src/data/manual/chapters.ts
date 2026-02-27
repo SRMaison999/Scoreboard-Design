@@ -3,6 +3,8 @@ import { ch01 } from './ch01-introduction';
 import { ch02 } from './ch02-editeur';
 import { ch03 } from './ch03-body-types';
 import { ch03b } from './ch03b-layout-libre';
+import { ch03c } from './ch03c-layout-elements';
+import { ch03d } from './ch03d-layout-tutoriels';
 import { ch04 } from './ch04-personnalisation';
 import { ch05 } from './ch05-horloge';
 import { ch06 } from './ch06-templates';
@@ -19,6 +21,8 @@ export const MANUAL_CHAPTERS: readonly ManualChapter[] = [
   ch02,
   ch03,
   ch03b,
+  ch03c,
+  ch03d,
   ch04,
   ch05,
   ch06,

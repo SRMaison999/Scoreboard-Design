@@ -2,7 +2,7 @@ import type { ManualChapter } from '@/types/userManual';
 
 export const ch03b: ManualChapter = {
   id: 'layout-libre',
-  title: 'Layout libre',
+  title: 'Layout libre - Prise en main',
   content: `Le **Layout libre** (mode 14) est le mode le plus puissant du Scoreboard Editor. Contrairement aux 13 autres modes qui imposent une mise en page fixe, le Layout libre affiche un canvas entièrement vierge sur lequel vous placez librement des éléments visuels.
 
 **Idéal pour :** créer un affichage sur mesure, concevoir des mises en page originales, assembler des éléments de différentes natures sur un même écran.
@@ -106,7 +106,7 @@ Le panneau Propriétés est organisé en **sections repliables** que vous pouvez
 3. **Position** (repliable) : coordonnées X et Y, largeur et hauteur en pixels
 4. **Z-Index / Rotation** (repliable) : 4 boutons d'action pour le z-index et contrôle de rotation
 5. **Style** (repliable) : couleur de fond, bordure, opacité, padding
-6. **Configuration spécifique** (repliable) : options qui dépendent du type d'élément (voir ci-dessous)
+6. **Configuration spécifique** (repliable) : options qui dépendent du type d'élément (voir le chapitre suivant)
 7. **Actions** : boutons Dupliquer et Supprimer
 
 ### Contrôle du z-index
@@ -122,155 +122,6 @@ L'ordre d'empilement ne se gère plus par un champ numérique, mais par **4 bout
 
 ---
 
-## Guide détaillé par type d'élément
-
-### Score (catégorie Match)
-
-**Ce qu'il affiche :** le score d'une équipe (la valeur saisie dans Header > Score 1 ou Score 2).
-
-**Comment l'utiliser :**
-1. Ajoutez un élément **Score** depuis la bibliothèque
-2. Cliquez dessus dans le canvas > ses propriétés s'affichent en bas de la barre latérale
-3. Dans **Côté**, choisissez **Gauche** (Score 1) ou **Droite** (Score 2)
-4. Optionnel : ajustez la **Taille de police** (0 = valeur globale)
-
-**Pour afficher les deux scores :** ajoutez **deux** éléments Score. Configurez le premier sur "Gauche" et le second sur "Droite".
-
-### Nom d'équipe (catégorie Match)
-
-**Ce qu'il affiche :** le nom de l'équipe (code NOC ou nom affiché personnalisé) + optionnellement le drapeau du pays.
-
-**Comment l'utiliser :**
-1. Ajoutez un élément **Nom d'équipe** depuis la bibliothèque
-2. Cliquez dessus > dans **Côté**, choisissez **Gauche** (Équipe 1) ou **Droite** (Équipe 2)
-3. Le drapeau est affiché par défaut. Décochez **"Afficher le drapeau"** si vous ne voulez que le nom
-4. Optionnel : ajustez la **Taille de police** (0 = valeur globale)
-
-**Pour afficher les deux équipes :**
-1. Ajoutez un premier **Nom d'équipe** > il montre l'équipe 1 (Gauche) par défaut
-2. Ajoutez un deuxième **Nom d'équipe**
-3. Cliquez sur le deuxième > dans **Côté**, choisissez **Droite**
-4. Positionnez-les où vous voulez sur le canvas
-
-### Drapeau (catégorie Match)
-
-**Ce qu'il affiche :** le drapeau du pays d'une équipe, seul (sans nom).
-
-**Comment l'utiliser :**
-1. Ajoutez un élément **Drapeau** depuis la bibliothèque
-2. Cliquez dessus > dans **Côté**, choisissez **Gauche** (Équipe 1) ou **Droite** (Équipe 2)
-3. Le drapeau s'adapte automatiquement à la taille de l'élément
-
-**Différence avec "Nom d'équipe" :** l'élément Drapeau n'affiche QUE le drapeau, sans texte. L'élément Nom d'équipe affiche le nom ET le drapeau ensemble.
-
-### Horloge (catégorie Match)
-
-**Ce qu'il affiche :** le temps du match (configuré dans l'onglet Match > section correspondante, ou via l'opérateur live).
-
-**Options dans le panneau Propriétés :**
-- **Afficher la période** : ajoute l'indicateur de période sous le temps
-- **Afficher le cadre** : entoure l'horloge d'un cadre visuel
-- **Taille de police** : 0 = valeur globale
-
-### Période (catégorie Match)
-
-**Ce qu'il affiche :** la période en cours (ex : "1st", "2nd", "OT").
-
-**Options :** Taille de police (0 = valeur globale).
-
-### Temps morts (catégorie Match)
-
-**Ce qu'il affiche :** les indicateurs de temps morts des deux équipes (points colorés). Affiche automatiquement les deux équipes côte à côte.
-
-**Pas de configuration supplémentaire** : l'élément utilise directement les données configurées dans l'onglet **Match > Temps morts**.
-
-### Tirs au but (catégorie Match)
-
-**Ce qu'il affiche :** les tentatives de tirs au but des deux équipes (cercles vert/rouge/gris). Affiche automatiquement les deux équipes côte à côte.
-
-**Pas de configuration supplémentaire** : l'élément utilise les données de l'onglet **Match > Tirs au but**.
-
-### Bloc de texte (catégorie Texte)
-
-**Ce qu'il affiche :** un texte libre que vous saisissez vous-même.
-
-**Options dans le panneau Propriétés :**
-- **Contenu** : le texte à afficher
-- **Taille de police** : taille en pixels
-- **Épaisseur** : Normal, Medium, Semi-bold, Bold
-- **Police** : police de caractères (ou "Police globale" pour hériter)
-- **Alignement** : Gauche, Centre, Droite
-- **Casse** : Aucune, MAJUSCULES, minuscules
-- **Espacement** : espacement entre les lettres
-
-### Ligne de stat (catégorie Données)
-
-**Ce qu'il affiche :** une ligne de statistiques (valeur gauche + libellé + valeur droite).
-
-**Options :** **Ligne de stat** (index) : sélectionnez quelle ligne de statistiques afficher (0 = première, 1 = deuxième, etc.). Les statistiques se configurent dans les modes body types 1 à 3.
-
-### Barre comparative (catégorie Données)
-
-**Ce qu'il affiche :** une barre de comparaison entre deux valeurs (gauche vs droite).
-
-**Options :** **Barre** (index) : sélectionnez quelle barre afficher.
-
-### Photo joueur (catégorie Joueurs)
-
-**Ce qu'il affiche :** la photo d'un joueur.
-
-**Options :**
-- **Clé photo** : identifiant de la photo du joueur (configuré dans l'onglet Médias > Photos)
-- **Forme** : Cercle ou Carré
-
-### Image (catégorie Médias)
-
-**Ce qu'il affiche :** une image externe (URL ou fichier local).
-
-**Options :**
-- **Source image** : URL de l'image ou bouton Parcourir pour charger un fichier
-- **Ajustement** : Couvrir (remplit sans déformer), Contenir (affiche en entier), Étirer (remplit en déformant)
-
-### Forme (catégorie Médias)
-
-**Ce qu'il affiche :** une forme géométrique colorée (rectangle, cercle, rectangle arrondi).
-
-**Options :**
-- **Forme** : Rectangle, Cercle, Rectangle arrondi
-- **Couleur de remplissage** + opacité
-- **Bordure** : couleur, épaisseur, rayon
-
-**Astuce :** utilisez les formes comme arrière-plans pour vos éléments de texte ou de score.
-
-### Séparateur (catégorie Médias)
-
-**Ce qu'il affiche :** une ligne de séparation.
-
-**Options :**
-- **Orientation** : Horizontale ou Verticale
-- **Épaisseur** : en pixels
-- **Couleur** + opacité
-
-### Header complet (catégorie Composés)
-
-**Ce qu'il affiche :** un bloc complet contenant automatiquement : drapeaux/logos, noms d'équipes, scores, temps morts et tirs au but. C'est l'équivalent du header des modes classiques (1 à 13).
-
-**Options :** **Afficher l'horloge** (cocher pour inclure le temps dans le header).
-
-**Astuce :** si vous voulez un scoreboard classique rapidement, ajoutez juste un Header complet en haut du canvas.
-
-### Colonne de pénalités (catégorie Composés)
-
-**Ce qu'il affiche :** la liste des pénalités d'une équipe.
-
-**Options :** **Côté** : Gauche (Équipe 1) ou Droite (Équipe 2).
-
-### Types d'affichage embarqués (catégorie Composés)
-
-Les 13 types d'affichage classiques (Stats centrées, Stats gauche/droite, Fiche joueur, Classement, etc.) peuvent être ajoutés comme éléments dans le canvas du Layout libre. Cela permet de combiner plusieurs types sur un même écran.
-
----
-
 ## Le sélecteur "Côté" (gauche/droite)
 
 Certains éléments sont liés à une équipe. Le panneau Propriétés affiche alors un sélecteur **"Côté"** :
@@ -280,42 +131,5 @@ Certains éléments sont liés à une équipe. Le panneau Propriétés affiche a
 
 Éléments concernés : **Score**, **Nom d'équipe**, **Drapeau**, **Colonne de pénalités**.
 
-Par défaut, tout nouvel élément est sur le côté **Gauche**.
-
----
-
-## Étape 7 : Organiser les couches
-
-Cliquez sur la troisième icône du rail (**Calques**) pour accéder à la liste des couches. Tous les éléments du canvas y sont listés :
-- Chaque élément affiche son nom et une icône correspondant à son type
-- Cliquez sur un élément de la liste pour le sélectionner dans le canvas
-- Utilisez les boutons de z-index dans le panneau Propriétés (en bas) pour contrôler l'ordre d'affichage
-
-## Presets (sauvegarder et charger des mises en page)
-
-Cliquez sur la quatrième icône du rail (**Presets**) pour accéder aux presets. Cette section permet de :
-- **Sauvegarder le champ** : enregistre la configuration d'un seul élément pour le réutiliser
-- **Sauvegarder l'écran** : enregistre l'ensemble des éléments du canvas
-- **Charger un preset** : applique un preset sauvegardé précédemment
-
----
-
-## Exemple concret : créer un scoreboard complet pas à pas
-
-Voici comment créer un scoreboard personnalisé avec deux équipes, leurs scores et une horloge :
-
-1. Sélectionnez le mode **Layout libre**
-2. Dans le panneau gauche, section **Header** :
-   - Équipe 1 : sélectionnez **SUI - Suisse**
-   - Équipe 2 : sélectionnez **CAN - Canada**
-   - Score 1 : saisissez **3**
-   - Score 2 : saisissez **1**
-3. Cliquez sur l'onglet **Bibliothèque** dans le rail, puis sur **Forme** (catégorie Médias) > positionnez-la en haut comme fond de votre header
-4. Cliquez sur **Nom d'équipe** (catégorie Match) > il affiche "SUI" + drapeau suisse (côté Gauche par défaut)
-5. Cliquez à nouveau sur **Nom d'équipe** > cliquez dessus dans le canvas > dans Propriétés, changez le **Côté** à **Droite** > il affiche "CAN" + drapeau canadien
-6. Ajoutez un **Score** > il affiche "3" (côté Gauche par défaut)
-7. Ajoutez un deuxième **Score** > cliquez dessus > changez le **Côté** à **Droite** > il affiche "1"
-8. Ajoutez une **Horloge** > elle affiche le temps du match
-9. Positionnez et redimensionnez tous les éléments à votre convenance
-10. Sauvegardez votre mise en page via la section **Presets**`,
+Par défaut, tout nouvel élément est sur le côté **Gauche**.`,
 };
