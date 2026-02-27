@@ -8,6 +8,52 @@ Le Layout libre est le mode principal de l'application et le type d'affichage pa
 - Créer des mises en page originales avec un contrôle total sur la position de chaque élément
 - Prototyper rapidement différents designs de scoreboard grâce aux presets
 
+## Sommaire
+
+**Bases**
+- [Concept général](#concept-général)
+- [Mode pleine page](#mode-pleine-page)
+- [Bibliothèque d'éléments](#bibliothèque-déléments)
+
+**Interaction sur le canvas**
+- [Sélection, déplacement, redimensionnement, rotation](#interaction-sur-le-canvas)
+- [Édition de texte inline](#édition-de-texte-inline)
+- [Drag-and-drop depuis la bibliothèque](#drag-and-drop-depuis-la-bibliothèque)
+- [Verrouillage](#verrouillage)
+- [Menu contextuel (clic droit)](#menu-contextuel-clic-droit)
+- [Raccourcis clavier](#raccourcis-clavier)
+
+**Fonctionnalités avancées**
+- [Multi-sélection et opérations groupées](#multi-sélection-et-opérations-groupées)
+- [Zoom et panoramique](#zoom-et-panoramique)
+- [Effets visuels](#effets-visuels)
+- [Modèles hockey prédéfinis](#modèles-hockey-prédéfinis)
+- [Contrôle de la taille de police sur le canvas](#contrôle-de-la-taille-de-police-sur-le-canvas)
+- [Sélection de police par champ](#sélection-de-police-par-champ)
+- [Sélection d'images](#sélection-dimages)
+- [Scaling proportionnel au redimensionnement](#scaling-proportionnel-au-redimensionnement)
+- [Noms d'équipes libres](#noms-déquipes-libres)
+- [Grille et guides](#grille-et-guides)
+- [Diagnostic d'alignement](#diagnostic-dalignement)
+
+**Interface**
+- [Panneau de propriétés](#panneau-de-propriétés-à-droite-du-canvas)
+- [Configuration par type d'élément](#configuration-par-type-délément)
+- [Panneau des couches](#panneau-des-couches)
+- [Sélection de zone](#sélection-de-zone)
+- [Presets (sauvegarde et chargement)](#presets-sauvegarde-et-chargement)
+- [Historique undo/redo](#historique-undoredo)
+
+**Référence**
+- [Architecture : données du match et éléments visuels](#architecture--données-du-match-et-éléments-visuels)
+- [Limites techniques](#limites-techniques)
+- [Bonnes pratiques](#bonnes-pratiques)
+- [Référence rapide](#référence-rapide)
+
+**Voir aussi**
+- [Guide détaillé des éléments et presets (03b)](./03b-layout-elements.md)
+- [Tutoriels pas à pas (03c)](./03c-layout-tutoriels.md)
+
 ## Concept général
 
 Contrairement aux types à agencement fixe (types 2 à 14) où la disposition des éléments est prédéterminée, le Layout libre offre un canvas vierge de 1920x1080 pixels (par défaut, configurable). L'utilisateur y dépose des éléments depuis une bibliothèque, puis les positionne librement par glisser-déposer et les redimensionne via 8 poignées (4 coins + 4 bords). Chaque élément possède ses propres propriétés de style, de position, de taille et de rotation.
