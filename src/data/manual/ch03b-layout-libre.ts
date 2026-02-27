@@ -3,9 +3,56 @@ import type { ManualChapter } from '@/types/userManual';
 export const ch03b: ManualChapter = {
   id: 'layout-libre',
   title: 'Layout libre - Prise en main',
-  content: `Le **Layout libre** (mode 14) est le mode le plus puissant du Scoreboard Editor. Contrairement aux 13 autres modes qui imposent une mise en page fixe, le Layout libre affiche un canvas entièrement vierge sur lequel vous placez librement des éléments visuels.
+  content: `Le **Layout libre** est le mode le plus puissant du Scoreboard Editor. Contrairement aux 13 autres modes qui imposent une mise en page fixe, il affiche un canvas entièrement vierge sur lequel vous placez librement des éléments visuels.
 
-**Idéal pour :** créer un affichage sur mesure, concevoir des mises en page originales, assembler des éléments de différentes natures sur un même écran.
+**Idéal pour :** créer un bandeau de score sur mesure, concevoir une bande basse (lower third), assembler statistiques et fiche joueur sur un même écran.
+
+---
+
+## Dans ce chapitre
+
+**Prise en main**
+- Prise en main rapide
+- Principe fondamental : données et éléments visuels
+- Configurer les équipes et le score
+- Options du canvas
+
+**Utilisation du canvas**
+- Ajouter des éléments depuis la bibliothèque
+- Manipuler les éléments
+- Zoom et panoramique
+- Menu contextuel (clic droit)
+- Copier-coller et historique
+- Configurer un élément (panneau Propriétés)
+- Le sélecteur "Côté" (gauche/droite)
+
+**Guide des éléments**
+- Éléments de match : Score, Nom d'équipe, Drapeau, Horloge, Période, Temps morts, Tirs au but
+- Éléments de texte et données : Bloc de texte, Ligne de stat, Barre comparative
+- Éléments joueurs et médias : Photo joueur, Image, Forme, Séparateur
+- Éléments composés : Header complet, Colonne de pénalités, Types embarqués
+- Organiser les couches
+- Presets
+
+**Tutoriels pas à pas**
+- Scoreboard classique avec header
+- Bande basse (lower third)
+- Écran de statistiques comparatives
+- Fiche joueur personnalisée
+- Écran multi-types (combinaison)
+
+---
+
+## Prise en main rapide
+
+Pour créer votre premier scoreboard en 4 étapes :
+
+1. **Configurez les équipes** : dans le panneau gauche, onglet Équipes, section Header, choisissez deux équipes et entrez les scores
+2. **Ajoutez un Header complet** : dans la Bibliothèque (premier onglet du rail), catégorie Composés, cliquez sur "Header complet". Un bloc avec drapeaux, noms, scores et horloge apparaît
+3. **Positionnez-le** : glissez-le en haut du canvas
+4. **Sauvegardez** : allez dans l'onglet Presets et cliquez sur "Sauvegarder l'écran"
+
+Votre premier scoreboard est prêt. Pour aller plus loin et composer élément par élément, lisez la suite.
 
 ---
 
@@ -20,13 +67,7 @@ Les éléments visuels **lisent** les données du match. Par exemple, un éléme
 
 ---
 
-## Étape 1 : Sélectionner le mode Layout libre
-
-1. Le Layout libre est le mode par défaut. Si un autre mode est actif, allez dans les paramètres du body type pour sélectionner **Layout libre** (catégorie "Personnalisé")
-2. Le canvas devient entièrement bleu (vierge)
-3. Le rail d'icônes à gauche affiche 4 onglets : **Bibliothèque**, **Canvas**, **Calques** et **Presets**
-
-## Étape 2 : Configurer les équipes et le score
+## Configurer les équipes et le score
 
 **C'est la première chose à faire avant d'ajouter des éléments sur le canvas.**
 
@@ -36,89 +77,129 @@ Dans le panneau de gauche, onglet **Équipes**, la section **Header** contient :
 |-------|-------------|
 | **Équipe 1** | Liste déroulante avec les 31 nations (codes NOC). C'est l'équipe **gauche** |
 | **Équipe 2** | Liste déroulante avec les 31 nations. C'est l'équipe **droite** |
-| **Nom affiché 1** | Nom personnalisé pour l'équipe 1 (remplace le code NOC si renseigné) |
-| **Nom affiché 2** | Nom personnalisé pour l'équipe 2 |
-| **Score 1** | Score de l'équipe 1 (gauche) |
-| **Score 2** | Score de l'équipe 2 (droite) |
+| **Nom affiché 1 / 2** | Nom personnalisé (remplace le code NOC si renseigné) |
+| **Score 1 / 2** | Score de chaque équipe |
 
-**Exemple :** sélectionnez "SUI - Suisse" comme Équipe 1 et "CAN - Canada" comme Équipe 2. Saisissez "3" pour Score 1 et "1" pour Score 2.
+**Exemple :** sélectionnez "SUI - Suisse" et "CAN - Canada", puis entrez les scores 3 et 1.
 
-Ces données seront utilisées par tous les éléments de match que vous placerez ensuite sur le canvas.
+---
 
-## Étape 3 : Configurer les options du canvas
+## Options du canvas
 
-Dans l'onglet **Canvas** (deuxième icône du rail), la section **Layout libre** propose trois options :
+Dans l'onglet **Canvas** (deuxième icône du rail), la section **Layout libre** propose :
 
 | Option | Description |
 |--------|-------------|
 | Mode pleine page | Les éléments peuvent couvrir l'intégralité du canvas |
-| Aimanter à la grille | Les éléments s'alignent sur une grille invisible (10, 20 ou 50 px) |
-| Afficher les guides | Affiche la grille en surimpression pour faciliter l'alignement |
+| Aimanter à la grille | Alignement automatique sur une grille invisible (10, 20 ou 50 px) |
+| Afficher les guides | Affiche la grille en surimpression |
 
-**Grille et Smart Guides simultanées :** l'aimantation à la grille et les guides intelligents (Smart Guides) fonctionnent désormais ensemble. La grille fournit la position de base, et les guides intelligents affinent l'alignement par rapport aux autres éléments. Il n'est plus nécessaire de choisir entre les deux.
+**Astuce :** activez le mode pleine page avant de placer vos éléments si vous voulez disposer de tout le canvas (pas uniquement la zone sous le header).
 
-**Indicateur de coordonnées du curseur :** un petit indicateur (x, y px) apparaît en bas à droite du canvas. Il affiche en permanence la position du curseur en coordonnées canvas, ce qui facilite le positionnement précis des éléments.
+**Grille et Smart Guides simultanées :** la grille fournit la position de base, et les guides intelligents (Smart Guides) affinent l'alignement par rapport aux autres éléments. Les deux fonctionnent ensemble.
 
-## Étape 4 : Ajouter des éléments depuis la bibliothèque
+**Indicateur de coordonnées :** un indicateur (x, y px) en bas à droite du canvas affiche la position du curseur en permanence.
 
-Cliquez sur la première icône du rail (**Bibliothèque**) pour accéder à la palette d'éléments. La bibliothèque regroupe tous les éléments dans un onglet unique avec des **filtres par catégorie** sous forme de puces horizontales (chips). Cliquez sur une catégorie pour filtrer la liste, ou laissez "Tous" pour tout voir.
+---
 
-Les 6 catégories sont :
+## Ajouter des éléments depuis la bibliothèque
 
-| Catégorie | Éléments disponibles |
-|-----------|----------------------|
+Cliquez sur la première icône du rail (**Bibliothèque**). Les éléments sont regroupés par catégorie via des filtres horizontaux (chips) :
+
+| Catégorie | Éléments |
+|-----------|----------|
 | **Match** | Score, Horloge, Période, Nom d'équipe, Drapeau, Temps morts, Tirs au but |
 | **Texte** | Bloc de texte |
 | **Données** | Ligne de stat, Barre comparative |
 | **Joueurs** | Photo joueur |
 | **Médias** | Image, Forme géométrique, Séparateur (ligne) |
-| **Composés** | Header complet, Colonne de pénalités, et les 13 autres types d'affichage |
+| **Composés** | Header complet, Colonne de pénalités, et les 13 types d'affichage |
 
-**Pour ajouter un élément** : cliquez sur son nom dans la liste. Il apparaît au centre du canvas.
-
-**Astuce** : utilisez le champ de **recherche** en haut de la bibliothèque pour trouver rapidement un élément par son nom.
+**Pour ajouter un élément** : cliquez sur son nom. Il apparaît au centre du canvas.
 
 **Limite** : maximum 50 éléments par canvas.
 
-## Étape 5 : Manipuler les éléments sur le canvas
+---
+
+## Manipuler les éléments
 
 | Action | Geste |
 |--------|-------|
 | **Sélectionner** | Cliquez sur l'élément |
-| **Déplacer** | Cliquez et glissez l'élément |
-| **Redimensionner** | Glissez l'une des 4 poignées aux coins |
-| **Taille de police** | Molette de la souris sur l'élément sélectionné, ou barre flottante +/- |
-| **Désélectionner** | Cliquez sur le fond du canvas (zone vide) |
-| **Supprimer** | Touche Suppr. avec l'élément sélectionné |
-| **Dupliquer** | Ctrl+D avec l'élément sélectionné |
+| **Multi-sélection** | Ctrl+Clic, ou tracez un rectangle de sélection sur le canvas |
+| **Déplacer** | Cliquez et glissez |
 | **Déplacer finement** | Flèches du clavier (1 pixel par appui) |
+| **Redimensionner** | Glissez l'une des 8 poignées (coins + bords). Shift = proportionnel, Alt = depuis le centre |
+| **Rotation** | Glissez la poignée de rotation au-dessus de l'élément. **Shift = snap à 15 degrés** |
+| **Taille de police** | Molette sur l'élément, ou barre flottante +/- |
+| **Édition texte** | Double-cliquez sur un bloc de texte pour modifier le contenu directement sur le canvas |
+| **Désélectionner** | Cliquez sur le fond (zone vide) |
+| **Supprimer** | Touche Suppr. |
+| **Dupliquer** | Ctrl+D |
+| **Tout sélectionner** | Ctrl+A |
 
-Un élément verrouillé ne peut être ni déplacé ni redimensionné.
+**Attention :** un élément verrouillé ne peut être ni déplacé ni redimensionné. Déverrouillez-le d'abord via le clic droit ou le panneau Propriétés.
 
-## Étape 6 : Configurer un élément (panneau Propriétés)
+---
 
-Le panneau **Propriétés** est désormais **toujours visible en bas de la barre latérale**, quel que soit l'onglet actif (Bibliothèque, Canvas, Calques ou Presets). Il n'est plus nécessaire de basculer entre onglets pour accéder aux propriétés. Le contenu du panneau se met à jour automatiquement en fonction de l'élément sélectionné sur le canvas. Si aucun élément n'est sélectionné, le panneau affiche un message d'invitation.
+## Zoom et panoramique
 
-Le panneau Propriétés est organisé en **sections repliables** que vous pouvez ouvrir ou fermer selon vos besoins :
+| Action | Geste |
+|--------|-------|
+| **Zoomer / Dézoomer** | Ctrl + Molette de la souris |
+| **Zoom précis** | Ctrl+0 (ajuster), Ctrl+1 (100%), Ctrl+Plus, Ctrl+Moins |
+| **Panoramique** | Espace + glisser (mode grab, comme dans Figma ou Photoshop) |
+| **Panoramique (alternatif)** | Bouton central de la souris + glisser |
 
-1. **Nom** : label de l'élément (pour l'identifier dans la liste des couches)
-2. **Alignement** : 6 boutons pour positionner rapidement l'élément
-3. **Position** (repliable) : coordonnées X et Y, largeur et hauteur en pixels
-4. **Z-Index / Rotation** (repliable) : 4 boutons d'action pour le z-index et contrôle de rotation
-5. **Style** (repliable) : couleur de fond, bordure, opacité, padding
-6. **Configuration spécifique** (repliable) : options qui dépendent du type d'élément (voir le chapitre suivant)
-7. **Actions** : boutons Dupliquer et Supprimer
+**Plage de zoom :** de 25% à 400%. Les règles pixel le long des bords s'adaptent automatiquement au niveau de zoom.
 
-### Contrôle du z-index
+---
 
-L'ordre d'empilement ne se gère plus par un champ numérique, mais par **4 boutons d'action** :
+## Menu contextuel (clic droit)
 
-| Bouton | Action |
-|--------|--------|
-| **Premier plan** | Place l'élément tout devant (z-index maximum) |
-| **Avancer** | Monte l'élément d'un niveau |
-| **Reculer** | Descend l'élément d'un niveau |
-| **Arrière-plan** | Place l'élément tout derrière (z-index minimum) |
+Un **clic droit sur un élément** affiche un menu avec :
+
+| Entrée | Raccourci |
+|--------|-----------|
+| Couper | Ctrl+X |
+| Copier | Ctrl+C |
+| Coller | Ctrl+V |
+| Dupliquer | Ctrl+D |
+| Supprimer | Suppr. |
+| Verrouiller / Déverrouiller | |
+| Masquer | |
+| Premier plan | |
+| Avancer (d'un plan) | |
+| Reculer (d'un plan) | |
+| Arrière-plan | |
+
+Un **clic droit sur le fond du canvas** (sans élément) affiche : Coller, Tout sélectionner, Afficher/Masquer la grille.
+
+---
+
+## Copier-coller et historique
+
+**Copier-coller :** copiez un ou plusieurs éléments (Ctrl+C) puis collez-les (Ctrl+V). Chaque collage successif décale la copie de 20 pixels supplémentaires, pour éviter que les copies se superposent.
+
+**Historique (undo/redo) :** 50 niveaux d'annulation. Ctrl+Z pour annuler, Ctrl+Y pour rétablir.
+
+**Attention :** changer de type d'affichage (passer du Layout libre à un autre mode) réinitialise l'historique undo/redo.
+
+---
+
+## Configurer un élément (panneau Propriétés)
+
+Le panneau **Propriétés** est **toujours visible en bas de la barre latérale**, quel que soit l'onglet actif. Il se met à jour automatiquement selon l'élément sélectionné.
+
+Il est organisé en **sections repliables** :
+
+1. **Nom** : label pour identifier l'élément dans la liste des couches
+2. **Alignement** : 6 boutons de positionnement rapide
+3. **Position** : coordonnées X/Y, largeur, hauteur en pixels
+4. **Z-Index / Rotation** : 4 boutons d'empilement (Premier plan, Avancer, Reculer, Arrière-plan) + contrôle de rotation
+5. **Style** : couleur de fond, bordure, opacité, padding
+6. **Configuration spécifique** : options selon le type d'élément (voir le chapitre suivant)
+7. **Actions** : Dupliquer et Supprimer
 
 ---
 
@@ -126,8 +207,8 @@ L'ordre d'empilement ne se gère plus par un champ numérique, mais par **4 bout
 
 Certains éléments sont liés à une équipe. Le panneau Propriétés affiche alors un sélecteur **"Côté"** :
 
-- **Gauche** = Équipe 1 (configurée dans Header > Équipe 1)
-- **Droite** = Équipe 2 (configurée dans Header > Équipe 2)
+- **Gauche** = Équipe 1
+- **Droite** = Équipe 2
 
 Éléments concernés : **Score**, **Nom d'équipe**, **Drapeau**, **Colonne de pénalités**.
 

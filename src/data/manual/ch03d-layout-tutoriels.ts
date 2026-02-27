@@ -3,11 +3,7 @@ import type { ManualChapter } from '@/types/userManual';
 export const ch03d: ManualChapter = {
   id: 'layout-tutoriels',
   title: 'Layout libre - Tutoriels',
-  content: `Ce chapitre propose des guides pas à pas pour créer différents types de pages avec le Layout libre. Chaque tutoriel part d'un canvas vierge et aboutit à un résultat complet.
-
----
-
-## Tutoriel 1 : Scoreboard classique avec header
+  content: `## Tutoriel 1 : Scoreboard classique avec header
 
 **Objectif :** créer un affichage de match standard avec drapeaux, noms, scores et horloge.
 

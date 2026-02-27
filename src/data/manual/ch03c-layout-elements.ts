@@ -3,15 +3,11 @@ import type { ManualChapter } from '@/types/userManual';
 export const ch03c: ManualChapter = {
   id: 'layout-elements',
   title: 'Layout libre - Éléments et presets',
-  content: `Ce chapitre détaille chaque type d'élément disponible dans la bibliothèque du Layout libre, ainsi que la gestion des couches et des presets.
-
----
-
-## Éléments de match
+  content: `## Éléments de match
 
 ### Score
 
-**Ce qu'il affiche :** le score d'une équipe (la valeur saisie dans Header > Score 1 ou Score 2).
+Affiche le score d'une équipe (la valeur saisie dans Header > Score 1 ou Score 2).
 
 **Comment l'utiliser :**
 1. Ajoutez un élément **Score** depuis la bibliothèque
@@ -21,59 +17,63 @@ export const ch03c: ManualChapter = {
 
 **Pour afficher les deux scores :** ajoutez **deux** éléments Score. Configurez le premier sur "Gauche" et le second sur "Droite".
 
+**Astuce :** placez une **Forme** rectangle sombre derrière chaque Score pour améliorer la lisibilité sur un fond vidéo. Pensez à envoyer la forme en arrière-plan (clic droit > Arrière-plan).
+
 ### Nom d'équipe
 
-**Ce qu'il affiche :** le nom de l'équipe (code NOC ou nom affiché personnalisé) + optionnellement le drapeau du pays.
+Affiche le nom de l'équipe (code NOC ou nom personnalisé) accompagné par défaut du drapeau du pays.
 
 **Comment l'utiliser :**
 1. Ajoutez un élément **Nom d'équipe** depuis la bibliothèque
 2. Cliquez dessus > dans **Côté**, choisissez **Gauche** (Équipe 1) ou **Droite** (Équipe 2)
-3. Le drapeau est affiché par défaut. Décochez **"Afficher le drapeau"** si vous ne voulez que le nom
+3. Le drapeau est affiché par défaut. Décochez **"Afficher le drapeau"** si vous ne voulez que le texte
 4. Optionnel : ajustez la **Taille de police** (0 = valeur globale)
 
-**Pour afficher les deux équipes :**
-1. Ajoutez un premier **Nom d'équipe** > il montre l'équipe 1 (Gauche) par défaut
-2. Ajoutez un deuxième **Nom d'équipe**
-3. Cliquez sur le deuxième > dans **Côté**, choisissez **Droite**
-4. Positionnez-les où vous voulez sur le canvas
+**Pour afficher les deux équipes :** ajoutez deux éléments Nom d'équipe. Le premier est sur Gauche par défaut ; cliquez sur le second et passez-le en **Droite**.
+
+**Attention :** si vous avez renseigné un **Nom affiché** dans le Header, c'est ce nom qui s'affiche à la place du code NOC. Vérifiez le Header si le nom affiché ne correspond pas à ce que vous attendez.
 
 ### Drapeau
 
-**Ce qu'il affiche :** le drapeau du pays d'une équipe, seul (sans nom).
+Affiche uniquement le drapeau du pays d'une équipe, sans texte.
 
 **Comment l'utiliser :**
 1. Ajoutez un élément **Drapeau** depuis la bibliothèque
-2. Cliquez dessus > dans **Côté**, choisissez **Gauche** (Équipe 1) ou **Droite** (Équipe 2)
+2. Dans **Côté**, choisissez **Gauche** ou **Droite**
 3. Le drapeau s'adapte automatiquement à la taille de l'élément
 
-**Différence avec "Nom d'équipe" :** l'élément Drapeau n'affiche QUE le drapeau, sans texte. L'élément Nom d'équipe affiche le nom ET le drapeau ensemble.
+**Quand l'utiliser plutôt que Nom d'équipe ?** Lorsque vous voulez séparer le drapeau du texte pour les positionner indépendamment. L'élément Nom d'équipe affiche le nom ET le drapeau ensemble ; l'élément Drapeau vous donne un contrôle total sur le placement du drapeau seul.
 
 ### Horloge
 
-**Ce qu'il affiche :** le temps du match (configuré dans l'onglet Match > section correspondante, ou via l'opérateur live).
+Affiche le temps du match (configuré dans l'onglet Match ou piloté via l'opérateur live).
 
 **Options dans le panneau Propriétés :**
 - **Afficher la période** : ajoute l'indicateur de période sous le temps
 - **Afficher le cadre** : entoure l'horloge d'un cadre visuel
 - **Taille de police** : 0 = valeur globale
 
+**Astuce :** pour un affichage compact (lower third), décochez "Afficher la période" et utilisez un élément Période séparé, positionné là où vous le souhaitez.
+
 ### Période
 
-**Ce qu'il affiche :** la période en cours (ex : "1st", "2nd", "OT").
+Affiche la période en cours (ex : "1st", "2nd", "OT").
 
 **Options :** Taille de police (0 = valeur globale).
 
+**Astuce :** combinez un élément Période avec un Bloc de texte ("Période :") pour un affichage plus explicite.
+
 ### Temps morts
 
-**Ce qu'il affiche :** les indicateurs de temps morts des deux équipes (points colorés). Affiche automatiquement les deux équipes côte à côte.
+Affiche les indicateurs de temps morts des deux équipes (points colorés), côte à côte.
 
-**Pas de configuration supplémentaire** : l'élément utilise directement les données configurées dans l'onglet **Match > Temps morts**.
+L'élément utilise directement les données configurées dans l'onglet **Match > Temps morts**. Aucune configuration supplémentaire n'est nécessaire.
 
 ### Tirs au but
 
-**Ce qu'il affiche :** les tentatives de tirs au but des deux équipes (cercles vert/rouge/gris). Affiche automatiquement les deux équipes côte à côte.
+Affiche les tentatives de tirs au but des deux équipes (cercles vert/rouge/gris), côte à côte.
 
-**Pas de configuration supplémentaire** : l'élément utilise les données de l'onglet **Match > Tirs au but**.
+L'élément utilise les données de l'onglet **Match > Tirs au but**. Aucune configuration supplémentaire n'est nécessaire.
 
 ---
 
@@ -81,7 +81,7 @@ export const ch03c: ManualChapter = {
 
 ### Bloc de texte
 
-**Ce qu'il affiche :** un texte libre que vous saisissez vous-même.
+Affiche un texte libre que vous saisissez vous-même. C'est l'élément le plus polyvalent pour ajouter des titres, légendes ou annotations.
 
 **Options dans le panneau Propriétés :**
 - **Contenu** : le texte à afficher
@@ -92,17 +92,25 @@ export const ch03c: ManualChapter = {
 - **Casse** : Aucune, MAJUSCULES, minuscules
 - **Espacement** : espacement entre les lettres
 
+**Astuce :** double-cliquez sur un bloc de texte dans le canvas pour modifier son contenu directement, sans passer par le panneau Propriétés.
+
+**Attention :** le contenu du bloc de texte n'est PAS lié aux données du match. Si vous voulez afficher un score ou un nom d'équipe qui se met à jour automatiquement, utilisez les éléments Score ou Nom d'équipe.
+
 ### Ligne de stat
 
-**Ce qu'il affiche :** une ligne de statistiques (valeur gauche + libellé + valeur droite).
+Affiche une ligne de statistiques sous la forme : valeur gauche + libellé + valeur droite.
 
-**Options :** **Ligne de stat** (index) : sélectionnez quelle ligne de statistiques afficher (0 = première, 1 = deuxième, etc.). Les statistiques se configurent dans les modes body types 1 à 3.
+**Options :** **Ligne de stat** (index) : sélectionnez quelle ligne afficher (0 = première, 1 = deuxième, etc.). Les statistiques se configurent dans les modes body types 1 à 3 de l'onglet Contenu.
+
+**Astuce :** empilez plusieurs Lignes de stat verticalement avec un espacement régulier (grille à 50 px) pour créer un tableau de statistiques propre.
 
 ### Barre comparative
 
-**Ce qu'il affiche :** une barre de comparaison entre deux valeurs (gauche vs droite).
+Affiche une barre de comparaison visuelle entre deux valeurs (gauche vs droite). Idéale pour représenter des pourcentages ou des ratios.
 
 **Options :** **Barre** (index) : sélectionnez quelle barre afficher.
+
+**Astuce :** combinez une Ligne de stat (pour les chiffres) avec une Barre comparative (pour le visuel) sur la même statistique. Placez la barre juste en dessous de la ligne pour un rendu riche.
 
 ---
 
@@ -110,39 +118,45 @@ export const ch03c: ManualChapter = {
 
 ### Photo joueur
 
-**Ce qu'il affiche :** la photo d'un joueur.
+Affiche la photo d'un joueur.
 
 **Options :**
-- **Clé photo** : identifiant de la photo du joueur (configuré dans l'onglet Médias > Photos)
+- **Clé photo** : identifiant de la photo (configuré dans l'onglet Médias > Photos)
 - **Forme** : Cercle ou Carré
+
+**Attention :** la photo doit d'abord être importée dans l'onglet **Médias > Photos** avant de pouvoir être référencée ici.
 
 ### Image
 
-**Ce qu'il affiche :** une image externe (URL ou fichier local).
+Affiche une image externe (URL ou fichier local). Utile pour incruster un logo de ligue, un sponsor ou un arrière-plan personnalisé.
 
 **Options :**
 - **Source image** : URL de l'image ou bouton Parcourir pour charger un fichier
 - **Ajustement** : Couvrir (remplit sans déformer), Contenir (affiche en entier), Étirer (remplit en déformant)
 
+**Astuce :** utilisez le mode "Contenir" pour un logo (il restera entier) et "Couvrir" pour un arrière-plan (il remplira la zone sans bandes noires).
+
 ### Forme
 
-**Ce qu'il affiche :** une forme géométrique colorée (rectangle, cercle, rectangle arrondi).
+Affiche une forme géométrique colorée : rectangle, cercle ou rectangle arrondi.
 
 **Options :**
 - **Forme** : Rectangle, Cercle, Rectangle arrondi
 - **Couleur de remplissage** + opacité
 - **Bordure** : couleur, épaisseur, rayon
 
-**Astuce :** utilisez les formes comme arrière-plans pour vos éléments de texte ou de score.
+**Astuce :** les formes sont les briques de base pour construire vos arrière-plans. Créez un rectangle sombre semi-transparent derrière vos scores pour qu'ils soient lisibles sur n'importe quel fond vidéo. N'oubliez pas de l'envoyer en arrière-plan (clic droit > Arrière-plan).
 
 ### Séparateur
 
-**Ce qu'il affiche :** une ligne de séparation.
+Affiche une ligne de séparation, idéale pour délimiter visuellement des zones du canvas.
 
 **Options :**
 - **Orientation** : Horizontale ou Verticale
 - **Épaisseur** : en pixels
 - **Couleur** + opacité
+
+**Astuce :** un séparateur vertical fin (2 px, blanc, opacité 50%) entre les deux scores donne un rendu broadcast professionnel.
 
 ---
 
@@ -150,21 +164,25 @@ export const ch03c: ManualChapter = {
 
 ### Header complet
 
-**Ce qu'il affiche :** un bloc complet contenant automatiquement : drapeaux/logos, noms d'équipes, scores, temps morts et tirs au but. C'est l'équivalent du header des modes classiques (1 à 13).
+Affiche un bloc complet contenant automatiquement : drapeaux/logos, noms d'équipes, scores, temps morts et tirs au but. C'est l'équivalent du header des modes classiques (1 à 13), mais que vous pouvez repositionner et redimensionner librement.
 
 **Options :** **Afficher l'horloge** (cocher pour inclure le temps dans le header).
 
-**Astuce :** si vous voulez un scoreboard classique rapidement, ajoutez juste un Header complet en haut du canvas.
+**Astuce :** c'est le moyen le plus rapide de démarrer. Ajoutez un Header complet en haut du canvas et vous avez un scoreboard fonctionnel en quelques secondes. Ajoutez ensuite d'autres éléments en dessous pour enrichir l'affichage.
 
 ### Colonne de pénalités
 
-**Ce qu'il affiche :** la liste des pénalités d'une équipe.
+Affiche la liste des pénalités d'une équipe.
 
 **Options :** **Côté** : Gauche (Équipe 1) ou Droite (Équipe 2).
+
+**Astuce :** ajoutez deux Colonnes de pénalités (une par côté) de part et d'autre du canvas pour un affichage symétrique complet.
 
 ### Types d'affichage embarqués
 
 Les 13 types d'affichage classiques (Stats centrées, Stats gauche/droite, Fiche joueur, Classement, etc.) peuvent être ajoutés comme éléments dans le canvas du Layout libre. Cela permet de combiner plusieurs types sur un même écran.
+
+**Exemple concret :** placez un Header complet en haut, un Classement au centre et une Fiche joueur en bas pour créer un écran de pause publicitaire complet. Consultez le chapitre **Tutoriels** pour des guides pas à pas.
 
 ---
 
@@ -173,14 +191,20 @@ Les 13 types d'affichage classiques (Stats centrées, Stats gauche/droite, Fiche
 Cliquez sur la troisième icône du rail (**Calques**) pour accéder à la liste des couches. Tous les éléments du canvas y sont listés :
 - Chaque élément affiche son nom et une icône correspondant à son type
 - Cliquez sur un élément de la liste pour le sélectionner dans le canvas
-- Utilisez les boutons de z-index dans le panneau Propriétés (en bas) pour contrôler l'ordre d'affichage
+- Utilisez les boutons de z-index dans le panneau Propriétés pour réorganiser l'ordre d'affichage
+
+**Attention :** l'ordre des couches est important. Un élément au premier plan masque ceux qui sont derrière. Si un élément semble avoir disparu, vérifiez qu'il n'est pas caché derrière un autre (sélectionnez-le dans la liste des calques pour le retrouver).
+
+---
 
 ## Presets (sauvegarder et charger des mises en page)
 
 Cliquez sur la quatrième icône du rail (**Presets**) pour accéder aux presets. Cette section permet de :
-- **Sauvegarder le champ** : enregistre la configuration d'un seul élément pour le réutiliser
-- **Sauvegarder l'écran** : enregistre l'ensemble des éléments du canvas
+- **Sauvegarder le champ** : enregistre la configuration d'un seul élément pour le réutiliser plus tard
+- **Sauvegarder l'écran** : enregistre l'ensemble des éléments du canvas (positions, styles, données)
 - **Charger un preset** : applique un preset sauvegardé précédemment
+
+**Astuce :** sauvegardez vos mises en page réussies comme presets d'écran. Vous pourrez les recharger instantanément pour vos prochains matchs et n'aurez qu'à mettre à jour les équipes et les scores.
 
 Pour des exemples concrets de création de pages complètes, consultez le chapitre suivant : **Layout libre - Tutoriels pas à pas**.`,
 };

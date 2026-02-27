@@ -16,13 +16,18 @@ import { ch11 } from './ch11-logos';
 import { ch12 } from './ch12-animations';
 import { ch13 } from './ch13-integrations';
 
+/** Chapitre unique fusionnant prise en main, éléments et tutoriels */
+const layoutLibre: ManualChapter = {
+  id: 'layout-libre',
+  title: 'Layout libre',
+  content: [ch03b.content, ch03c.content, ch03d.content].join('\n\n---\n\n'),
+};
+
 export const MANUAL_CHAPTERS: readonly ManualChapter[] = [
   ch01,
   ch02,
   ch03,
-  ch03b,
-  ch03c,
-  ch03d,
+  layoutLibre,
   ch04,
   ch05,
   ch06,
