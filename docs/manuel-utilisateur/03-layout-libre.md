@@ -8,8 +8,6 @@ Le Layout libre est le mode principal de l'application et le type d'affichage pa
 - Créer des mises en page originales avec un contrôle total sur la position de chaque élément
 - Prototyper rapidement différents designs de scoreboard grâce aux presets
 
-> **Note technique :** dans le code source, le Layout libre porte l'identifiant interne 14 (`bodyType: 14`). Son positionnement en tête de liste dans l'interface reflète son statut de mode principal.
-
 ## Concept général
 
 Contrairement aux types à agencement fixe (types 2 à 14) où la disposition des éléments est prédéterminée, le Layout libre offre un canvas vierge de 1920x1080 pixels (par défaut, configurable). L'utilisateur y dépose des éléments depuis une bibliothèque, puis les positionne librement par glisser-déposer et les redimensionne via 8 poignées (4 coins + 4 bords). Chaque élément possède ses propres propriétés de style, de position, de taille et de rotation.
