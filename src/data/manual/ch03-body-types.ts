@@ -20,7 +20,7 @@ Canvas enti\u00e8rement vierge sur lequel vous placez librement des \u00e9l\u00e
 
 ---
 
-## Stats sym\u00e9triques (mode 1)
+## Stats centr\u00e9es (mode 14)
 
 Titre centr\u00e9 et lignes de statistiques avec valeur gauche / label central / valeur droite.
 
@@ -31,7 +31,7 @@ Titre centr\u00e9 et lignes de statistiques avec valeur gauche / label central /
 4. Section **Lignes de stats** : cliquez sur "Ajouter une ligne", puis remplissez : valeur gauche, label, valeur droite
 5. Exemple : "15" | "TIRS AU BUT" | "12"
 
-## Stats asym\u00e9triques (mode 2)
+## Stats gauche/droite (mode 2)
 
 Deux titres (gauche et droite) avec des lignes de statistiques.
 

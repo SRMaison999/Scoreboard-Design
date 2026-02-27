@@ -116,8 +116,8 @@ L'application propose 14 **body types**, du format fixe au mode libre complet :
 
 | Type | Nom | Description |
 |------|-----|-------------|
-| 1 | Stats symétriques | Statistiques équipe gauche / droite en colonnes centrées |
-| 2 | Stats asymétriques | Statistiques en colonnes décalées avec double titre |
+| 1 | **Layout libre** | Éditeur drag-and-drop complet (voir section dédiée) |
+| 2 | Stats gauche/droite | Statistiques en colonnes décalées avec double titre |
 | 3 | Stats joueur | Photo joueur + liste label/valeur |
 | 4 | But | Écran de célébration de but |
 | 5 | Fiche joueur | Vue détaillée d'un joueur (statistiques étendues) |
@@ -129,7 +129,7 @@ L'application propose 14 **body types**, du format fixe au mode libre complet :
 | 11 | Barres | Diagramme à barres comparatif |
 | 12 | Roster | Affichage de l'effectif |
 | 13 | Timeline | Frise chronologique des événements |
-| 14 | **Mise en page libre** | Éditeur drag-and-drop complet (voir section dédiée) |
+| 14 | Stats centrées | Statistiques équipe gauche / droite en colonnes centrées |
 
 ---
 

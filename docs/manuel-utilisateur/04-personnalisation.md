@@ -109,7 +109,7 @@ Les 14 types de corps concernés :
 | Type | Nom |
 |------|-----|
 | 1 | Layout libre |
-| 2 | Stats asymétriques |
+| 2 | Stats gauche/droite |
 | 3 | Stats joueur |
 | 4 | Célébration de but |
 | 5 | Fiche joueur |
@@ -121,7 +121,7 @@ Les 14 types de corps concernés :
 | 11 | Barres comparatives |
 | 12 | Composition d'équipe |
 | 13 | Calendrier |
-| 14 | Stats symétriques |
+| 14 | Stats centrées |
 
 Le Layout libre (type 1) n'utilise pas la mise à l'échelle proportionnelle globale. Chaque élément possède sa propre taille configurable individuellement dans le panneau de propriétés (voir chapitre 3, Type 1 : Layout libre).
 

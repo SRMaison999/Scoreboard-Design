@@ -41,7 +41,7 @@ Voici le parcours typique pour cr\u00e9er un scoreboard :
 
 - Cliquez sur l'ic\u00f4ne **Grille** dans le rail (1\u00e8re ic\u00f4ne)
 - Le panneau **Modes** affiche 14 types d'affichage class\u00e9s par cat\u00e9gorie
-- Cliquez sur le mode souhait\u00e9 (exemple : **Stats sym\u00e9triques**)
+- Cliquez sur le mode souhait\u00e9 (exemple : **Stats centr\u00e9es**)
 - **L'application bascule automatiquement** vers le panneau **Contenu > \u00c9quipes** pour que vous puissiez imm\u00e9diatement remplir les donn\u00e9es
 
 ### 2. Remplir le contenu
@@ -80,8 +80,8 @@ Le panneau Modes propose 14 types d'affichage organis\u00e9s en 4 cat\u00e9gorie
 - **Layout libre** : canvas vierge o\u00f9 vous placez les \u00e9l\u00e9ments librement (voir chapitre 3 pour le guide complet)
 
 ### Statistiques
-- **Stats sym\u00e9triques** : lignes de statistiques avec valeurs gauche/droite
-- **Stats asym\u00e9triques** : deux colonnes de statistiques ind\u00e9pendantes
+- **Stats centr\u00e9es** : lignes de statistiques avec valeurs gauche/droite
+- **Stats gauche/droite** : deux colonnes de statistiques ind\u00e9pendantes
 - **Stats joueur** : statistiques individuelles avec photo optionnelle
 - **Face-\u00e0-face** : deux joueurs compar\u00e9s avec stats
 - **Barres comparatives** : visualisation en barres horizontales

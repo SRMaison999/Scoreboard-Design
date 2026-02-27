@@ -364,8 +364,8 @@ Le Layout libre (type 1, composant BodyType14) est le mode principal, proposé e
 | Type | Composant | Description |
 |------|-----------|-------------|
 | 1 | BodyType14 | **Layout libre** (champs personnalisés, mode principal) |
-| 14 | BodyType1 | Stats symétriques (valeur / label / valeur) |
-| 2 | BodyType2 | Stats asymetriques (2 titres) |
+| 14 | BodyType1 | Stats centrées (valeur / label / valeur) |
+| 2 | BodyType2 | Stats gauche/droite (2 titres) |
 | 3 | BodyType3 | Stats joueur avec photo |
 | 4 | BodyType4 | But / celebration |
 | 5 | BodyType5 | Fiche joueur |

@@ -434,7 +434,7 @@ Les éléments visuels sont des **vues** sur les données. Modifier le score dan
 
 ---
 
-## Type 14 : Stats symétriques
+## Type 14 : Stats centrées
 
 Titre centré et lignes de statistiques avec valeur gauche / label central / valeur droite.
 
@@ -472,7 +472,7 @@ Titre centré et lignes de statistiques avec valeur gauche / label central / val
 
 ---
 
-## Type 2 : Stats asymétriques
+## Type 2 : Stats gauche/droite
 
 Deux titres (gauche et droite) avec des lignes de statistiques.
 
@@ -495,7 +495,7 @@ POWER PLAY         PENALTY KILLING
 | **Lignes de stats** | Identiques au Type 1 (valeur gauche, label, valeur droite) |
 | **Taille de police** | Automatique selon le nombre de lignes |
 
-### Différences avec le Type 14 (Stats symétriques)
+### Différences avec le Type 14 (Stats centrées)
 
 - Les deux titres sont positionnés dans les colonnes de valeurs (pas centrés)
 - Permet de comparer deux contextes différents côte à côte
@@ -749,7 +749,7 @@ Liste des matchs à venir ou terminés.
 | N° | Type | Usage principal | Complexité |
 |----|------|----------------|-----------|
 | 1 | **Layout libre** | Composition sur mesure | Avancé |
-| 2 | Stats asymétriques | Comparaison de catégories | Simple |
+| 2 | Stats gauche/droite | Comparaison de catégories | Simple |
 | 3 | Stats joueur | Leaders statistiques | Simple |
 | 4 | But / Célébration | Annonce de but | Simple |
 | 5 | Fiche joueur | MVP, joueur du match | Simple |
@@ -761,4 +761,4 @@ Liste des matchs à venir ou terminés.
 | 11 | Barres comparatives | Visualisation de stats | Simple |
 | 12 | Composition | Lineups | Moyen |
 | 13 | Calendrier | Programme | Simple |
-| 14 | Stats symétriques | Statistiques de match | Simple |
+| 14 | Stats centrées | Statistiques de match | Simple |

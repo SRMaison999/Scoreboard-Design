@@ -78,7 +78,7 @@ Le Layout libre (Body Type 1) est le mode principal, proposé en premier dans l'
 
 Les types prédéfinis 2-14 offrent des agencements fixes pour des cas d'utilisation courants :
 
-**Type 14 : Titre centré + lignes symétriques**
+**Type 14 : Titre centré + lignes centrées**
 
 ```
             GAME STATISTICS
@@ -91,7 +91,7 @@ Les types prédéfinis 2-14 offrent des agencements fixes pour des cas d'utilisa
 - Grille CSS 3 colonnes : `1fr [labelW]px 1fr`
 - Taille de police automatique selon le nombre de lignes (1–8)
 
-**Type 2 : Deux titres + lignes asymétriques**
+**Type 2 : Deux titres + lignes gauche/droite**
 
 ```
 POWER PLAY         PENALTY KILLING
@@ -1268,7 +1268,7 @@ src/
 │   │   ├── body/                  # Registre de body types
 │   │   │   ├── BodyTypeRegistry.ts    # Registre dynamique
 │   │   │   ├── BodyType14.tsx         # Layout libre (type 1, mode principal)
-│   │   │   ├── BodyType1.tsx          # Stats symétriques (type 14)
+│   │   │   ├── BodyType1.tsx          # Stats centrées (type 14)
 │   │   │   ├── BodyType2.tsx          # Asymétrique
 │   │   │   ├── BodyType3.tsx          # Joueur/variable
 │   │   │   ├── BodyType4.tsx          # Classement

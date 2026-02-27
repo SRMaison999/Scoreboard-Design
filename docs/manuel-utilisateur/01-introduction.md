@@ -52,7 +52,7 @@ L'état du scoreboard est sauvegardé automatiquement dans le navigateur. En rev
 | Chapitre | Contenu |
 |----------|---------|
 | [02 - Éditeur](./02-editeur.md) | Guide complet du panneau éditeur |
-| [03 - Types d'affichage](./03-body-types.md) | Les 14 types de corps (Type 1 : Layout libre, puis types 2-13, type 14 : Stats symétriques) |
+| [03 - Types d'affichage](./03-body-types.md) | Les 14 types de corps (Type 1 : Layout libre, puis types 2-13, type 14 : Stats centrées) |
 | [04 - Personnalisation](./04-personnalisation.md) | Couleurs, polices, dimensions |
 | [05 - Horloge et phases](./05-horloge-et-phases.md) | Configuration du temps de jeu |
 | [06 - Templates](./06-templates.md) | Sauvegarde et gestion de templates |

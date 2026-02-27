@@ -207,7 +207,7 @@ L'ordre d'empilement ne se gère plus par un champ numérique, mais par **4 bout
 
 **Ce qu'il affiche :** une ligne de statistiques (valeur gauche + libellé + valeur droite).
 
-**Options :** **Ligne de stat** (index) : sélectionnez quelle ligne de statistiques afficher (0 = première, 1 = deuxième, etc.). Les statistiques se configurent dans les types d'affichage dédiés (Stats symétriques, Stats asymétriques, Stats joueur).
+**Options :** **Ligne de stat** (index) : sélectionnez quelle ligne de statistiques afficher (0 = première, 1 = deuxième, etc.). Les statistiques se configurent dans les types d'affichage dédiés (Stats centrées, Stats gauche/droite, Stats joueur).
 
 ### Barre comparative (catégorie Données)
 

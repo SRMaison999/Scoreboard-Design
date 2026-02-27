@@ -278,7 +278,7 @@ export const useScoreboardStore = create<ScoreboardStore>()(
       }),
       migrate: (persisted: unknown) => {
         const state = persisted as Record<string, unknown>;
-        /* Migration v9 : swap bodyType 1 <-> 14 (Layout libre devient 1, Stats symétriques devient 14) */
+        /* Migration v9 : swap bodyType 1 <-> 14 (Layout libre devient 1, Stats centrées devient 14) */
         if (state['bodyType'] === 14) {
           state['bodyType'] = 1;
         } else if (state['bodyType'] === 1) {
