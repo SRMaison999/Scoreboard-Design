@@ -1,6 +1,6 @@
 /**
  * Panneau de propriétés affiché à droite du canvas de preview.
- * Visible en mode Layout libre (Body Type 14).
+ * Visible en mode Layout libre (Body Type 1).
  * La section "Données du match" (équipes, scores, drapeaux) n'apparaît
  * que lorsqu'un champ de type "Nom d'équipe" ou "Drapeau" est sélectionné.
  */

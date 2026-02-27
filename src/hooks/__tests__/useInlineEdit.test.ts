@@ -33,7 +33,7 @@ const SHAPE_ELEMENT: FieldElementConfig = {
 describe('useInlineEdit', () => {
   beforeEach(() => {
     useScoreboardStore.getState().resetState();
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
   });
 
   it('initialise avec editingFieldId a null', () => {

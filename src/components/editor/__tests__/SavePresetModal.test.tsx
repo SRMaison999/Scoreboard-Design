@@ -10,7 +10,7 @@ import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
 describe('SavePresetModal', () => {
   beforeEach(async () => {
     useScoreboardStore.getState().resetState();
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
     await db.fieldPresets.clear();
     usePresetStore.setState({ presets: [], loading: false });
   });

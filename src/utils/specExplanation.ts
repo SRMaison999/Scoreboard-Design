@@ -201,10 +201,10 @@ function buildBodySection(spec: ScoreboardSpec): string {
   ];
 
   const explainers: Record<number, (data: unknown) => string[]> = {
-    1: explainType1, 2: explainType2, 3: explainType3, 4: explainType4,
+    1: explainType14, 2: explainType2, 3: explainType3, 4: explainType4,
     5: explainType5, 6: explainType6, 7: explainType7, 8: explainType8,
     9: explainType9, 10: explainType10, 11: explainType11, 12: explainType12,
-    13: explainType13, 14: explainType14,
+    13: explainType13, 14: explainType1,
   };
 
   const explainer = explainers[b.type];

@@ -1,5 +1,5 @@
 /**
- * Store Zustand pour le zoom et le panning du canvas en mode Layout libre (Body Type 14).
+ * Store Zustand pour le zoom et le panning du canvas en mode Layout libre (Body Type 1).
  * Non persisté : le zoom et le pan sont réinitialisés à chaque session.
  */
 

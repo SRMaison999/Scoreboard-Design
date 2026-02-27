@@ -1,5 +1,5 @@
 /**
- * Composants statiques du Body Type 14 : champ en lecture seule et grille.
+ * Composants statiques du Body Type 1 (Layout libre) : champ en lecture seule et grille.
  * Extraits pour respecter la limite de 300 lignes.
  */
 

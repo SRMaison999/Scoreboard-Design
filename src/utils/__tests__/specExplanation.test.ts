@@ -63,13 +63,14 @@ describe('generateExplanation', () => {
   });
 
   it('contient le schema de disposition (layout overview)', () => {
-    const explanation = generateExplanation(specFor());
+    const explanation = generateExplanation(specFor({ bodyType: 14 }));
     expect(explanation).toContain('Vue d\'ensemble de la disposition');
     expect(explanation).toContain('HEADER');
   });
 
   it('contient les penalites quand actives', () => {
     const explanation = generateExplanation(specFor({
+      bodyType: 14,
       showPenalties: true,
       penaltiesLeft: [{ time: '1:30', number: '11' }],
     }));
@@ -82,8 +83,8 @@ describe('generateExplanation', () => {
     expect(explanation).not.toContain('PEN.G');
   });
 
-  it('decrit le type 1 (stats centrees)', () => {
-    const explanation = generateExplanation(specFor({ bodyType: 1 }));
+  it('decrit le type 14 (stats centrees)', () => {
+    const explanation = generateExplanation(specFor({ bodyType: 14 }));
     expect(explanation).toContain('Stats centrees');
     expect(explanation).toContain('Titre central');
   });
@@ -94,8 +95,8 @@ describe('generateExplanation', () => {
     expect(explanation).toContain('Rang');
   });
 
-  it('decrit le type 14 (layout libre)', () => {
-    const explanation = generateExplanation(specFor({ bodyType: 14 }));
+  it('decrit le type 1 (layout libre)', () => {
+    const explanation = generateExplanation(specFor({ bodyType: 1 }));
     expect(explanation).toContain('Layout libre');
     expect(explanation).toContain('positionne librement');
   });

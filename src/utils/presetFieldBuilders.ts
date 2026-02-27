@@ -1,6 +1,6 @@
 /**
  * Fonctions utilitaires pour construire des CustomField
- * destin\u00e9s aux presets de layouts (bodyType 14).
+ * destin\u00e9s aux presets de layouts (bodyType 1).
  */
 
 import type { CustomField, FieldStyle } from '@/types/customField';

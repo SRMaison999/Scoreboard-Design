@@ -84,7 +84,7 @@ function moveResize(
 describe('useFieldResize', () => {
   beforeEach(() => {
     useScoreboardStore.getState().resetState();
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
     /* Desactiver le snap pour des calculs previsibles */
     useScoreboardStore.setState((s) => ({
       customFieldsData: { ...s.customFieldsData, snapToGrid: false },

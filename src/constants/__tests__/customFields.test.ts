@@ -81,9 +81,9 @@ describe('customFields constantes', () => {
       expect(categories.has('composed')).toBe(true);
     });
 
-    it('contient les body types 1 à 13 dans les composés', () => {
+    it('contient les body types 2 à 14 dans les composés', () => {
       const composed = LIBRARY_ELEMENTS.filter((el) => el.category === 'composed');
-      for (let i = 1; i <= 13; i++) {
+      for (let i = 2; i <= 14; i++) {
         const found = composed.find((el) => el.type === `body-type-${i}`);
         expect(found, `body-type-${i} devrait être présent`).toBeTruthy();
       }

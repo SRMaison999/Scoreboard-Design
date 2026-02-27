@@ -40,7 +40,7 @@ describe('PropertiesPanel', () => {
     });
     vi.stubGlobal('BroadcastChannel', MockBroadcastChannel);
     useScoreboardStore.getState().resetState();
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
   });
 
   it('affiche le placeholder sans champ sélectionné', () => {

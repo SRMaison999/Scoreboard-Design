@@ -362,8 +362,8 @@ export const LIBRARY_ELEMENTS: readonly LibraryElement[] = [
     icon: 'columns',
   },
   {
-    type: 'body-type-1',
-    label: 'Stats centr\u00e9es (Type 1)',
+    type: 'body-type-14',
+    label: 'Stats centr\u00e9es (Type 14)',
     description: 'Statistiques centr\u00e9es avec titre',
     category: 'composed',
     defaultWidth: 1200,

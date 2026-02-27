@@ -2,7 +2,7 @@
 
 ## Présentation
 
-Le mode opérateur est une interface simplifiée conçue pour le contrôle live du scoreboard pendant un match. Il remplace le panneau éditeur détaillé par des contrôles grands format, tactiles et rapides.
+Le mode opérateur est une interface simplifiée conçue pour le contrôle du scoreboard lors de la simulation d'un match. Il remplace le panneau éditeur détaillé par des contrôles grands format, tactiles et rapides. Ce mode est fonctionnel mais n'a pas encore été validé en conditions de production live.
 
 ## Accès
 

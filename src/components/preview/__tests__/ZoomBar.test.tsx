@@ -87,20 +87,21 @@ describe('ZoomBar', () => {
   });
 
   it('les boutons contiennent des icônes Lucide (sans layout libre)', () => {
+    useScoreboardStore.getState().update('bodyType', 14);
     const { container } = render(<ZoomBar />);
     const svgs = container.querySelectorAll('svg');
     expect(svgs.length).toBe(4);
   });
 
   it('affiche les boutons undo/redo en mode layout libre', () => {
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
     render(<ZoomBar />);
     expect(screen.getByTitle(/Annuler/)).toBeInTheDocument();
     expect(screen.getByTitle(/Rétablir/)).toBeInTheDocument();
   });
 
   it('les boutons undo/redo sont désactivés sans historique', () => {
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
     render(<ZoomBar />);
     const undoBtn = screen.getByTitle(/Annuler/);
     const redoBtn = screen.getByTitle(/Rétablir/);
@@ -109,7 +110,7 @@ describe('ZoomBar', () => {
   });
 
   it('ne montre pas les boutons undo/redo hors layout libre', () => {
-    useScoreboardStore.getState().update('bodyType', 1);
+    useScoreboardStore.getState().update('bodyType', 14);
     render(<ZoomBar />);
     expect(screen.queryByTitle(/Annuler/)).not.toBeInTheDocument();
     expect(screen.queryByTitle(/Rétablir/)).not.toBeInTheDocument();

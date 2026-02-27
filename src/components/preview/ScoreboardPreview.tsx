@@ -22,7 +22,7 @@ export function ScoreboardPreview({ state, onInlineEdit }: ScoreboardPreviewProp
   const h = state.templateHeight;
   const scale = useScaling(wrapRef, w, h);
 
-  const isLayoutLibre = state.bodyType === 14;
+  const isLayoutLibre = state.bodyType === 1;
   const setBaseScale = useCanvasViewStore((s) => s.setBaseScale);
 
   useEffect(() => {

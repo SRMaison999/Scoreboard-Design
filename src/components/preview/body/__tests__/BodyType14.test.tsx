@@ -37,7 +37,7 @@ function makeTextField(id: string, x: number, y: number): CustomField {
 function makeState(fields: CustomField[]): ScoreboardState {
   return {
     ...DEFAULT_STATE,
-    bodyType: 14,
+    bodyType: 1,
     customFieldsData: {
       fields,
       fullPageMode: false,
@@ -53,7 +53,7 @@ function makeState(fields: CustomField[]): ScoreboardState {
 describe('BodyType14', () => {
   beforeEach(() => {
     useScoreboardStore.getState().resetState();
-    useScoreboardStore.getState().update('bodyType', 14);
+    useScoreboardStore.getState().update('bodyType', 1);
   });
 
   it('rend le conteneur avec data-testid', () => {

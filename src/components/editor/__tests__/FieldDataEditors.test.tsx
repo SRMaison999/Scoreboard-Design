@@ -209,7 +209,7 @@ describe('BodyTypeEmbeddedInfo', () => {
   });
 
   it('affiche l\u2019indice explicatif', () => {
-    const element = { type: 'body-type-1', config: {} } as FieldElementConfig;
+    const element = { type: 'body-type-14', config: {} } as FieldElementConfig;
     render(<BodyTypeEmbeddedInfo element={element} />);
     expect(screen.getByText(CUSTOM_FIELD_LABELS.configBodyTypeEmbeddedHint)).toBeInTheDocument();
   });

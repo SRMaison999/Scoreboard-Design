@@ -58,7 +58,7 @@ Un rail vertical de 10 icônes remplace la navigation standard. Ce rail permet d
 | Graphique | **Données** | Éléments de visualisation : Ligne de stat, Barre comparative |
 | Utilisateur | **Joueurs** | Éléments joueurs : Photo joueur |
 | Image | **Médias** | Éléments décoratifs : Image, Forme (rectangle, cercle, arrondi), Séparateur |
-| Grille | **Composés** | Blocs complets : Header complet, Colonne de pénalités, Types 1-13 intégrés |
+| Grille | **Composés** | Blocs complets : Header complet, Colonne de pénalités, Types 2-14 intégrés |
 | Couches | **Couches** | Liste des champs avec réordonnancement, visibilité et verrouillage |
 | Signet | **Presets** | Sauvegarde et chargement de champs individuels ou d'écrans complets |
 | Clé | **Propriétés** | Panneau de propriétés du champ sélectionné (position, taille, style, effets) |
@@ -72,7 +72,7 @@ Voir le chapitre 3 (Layout libre) pour le détail de chaque fonctionnalité.
 ### Sous-onglet Équipes
 
 - **En-tête** : sélection des équipes (31 nations), saisie des scores
-- **Titres** : texte(s) affiché(s) dans le corps du scoreboard (selon le type, visible pour les types 1-3)
+- **Titres** : texte(s) affiché(s) dans le corps du scoreboard (selon le type, visible pour les types 2, 3 et 14)
 - **Section spécifique au body type** : contenu variable selon le type d'affichage choisi
 
 ### Sous-onglet Match

@@ -1,5 +1,5 @@
 /**
- * Types pour le constructeur de champs personnalisés (Body Type 14).
+ * Types pour le constructeur de champs personnalisés (Body Type 1).
  * Permet de placer librement des éléments sur le canvas.
  */
 
@@ -31,10 +31,10 @@ export type FieldElementType =
   | 'timeline-event' | 'timeline-list'
   | 'schedule-match' | 'schedule-list' | 'period-score-row'
   | 'image-block' | 'shape-block' | 'separator-line'
-  | 'body-type-1' | 'body-type-2' | 'body-type-3' | 'body-type-4'
+  | 'body-type-2' | 'body-type-3' | 'body-type-4'
   | 'body-type-5' | 'body-type-6' | 'body-type-7' | 'body-type-8'
   | 'body-type-9' | 'body-type-10' | 'body-type-11' | 'body-type-12'
-  | 'body-type-13' | 'header-block' | 'penalty-column';
+  | 'body-type-13' | 'body-type-14' | 'header-block' | 'penalty-column';
 
 /* --- Configuration spécifique par type d'élément --- */
 
@@ -159,7 +159,6 @@ export type FieldElementConfig =
   | { readonly type: 'separator-line'; readonly config: SeparatorLineConfig }
   | { readonly type: 'header-block'; readonly config: HeaderBlockConfig }
   | { readonly type: 'penalty-column'; readonly config: PenaltyColumnConfig }
-  | { readonly type: 'body-type-1'; readonly config: BodyTypeBlockConfig }
   | { readonly type: 'body-type-2'; readonly config: BodyTypeBlockConfig }
   | { readonly type: 'body-type-3'; readonly config: BodyTypeBlockConfig }
   | { readonly type: 'body-type-4'; readonly config: BodyTypeBlockConfig }
@@ -171,7 +170,8 @@ export type FieldElementConfig =
   | { readonly type: 'body-type-10'; readonly config: BodyTypeBlockConfig }
   | { readonly type: 'body-type-11'; readonly config: BodyTypeBlockConfig }
   | { readonly type: 'body-type-12'; readonly config: BodyTypeBlockConfig }
-  | { readonly type: 'body-type-13'; readonly config: BodyTypeBlockConfig };
+  | { readonly type: 'body-type-13'; readonly config: BodyTypeBlockConfig }
+  | { readonly type: 'body-type-14'; readonly config: BodyTypeBlockConfig };
 
 /* --- Style d'un champ --- */
 

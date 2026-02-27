@@ -140,7 +140,7 @@ export function App() {
           <div className="flex-1 flex items-center justify-center p-6 bg-gray-950 overflow-hidden">
             <ScoreboardPreview state={state} onInlineEdit={handleInlineEdit} />
           </div>
-          {state.bodyType === 14 && <PropertiesPanel />}
+          {state.bodyType === 1 && <PropertiesPanel />}
         </div>
       </div>
 

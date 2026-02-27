@@ -18,7 +18,7 @@ export function ZoomBar() {
   const zoomToFit = useCanvasViewStore((s) => s.zoomToFit);
   const zoomTo100 = useCanvasViewStore((s) => s.zoomTo100);
 
-  const isLayoutLibre = useScoreboardStore((s) => s.bodyType === 14);
+  const isLayoutLibre = useScoreboardStore((s) => s.bodyType === 1);
   const canUndo = useUndoRedoStore((s) => s.canUndo);
   const canRedo = useUndoRedoStore((s) => s.canRedo);
   const undo = useUndoRedoStore((s) => s.undo);

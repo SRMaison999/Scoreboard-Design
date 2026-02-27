@@ -26,10 +26,10 @@ export function ContentPanel() {
   const setContentSubTab = useEditorUIStore((s) => s.setContentSubTab);
   const bodyType = useScoreboardStore((s) => s.bodyType);
   const showPenalties = useScoreboardStore((s) => s.showPenalties);
-  const showTitles = bodyType <= 3;
+  const showTitles = (bodyType >= 2 && bodyType <= 3) || bodyType === 14;
 
-  /* En mode Layout libre (bodyType 14), afficher le panneau dédié */
-  if (bodyType === 14) {
+  /* En mode Layout libre (bodyType 1), afficher le panneau dédié */
+  if (bodyType === 1) {
     return <FreeLayoutPanel />;
   }
 

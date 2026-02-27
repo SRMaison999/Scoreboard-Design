@@ -1,6 +1,6 @@
 /**
  * Interfaces de configuration pour les nouveaux elements atomiques
- * du mode Layout libre (Body Type 14).
+ * du mode Layout libre (Body Type 1).
  * Permet la composition libre de rosters, buts, staff et tableaux.
  */
 

@@ -25,7 +25,7 @@ export function BodyContentSection({ bodyType }: { readonly bodyType: number }) 
     case 11: return <BarChartSection />;
     case 12: return <RosterSection />;
     case 13: return <ScheduleSection />;
-    case 14: return <CustomFieldsSection />;
+    case 1: return <CustomFieldsSection />;
     default: return <StatsSection />;
   }
 }

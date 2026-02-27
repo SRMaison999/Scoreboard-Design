@@ -1,6 +1,6 @@
-# Vue d'ensemble du systeme
+# Vue d'ensemble du système
 
-Description detaillee de l'architecture, des modules et du flux de donnees du Scoreboard Editor.
+Description détaillée de l'architecture, des modules et du flux de données du Scoreboard Editor.
 
 ---
 
@@ -28,20 +28,20 @@ State principal de l'application. Contient toutes les donnees du scoreboard : eq
 
 **Middleware** :
 - `immer` : mutations immutables via draft
-- `persist` : sauvegarde automatique dans `localStorage` (cle `scoreboard-state`, version 4)
+- `persist` : sauvegarde automatique dans `localStorage` (cle `scoreboard-state`, version 9)
 
 **Actions principales** :
 - `update(key, value)` : mise a jour generique d'un champ
 - `updateColor(key, value)` / `updateOpacity(key, value)` : couleurs
 - `applyPreset(preset)` : application d'un preset de couleurs
-- `addStat/updateStat/removeStat` : stats des types 1-2
+- `addStat/updateStat/removeStat` : stats des types 14 et 2
 - `addPenalty/updatePenalty/removePenalty` : penalites
 - `startClock/stopClock/resetClock/tickTimer` : horloge
 - `incrementScore/decrementScore` : scores
 - `nextPhase` : avancer a la phase suivante
 - `loadState/resetState` : charger/reinitialiser
 - Actions specifiques par body type (updateGoalField, addRosterPlayer, etc.)
-- `addCustomField/updateCustomField/removeCustomField` : champs personnalisés (Body Type 14)
+- `addCustomField/updateCustomField/removeCustomField` : champs personnalisés (Body Type 1 - Layout libre)
 - `selectField/reorderField` : sélection et réordonnancement des couches
 - `moveSelectedFields/removeSelectedFields/duplicateSelectedFields` : operations multi-selection
 - `distributeSelectedFields` : alignement et distribution automatique
@@ -185,7 +185,7 @@ Gestion des presets de champs personnalises et de layouts, persistes dans Indexe
 
 **Fichier** : `src/stores/undoRedoStore.ts`
 
-Historique undo/redo des champs personnalises (Body Type 14). Non persiste.
+Historique undo/redo des champs personnalises (Body Type 1 - Layout libre). Non persiste.
 
 **State** : `past: CustomField[][]`, `future: CustomField[][]`, `canUndo: boolean`, `canRedo: boolean`
 
@@ -328,7 +328,7 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 
 **TemplateManager** gere la sauvegarde/chargement/import/export de templates via modale.
 
-**Composants du constructeur de champs personnalisés (Body Type 14)** :
+**Composants du constructeur de champs personnalisés (Body Type 1 - Layout libre)** :
 - `CustomFieldsSection.tsx` : section principale avec rail de 4 onglets (Bibliothèque, Canvas, Calques, Presets). Le contenu occupe toute la hauteur du panneau gauche
 - `CustomFieldLibrary.tsx` : palette d'éléments unifiée avec filtres horizontaux par catégorie (chips) et recherche
 - `CustomFieldList.tsx` : liste des couches avec réordonnancement, visibilité, verrouillage
@@ -353,18 +353,18 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 - Fond en degrade (`bgTop` -> `bgMid` -> `bgBot`) ou fond uniforme
 - `Header` : drapeaux/logos, noms d'equipes, scores (avec mode TeamBadge : flag/logo/both)
 - `ClockOverlay` : horloge et periode
-- `BodyRenderer` : switch vers le body type actif (1-13)
+- `BodyRenderer` : switch vers le body type actif (2-14)
 - `PenaltyColumn` (gauche et droite) : penalites actives
 - `CompetitionLogoRenderer` / `SponsorLogoRenderer` : logos en overlay
 
 **14 body types** dans `src/components/preview/body/` :
 
-Le Layout libre (BodyType14) est le mode principal, proposé en premier dans l'interface.
+Le Layout libre (type 1, composant BodyType14) est le mode principal, proposé en premier dans l'interface.
 
 | Type | Composant | Description |
 |------|-----------|-------------|
-| 14 | BodyType14 | **Layout libre** (champs personnalises, mode principal) |
-| 1 | BodyType1 | Stats symetriques (valeur / label / valeur) |
+| 1 | BodyType14 | **Layout libre** (champs personnalisés, mode principal) |
+| 14 | BodyType1 | Stats symétriques (valeur / label / valeur) |
 | 2 | BodyType2 | Stats asymetriques (2 titres) |
 | 3 | BodyType3 | Stats joueur avec photo |
 | 4 | BodyType4 | But / celebration |
@@ -378,7 +378,7 @@ Le Layout libre (BodyType14) est le mode principal, proposé en premier dans l'i
 | 12 | BodyType12 | Roster / composition |
 | 13 | BodyType13 | Calendrier / prochains matchs |
 
-**Sous-composants du Body Type 14** :
+**Sous-composants du Body Type 1 (Layout libre, composant BodyType14)** :
 
 | Fichier | Rôle |
 |---------|------|
@@ -493,7 +493,7 @@ Active `useOperatorKeyboard()` pour les raccourcis clavier.
 
 **Setup** : `src/test/setup.ts`
 
-**Couverture** : 205 fichiers de test, 1550 tests.
+**Couverture** : 211 fichiers de test, 1584 tests.
 
 | Categorie | Nombre | Exemples |
 |-----------|--------|----------|

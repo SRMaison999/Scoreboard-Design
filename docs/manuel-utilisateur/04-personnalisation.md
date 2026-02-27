@@ -97,7 +97,7 @@ En plus des tailles individuelles ci-dessus, un **slider de mise à l'échelle**
 | Pas | 5% |
 | Défaut | 100% |
 
-Chaque type de corps (1 à 13) possède son propre facteur d'échelle indépendant. Modifier le slider pour un type de corps n'affecte pas les autres.
+Chaque type de corps possède son propre facteur d'échelle indépendant. Modifier le slider pour un type de corps n'affecte pas les autres.
 
 **Exemples d'utilisation :**
 - À 100% (défaut), les tailles sont celles d'origine
@@ -108,22 +108,22 @@ Les 14 types de corps concernés :
 
 | Type | Nom |
 |------|-----|
-| Layout libre | Composition sur mesure (en tête de liste) |
-| 1 | Stats centrées |
-| 2 | Stats gauche/droite |
+| 1 | Layout libre |
+| 2 | Stats asymétriques |
 | 3 | Stats joueur |
 | 4 | Célébration de but |
 | 5 | Fiche joueur |
 | 6 | Classement |
 | 7 | Score final |
 | 8 | Texte libre |
-| 9 | Face à face |
+| 9 | Face-à-face |
 | 10 | Chronologie |
-| 11 | Diagramme en barres |
-| 12 | Liste de joueurs |
+| 11 | Barres comparatives |
+| 12 | Composition d'équipe |
 | 13 | Calendrier |
+| 14 | Stats symétriques |
 
-Le Layout libre n'utilise pas la mise à l'échelle proportionnelle globale. Chaque élément possède sa propre taille configurable individuellement dans le panneau de propriétés (voir chapitre 3, Layout libre).
+Le Layout libre (type 1) n'utilise pas la mise à l'échelle proportionnelle globale. Chaque élément possède sa propre taille configurable individuellement dans le panneau de propriétés (voir chapitre 3, Type 1 : Layout libre).
 
 ## Dimensions du template
 

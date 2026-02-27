@@ -19,7 +19,7 @@ export interface ScoreboardActions {
   updateOpacity: (key: ColorKey, value: number) => void;
   applyPreset: (preset: ColorPreset) => void;
 
-  /* Actions stats (body type 1/2) */
+  /* Actions stats (body type 14/2) */
   updateStat: (index: number, field: string, value: string) => void;
   addStat: () => void;
   removeStat: (index: number) => void;
@@ -114,7 +114,7 @@ export interface ScoreboardActions {
   /* Tailles de police */
   updateFontSize: (key: FontSizeKey, value: number) => void;
 
-  /* Custom Fields (type 14) */
+  /* Custom Fields (type 1) */
   addCustomField: (element: FieldElementConfig, x: number, y: number, width: number, height: number, label?: string) => void;
   removeCustomField: (fieldId: string) => void;
   updateCustomFieldPosition: (fieldId: string, x: number, y: number) => void;

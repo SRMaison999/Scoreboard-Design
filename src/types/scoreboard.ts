@@ -170,6 +170,6 @@ export interface ScoreboardState {
   scoreboardVisible: boolean;
   animationConfig: AnimationConfig;
 
-  /* Type 14 : Layout libre (champs personnalisés) */
+  /* Type 1 : Layout libre (champs personnalisés) */
   customFieldsData: CustomFieldsData;
 }

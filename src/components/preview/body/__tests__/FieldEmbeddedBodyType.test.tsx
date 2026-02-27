@@ -11,9 +11,9 @@ const defaultProps = {
 };
 
 describe('EmbeddedBodyType', () => {
-  it('rend le body type 1 sans erreur', () => {
+  it('rend le body type 14 (stats centrees) sans erreur', () => {
     const { container } = render(
-      <EmbeddedBodyType bodyTypeId={1} {...defaultProps} />,
+      <EmbeddedBodyType bodyTypeId={14} {...defaultProps} />,
     );
     expect(container.firstChild).toBeInTheDocument();
   });

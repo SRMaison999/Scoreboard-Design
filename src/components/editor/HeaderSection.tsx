@@ -30,7 +30,7 @@ function HeaderFields() {
 
   return (
     <>
-      {bodyType === 14 && (
+      {bodyType === 1 && (
         <p className="text-[11px] text-sky-400/70 -mt-1 mb-1">
           {CUSTOM_FIELD_LABELS.headerLayoutLibreHint}
         </p>

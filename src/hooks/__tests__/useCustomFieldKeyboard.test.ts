@@ -45,7 +45,7 @@ function setupFieldSelected(fieldOverrides: Partial<CustomField> = {}) {
   const field = makeField(fieldOverrides);
   useScoreboardStore.setState((s) => ({
     ...s,
-    bodyType: 14,
+    bodyType: 1,
     customFieldsData: {
       ...s.customFieldsData,
       fields: [field],
@@ -246,7 +246,7 @@ describe('useCustomFieldKeyboard', () => {
   it('Delete est ignoré quand aucun champ n\'est sélectionné', () => {
     const field = makeField();
     useScoreboardStore.setState((s) => ({
-      bodyType: 14,
+      bodyType: 1,
       customFieldsData: {
         ...s.customFieldsData,
         fields: [field],
@@ -264,7 +264,7 @@ describe('useCustomFieldKeyboard', () => {
   it('Ctrl+D est ignoré quand aucun champ n\'est sélectionné', () => {
     const field = makeField();
     useScoreboardStore.setState((s) => ({
-      bodyType: 14,
+      bodyType: 1,
       customFieldsData: {
         ...s.customFieldsData,
         fields: [field],
@@ -282,7 +282,7 @@ describe('useCustomFieldKeyboard', () => {
   it('Les flèches sont ignorées quand aucun champ n\'est sélectionné', () => {
     const field = makeField();
     useScoreboardStore.setState((s) => ({
-      bodyType: 14,
+      bodyType: 1,
       customFieldsData: {
         ...s.customFieldsData,
         fields: [field],

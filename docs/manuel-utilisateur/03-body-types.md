@@ -1,22 +1,22 @@
 # Manuel utilisateur - Types d'affichage
 
-Le scoreboard propose 14 types d'affichage pour le corps du scoreboard. Le type est sélectionné dans le panneau **Modes** (1re icône du rail de navigation). Le **Layout libre** est proposé en premier car il offre la plus grande flexibilité de conception.
-
-> **Note technique :** dans le code source, le Layout libre porte l'identifiant interne 14 (`bodyType: 14`). Son positionnement en tête de liste dans l'interface reflète son statut de mode principal.
+Le scoreboard propose 14 types d'affichage pour le corps du scoreboard. Le type est sélectionné dans le panneau **Modes** (1re icône du rail de navigation). Le **Layout libre** (type 1) est proposé en premier car il offre la plus grande flexibilité de conception.
 
 ---
 
-## Layout libre (champs personnalisés)
+## Type 1 : Layout libre
 
-Canvas entièrement libre où l'utilisateur compose son propre scoreboard en plaçant, déplaçant et redimensionnant des éléments visuels individuels.
+Le Layout libre est le mode principal de l'application et le type d'affichage par défaut au lancement. Il offre un canvas entièrement vierge sur lequel l'utilisateur compose son scoreboard en plaçant, déplaçant et redimensionnant librement des éléments visuels. Avec plus de 43 éléments disponibles dans 11 catégories, un système de couches, des guides d'alignement, un historique undo/redo de 50 niveaux et des presets réutilisables, le Layout libre permet de créer n'importe quel design de scoreboard imaginable.
 
-**Idéal pour :** créer un affichage sur mesure qui ne correspond à aucun des 13 types prédéfinis, concevoir des mises en page originales, assembler des éléments de différentes natures sur un même écran.
+**Cas d'utilisation :**
+- Concevoir un affichage sur mesure qui ne correspond à aucun des 13 types à agencement fixe
+- Assembler des éléments de différentes natures sur un même écran (score + statistiques + photos)
+- Créer des mises en page originales avec un contrôle total sur la position de chaque élément
+- Prototyper rapidement différents designs de scoreboard grâce aux presets
 
 ### Concept général
 
-Contrairement aux types prédéfinis (1 à 13) qui imposent un agencement fixe, le Layout libre offre un canvas vierge. L'utilisateur y dépose des éléments depuis une bibliothèque, puis les positionne librement par glisser-déposer et les redimensionne via des poignées dans les coins. Chaque élément possède ses propres propriétés de style, de position et de taille.
-
-Le Layout libre est le mode par défaut au lancement de l'application. Il est conçu pour les designers broadcast qui ont besoin d'un contrôle total sur la disposition de chaque élément visuel.
+Contrairement aux types à agencement fixe (types 2 à 14) où la disposition des éléments est prédéterminée, le Layout libre offre un canvas vierge de 1920x1080 pixels (par défaut, configurable). L'utilisateur y dépose des éléments depuis une bibliothèque, puis les positionne librement par glisser-déposer et les redimensionne via 8 poignées (4 coins + 4 bords). Chaque élément possède ses propres propriétés de style, de position, de taille et de rotation.
 
 ### Mode pleine page
 
@@ -40,7 +40,7 @@ La bibliothèque propose plus de 43 éléments répartis en 11 catégories :
 | **Événement** | Événement, Chronologie | Événement unique (but, pénalité, temps mort, changement de période) ou chronologie complète avec liste d'événements triés. |
 | **Calendrier** | Match, Programme | Match unique (date, heure, équipes, score, statut) ou programme complet avec liste de matchs à venir et terminés. |
 | **Médias** | Image, Forme (rectangle, cercle, arrondi), Séparateur (ligne) | Éléments décoratifs et structurels pour habiller le scoreboard. |
-| **Composés** | Header complet, Colonne de pénalités, Types 1-13 intégrés | Blocs complets réutilisant les layouts prédéfinis comme éléments individuels. |
+| **Composés** | Header complet, Colonne de pénalités, Types 2-14 intégrés | Blocs complets réutilisant les layouts à agencement fixe comme éléments individuels. |
 
 Un **champ de recherche** en haut de la bibliothèque permet de filtrer les éléments par nom. Cliquer sur un élément l'ajoute immédiatement au canvas avec des dimensions par défaut.
 
@@ -366,9 +366,75 @@ Chaque action effectuée dans le Layout libre (ajout, suppression, déplacement,
 
 L'historique est propre au Layout libre et ne se mélange pas avec les modifications des autres parties du scoreboard. Il se réinitialise quand on change de type d'affichage.
 
+### Architecture : données du match et éléments visuels
+
+Le Layout libre repose sur une séparation fondamentale entre les **données** et leur **représentation visuelle** :
+
+| Couche | Emplacement | Contenu |
+|--------|-------------|---------|
+| **Données du match** | Panneau éditeur > Contenu > Équipes | Équipes (codes NOC), noms affichés, scores, drapeaux |
+| **Éléments visuels** | Canvas (via la bibliothèque) | Représentations graphiques qui lisent les données du match |
+
+Les éléments visuels sont des **vues** sur les données. Modifier le score dans le panneau éditeur met à jour instantanément tous les éléments Score présents sur le canvas. Ce modèle permet de placer plusieurs fois le même type d'élément (par exemple deux éléments Score pour afficher les deux équipes) sans duplication de données.
+
+### Limites techniques
+
+| Limite | Valeur |
+|--------|--------|
+| Nombre maximal d'éléments par canvas | 50 |
+| Niveaux d'historique undo/redo | 50 |
+| Taille de police minimale | 8 px |
+| Taille de police maximale | 300 px |
+| Taille de grille | 8, 16, 24 ou 32 px |
+| Snap de rotation | 15 degrés |
+
+### Bonnes pratiques
+
+**Organisation des couches**
+- Placer les arrière-plans (formes, images) en arrière-plan (z-index bas) et les textes au premier plan.
+- Utiliser le panneau des couches pour vérifier l'ordre d'empilement.
+- Verrouiller les éléments déjà positionnés pour éviter les déplacements accidentels.
+
+**Alignement précis**
+- Activer la grille et l'aimantation pour un positionnement régulier.
+- Utiliser les smart guides (lignes roses) pendant le déplacement pour aligner automatiquement avec les autres éléments.
+- Exploiter les badges de quasi-alignement (ambre) : cliquer dessus corrige automatiquement la position.
+- Pour un alignement parfait de plusieurs éléments, sélectionner le groupe (Ctrl+Clic) puis utiliser les 6 boutons d'alignement.
+
+**Efficacité du travail**
+- Commencer par un modèle hockey prédéfini (section Presets > Charger un preset) pour avoir une base de travail.
+- Sauvegarder régulièrement des presets de champs et d'écrans complets pour pouvoir revenir en arrière.
+- Utiliser les raccourcis clavier pour accélérer le travail (Ctrl+D pour dupliquer, flèches pour déplacer finement).
+- Pour créer des structures répétitives, concevoir un élément puis le dupliquer et repositionner les copies.
+
+**Typographie**
+- Attribuer une police spécifique à chaque type d'élément pour un rendu professionnel (par exemple : Bebas Neue pour les scores, Inter pour les noms).
+- Utiliser la barre flottante de taille de police pour ajuster rapidement la taille directement sur le canvas.
+- Attention au scaling proportionnel : quand un élément est redimensionné, sa taille de police visuelle change proportionnellement.
+
+### Référence rapide
+
+| Besoin | Solution |
+|--------|----------|
+| Afficher le score des deux équipes | 2 éléments Score (côté Gauche + côté Droite) |
+| Afficher les noms des équipes | 2 éléments Nom d'équipe (Gauche + Droite) |
+| Afficher les drapeaux seuls | 2 éléments Drapeau (Gauche + Droite) |
+| Créer un fond coloré | Élément Forme (rectangle) placé en arrière-plan |
+| Ajouter un séparateur visuel | Élément Séparateur (horizontal ou vertical) |
+| Reproduire un scoreboard classique | Élément Header complet (catégorie Composés) |
+| Intégrer un type prédéfini | Éléments Types 2-14 (catégorie Composés) |
+| Déplacer un élément de 1 pixel | Flèches du clavier |
+| Déplacer un élément de 10 pixels | Shift + flèches |
+| Annuler une erreur | Ctrl+Z (jusqu'à 50 niveaux) |
+| Sélectionner tous les éléments | Ctrl+A |
+| Dupliquer un élément | Ctrl+D |
+| Copier/coller | Ctrl+C puis Ctrl+V |
+| Zoom sur le canvas | Ctrl+molette ou Ctrl+=/- |
+| Réinitialiser le zoom | Ctrl+0 (ajuster) ou Ctrl+1 (100%) |
+
 ---
 
-## Type 1 : Stats symétriques
+## Type 14 : Stats symétriques
 
 Titre centré et lignes de statistiques avec valeur gauche / label central / valeur droite.
 
@@ -429,7 +495,7 @@ POWER PLAY         PENALTY KILLING
 | **Lignes de stats** | Identiques au Type 1 (valeur gauche, label, valeur droite) |
 | **Taille de police** | Automatique selon le nombre de lignes |
 
-### Différences avec le Type 1
+### Différences avec le Type 14 (Stats symétriques)
 
 - Les deux titres sont positionnés dans les colonnes de valeurs (pas centrés)
 - Permet de comparer deux contextes différents côte à côte
@@ -682,8 +748,7 @@ Liste des matchs à venir ou terminés.
 
 | N° | Type | Usage principal | Complexité |
 |----|------|----------------|-----------|
-| - | **Layout libre** | Composition sur mesure | Avancé |
-| 1 | Stats symétriques | Statistiques de match | Simple |
+| 1 | **Layout libre** | Composition sur mesure | Avancé |
 | 2 | Stats asymétriques | Comparaison de catégories | Simple |
 | 3 | Stats joueur | Leaders statistiques | Simple |
 | 4 | But / Célébration | Annonce de but | Simple |
@@ -696,3 +761,4 @@ Liste des matchs à venir ou terminés.
 | 11 | Barres comparatives | Visualisation de stats | Simple |
 | 12 | Composition | Lineups | Moyen |
 | 13 | Calendrier | Programme | Simple |
+| 14 | Stats symétriques | Statistiques de match | Simple |

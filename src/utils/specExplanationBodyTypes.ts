@@ -11,7 +11,7 @@ export function explainType1(data: unknown): string[] {
   const titles = asRecord(d.titles);
   const stats = asArray(d.stats);
   return [
-    heading(3, 'Stats centrees (type 1)'),
+    heading(3, 'Stats centrees (type 14)'),
     '',
     'Affichage en colonne centree.',
     '',
@@ -38,12 +38,12 @@ export function explainType2(data: unknown): string[] {
   return [
     heading(3, 'Stats gauche/droite (type 2)'),
     '',
-    'Similaire au type 1 mais avec des titres lateraux.',
+    'Similaire au type 14 (stats centrees) mais avec des titres lateraux.',
     '',
     bullet('Titre gauche', String(titles.left ?? '')),
     bullet('Titre droite', String(titles.right ?? '')),
     '',
-    `${stats.length} ligne(s) de stats (meme format que le type 1).`,
+    `${stats.length} ligne(s) de stats (meme format que le type 14).`,
   ];
 }
 

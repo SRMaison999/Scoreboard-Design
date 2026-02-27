@@ -37,7 +37,7 @@ describe('ModesPanel', () => {
 
   it('le Layout libre est le premier body type d\u00e9fini', () => {
     expect(BODY_TYPES.length).toBeGreaterThan(0);
-    expect(BODY_TYPES[0]!.id).toBe(14);
+    expect(BODY_TYPES[0]!.id).toBe(1);
     expect(BODY_TYPES[0]!.label).toBe('Layout libre');
   });
 

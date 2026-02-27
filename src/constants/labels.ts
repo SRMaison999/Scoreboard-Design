@@ -356,7 +356,7 @@ export const EDITOR_LABELS = {
 
   /* Mise à l'échelle du corps */
   sectionBodyScale: 'Mise \u00e0 l\u2019\u00e9chelle du corps',
-  bodyScaleName1: 'Stats centrées',
+  bodyScaleName1: 'Layout libre',
   bodyScaleName2: 'Stats gauche/droite',
   bodyScaleName3: 'Stats joueur',
   bodyScaleName4: 'Célébration de but',
@@ -369,7 +369,7 @@ export const EDITOR_LABELS = {
   bodyScaleName11: 'Barres comparatives',
   bodyScaleName12: 'Composition d\u2019équipe',
   bodyScaleName13: 'Calendrier',
-  bodyScaleName14: 'Layout libre',
+  bodyScaleName14: 'Stats centrées',
 
   /* Templates */
   templates: 'Templates',

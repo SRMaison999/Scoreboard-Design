@@ -1,5 +1,5 @@
 /**
- * Presets de layouts hockey pour le bodyType 14 (layout libre).
+ * Presets de layouts hockey pour le bodyType 1 (layout libre).
  * Fournit des dispositions pr\u00e9configur\u00e9es de champs personnalis\u00e9s
  * pour les retransmissions de hockey sur glace.
  */

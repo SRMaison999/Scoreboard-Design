@@ -2,19 +2,19 @@
 
 ## Qu'est-ce que le Scoreboard Editor ?
 
-Le Scoreboard Editor est un éditeur visuel de scoreboards pour retransmissions de hockey sur glace. Il permet de concevoir, personnaliser et exploiter en direct des affichages de scores, statistiques et classements destinés à l'incrustation vidéo.
+Le Scoreboard Editor est un outil de conception de templates de scoreboard pour le hockey sur glace. Il permet de concevoir, personnaliser et prévisualiser des maquettes d'affichages de scores, statistiques et classements. L'application est en cours de développement : elle sert actuellement à la création et l'itération de designs, et ne constitue pas encore un système de production broadcast opérationnel.
 
 ## À qui s'adresse cette application ?
 
-- **Opérateurs scoreboard** : manipulation du scoreboard en direct pendant un match (scores, pénalités, phases)
-- **Designers broadcast** : conception des templates visuels avant l'événement (couleurs, polices, layout)
-- **Directeurs techniques** : configuration de l'ensemble pour un événement (équipes, phases, personnalisation)
+- **Designers** : conception des templates visuels (couleurs, polices, layout)
+- **Directeurs techniques** : prototypage et configuration des affichages pour un événement (équipes, phases, personnalisation)
+- **Opérateurs** (usage futur) : manipulation du scoreboard en direct pendant un match (scores, pénalités, phases)
 
 ## Prise en main rapide
 
 ### Démarrage
 
-1. Ouvrir l'application dans un navigateur web
+1. Lancer l'application
 2. Le scoreboard s'affiche avec les paramètres par défaut
 
 ### Les trois vues
@@ -52,7 +52,7 @@ L'état du scoreboard est sauvegardé automatiquement dans le navigateur. En rev
 | Chapitre | Contenu |
 |----------|---------|
 | [02 - Éditeur](./02-editeur.md) | Guide complet du panneau éditeur |
-| [03 - Types d'affichage](./03-body-types.md) | Les 14 types de corps (Layout libre en premier, puis types 1-13) |
+| [03 - Types d'affichage](./03-body-types.md) | Les 14 types de corps (Type 1 : Layout libre, puis types 2-13, type 14 : Stats symétriques) |
 | [04 - Personnalisation](./04-personnalisation.md) | Couleurs, polices, dimensions |
 | [05 - Horloge et phases](./05-horloge-et-phases.md) | Configuration du temps de jeu |
 | [06 - Templates](./06-templates.md) | Sauvegarde et gestion de templates |

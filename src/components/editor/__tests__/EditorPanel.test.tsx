@@ -14,6 +14,8 @@ describe('EditorPanel', () => {
     });
     vi.stubGlobal('BroadcastChannel', MockBroadcastChannel);
     useScoreboardStore.getState().resetState();
+    /* Utiliser Stats centrées (type 14) pour tester les onglets standard */
+    useScoreboardStore.getState().update('bodyType', 14);
     useEditorUIStore.setState({ activeRailTab: 'content', activeContentSubTab: 'teams' });
   });
 

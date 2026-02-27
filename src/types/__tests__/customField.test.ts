@@ -97,10 +97,10 @@ describe('customField types et constantes', () => {
 
   it('FieldElementType accepte les types atomiques et composés', () => {
     const atomicType: FieldElementType = 'text-block';
-    const composedType: FieldElementType = 'body-type-1';
+    const composedType: FieldElementType = 'body-type-14';
     const headerType: FieldElementType = 'header-block';
     expect(atomicType).toBe('text-block');
-    expect(composedType).toBe('body-type-1');
+    expect(composedType).toBe('body-type-14');
     expect(headerType).toBe('header-block');
   });
 });
