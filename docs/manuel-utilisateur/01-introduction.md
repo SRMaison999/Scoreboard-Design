@@ -52,14 +52,15 @@ L'état du scoreboard est sauvegardé automatiquement dans le navigateur. En rev
 | Chapitre | Contenu |
 |----------|---------|
 | [02 - Éditeur](./02-editeur.md) | Guide complet du panneau éditeur |
-| [03 - Types d'affichage](./03-body-types.md) | Les 14 types de corps (Type 1 : Layout libre, puis types 2-13, type 14 : Stats centrées) |
-| [04 - Personnalisation](./04-personnalisation.md) | Couleurs, polices, dimensions |
-| [05 - Horloge et phases](./05-horloge-et-phases.md) | Configuration du temps de jeu |
-| [06 - Templates](./06-templates.md) | Sauvegarde et gestion de templates |
-| [07 - Mode opérateur](./07-mode-operateur.md) | Utilisation en match live |
-| [08 - Sortie broadcast](./08-sortie-broadcast.md) | Intégration OBS/vMix |
-| [09 - Capture et impression](./09-capture-impression.md) | Export image et impression |
-| [10 - Photos joueurs](./10-photos-joueurs.md) | Gestion des photos de joueurs |
-| [11 - Logos](./11-logos.md) | Gestion des logos (équipe, compétition, sponsor) |
-| [12 - Animations et export](./12-animations-export.md) | Animations du scoreboard et export vidéo/GIF |
-| [13 - Intégrations](./13-integrations.md) | Import rosters, API scores, multi-scoreboard, sync, CasparCG/Viz |
+| [03 - Layout libre](./03-layout-libre.md) | Le mode principal : canvas libre, bibliothèque d'éléments, effets visuels, presets |
+| [04 - Types d'affichage](./04-body-types.md) | Les 13 types à agencement fixe (types 2-14 : stats, but, fiche joueur, classement, etc.) |
+| [05 - Personnalisation](./05-personnalisation.md) | Couleurs, polices, dimensions |
+| [06 - Horloge et phases](./06-horloge-et-phases.md) | Configuration du temps de jeu |
+| [07 - Templates](./07-templates.md) | Sauvegarde et gestion de templates |
+| [08 - Mode opérateur](./08-mode-operateur.md) | Utilisation en match live |
+| [09 - Sortie broadcast](./09-sortie-broadcast.md) | Intégration OBS/vMix |
+| [10 - Capture et impression](./10-capture-impression.md) | Export image et impression |
+| [11 - Photos joueurs](./11-photos-joueurs.md) | Gestion des photos de joueurs |
+| [12 - Logos](./12-logos.md) | Gestion des logos (équipe, compétition, sponsor) |
+| [13 - Animations et export](./13-animations-export.md) | Animations du scoreboard et export vidéo/GIF |
+| [14 - Intégrations](./14-integrations.md) | Import rosters, API scores, multi-scoreboard, sync, CasparCG/Viz |

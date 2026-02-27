@@ -123,7 +123,7 @@ Les 14 types de corps concernés :
 | 13 | Calendrier |
 | 14 | Stats centrées |
 
-Le Layout libre (type 1) n'utilise pas la mise à l'échelle proportionnelle globale. Chaque élément possède sa propre taille configurable individuellement dans le panneau de propriétés (voir chapitre 3, Type 1 : Layout libre).
+Le Layout libre (type 1) n'utilise pas la mise à l'échelle proportionnelle globale. Chaque élément possède sa propre taille configurable individuellement dans le panneau de propriétés (voir chapitre 3 : Layout libre).
 
 ## Dimensions du template
 

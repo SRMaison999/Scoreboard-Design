@@ -17,17 +17,18 @@
 |----------|-------------|
 | [manuel-utilisateur/01-introduction.md](./manuel-utilisateur/01-introduction.md) | Presentation de l'application et prise en main |
 | [manuel-utilisateur/02-editeur.md](./manuel-utilisateur/02-editeur.md) | Guide complet du panneau editeur |
-| [manuel-utilisateur/03-body-types.md](./manuel-utilisateur/03-body-types.md) | Les 14 types d'affichage (Type 1 : Layout libre, types 2-13, type 14 : Stats centrées) |
-| [manuel-utilisateur/04-personnalisation.md](./manuel-utilisateur/04-personnalisation.md) | Couleurs, polices, dimensions, presets, mise a l'echelle par corps |
-| [manuel-utilisateur/05-horloge-et-phases.md](./manuel-utilisateur/05-horloge-et-phases.md) | Configuration de l'horloge, des phases et du mode demo |
-| [manuel-utilisateur/06-templates.md](./manuel-utilisateur/06-templates.md) | Sauvegarde, chargement, import et export de templates |
-| [manuel-utilisateur/07-mode-operateur.md](./manuel-utilisateur/07-mode-operateur.md) | Mode operateur live et raccourcis clavier |
-| [manuel-utilisateur/08-sortie-broadcast.md](./manuel-utilisateur/08-sortie-broadcast.md) | Fenetre de sortie et integration OBS/vMix |
-| [manuel-utilisateur/09-capture-impression.md](./manuel-utilisateur/09-capture-impression.md) | Screenshot et impression |
-| [manuel-utilisateur/10-photos-joueurs.md](./manuel-utilisateur/10-photos-joueurs.md) | Gestion des photos de joueurs |
-| [manuel-utilisateur/11-logos.md](./manuel-utilisateur/11-logos.md) | Gestion des logos (equipe, competition, sponsor) |
-| [manuel-utilisateur/12-animations-export.md](./manuel-utilisateur/12-animations-export.md) | Animations du scoreboard et export video/GIF |
-| [manuel-utilisateur/13-integrations.md](./manuel-utilisateur/13-integrations.md) | Integrations : import rosters, API scores, multi-scoreboard, sync, CasparCG/Viz |
+| [manuel-utilisateur/03-layout-libre.md](./manuel-utilisateur/03-layout-libre.md) | Layout libre : canvas, bibliotheque d'elements, effets visuels, presets, tutoriel |
+| [manuel-utilisateur/04-body-types.md](./manuel-utilisateur/04-body-types.md) | Les 13 types a agencement fixe (types 2-14 : stats, but, fiche joueur, classement, etc.) |
+| [manuel-utilisateur/05-personnalisation.md](./manuel-utilisateur/05-personnalisation.md) | Couleurs, polices, dimensions, presets, mise a l'echelle par corps |
+| [manuel-utilisateur/06-horloge-et-phases.md](./manuel-utilisateur/06-horloge-et-phases.md) | Configuration de l'horloge, des phases et du mode demo |
+| [manuel-utilisateur/07-templates.md](./manuel-utilisateur/07-templates.md) | Sauvegarde, chargement, import et export de templates |
+| [manuel-utilisateur/08-mode-operateur.md](./manuel-utilisateur/08-mode-operateur.md) | Mode operateur live et raccourcis clavier |
+| [manuel-utilisateur/09-sortie-broadcast.md](./manuel-utilisateur/09-sortie-broadcast.md) | Fenetre de sortie et integration OBS/vMix |
+| [manuel-utilisateur/10-capture-impression.md](./manuel-utilisateur/10-capture-impression.md) | Screenshot et impression |
+| [manuel-utilisateur/11-photos-joueurs.md](./manuel-utilisateur/11-photos-joueurs.md) | Gestion des photos de joueurs |
+| [manuel-utilisateur/12-logos.md](./manuel-utilisateur/12-logos.md) | Gestion des logos (equipe, competition, sponsor) |
+| [manuel-utilisateur/13-animations-export.md](./manuel-utilisateur/13-animations-export.md) | Animations du scoreboard et export video/GIF |
+| [manuel-utilisateur/14-integrations.md](./manuel-utilisateur/14-integrations.md) | Integrations : import rosters, API scores, multi-scoreboard, sync, CasparCG/Viz |
 
 ## Fichiers projet
 
