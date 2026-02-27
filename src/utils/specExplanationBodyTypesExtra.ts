@@ -89,10 +89,20 @@ export function explainType13(data: unknown): string[] {
   ];
 }
 
+function extractFieldFontFamily(field: Record<string, unknown>): string {
+  const element = asRecord(field.element);
+  const config = asRecord(element.config);
+  const fontFamily = config.fontFamily;
+  if (typeof fontFamily === 'string' && fontFamily !== '') {
+    return fontFamily;
+  }
+  return '';
+}
+
 export function explainType14(data: unknown): string[] {
   const d = asRecord(data);
   const fields = asArray(d.fields);
-  return [
+  const lines = [
     heading(3, 'Layout libre (type 1)'),
     '',
     'En mode layout libre, il n\'y a ni header ni colonnes de penalites.',
@@ -100,13 +110,44 @@ export function explainType14(data: unknown): string[] {
     '',
     `${fields.length} champ(s) :`,
     '',
-    '| # | Type | X | Y | Largeur | Hauteur |',
-    '|---|------|---|---|---------|---------|',
+    '| # | Label | Type | X | Y | Largeur | Hauteur |',
+    '|---|-------|------|---|---|---------|---------|',
     ...fields.map((f, i) => {
       const row = asRecord(f);
-      return `| ${i + 1} | ${row.type ?? ''} | ${row.x ?? ''}px | ${row.y ?? ''}px | ${row.width ?? ''}px | ${row.height ?? ''}px |`;
+      const element = asRecord(row.element);
+      return `| ${i + 1} | ${row.label ?? ''} | ${element.type ?? ''} | ${row.x ?? ''}px | ${row.y ?? ''}px | ${row.width ?? ''}px | ${row.height ?? ''}px |`;
     }),
     '',
     'Chaque champ est un conteneur div positionne en absolu (position: absolute).',
   ];
+
+  const fontOverrides: Array<{ label: string; type: string; fontFamily: string }> = [];
+  for (const f of fields) {
+    const row = asRecord(f);
+    const element = asRecord(row.element);
+    const fontFamily = extractFieldFontFamily(row);
+    if (fontFamily) {
+      fontOverrides.push({
+        label: String(row.label ?? ''),
+        type: String(element.type ?? ''),
+        fontFamily,
+      });
+    }
+  }
+
+  if (fontOverrides.length > 0) {
+    lines.push('', heading(4, 'Polices par champ'));
+    lines.push('');
+    lines.push('Certains champs utilisent une police specifique au lieu de la police globale :');
+    lines.push('');
+    lines.push('| Champ | Type | Police |');
+    lines.push('|-------|------|--------|');
+    for (const o of fontOverrides) {
+      lines.push(`| ${o.label} | ${o.type} | \`${o.fontFamily}\` |`);
+    }
+    lines.push('');
+    lines.push('Les champs sans police specifique heritent de la police globale du corps.');
+  }
+
+  return lines;
 }
