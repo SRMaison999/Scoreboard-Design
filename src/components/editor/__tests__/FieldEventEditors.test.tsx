@@ -17,7 +17,7 @@ function setupBroadcastChannel() {
 describe('TimelineEventEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'timeline-event' }> = {
     type: 'timeline-event',
-    config: { period: 'P1', time: '12:34', kind: 'goal', description: 'KOPITAR', team: 'LAK', fontSize: 18, textColor: '#ffffff' },
+    config: { period: 'P1', time: '12:34', kind: 'goal', description: 'KOPITAR', team: 'LAK', fontSize: 18, fontFamily: '', textColor: '#ffffff' },
   };
 
   beforeEach(() => {
@@ -45,7 +45,7 @@ describe('TimelineEventEditor', () => {
 describe('TimelineListEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'timeline-list' }> = {
     type: 'timeline-list',
-    config: { title: '', events: [], fontSize: 16, textColor: '#ffffff', titleColor: '#ffffff' },
+    config: { title: '', events: [], fontSize: 16, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff' },
   };
 
   beforeEach(() => {

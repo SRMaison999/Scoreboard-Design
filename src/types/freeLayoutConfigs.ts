@@ -37,6 +37,7 @@ export interface PlayerRowConfig {
   readonly showNumber: boolean;
   readonly showPosition: boolean;
   readonly fontSize: number;
+  readonly fontFamily: string;
   readonly textColor: string;
 }
 
@@ -46,6 +47,7 @@ export interface PlayerListConfig {
   readonly showNumbers: boolean;
   readonly showPositions: boolean;
   readonly fontSize: number;
+  readonly fontFamily: string;
   readonly textColor: string;
   readonly titleColor: string;
 }
@@ -59,6 +61,7 @@ export interface GoalScorerConfig {
   readonly showPhoto: boolean;
   readonly showNumber: boolean;
   readonly fontSize: number;
+  readonly fontFamily: string;
   readonly textColor: string;
 }
 
@@ -69,6 +72,7 @@ export interface GoalAssistsConfig {
   readonly assist2Number: string;
   readonly showNumbers: boolean;
   readonly fontSize: number;
+  readonly fontFamily: string;
   readonly textColor: string;
 }
 
@@ -80,6 +84,7 @@ export interface GoalDetailsConfig {
   readonly showPeriod: boolean;
   readonly showCount: boolean;
   readonly fontSize: number;
+  readonly fontFamily: string;
   readonly textColor: string;
 }
 
@@ -89,6 +94,7 @@ export interface StaffRowConfig {
   readonly role: string;
   readonly name: string;
   readonly fontSize: number;
+  readonly fontFamily: string;
   readonly textColor: string;
 }
 
@@ -96,6 +102,7 @@ export interface StaffListConfig {
   readonly title: string;
   readonly members: StaffListEntry[];
   readonly fontSize: number;
+  readonly fontFamily: string;
   readonly textColor: string;
   readonly titleColor: string;
 }
@@ -119,6 +126,7 @@ export interface TimelineEventConfig {
   readonly description: string;
   readonly team: string;
   readonly fontSize: number;
+  readonly fontFamily: string;
   readonly textColor: string;
 }
 
@@ -126,6 +134,7 @@ export interface TimelineListConfig {
   readonly title: string;
   readonly events: TimelineEventEntry[];
   readonly fontSize: number;
+  readonly fontFamily: string;
   readonly textColor: string;
   readonly titleColor: string;
 }
@@ -155,6 +164,7 @@ export interface ScheduleMatchConfig {
   readonly status: ScheduleMatchStatus;
   readonly venue: string;
   readonly fontSize: number;
+  readonly fontFamily: string;
   readonly textColor: string;
 }
 
@@ -162,6 +172,7 @@ export interface ScheduleListConfig {
   readonly title: string;
   readonly matches: ScheduleMatchEntry[];
   readonly fontSize: number;
+  readonly fontFamily: string;
   readonly textColor: string;
   readonly titleColor: string;
 }
@@ -182,6 +193,7 @@ export interface PlayerCardConfig {
   readonly playerPhoto: string;
   readonly stats: PlayerCardStatEntry[];
   readonly fontSize: number;
+  readonly fontFamily: string;
   readonly textColor: string;
   readonly titleColor: string;
 }
@@ -197,6 +209,7 @@ export interface PeriodScoreEntry {
 export interface PeriodScoreRowConfig {
   readonly periods: PeriodScoreEntry[];
   readonly fontSize: number;
+  readonly fontFamily: string;
   readonly headerColor: string;
   readonly textColor: string;
 }
@@ -209,6 +222,7 @@ export interface DataTableConfig {
   readonly rows: DataTableRow[];
   readonly showHeader: boolean;
   readonly fontSize: number;
+  readonly fontFamily: string;
   readonly headerColor: string;
   readonly textColor: string;
 }

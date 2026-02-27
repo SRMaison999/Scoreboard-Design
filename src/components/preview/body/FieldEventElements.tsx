@@ -29,7 +29,7 @@ export function TimelineEventElement({ element }: TimelineEventElementProps) {
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', gap: 14, padding: '0 10px',
-      fontFamily: 'inherit', overflow: 'hidden',
+      fontFamily: c.fontFamily || 'inherit', overflow: 'hidden',
     }}>
       <div style={{
         width: 30, height: 30, borderRadius: '50%',
@@ -80,7 +80,7 @@ export function TimelineListElement({ element }: TimelineListElementProps) {
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', flexDirection: 'column', overflow: 'hidden',
-      fontFamily: 'inherit',
+      fontFamily: c.fontFamily || 'inherit',
     }}>
       {c.title && (
         <div style={{

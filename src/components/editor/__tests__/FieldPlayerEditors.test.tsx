@@ -17,7 +17,7 @@ function setupBroadcastChannel() {
 describe('PlayerRowEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'player-row' }> = {
     type: 'player-row',
-    config: { playerName: 'KOPITAR', playerNumber: '11', position: 'C', showNumber: true, showPosition: false, fontSize: 24, textColor: '#ffffff' },
+    config: { playerName: 'KOPITAR', playerNumber: '11', position: 'C', showNumber: true, showPosition: false, fontSize: 24, fontFamily: '', textColor: '#ffffff' },
   };
 
   beforeEach(() => {
@@ -42,7 +42,7 @@ describe('PlayerRowEditor', () => {
 describe('PlayerListEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'player-list' }> = {
     type: 'player-list',
-    config: { title: '', players: [], showNumbers: true, showPositions: true, fontSize: 20, textColor: '#ffffff', titleColor: '#ffffff' },
+    config: { title: '', players: [], showNumbers: true, showPositions: true, fontSize: 20, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff' },
   };
 
   beforeEach(() => {

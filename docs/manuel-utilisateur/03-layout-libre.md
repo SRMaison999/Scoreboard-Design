@@ -252,7 +252,9 @@ Si le champ est trop près du bord supérieur du canvas, la barre se repositionn
 
 ## Sélection de police par champ
 
-Chaque champ de type **Bloc de texte** peut avoir sa propre police de caractères, indépendante des autres champs et des 3 zones de police globales. Dans le panneau de propriétés du champ, un sélecteur de police permet de choisir parmi les 25 polices disponibles (organisées par catégorie). La police sélectionnée s'applique uniquement au champ concerné. Les autres types de champs textuels (Score, Horloge, Période, Nom d'équipe) permettent uniquement de personnaliser la taille de police.
+Chaque champ textuel peut avoir sa propre police de caractères, indépendante des autres champs et des 3 zones de police globales (Équipes, Horloge, Corps). Dans le panneau de propriétés du champ, un sélecteur **Police** permet de choisir parmi les 25 polices disponibles (organisées par catégorie : Sport, Condensed, Modernes, Display, Monospace, Serif). La police sélectionnée s'applique uniquement au champ concerné. Quand aucune police n'est choisie (option **Police globale**), le champ utilise la police de sa zone globale.
+
+Les types concernés sont : Score, Horloge, Période, Nom d'équipe, Bloc de texte, Ligne de stat, Barre comparative, Header complet, Colonne de pénalités, Ligne joueur, Liste de joueurs, Fiche joueur, Score par période, Buteur, Assistants, Détails du but, Membre du staff, Liste du staff, Tableau de données, Événement, Chronologie, Match et Programme.
 
 ## Sélection d'images
 
@@ -334,30 +336,30 @@ Paramètres spécifiques selon le type d'élément (voir tableau ci-dessous).
 | **Horloge** | Afficher la période, afficher le cadre, taille de police, famille de police |
 | **Période** | Taille de police, famille de police |
 | **Drapeau** | Côté (gauche/droite), **sélection de la nation** (dropdown), nom affiché, score |
-| **Colonne de pénalités** | Côté (gauche/droite) |
+| **Colonne de pénalités** | Côté (gauche/droite), famille de police |
 | **Forme** | Type (rectangle, cercle, arrondi), couleur de remplissage, couleur de bordure, rayon (pour arrondi) |
 | **Séparateur** | Orientation (horizontale/verticale), épaisseur, couleur |
 | **Image** | Sélecteur de fichier avec aperçu, ajustement (couvrir, contenir, étirer) |
-| **Ligne joueur** | Nom, numéro, position, afficher numéro, afficher position, taille de police, couleur du texte |
-| **Liste de joueurs** | Titre, liste de joueurs (numéro, nom, position), afficher numéros, afficher positions, couleurs |
-| **Buteur** | Nom, numéro, photo (optionnelle), afficher numéro, afficher photo, taille de police, couleur |
-| **Assistants** | Noms et numéros des 2 assistants, afficher numéros, taille de police, couleur |
-| **Détails du but** | Temps, période, décomptes (match et tournoi), afficher période, afficher décomptes |
-| **Membre du staff** | Rôle et nom, taille de police, couleur du texte |
-| **Liste du staff** | Titre, liste de membres (rôle + nom), couleur du titre, taille de police, couleur du texte |
-| **Tableau de données** | Titre, colonnes (label, alignement), lignes (valeurs par colonne, surlignage), en-tête, couleurs |
+| **Ligne joueur** | Nom, numéro, position, afficher numéro, afficher position, taille de police, famille de police, couleur du texte |
+| **Liste de joueurs** | Titre, liste de joueurs (numéro, nom, position), afficher numéros, afficher positions, famille de police, couleurs |
+| **Buteur** | Nom, numéro, photo (optionnelle), afficher numéro, afficher photo, taille de police, famille de police, couleur |
+| **Assistants** | Noms et numéros des 2 assistants, afficher numéros, taille de police, famille de police, couleur |
+| **Détails du but** | Temps, période, décomptes (match et tournoi), afficher période, afficher décomptes, famille de police |
+| **Membre du staff** | Rôle et nom, taille de police, famille de police, couleur du texte |
+| **Liste du staff** | Titre, liste de membres (rôle + nom), couleur du titre, taille de police, famille de police, couleur du texte |
+| **Tableau de données** | Titre, colonnes (label, alignement), lignes (valeurs par colonne, surlignage), en-tête, famille de police, couleurs |
 | **Temps morts** | Aucune configuration spécifique (utilise les données de l'onglet Match) |
 | **Tirs au but** | Aucune configuration spécifique (utilise les données de l'onglet Match) |
-| **Ligne de stat** | Index de la ligne de statistique à afficher |
-| **Barre comparative** | Index de la barre à afficher |
+| **Ligne de stat** | Index de la ligne de statistique à afficher, famille de police |
+| **Barre comparative** | Index de la barre à afficher, famille de police |
 | **Photo joueur** | Clé photo (référence dans Médias > Photos), forme (cercle ou carré) |
-| **Fiche joueur** | Titre, sous-titre, nom, numéro, équipe, photo, liste de statistiques (label + valeur), taille de police, couleurs |
-| **Score par période** | Périodes (label P1/P2/P3/OT + scores gauche/droite), taille de police, couleur d'en-tête, couleur du texte |
-| **Événement** | Période, temps, type (but, pénalité, temps mort, période), description, équipe, taille de police, couleur |
-| **Chronologie** | Titre, liste d'événements (période, temps, type, description, équipe), taille de police, couleurs |
-| **Match** | Date, heure, équipe gauche, équipe droite, scores, statut (à venir, en cours, terminé), lieu, taille de police, couleur |
-| **Programme** | Titre, liste de matchs (date, heure, équipes, scores, statut, lieu), taille de police, couleurs |
-| **Header complet** | Afficher l'horloge (oui/non) |
+| **Fiche joueur** | Titre, sous-titre, nom, numéro, équipe, photo, liste de statistiques (label + valeur), taille de police, famille de police, couleurs |
+| **Score par période** | Périodes (label P1/P2/P3/OT + scores gauche/droite), taille de police, famille de police, couleur d'en-tête, couleur du texte |
+| **Événement** | Période, temps, type (but, pénalité, temps mort, période), description, équipe, taille de police, famille de police, couleur |
+| **Chronologie** | Titre, liste d'événements (période, temps, type, description, équipe), taille de police, famille de police, couleurs |
+| **Match** | Date, heure, équipe gauche, équipe droite, scores, statut (à venir, en cours, terminé), lieu, taille de police, famille de police, couleur |
+| **Programme** | Titre, liste de matchs (date, heure, équipes, scores, statut, lieu), taille de police, famille de police, couleurs |
+| **Header complet** | Afficher l'horloge (oui/non), famille de police |
 | **Types embarqués (2-14)** | Identifiant du body type à afficher |
 
 ## Panneau des couches

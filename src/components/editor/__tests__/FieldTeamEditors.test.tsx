@@ -17,7 +17,7 @@ function setupBroadcastChannel() {
 describe('StaffRowEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'staff-row' }> = {
     type: 'staff-row',
-    config: { role: '', name: '', fontSize: 20, textColor: '#ffffff' },
+    config: { role: '', name: '', fontSize: 20, fontFamily: '', textColor: '#ffffff' },
   };
 
   beforeEach(() => {
@@ -35,7 +35,7 @@ describe('StaffRowEditor', () => {
 describe('StaffListEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'staff-list' }> = {
     type: 'staff-list',
-    config: { title: '', members: [], fontSize: 18, textColor: '#ffffff', titleColor: '#ffffff' },
+    config: { title: '', members: [], fontSize: 18, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff' },
   };
 
   beforeEach(() => {
@@ -57,7 +57,7 @@ describe('StaffListEditor', () => {
 describe('DataTableEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'data-table' }> = {
     type: 'data-table',
-    config: { title: '', columns: [], rows: [], showHeader: true, fontSize: 16, headerColor: '#ffffff', textColor: '#ffffff' },
+    config: { title: '', columns: [], rows: [], showHeader: true, fontSize: 16, fontFamily: '', headerColor: '#ffffff', textColor: '#ffffff' },
   };
 
   beforeEach(() => {

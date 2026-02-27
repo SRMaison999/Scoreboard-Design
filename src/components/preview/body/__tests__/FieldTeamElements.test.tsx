@@ -10,7 +10,7 @@ describe('StaffRowElement', () => {
   it('affiche un placeholder lorsque les donn\u00e9es sont vides', () => {
     render(
       <StaffRowElement
-        element={{ config: { role: '', name: '', fontSize: 20, textColor: '#ffffff' } }}
+        element={{ config: { role: '', name: '', fontSize: 20, fontFamily: '', textColor: '#ffffff' } }}
       />,
     );
     expect(screen.getByText('Membre du staff')).toBeInTheDocument();
@@ -19,7 +19,7 @@ describe('StaffRowElement', () => {
   it('affiche le r\u00f4le et le nom', () => {
     render(
       <StaffRowElement
-        element={{ config: { role: 'Entra\u00eeneur', name: 'MARTIN', fontSize: 20, textColor: '#ffffff' } }}
+        element={{ config: { role: 'Entra\u00eeneur', name: 'MARTIN', fontSize: 20, fontFamily: '', textColor: '#ffffff' } }}
       />,
     );
     expect(screen.getByText('Entra\u00eeneur')).toBeInTheDocument();
@@ -31,7 +31,7 @@ describe('StaffListElement', () => {
   it('affiche un placeholder lorsque la liste est vide et sans titre', () => {
     render(
       <StaffListElement
-        element={{ config: { title: '', members: [], fontSize: 18, textColor: '#ffffff', titleColor: '#ffffff' } }}
+        element={{ config: { title: '', members: [], fontSize: 18, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff' } }}
       />,
     );
     expect(screen.getByText('Liste du staff')).toBeInTheDocument();
@@ -46,7 +46,7 @@ describe('StaffListElement', () => {
             { role: 'Entra\u00eeneur', name: 'MARTIN' },
             { role: 'Adjoint', name: 'DUPONT' },
           ],
-          fontSize: 18, textColor: '#ffffff', titleColor: '#ffffff',
+          fontSize: 18, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff',
         } }}
       />,
     );
@@ -60,7 +60,7 @@ describe('DataTableElement', () => {
   it('affiche un placeholder lorsqu\u2019il n\u2019y a pas de colonnes', () => {
     render(
       <DataTableElement
-        element={{ config: { title: '', columns: [], rows: [], showHeader: true, fontSize: 16, headerColor: '#ffffff', textColor: '#ffffff' } }}
+        element={{ config: { title: '', columns: [], rows: [], showHeader: true, fontSize: 16, fontFamily: '', headerColor: '#ffffff', textColor: '#ffffff' } }}
       />,
     );
     expect(screen.getByText('Tableau de donn\u00e9es')).toBeInTheDocument();
@@ -79,7 +79,7 @@ describe('DataTableElement', () => {
             { values: { team: 'SVK', pts: '9' }, highlighted: false },
             { values: { team: 'CZE', pts: '6' }, highlighted: true },
           ],
-          showHeader: true, fontSize: 16, headerColor: '#ffffff', textColor: '#ffffff',
+          showHeader: true, fontSize: 16, fontFamily: '', headerColor: '#ffffff', textColor: '#ffffff',
         } }}
       />,
     );
@@ -99,7 +99,7 @@ describe('DataTableElement', () => {
           title: '',
           columns: [{ id: 'a', label: 'COL_A', align: 'left' }],
           rows: [{ values: { a: 'val' }, highlighted: false }],
-          showHeader: false, fontSize: 16, headerColor: '#ffffff', textColor: '#ffffff',
+          showHeader: false, fontSize: 16, fontFamily: '', headerColor: '#ffffff', textColor: '#ffffff',
         } }}
       />,
     );

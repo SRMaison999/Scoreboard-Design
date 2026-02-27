@@ -32,13 +32,13 @@ export function createDefaultFieldConfig(el: LibraryElement): FieldElementConfig
     case 'text-block':
       return { type: 'text-block', config: { content: 'Texte', fontSize: 30, fontWeight: 600, fontFamily: '', textAlign: 'center', textTransform: 'uppercase', letterSpacing: 2, textColor: '#ffffff' } };
     case 'score-display':
-      return { type: 'score-display', config: { side: 'left', showLabel: false, fontSizeOverride: 0 } };
+      return { type: 'score-display', config: { side: 'left', showLabel: false, fontSizeOverride: 0, fontFamily: '' } };
     case 'clock-display':
-      return { type: 'clock-display', config: { showPeriod: true, showBox: false, fontSizeOverride: 0 } };
+      return { type: 'clock-display', config: { showPeriod: true, showBox: false, fontSizeOverride: 0, fontFamily: '' } };
     case 'period-display':
-      return { type: 'period-display', config: { fontSizeOverride: 0 } };
+      return { type: 'period-display', config: { fontSizeOverride: 0, fontFamily: '' } };
     case 'team-name':
-      return { type: 'team-name', config: { side: 'left', showFlag: true, fontSizeOverride: 0 } };
+      return { type: 'team-name', config: { side: 'left', showFlag: true, fontSizeOverride: 0, fontFamily: '' } };
     case 'flag-display':
       return { type: 'flag-display', config: { side: 'left' } };
     case 'timeout-display':
@@ -46,39 +46,39 @@ export function createDefaultFieldConfig(el: LibraryElement): FieldElementConfig
     case 'shootout-display':
       return { type: 'shootout-display', config: {} };
     case 'stat-line':
-      return { type: 'stat-line', config: { statIndex: 0 } };
+      return { type: 'stat-line', config: { statIndex: 0, fontFamily: '' } };
     case 'bar-compare':
-      return { type: 'bar-compare', config: { barIndex: 0 } };
+      return { type: 'bar-compare', config: { barIndex: 0, fontFamily: '' } };
     case 'player-photo':
       return { type: 'player-photo', config: { photoKey: '', shape: 'circle' } };
     case 'player-row':
-      return { type: 'player-row', config: { playerName: '', playerNumber: '', position: '', showNumber: true, showPosition: false, fontSize: 24, textColor: '#ffffff' } };
+      return { type: 'player-row', config: { playerName: '', playerNumber: '', position: '', showNumber: true, showPosition: false, fontSize: 24, fontFamily: '', textColor: '#ffffff' } };
     case 'player-list':
-      return { type: 'player-list', config: { title: '', players: [], showNumbers: true, showPositions: true, fontSize: 20, textColor: '#ffffff', titleColor: '#ffffff' } };
+      return { type: 'player-list', config: { title: '', players: [], showNumbers: true, showPositions: true, fontSize: 20, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff' } };
     case 'goal-scorer':
-      return { type: 'goal-scorer', config: { scorerName: '', scorerNumber: '', scorerPhoto: '', showPhoto: true, showNumber: true, fontSize: 32, textColor: '#ffffff' } };
+      return { type: 'goal-scorer', config: { scorerName: '', scorerNumber: '', scorerPhoto: '', showPhoto: true, showNumber: true, fontSize: 32, fontFamily: '', textColor: '#ffffff' } };
     case 'goal-assists':
-      return { type: 'goal-assists', config: { assist1Name: '', assist1Number: '', assist2Name: '', assist2Number: '', showNumbers: true, fontSize: 20, textColor: '#ffffff' } };
+      return { type: 'goal-assists', config: { assist1Name: '', assist1Number: '', assist2Name: '', assist2Number: '', showNumbers: true, fontSize: 20, fontFamily: '', textColor: '#ffffff' } };
     case 'goal-details':
-      return { type: 'goal-details', config: { goalTime: '', goalPeriod: '', goalCountMatch: '', goalCountTournament: '', showPeriod: true, showCount: true, fontSize: 20, textColor: '#ffffff' } };
+      return { type: 'goal-details', config: { goalTime: '', goalPeriod: '', goalCountMatch: '', goalCountTournament: '', showPeriod: true, showCount: true, fontSize: 20, fontFamily: '', textColor: '#ffffff' } };
     case 'staff-row':
-      return { type: 'staff-row', config: { role: '', name: '', fontSize: 20, textColor: '#ffffff' } };
+      return { type: 'staff-row', config: { role: '', name: '', fontSize: 20, fontFamily: '', textColor: '#ffffff' } };
     case 'staff-list':
-      return { type: 'staff-list', config: { title: '', members: [], fontSize: 18, textColor: '#ffffff', titleColor: '#ffffff' } };
+      return { type: 'staff-list', config: { title: '', members: [], fontSize: 18, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff' } };
     case 'data-table':
-      return { type: 'data-table', config: { title: '', columns: [], rows: [], showHeader: true, fontSize: 16, headerColor: '#ffffff', textColor: '#ffffff' } };
+      return { type: 'data-table', config: { title: '', columns: [], rows: [], showHeader: true, fontSize: 16, fontFamily: '', headerColor: '#ffffff', textColor: '#ffffff' } };
     case 'timeline-event':
-      return { type: 'timeline-event', config: { period: '', time: '', kind: 'goal', description: '', team: '', fontSize: 18, textColor: '#ffffff' } };
+      return { type: 'timeline-event', config: { period: '', time: '', kind: 'goal', description: '', team: '', fontSize: 18, fontFamily: '', textColor: '#ffffff' } };
     case 'timeline-list':
-      return { type: 'timeline-list', config: { title: '', events: [], fontSize: 16, textColor: '#ffffff', titleColor: '#ffffff' } };
+      return { type: 'timeline-list', config: { title: '', events: [], fontSize: 16, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff' } };
     case 'schedule-match':
-      return { type: 'schedule-match', config: { date: '', time: '', teamLeft: '', teamRight: '', scoreLeft: '', scoreRight: '', status: 'upcoming', venue: '', fontSize: 18, textColor: '#ffffff' } };
+      return { type: 'schedule-match', config: { date: '', time: '', teamLeft: '', teamRight: '', scoreLeft: '', scoreRight: '', status: 'upcoming', venue: '', fontSize: 18, fontFamily: '', textColor: '#ffffff' } };
     case 'schedule-list':
-      return { type: 'schedule-list', config: { title: '', matches: [], fontSize: 16, textColor: '#ffffff', titleColor: '#ffffff' } };
+      return { type: 'schedule-list', config: { title: '', matches: [], fontSize: 16, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff' } };
     case 'player-card':
-      return { type: 'player-card', config: { title: '', subtitle: '', playerName: '', playerNumber: '', playerTeam: '', playerPhoto: '', stats: [], fontSize: 24, textColor: '#ffffff', titleColor: '#ffffff' } };
+      return { type: 'player-card', config: { title: '', subtitle: '', playerName: '', playerNumber: '', playerTeam: '', playerPhoto: '', stats: [], fontSize: 24, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff' } };
     case 'period-score-row':
-      return { type: 'period-score-row', config: { periods: [], fontSize: 18, headerColor: '#ffffff', textColor: '#ffffff' } };
+      return { type: 'period-score-row', config: { periods: [], fontSize: 18, fontFamily: '', headerColor: '#ffffff', textColor: '#ffffff' } };
     case 'image-block':
       return { type: 'image-block', config: { src: '', objectFit: 'cover' } };
     case 'shape-block':
@@ -86,9 +86,9 @@ export function createDefaultFieldConfig(el: LibraryElement): FieldElementConfig
     case 'separator-line':
       return { type: 'separator-line', config: { orientation: 'horizontal', thickness: 2, lineColor: '#ffffff', lineOpacity: 50 } };
     case 'header-block':
-      return { type: 'header-block', config: { showClock: true } };
+      return { type: 'header-block', config: { showClock: true, fontFamily: '' } };
     case 'penalty-column':
-      return { type: 'penalty-column', config: { side: 'left' } };
+      return { type: 'penalty-column', config: { side: 'left', fontFamily: '' } };
     default: {
       const bodyMatch = el.type.match(/^body-type-(\d+)$/);
       if (bodyMatch?.[1]) {

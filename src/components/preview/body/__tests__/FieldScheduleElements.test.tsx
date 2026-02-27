@@ -9,7 +9,7 @@ describe('ScheduleMatchElement', () => {
         element={{ type: 'schedule-match', config: {
           date: '25/02', time: '19:00', teamLeft: 'LAK', teamRight: 'MTL',
           scoreLeft: '', scoreRight: '', status: 'upcoming', venue: 'Crypto.com Arena',
-          fontSize: 18, textColor: '#ffffff',
+          fontSize: 18, fontFamily: '', textColor: '#ffffff',
         } }}
       />,
     );
@@ -25,7 +25,7 @@ describe('ScheduleMatchElement', () => {
         element={{ type: 'schedule-match', config: {
           date: '24/02', time: '20:00', teamLeft: 'TOR', teamRight: 'BOS',
           scoreLeft: '3', scoreRight: '2', status: 'finished', venue: '',
-          fontSize: 18, textColor: '#ffffff',
+          fontSize: 18, fontFamily: '', textColor: '#ffffff',
         } }}
       />,
     );
@@ -41,7 +41,7 @@ describe('ScheduleMatchElement', () => {
         element={{ type: 'schedule-match', config: {
           date: '25/02', time: '20:30', teamLeft: 'NYR', teamRight: 'CHI',
           scoreLeft: '1', scoreRight: '0', status: 'live', venue: '',
-          fontSize: 18, textColor: '#ffffff',
+          fontSize: 18, fontFamily: '', textColor: '#ffffff',
         } }}
       />,
     );
@@ -53,7 +53,7 @@ describe('ScheduleListElement', () => {
   it('affiche le titre quand il est défini', () => {
     render(
       <ScheduleListElement
-        element={{ type: 'schedule-list', config: { title: 'PROGRAMME', matches: [], fontSize: 16, textColor: '#ffffff', titleColor: '#ffffff' } }}
+        element={{ type: 'schedule-list', config: { title: 'PROGRAMME', matches: [], fontSize: 16, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff' } }}
       />,
     );
     expect(screen.getByText('PROGRAMME')).toBeInTheDocument();
@@ -68,7 +68,7 @@ describe('ScheduleListElement', () => {
             { date: '25/02', time: '19:00', teamLeft: 'LAK', teamRight: 'MTL', scoreLeft: '', scoreRight: '', status: 'upcoming', venue: '' },
             { date: '26/02', time: '20:00', teamLeft: 'TOR', teamRight: 'BOS', scoreLeft: '4', scoreRight: '1', status: 'finished', venue: '' },
           ],
-          fontSize: 16, textColor: '#ffffff', titleColor: '#ffffff',
+          fontSize: 16, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff',
         } }}
       />,
     );

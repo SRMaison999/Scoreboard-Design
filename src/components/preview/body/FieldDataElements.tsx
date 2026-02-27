@@ -17,7 +17,7 @@ export function StatLineElement({ state, colors, opacities, element }: {
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
-  readonly element: { readonly config: { readonly statIndex: number } };
+  readonly element: { readonly config: { readonly statIndex: number; readonly fontFamily?: string } };
 }) {
   const stat = state.stats[element.config.statIndex];
   if (!stat) {
@@ -39,7 +39,7 @@ export function StatLineElement({ state, colors, opacities, element }: {
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      fontFamily: ff(state.fontBody), padding: '0 12px',
+      fontFamily: element.config.fontFamily || ff(state.fontBody), padding: '0 12px',
     }}>
       <span style={{
         fontSize, fontWeight: 700,
@@ -71,7 +71,7 @@ export function BarCompareElement({ state, colors, opacities, element }: {
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
-  readonly element: { readonly config: { readonly barIndex: number } };
+  readonly element: { readonly config: { readonly barIndex: number; readonly fontFamily?: string } };
 }) {
   const row = state.barChartData.rows[element.config.barIndex];
   if (!row) {
@@ -95,7 +95,7 @@ export function BarCompareElement({ state, colors, opacities, element }: {
       width: '100%', height: '100%',
       display: 'flex', flexDirection: 'column',
       justifyContent: 'center', gap: 4, padding: '0 8px',
-      fontFamily: ff(state.fontBody),
+      fontFamily: element.config.fontFamily || ff(state.fontBody),
     }}>
       <div style={{
         fontSize: 14, fontWeight: 600, textAlign: 'center',

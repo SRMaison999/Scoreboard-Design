@@ -53,22 +53,26 @@ export interface ScoreDisplayConfig {
   readonly side: 'left' | 'right';
   readonly showLabel: boolean;
   readonly fontSizeOverride: number;
+  readonly fontFamily: string;
 }
 
 export interface ClockDisplayConfig {
   readonly showPeriod: boolean;
   readonly showBox: boolean;
   readonly fontSizeOverride: number;
+  readonly fontFamily: string;
 }
 
 export interface TeamNameConfig {
   readonly side: 'left' | 'right';
   readonly showFlag: boolean;
   readonly fontSizeOverride: number;
+  readonly fontFamily: string;
 }
 
 export interface PeriodDisplayConfig {
   readonly fontSizeOverride: number;
+  readonly fontFamily: string;
 }
 
 export interface FlagDisplayConfig {
@@ -77,14 +81,17 @@ export interface FlagDisplayConfig {
 
 export interface PenaltyColumnConfig {
   readonly side: 'left' | 'right';
+  readonly fontFamily: string;
 }
 
 export interface StatLineConfig {
   readonly statIndex: number;
+  readonly fontFamily: string;
 }
 
 export interface BarCompareConfig {
   readonly barIndex: number;
+  readonly fontFamily: string;
 }
 
 export interface PlayerPhotoConfig {
@@ -119,6 +126,7 @@ export interface BodyTypeBlockConfig {
 
 export interface HeaderBlockConfig {
   readonly showClock: boolean;
+  readonly fontFamily: string;
 }
 
 export type TimeoutDisplayConfig = Record<string, never>;

@@ -20,7 +20,7 @@ export function PlayerCardElement({ element, height }: PlayerCardElementProps) {
       width: '100%', height: '100%',
       display: 'flex', flexDirection: 'column',
       alignItems: 'center', justifyContent: 'center',
-      gap: 8, fontFamily: 'inherit', overflow: 'hidden', padding: 12,
+      gap: 8, fontFamily: c.fontFamily || 'inherit', overflow: 'hidden', padding: 12,
     }}>
       {c.title && (
         <div style={{
@@ -119,7 +119,7 @@ export function PeriodScoreRowElement({ element }: PeriodScoreRowElementProps) {
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontFamily: 'inherit', overflow: 'hidden',
+      fontFamily: c.fontFamily || 'inherit', overflow: 'hidden',
     }}>
       <table style={{ borderCollapse: 'collapse', fontSize: c.fontSize }}>
         <thead>

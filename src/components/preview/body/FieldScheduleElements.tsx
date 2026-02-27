@@ -33,7 +33,7 @@ export function ScheduleMatchElement({ element }: ScheduleMatchElementProps) {
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', gap: 12,
-      padding: '0 10px', fontFamily: 'inherit', overflow: 'hidden',
+      padding: '0 10px', fontFamily: c.fontFamily || 'inherit', overflow: 'hidden',
     }}>
       <div style={{ width: 50, fontSize: Math.round(c.fontSize * 0.78), color: c.textColor, opacity: 0.6, flexShrink: 0 }}>
         {c.date}
@@ -91,7 +91,7 @@ export function ScheduleListElement({ element }: ScheduleListElementProps) {
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', flexDirection: 'column', overflow: 'hidden',
-      fontFamily: 'inherit',
+      fontFamily: c.fontFamily || 'inherit',
     }}>
       {c.title && (
         <div style={{

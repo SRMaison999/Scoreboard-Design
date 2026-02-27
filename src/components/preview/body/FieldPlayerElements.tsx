@@ -35,6 +35,7 @@ export function PlayerRowElement({ element }: {
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', gap: 12,
       fontSize: c.fontSize, fontWeight: 700,
+      fontFamily: c.fontFamily || 'inherit',
       color: c.textColor || '#ffffff',
       textTransform: 'uppercase', letterSpacing: 1,
       padding: '0 12px', overflow: 'hidden', whiteSpace: 'nowrap',
@@ -98,6 +99,7 @@ export function PlayerListElement({ element }: {
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', flexDirection: 'column',
+      fontFamily: c.fontFamily || 'inherit',
       padding: '8px 12px', overflow: 'hidden',
     }}>
       {c.title && (

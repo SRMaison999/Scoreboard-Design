@@ -69,7 +69,7 @@ describe('customField types et constantes', () => {
   it('FieldElementConfig union accepte un score-display', () => {
     const config: FieldElementConfig = {
       type: 'score-display',
-      config: { side: 'left', showLabel: false, fontSizeOverride: 0 },
+      config: { side: 'left', showLabel: false, fontSizeOverride: 0, fontFamily: '' },
     };
     expect(config.type).toBe('score-display');
   });

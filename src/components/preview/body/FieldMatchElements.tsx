@@ -23,7 +23,7 @@ export function ScoreElement({ state, colors, opacities, element }: {
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
-  readonly element: { readonly config: { readonly side: string; readonly fontSizeOverride?: number } };
+  readonly element: { readonly config: { readonly side: string; readonly fontSizeOverride?: number; readonly fontFamily?: string } };
 }) {
   const score = element.config.side === 'left' ? state.score1 : state.score2;
   const fontSize = resolveFontSize(element.config.fontSizeOverride, state.fontSizes.score);
@@ -32,7 +32,7 @@ export function ScoreElement({ state, colors, opacities, element }: {
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       fontSize, fontWeight: 700,
-      fontFamily: ff(state.fontTeams), color: col(colors, opacities, 'score'),
+      fontFamily: element.config.fontFamily || ff(state.fontTeams), color: col(colors, opacities, 'score'),
     }}>
       {score}
     </div>
@@ -43,7 +43,7 @@ export function ClockElement({ state, colors, opacities, element }: {
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
-  readonly element?: { readonly config: { readonly fontSizeOverride?: number } };
+  readonly element?: { readonly config: { readonly fontSizeOverride?: number; readonly fontFamily?: string } };
 }) {
   const fontSize = resolveFontSize(element?.config.fontSizeOverride, state.fontSizes.clockTime);
   return (
@@ -51,7 +51,7 @@ export function ClockElement({ state, colors, opacities, element }: {
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       fontSize, fontWeight: 700,
-      fontFamily: ff(state.fontClock), color: col(colors, opacities, 'time'),
+      fontFamily: element?.config.fontFamily || ff(state.fontClock), color: col(colors, opacities, 'time'),
     }}>
       {state.time}
     </div>
@@ -62,7 +62,7 @@ export function PeriodElement({ state, colors, opacities, element }: {
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
-  readonly element?: { readonly config: { readonly fontSizeOverride?: number } };
+  readonly element?: { readonly config: { readonly fontSizeOverride?: number; readonly fontFamily?: string } };
 }) {
   const fontSize = resolveFontSize(element?.config.fontSizeOverride, state.fontSizes.period);
   return (
@@ -70,7 +70,7 @@ export function PeriodElement({ state, colors, opacities, element }: {
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       fontSize, fontWeight: 600,
-      fontFamily: ff(state.fontClock), color: col(colors, opacities, 'period'),
+      fontFamily: element?.config.fontFamily || ff(state.fontClock), color: col(colors, opacities, 'period'),
       textTransform: 'uppercase', letterSpacing: 2,
     }}>
       {state.period}
@@ -84,7 +84,7 @@ export function TeamNameElement({ state, colors, opacities, element }: {
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
-  readonly element: { readonly config: { readonly side: string; readonly showFlag?: boolean; readonly fontSizeOverride?: number } };
+  readonly element: { readonly config: { readonly side: string; readonly showFlag?: boolean; readonly fontSizeOverride?: number; readonly fontFamily?: string } };
 }) {
   const isLeft = element.config.side === 'left';
   const displayName = isLeft ? state.teamDisplayName1 : state.teamDisplayName2;
@@ -92,7 +92,7 @@ export function TeamNameElement({ state, colors, opacities, element }: {
   const name = displayName || code;
   const fontSize = resolveFontSize(element.config.fontSizeOverride, state.fontSizes.teamName);
   const showFlag = element.config.showFlag !== false;
-  const fontFamily = ff(state.fontTeams);
+  const fontFamily = element.config.fontFamily || ff(state.fontTeams);
   const flagH = useMemo(
     () => measureCapHeight(fontFamily, fontSize, 700, name),
     [fontFamily, fontSize, name],

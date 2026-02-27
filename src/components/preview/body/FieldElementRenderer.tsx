@@ -229,7 +229,7 @@ export const FieldElementRenderer = memo(function FieldElementRenderer({
     case 'period-score-row':
       return <PeriodScoreRowElement element={element} />;
     case 'header-block':
-      return <HeaderBlockElement state={state} colors={colors} opacities={opacities} />;
+      return <HeaderBlockElement state={state} colors={colors} opacities={opacities} element={element} />;
     case 'penalty-column':
       return <PenaltyColumnElement state={state} colors={colors} opacities={opacities} element={element} />;
     default: {
