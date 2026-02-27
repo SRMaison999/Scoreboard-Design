@@ -16,14 +16,38 @@ Guide détaillé de chaque type d'élément disponible dans la bibliothèque du 
 - [Période](#période)
 - [Temps morts](#temps-morts)
 - [Tirs au but](#tirs-au-but)
+- [Score par période](#score-par-période)
 
 **Éléments de texte et données**
 - [Bloc de texte](#bloc-de-texte)
 - [Ligne de stat](#ligne-de-stat)
 - [Barre comparative](#barre-comparative)
 
-**Éléments joueurs et médias**
+**Éléments joueurs**
 - [Photo joueur](#photo-joueur)
+- [Joueur (ligne)](#joueur-ligne)
+- [Liste de joueurs](#liste-de-joueurs)
+- [Fiche joueur](#fiche-joueur)
+
+**Éléments de but**
+- [Buteur](#buteur)
+- [Assistants](#assistants)
+- [Détails du but](#détails-du-but)
+
+**Éléments d'équipe**
+- [Membre du staff](#membre-du-staff)
+- [Liste du staff](#liste-du-staff)
+
+**Tableau**
+- [Tableau de données](#tableau-de-données)
+
+**Événements et calendrier**
+- [Événement](#événement)
+- [Chronologie](#chronologie)
+- [Match](#match)
+- [Programme](#programme)
+
+**Éléments médias**
 - [Image](#image)
 - [Forme](#forme)
 - [Séparateur](#séparateur)
@@ -111,6 +135,18 @@ Affiche les tentatives de tirs au but des deux équipes (cercles vert/rouge/gris
 
 L'élément utilise les données de l'onglet **Match > Tirs au but**. Aucune configuration supplémentaire n'est nécessaire.
 
+### Score par période
+
+Affiche un tableau des scores par période (P1, P2, P3, OT...) pour les deux équipes.
+
+**Options dans le panneau Propriétés :**
+- **Périodes** : liste des périodes avec le label (ex : "P1", "P2") et les scores gauche/droite pour chaque période
+- **Taille de police** : taille du texte
+- **Couleur d'en-tête** : couleur des labels de périodes
+- **Couleur du texte** : couleur des scores
+
+**Astuce :** placez cet élément sous le header principal pour montrer l'évolution du score au fil des périodes.
+
 ---
 
 ## Éléments de texte et données
@@ -150,7 +186,7 @@ Affiche une barre de comparaison visuelle entre deux valeurs (gauche vs droite).
 
 ---
 
-## Éléments joueurs et médias
+## Éléments joueurs
 
 ### Photo joueur
 
@@ -161,6 +197,203 @@ Affiche la photo d'un joueur.
 - **Forme** : Cercle ou Carré
 
 **Attention :** la photo doit d'abord être importée dans l'onglet **Médias > Photos** avant de pouvoir être référencée ici.
+
+### Joueur (ligne)
+
+Affiche une ligne individuelle avec le numéro, le nom et la position d'un joueur.
+
+**Options dans le panneau Propriétés :**
+- **Nom** : nom du joueur
+- **Numéro** : numéro du maillot
+- **Position** : poste (ex : C, LW, RW, D, G)
+- **Afficher le numéro** : afficher ou masquer le numéro
+- **Afficher la position** : afficher ou masquer la position
+- **Taille de police** : taille du texte
+- **Couleur du texte** : couleur d'affichage
+
+**Astuce :** empilez plusieurs lignes joueur verticalement pour constituer un roster complet. Pour un regroupement automatique, utilisez plutôt l'élément Liste de joueurs.
+
+### Liste de joueurs
+
+Affiche un groupe de joueurs avec un titre (ex : "Attaquants", "Défenseurs", "Gardiens").
+
+**Options dans le panneau Propriétés :**
+- **Titre** : intitulé du groupe (ex : "Première ligne")
+- **Joueurs** : liste de joueurs (numéro, nom, position pour chacun)
+- **Afficher les numéros** : afficher ou masquer les numéros
+- **Afficher les positions** : afficher ou masquer les positions
+- **Taille de police** : taille du texte
+- **Couleur du texte** : couleur des joueurs
+- **Couleur du titre** : couleur du titre du groupe
+
+**Astuce :** utilisez plusieurs éléments Liste de joueurs pour séparer les lignes d'attaque, de défense et les gardiens.
+
+### Fiche joueur
+
+Affiche une fiche complète d'un joueur : photo, nom, équipe et statistiques.
+
+**Options dans le panneau Propriétés :**
+- **Titre** : titre de la fiche (ex : "Joueur du match")
+- **Sous-titre** : sous-titre optionnel
+- **Nom** : nom du joueur
+- **Numéro** : numéro du maillot
+- **Équipe** : nom de l'équipe
+- **Photo** : photo du joueur
+- **Statistiques** : liste de paires label/valeur (ex : "Buts" / "12", "Assists" / "31")
+- **Taille de police** : taille du texte
+- **Couleur du texte** : couleur principale
+- **Couleur du titre** : couleur du titre
+
+**Astuce :** la fiche joueur est un élément autonome qui combine plusieurs informations. Pour une mise en page plus libre, utilisez séparément les éléments Photo joueur, Bloc de texte et Ligne joueur.
+
+---
+
+## Éléments de but
+
+### Buteur
+
+Affiche le nom, le numéro et optionnellement la photo du buteur.
+
+**Options dans le panneau Propriétés :**
+- **Nom** : nom du buteur
+- **Numéro** : numéro du maillot
+- **Photo** : photo du joueur (optionnelle)
+- **Afficher le numéro** : afficher ou masquer le numéro
+- **Afficher la photo** : afficher ou masquer la photo
+- **Taille de police** : taille du texte
+- **Couleur du texte** : couleur d'affichage
+
+**Astuce :** combinez Buteur + Assistants + Détails du but pour composer un affichage de célébration de but complet et personnalisé.
+
+### Assistants
+
+Affiche les noms et numéros des 1 ou 2 assistants du but.
+
+**Options dans le panneau Propriétés :**
+- **Assistant 1** : nom et numéro du premier assistant
+- **Assistant 2** : nom et numéro du second assistant (optionnel)
+- **Afficher les numéros** : afficher ou masquer les numéros
+- **Taille de police** : taille du texte
+- **Couleur du texte** : couleur d'affichage
+
+### Détails du but
+
+Affiche le temps, la période et les compteurs de buts.
+
+**Options dans le panneau Propriétés :**
+- **Temps** : moment du but (ex : "12:34")
+- **Période** : période du but (ex : "2e")
+- **Décompte match** : numéro du but dans le match (ex : "3e but")
+- **Décompte tournoi** : numéro du but dans le tournoi
+- **Afficher la période** : afficher ou masquer la période
+- **Afficher les décomptes** : afficher ou masquer les compteurs
+- **Taille de police** : taille du texte
+- **Couleur du texte** : couleur d'affichage
+
+---
+
+## Éléments d'équipe
+
+### Membre du staff
+
+Affiche le rôle et le nom d'un membre du staff technique.
+
+**Options dans le panneau Propriétés :**
+- **Rôle** : fonction (ex : "Entraîneur-chef", "Assistant")
+- **Nom** : nom de la personne
+- **Taille de police** : taille du texte
+- **Couleur du texte** : couleur d'affichage
+
+### Liste du staff
+
+Affiche un groupe de membres du staff avec un titre.
+
+**Options dans le panneau Propriétés :**
+- **Titre** : intitulé du groupe (ex : "Staff technique")
+- **Membres** : liste de paires rôle/nom
+- **Taille de police** : taille du texte
+- **Couleur du texte** : couleur des membres
+- **Couleur du titre** : couleur du titre
+
+---
+
+## Tableau
+
+### Tableau de données
+
+Affiche un tableau configurable avec colonnes et lignes libres. Idéal pour les classements, statistiques tabulaires ou toute donnée structurée.
+
+**Options dans le panneau Propriétés :**
+- **Titre** : titre du tableau
+- **Colonnes** : liste de colonnes (label, alignement gauche/centre/droite)
+- **Lignes** : valeurs par colonne, avec option de surlignage par ligne
+- **Afficher l'en-tête** : afficher ou masquer la ligne d'en-tête
+- **Taille de police** : taille du texte
+- **Couleur d'en-tête** : couleur de la ligne d'en-tête
+- **Couleur du texte** : couleur du contenu
+
+**Astuce :** utilisez le surlignage de ligne pour mettre en évidence l'équipe locale ou le leader du classement.
+
+---
+
+## Événements et calendrier
+
+### Événement
+
+Affiche un événement unique du match (but, pénalité, temps mort, changement de période).
+
+**Options dans le panneau Propriétés :**
+- **Période** : période de l'événement
+- **Temps** : moment de l'événement (ex : "15:23")
+- **Type** : nature de l'événement (but, pénalité, temps mort, période)
+- **Description** : détail de l'événement (ex : "But en supériorité numérique")
+- **Équipe** : équipe concernée
+- **Taille de police** : taille du texte
+- **Couleur du texte** : couleur d'affichage
+
+### Chronologie
+
+Affiche une liste chronologique de tous les événements du match.
+
+**Options dans le panneau Propriétés :**
+- **Titre** : intitulé (ex : "Événements du match")
+- **Événements** : liste d'événements (période, temps, type, description, équipe)
+- **Taille de police** : taille du texte
+- **Couleur du texte** : couleur des événements
+- **Couleur du titre** : couleur du titre
+
+**Astuce :** la chronologie est idéale pour les écrans de résumé de période ou de fin de match.
+
+### Match
+
+Affiche les informations d'un match unique : date, heure, équipes, score et statut.
+
+**Options dans le panneau Propriétés :**
+- **Date** : date du match
+- **Heure** : heure de début
+- **Équipe gauche / Équipe droite** : noms des équipes
+- **Score gauche / Score droite** : scores
+- **Statut** : à venir, en cours ou terminé
+- **Lieu** : lieu du match
+- **Taille de police** : taille du texte
+- **Couleur du texte** : couleur d'affichage
+
+### Programme
+
+Affiche une liste de matchs à venir ou terminés.
+
+**Options dans le panneau Propriétés :**
+- **Titre** : intitulé (ex : "Programme de la journée")
+- **Matchs** : liste de matchs (date, heure, équipes, scores, statut, lieu)
+- **Taille de police** : taille du texte
+- **Couleur du texte** : couleur des matchs
+- **Couleur du titre** : couleur du titre
+
+**Astuce :** utilisez le Programme pour les écrans d'avant-match ou les tableaux de résultats de la journée.
+
+---
+
+## Éléments médias
 
 ### Image
 
