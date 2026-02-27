@@ -58,7 +58,7 @@ Le fichier `.specs.json` contient :
 - **Canvas** : dimensions (largeur, hauteur)
 - **Fond** : mode (uniforme/dégradé), couleurs, opacités
 - **Header** : équipes (code + nom du pays), scores, horloge, période, pénalités, temps morts, tirs au but
-- **Polices** : identifiant + famille CSS résolue pour chaque zone (équipes, horloge, corps)
+- **Polices** : identifiant + famille CSS résolue pour chaque zone (équipes, horloge, corps). En mode Layout libre, chaque champ peut avoir sa propre police (stockée dans la configuration de l'élément)
 - **Tailles de police** : toutes les tailles configurées
 - **Couleurs** : toutes les couleurs de chaque élément
 - **Body type** : type actif (1-14) avec son label et toutes les données spécifiques (stats, classement, fiche joueur, etc.)
@@ -75,7 +75,7 @@ Le fichier `.md` contient :
 - **Fond** : couleurs du dégradé ou couleur uniforme, média de fond éventuel
 - **Header** : position de chaque élément (drapeaux, noms, scores, horloge, période)
 - **Corps** : description détaillée du body type actif avec toutes les données (tableaux de stats, classement, calendrier, etc.)
-- **Polices** : familles et tailles utilisées
+- **Polices** : familles et tailles utilisées, avec le détail des polices par champ en Layout libre (tableau listant les champs ayant une police spécifique)
 - **Couleurs** : tableau récapitulatif de chaque couleur par élément
 - **Logos** : positions et tailles des logos affichés
 - **Visibilité** : état du scoreboard
