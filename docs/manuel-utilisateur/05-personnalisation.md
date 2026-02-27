@@ -123,7 +123,7 @@ Les 14 types de corps concernés :
 | 12 | Liste de joueurs |
 | 13 | Calendrier |
 
-Le Layout libre n'utilise pas la mise à l'échelle proportionnelle globale. Chaque élément possède sa propre taille configurable individuellement dans le panneau de propriétés (voir chapitre 3, Layout libre).
+Le Layout libre n'utilise pas la mise à l'échelle proportionnelle globale. Chaque élément possède sa propre taille configurable individuellement dans le panneau de propriétés (voir chapitre 3).
 
 ## Dimensions du template
 
