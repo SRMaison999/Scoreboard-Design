@@ -1,5 +1,64 @@
 # Manuel utilisateur - Layout libre
 
+> **Chapitres associés :** [Éléments et presets](03b-layout-elements.md) | [Tutoriels pas à pas](03c-layout-tutoriels.md)
+
+---
+
+## Sommaire
+
+**Fondamentaux**
+- [Concept général](#concept-général)
+- [Mode pleine page](#mode-pleine-page)
+- [Bibliothèque d'éléments](#bibliothèque-déléments)
+
+**Interaction sur le canvas**
+- [Sélection](#sélection)
+- [Déplacement](#déplacement)
+- [Redimensionnement](#redimensionnement)
+- [Rotation](#rotation)
+- [Édition de texte inline](#édition-de-texte-inline)
+- [Drag-and-drop depuis la bibliothèque](#drag-and-drop-depuis-la-bibliothèque)
+- [Verrouillage](#verrouillage)
+- [Menu contextuel (clic droit)](#menu-contextuel-clic-droit)
+- [Raccourcis clavier](#raccourcis-clavier)
+
+**Multi-sélection et outils**
+- [Multi-sélection et opérations groupées](#multi-sélection-et-opérations-groupées)
+- [Zoom et panoramique](#zoom-et-panoramique)
+- [Sélection de zone](#sélection-de-zone)
+
+**Apparence et style**
+- [Effets visuels](#effets-visuels)
+- [Contrôle de la taille de police sur le canvas](#contrôle-de-la-taille-de-police-sur-le-canvas)
+- [Sélection de police par champ](#sélection-de-police-par-champ)
+- [Sélection d'images](#sélection-dimages)
+- [Scaling proportionnel au redimensionnement](#scaling-proportionnel-au-redimensionnement)
+
+**Panneaux et configuration**
+- [Panneau de propriétés (à droite du canvas)](#panneau-de-propriétés-à-droite-du-canvas)
+- [Configuration par type d'élément](#configuration-par-type-délément)
+- [Panneau des couches](#panneau-des-couches)
+- [Noms d'équipes libres](#noms-déquipes-libres)
+
+**Grille et alignement**
+- [Grille et guides](#grille-et-guides)
+- [Diagnostic d'alignement](#diagnostic-dalignement)
+
+**Presets et modèles**
+- [Modèles hockey prédéfinis](#modèles-hockey-prédéfinis)
+- [Presets (sauvegarde et chargement)](#presets-sauvegarde-et-chargement)
+
+**Historique et architecture**
+- [Historique undo/redo](#historique-undoredo)
+- [Architecture : données du match et éléments visuels](#architecture--données-du-match-et-éléments-visuels)
+- [Limites techniques](#limites-techniques)
+
+**Aide**
+- [Bonnes pratiques](#bonnes-pratiques)
+- [Référence rapide](#référence-rapide)
+
+---
+
 Le Layout libre est le mode principal de l'application et le type d'affichage par défaut au lancement. Il offre un canvas entièrement vierge sur lequel l'utilisateur compose son scoreboard en plaçant, déplaçant et redimensionnant librement des éléments visuels. Avec plus de 43 éléments disponibles dans 11 catégories, un système de couches, des guides d'alignement, un historique undo/redo de 50 niveaux et des presets réutilisables, le Layout libre permet de créer n'importe quel design de scoreboard imaginable.
 
 **Cas d'utilisation :**
