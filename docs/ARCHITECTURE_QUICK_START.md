@@ -212,7 +212,8 @@ Checklist exhaustive. CHAQUE etape est obligatoire — un oubli provoque des err
 25. Mettre a jour `docs/manuel-utilisateur/04-body-types.md` (description du type, presets, options)
 26. Mettre a jour `docs/manuel-utilisateur/03-layout-libre.md` (nombre d'elements, plage des types composes)
 27. Mettre a jour `docs/manuel-utilisateur/03b-layout-elements.md` (section « Types d'affichage embarques », liste des types)
-28. Mettre a jour `docs/DOCUMENTATION_INDEX.md` si necessaire
+28. Mettre a jour `docs/CODEBASE_OVERVIEW.md` (tableau des body types, nombre de types, actions du store, version du store, plage du BodyRenderer)
+29. Mettre a jour `docs/DOCUMENTATION_INDEX.md` si necessaire
 
 ---
 
