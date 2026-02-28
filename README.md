@@ -1,6 +1,6 @@
 # Scoreboard Design
 
-> Éditeur visuel de templates de scoreboard pour retransmissions de hockey sur glace. Application broadcast professionnelle permettant de concevoir, personnaliser et exploiter en direct des affichages de scores, statistiques et classements destinés à l'incrustation vidéo.
+> Éditeur visuel de templates de scoreboard pour le hockey sur glace. Application professionnelle permettant de concevoir et personnaliser des pages d'affichage (scores, statistiques, classements) destinées aux écrans vidéo des stades et arénas.
 
 [![React](https://img.shields.io/badge/React-19.2-61DAFB?logo=react&logoColor=white)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -28,7 +28,7 @@
 - [Personnalisation visuelle](#personnalisation-visuelle)
 - [Mode mise en page libre](#mode-mise-en-page-libre-body-type-1)
 - [Horloge et phases](#horloge-et-phases)
-- [Sortie broadcast](#sortie-broadcast)
+- [Sortie vidéo](#sortie-vidéo)
 - [Gestion des données](#gestion-des-données)
 - [Export et capture](#export-et-capture)
 - [Tests](#tests)
@@ -42,7 +42,7 @@
 
 ## Aperçu
 
-**Scoreboard Design** est un éditeur professionnel de scoreboards destiné aux retransmissions de hockey sur glace. Il permet aux réalisateurs et opérateurs broadcast de concevoir des templates d'affichage (scores, statistiques, classements), de les personnaliser visuellement, puis de les exploiter en direct avec un contrôle complet de l'horloge, des scores et des pénalités.
+**Scoreboard Design** est un éditeur professionnel de scoreboards pour le hockey sur glace. Il permet de concevoir des pages d'affichage (scores, statistiques, classements) destinées aux écrans vidéo des stades et arénas, de les personnaliser visuellement, puis de les piloter en direct avec un contrôle complet de l'horloge, des scores et des pénalités.
 
 L'application fonctionne en mode **desktop** (via Electron), avec trois interfaces synchronisées en temps réel :
 
@@ -50,9 +50,9 @@ L'application fonctionne en mode **desktop** (via Electron), avec trois interfac
 |-----------|-------|------|
 | Éditeur | `/` | Conception et personnalisation des templates |
 | Opérateur | `/operator` | Contrôle en direct (scores, horloge, pénalités) |
-| Sortie | `/output` | Fenêtre plein écran capturable (OBS, vMix, CasparCG) |
+| Sortie | `/output` | Fenêtre plein écran destinée à l'affichage sur les écrans du stade |
 
-La synchronisation entre les fenêtres s'effectue via l'API `BroadcastChannel`, garantissant une mise à jour instantanée de la sortie broadcast.
+La synchronisation entre les fenêtres s'effectue via l'API `BroadcastChannel`, garantissant une mise à jour instantanée de l'affichage.
 
 ---
 
@@ -66,14 +66,13 @@ La synchronisation entre les fenêtres s'effectue via l'API `BroadcastChannel`, 
 - **25 polices Google Fonts** organisées en 6 catégories (Sport, Condensée, Moderne, Display, Monospace, Serif)
 - **3 zones de police indépendantes** : équipes, horloge, corps
 - **Tailles automatiques** adaptées au nombre de lignes (1 à 8 lignes de statistiques)
-- **5 presets de couleurs** : Classic Blue, Dark Pro, Ice White, Hockey Red, Arena Green
-- **4 presets de mise en page** pour le mode libre
+- **5 presets de couleurs** : OMEGA Blue, Dark Mode, Ice White, Hockey Red, Arena Green
 - **Drapeaux SVG** pour 31 nations (codes NOC)
 - **Preview responsive** avec scaling automatique (1920x1080 par défaut, configurable)
 
 ### Mode opérateur live
 
-Interface simplifiée pour le contrôle en direct pendant la retransmission :
+Interface simplifiée pour le contrôle en direct pendant le match :
 
 - Contrôle des scores (+/- par équipe)
 - Contrôle de l'horloge (démarrer, arrêter, réinitialiser)
@@ -81,9 +80,9 @@ Interface simplifiée pour le contrôle en direct pendant la retransmission :
 - Gestion des pénalités (ajout, décompte automatique, disparition à expiration)
 - Raccourcis clavier dédiés
 
-### Sortie broadcast
+### Sortie vidéo
 
-- Fenêtre de sortie plein écran capturable par OBS, vMix, Wirecast, CasparCG
+- Fenêtre de sortie plein écran pour les écrans vidéo du stade
 - Synchronisation multi-fenêtres en temps réel via `BroadcastChannel`
 - Overlays multi-scoreboard optionnels (bandeau bas, score bug, ticker)
 
@@ -144,7 +143,7 @@ L'application propose 16 **body types**, du format fixe au mode libre complet :
 | Langage | TypeScript (strict mode) | 5.9 |
 | State | Zustand + Immer + Persist | 5.0 |
 | Styles (éditeur) | Tailwind CSS | 4.1 |
-| Styles (canvas) | Inline styles (capturable par OBS) | -- |
+| Styles (canvas) | Inline styles (rendu pour affichage vidéo) | -- |
 | Build | Vite | 7.3 |
 | Desktop | Electron | 40.x |
 | Routage | React Router DOM | 7.13 |
@@ -162,8 +161,8 @@ L'application propose 16 **body types**, du format fixe au mode libre complet :
 |----------|---------------|
 | Rendu HTML/CSS (pas Canvas 2D) | Préserve les polices, le texte sélectionnable et la capturabilité |
 | Scaling CSS `transform: scale()` | Preview responsive sans perte de qualité |
-| Canvas 1920x1080 par défaut | Résolution broadcast standard, configurable par template |
-| Tailwind pour l'éditeur, inline pour le canvas | L'éditeur bénéficie de Tailwind ; le canvas doit être capturable en image |
+| Canvas 1920x1080 par défaut | Résolution HD standard pour écrans de stade, configurable par template |
+| Tailwind pour l'éditeur, inline pour le canvas | L'éditeur bénéficie de Tailwind ; le canvas doit être exportable en image |
 | `BroadcastChannel` pour la synchro | Communication zéro-latence entre fenêtres du même navigateur |
 | IndexedDB via Dexie.js | Stockage volumineux (photos, templates) sans limite de localStorage |
 
@@ -232,7 +231,7 @@ scoreboard-design/
 │   │   │   ├── body/              #   16 renderers de body types
 │   │   │   └── ...                #   Éléments du mode libre, guides, menus
 │   │   ├── operator/               # Mode opérateur live
-│   │   └── output/                 # Fenêtre de sortie broadcast + overlays
+│   │   └── output/                 # Fenêtre de sortie vidéo + overlays
 │   ├── hooks/                      # 27 hooks custom
 │   │   ├── useTimer.ts            #   Gestion de l'horloge en temps réel
 │   │   ├── useFieldDrag.ts        #   Drag-and-drop pour le mode libre
@@ -365,13 +364,13 @@ L'application s'articule autour de 3 routes, chacune correspondant à un mode d'
 |-------|------|-------------|
 | `/` | Éditeur | Interface complète de conception et personnalisation |
 | `/operator` | Opérateur | Contrôle simplifié pour l'exploitation en direct |
-| `/output` | Sortie | Fenêtre plein écran pour la capture broadcast |
+| `/output` | Sortie | Fenêtre plein écran pour les écrans vidéo du stade |
 
-### Workflow broadcast typique
+### Workflow typique en stade
 
 1. **Conception** (`/`) : créer et personnaliser le template
-2. **Préparation** : ouvrir la fenêtre de sortie (`/output`) et la configurer dans OBS/vMix
-3. **Direct** (`/operator`) : contrôler les scores, l'horloge et les pénalités en temps réel
+2. **Préparation** : ouvrir la fenêtre de sortie (`/output`) et la diriger vers l'écran vidéo du stade
+3. **Direct** (`/operator`) : contrôler les scores, l'horloge et les pénalités en temps réel pendant le match
 4. La sortie se met à jour instantanément via `BroadcastChannel`
 
 ---
@@ -384,13 +383,20 @@ Chaque canal dispose d'une couleur (hex) et d'une opacité indépendante (0-100 
 
 | Canal | Zone |
 |-------|------|
-| `headerBg` / `headerText` | En-tête du scoreboard |
-| `bodyBg` / `bodyText` | Corps (zone de statistiques) |
-| `clockBg` / `clockText` | Affichage de l'horloge |
-| `teamLeftBg` / `teamLeftText` | Équipe gauche |
-| `teamRightBg` / `teamRightText` | Équipe droite |
-| `scoreBg` / `scoreText` | Affichage du score |
-| `accent` / `accentText` | Éléments d'accentuation |
+| `bgTop` | Fond haut du scoreboard |
+| `bgMid` | Fond milieu du scoreboard |
+| `bgBot` | Fond bas du scoreboard |
+| `teamName` | Noms des équipes |
+| `score` | Texte du score |
+| `scoreBox` | Fond du score |
+| `time` | Texte de l'horloge |
+| `clockBox` | Fond de l'horloge |
+| `period` | Texte de la période |
+| `titleText` | Texte du titre |
+| `statVal` | Valeurs des statistiques |
+| `statLabel` | Labels des statistiques |
+| `penaltyTime` | Temps des pénalités |
+| `penaltyNumber` | Numéro du joueur pénalisé |
 
 ### 25 polices Google Fonts
 
@@ -409,8 +415,8 @@ Organisées en 6 catégories :
 
 | Preset | Description |
 |--------|-------------|
-| Classic Blue | Bleu professionnel classique |
-| Dark Pro | Thème sombre professionnel |
+| OMEGA Blue (défaut) | Bleu professionnel classique |
+| Dark Mode | Thème sombre |
 | Ice White | Thème clair sur fond blanc |
 | Hockey Red | Thème rouge vif |
 | Arena Green | Thème vert aréna |
@@ -466,7 +472,7 @@ Le mode libre offre un éditeur drag-and-drop complet pour créer des mises en p
 
 ### Timer en temps réel
 
-- Intervalle de tick de 100 ms pour une précision broadcast
+- Intervalle de tick de 100 ms pour un affichage précis
 - Décompte automatique avec affichage configurable (toujours, jamais, en cours, à l'arrêt)
 - Seuil d'affichage des dixièmes de seconde configurable
 - Mode démo pour les tests
@@ -493,18 +499,11 @@ Période 3 → [Prolongation → [Tirs au but]]
 
 ---
 
-## Sortie broadcast
+## Sortie vidéo
 
-### Capture par logiciel tiers
+### Affichage sur écran de stade
 
-La fenêtre de sortie (`/output`) est conçue pour être capturée par les logiciels de production :
-
-| Logiciel | Méthode de capture |
-|----------|-------------------|
-| OBS Studio | Capture de fenêtre ou de navigateur |
-| vMix | Capture de fenêtre |
-| Wirecast | Capture de fenêtre |
-| CasparCG | Intégration API (fondation posée) |
+La fenêtre de sortie (`/output`) est conçue pour être affichée en plein écran sur les écrans vidéo du stade. Elle peut aussi être capturée par des logiciels de production vidéo (OBS, vMix, CasparCG).
 
 ### Synchronisation
 
@@ -633,7 +632,7 @@ Le [manuel utilisateur](docs/manuel-utilisateur/) est intégré à l'application
 6. Horloge et phases
 7. Templates
 8. Mode opérateur
-9. Sortie broadcast
+9. Sortie vidéo
 10. Capture et impression
 11. Photos de joueurs
 12. Logos
