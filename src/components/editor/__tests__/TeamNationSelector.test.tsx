@@ -8,12 +8,12 @@ import type { FieldElementConfig } from '@/types/customField';
 
 const LEFT_ELEMENT: FieldElementConfig = {
   type: 'team-name',
-  config: { side: 'left', showFlag: true, fontSizeOverride: 0 },
+  config: { side: 'left', showFlag: true, fontSizeOverride: 0, fontFamily: '' },
 };
 
 const RIGHT_ELEMENT: FieldElementConfig = {
   type: 'team-name',
-  config: { side: 'right', showFlag: true, fontSizeOverride: 0 },
+  config: { side: 'right', showFlag: true, fontSizeOverride: 0, fontFamily: '' },
 };
 
 describe('TeamNationSelector', () => {

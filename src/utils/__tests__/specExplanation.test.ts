@@ -3,6 +3,8 @@ import { generateExplanation } from '@/utils/specExplanation';
 import { generateSpec } from '@/utils/specGenerator';
 import { DEFAULT_STATE } from '@/data/defaultState';
 import type { ScoreboardState } from '@/types/scoreboard';
+import { DEFAULT_FIELD_STYLE } from '@/types/customField';
+import type { CustomFieldsData, CustomField } from '@/types/customField';
 
 function stateWith(overrides: Partial<ScoreboardState>): ScoreboardState {
   return { ...DEFAULT_STATE, ...overrides };
@@ -120,5 +122,63 @@ describe('generateExplanation', () => {
     }));
     expect(explanation).toContain('Media de fond');
     expect(explanation).toContain('http://example.com/bg.jpg');
+  });
+
+  it('documente les polices par champ en layout libre avec override', () => {
+    const field: CustomField = {
+      id: 'f1', label: 'Titre principal',
+      x: 50, y: 10, width: 300, height: 60,
+      rotation: 0, zIndex: 1, locked: false, visible: true,
+      lockAspectRatio: false, scaleContent: true,
+      initialWidth: 300, initialHeight: 60,
+      element: {
+        type: 'text-block',
+        config: {
+          content: 'MATCH', fontSize: 32, fontWeight: 700,
+          fontFamily: "'Bebas Neue', sans-serif",
+          textAlign: 'center' as const, textTransform: 'none' as const,
+          letterSpacing: 0, textColor: '#ffffff',
+        },
+      },
+      style: { ...DEFAULT_FIELD_STYLE },
+    };
+    const fieldsData: CustomFieldsData = {
+      fields: [field],
+      fullPageMode: false, snapToGrid: true, gridSize: 20,
+      showGuides: true, selectedFieldIds: [], zoneSelectionActive: false,
+    };
+    const explanation = generateExplanation(specFor({ bodyType: 1, customFieldsData: fieldsData }));
+    expect(explanation).toContain('Polices par champ');
+    expect(explanation).toContain('Titre principal');
+    expect(explanation).toContain('Bebas Neue');
+  });
+
+  it('indique la police globale quand aucun champ n a d override', () => {
+    const explanation = generateExplanation(specFor({ bodyType: 1 }));
+    expect(explanation).toContain('Polices par champ (Layout libre)');
+    expect(explanation).toContain('police globale du corps');
+  });
+
+  it('affiche le type d element et le label dans la table layout libre', () => {
+    const field: CustomField = {
+      id: 'f2', label: 'Score LAK',
+      x: 100, y: 200, width: 120, height: 80,
+      rotation: 0, zIndex: 1, locked: false, visible: true,
+      lockAspectRatio: false, scaleContent: true,
+      initialWidth: 120, initialHeight: 80,
+      element: {
+        type: 'score-display',
+        config: { side: 'left' as const, showLabel: false, fontSizeOverride: 48, fontFamily: '' },
+      },
+      style: { ...DEFAULT_FIELD_STYLE },
+    };
+    const fieldsData: CustomFieldsData = {
+      fields: [field],
+      fullPageMode: false, snapToGrid: true, gridSize: 20,
+      showGuides: true, selectedFieldIds: [], zoneSelectionActive: false,
+    };
+    const explanation = generateExplanation(specFor({ bodyType: 1, customFieldsData: fieldsData }));
+    expect(explanation).toContain('Score LAK');
+    expect(explanation).toContain('score-display');
   });
 });

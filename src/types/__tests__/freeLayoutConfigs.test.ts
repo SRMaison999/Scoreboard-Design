@@ -28,6 +28,7 @@ describe('freeLayoutConfigs types', () => {
       showNumber: true,
       showPosition: false,
       fontSize: 24,
+      fontFamily: '',
       textColor: '#ffffff',
     };
     expect(config.playerName).toBe('KOPITAR');
@@ -41,6 +42,7 @@ describe('freeLayoutConfigs types', () => {
       showNumbers: true,
       showPositions: true,
       fontSize: 20,
+      fontFamily: '',
       textColor: '#ffffff',
       titleColor: '#ffffff',
     };
@@ -55,6 +57,7 @@ describe('freeLayoutConfigs types', () => {
       showPhoto: true,
       showNumber: true,
       fontSize: 32,
+      fontFamily: '',
       textColor: '#ffffff',
     };
     expect(config.scorerName).toBe('KOPITAR');
@@ -68,6 +71,7 @@ describe('freeLayoutConfigs types', () => {
       assist2Number: '9',
       showNumbers: true,
       fontSize: 20,
+      fontFamily: '',
       textColor: '#ffffff',
     };
     expect(config.assist1Name).toBe('DOUGHTY');
@@ -83,6 +87,7 @@ describe('freeLayoutConfigs types', () => {
       showPeriod: true,
       showCount: true,
       fontSize: 20,
+      fontFamily: '',
       textColor: '#ffffff',
     };
     expect(config.goalTime).toBe('12:34');
@@ -93,6 +98,7 @@ describe('freeLayoutConfigs types', () => {
       role: 'Entra\u00eeneur',
       name: 'MARTIN',
       fontSize: 20,
+      fontFamily: '',
       textColor: '#ffffff',
     };
     expect(config.role).toBe('Entra\u00eeneur');
@@ -104,6 +110,7 @@ describe('freeLayoutConfigs types', () => {
       title: 'STAFF',
       members: [entry],
       fontSize: 18,
+      fontFamily: '',
       textColor: '#ffffff',
       titleColor: '#ffffff',
     };
@@ -119,6 +126,7 @@ describe('freeLayoutConfigs types', () => {
       rows: [row],
       showHeader: true,
       fontSize: 16,
+      fontFamily: '',
       headerColor: '#ffffff',
       textColor: '#ffffff',
     };

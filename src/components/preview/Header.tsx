@@ -39,6 +39,7 @@ interface HeaderProps {
   readonly scorePopLeft?: boolean;
   readonly scorePopRight?: boolean;
   readonly onEdit?: HeaderEditCallback;
+  readonly fontFamilyOverride?: string;
 }
 
 function col(colors: ColorMap, opacities: OpacityMap, key: keyof ColorMap): string {
@@ -145,11 +146,12 @@ export function Header({
   teamLogos = EMPTY_LOGOS, flagOverrides = EMPTY_FLAG_OVERRIDES,
   scorePopLeft = false, scorePopRight = false,
   onEdit,
+  fontFamilyOverride,
 }: HeaderProps) {
   const c = (key: keyof ColorMap) => col(colors, opacities, key);
   const hasScoreBox = !!colors.scoreBox;
   const maxTimeouts = 1;
-  const fontFamily = ff(fontTeams);
+  const fontFamily = fontFamilyOverride || ff(fontTeams);
 
   const flagH1 = useMemo(
     () => measureCapHeight(fontFamily, fontSizeTeamName, 700, team1),

@@ -4,7 +4,7 @@ Ce chapitre couvre les cinq modules d'intégration disponibles dans le panneau �
 
 ---
 
-## 1. Import de rosters (CSV, Excel, JSON)
+## 1. Import de rosters
 
 ### Présentation
 
@@ -15,6 +15,8 @@ Permet d'importer des compositions d'équipe depuis des fichiers externes au lie
 | Format | Extensions | Détails |
 |--------|-----------|---------|
 | CSV | `.csv` | Colonnes séparées par virgule ou point-virgule. Colonnes reconnues : `number`/`no`/`#`, `name`/`nom`, `position`/`pos` |
+| TSV | `.tsv` | Colonnes séparées par tabulation. Mêmes alias de colonnes que le CSV |
+| Texte | `.txt` | Fichier texte tabulé ou avec séparateur, interprété comme CSV/TSV |
 | Excel | `.xlsx`, `.xls` | Première feuille du classeur. Mêmes alias de colonnes que le CSV |
 | JSON | `.json` | Tableau de joueurs, ou objet avec clé `players` ou `roster` |
 
@@ -105,7 +107,7 @@ Permet d'afficher plusieurs formats de scoreboard simultanément sur la fenêtre
 ### Ticker
 
 - Ajouter des éléments de texte qui défilent en boucle
-- Régler la vitesse de défilement (1 à 200 pixels par seconde)
+- Régler la vitesse de défilement (10 à 200 pixels par seconde)
 - Maximum 20 éléments de texte
 
 ---
@@ -150,41 +152,39 @@ La reconnexion automatique est gérée avec backoff exponentiel (jusqu'à 5 tent
 
 ---
 
-## 5. Intégration CasparCG / Viz
+## 5. Export de données (Broadcast)
 
 ### Présentation
 
-Permet de streamer les données du scoreboard vers des systèmes broadcast professionnels (CasparCG, Vizrt) via WebSocket et/ou export de fichiers JSON.
+Permet d'exporter les données du scoreboard au format JSON structuré. Le bouton **Snapshot** télécharge un fichier JSON contenant l'état complet du scoreboard.
 
 ### Configuration
 
 | Champ | Description |
 |-------|-------------|
-| **Port WebSocket** | Port d'écoute pour les clients CasparCG/Viz (défaut : 8080) |
-| **Port HTTP** | Port pour l'accès HTTP aux données (défaut : 8081) |
-| **Export fichier** | Active l'export automatique vers un fichier JSON |
-| **Chemin du fichier** | Chemin du fichier JSON de sortie |
-| **Intervalle** | Fréquence de mise à jour du fichier (en millisecondes, défaut : 1000) |
+| **Port WebSocket** | Port de configuration (préparation pour une future connexion réseau) |
+| **Port HTTP** | Port de configuration (préparation pour une future connexion réseau) |
+| **Export fichier** | Active la génération périodique de frames |
+| **Chemin du fichier** | Chemin de sortie configuré |
+| **Intervalle** | Fréquence de génération des frames (en millisecondes, défaut : 1000) |
 
 ### Fonctionnement
 
-1. Configurer les ports et les options d'export
-2. Cliquer sur **Démarrer** pour lancer le streaming
-3. Les statistiques s'affichent en temps réel :
-   - Nombre de clients connectés
-   - Nombre de frames envoyées
+1. Cliquer sur **Démarrer** pour activer la génération de frames
+2. Les statistiques s'affichent :
+   - Nombre de frames générées
    - Heure de la dernière frame
-4. Utiliser **Snapshot** pour exporter manuellement un état complet en JSON
+3. Cliquer sur **Snapshot** pour télécharger un fichier JSON contenant l'état complet du scoreboard
 
 ### Format des données
 
-Les données sont envoyées en trois couches :
-- **Template** : design, couleurs, polices (change rarement)
-- **Match** : équipes, rosters, phases (change entre les matchs)
-- **Frame** : scores, temps, pénalités (change chaque seconde)
+Les données sont organisées en trois couches :
+- **Template** : design, couleurs, polices
+- **Match** : équipes, rosters, phases
+- **Frame** : scores, temps, pénalités
 
-Le streaming utilise le delta encoding : seules les différences entre deux frames consécutives sont envoyées, ce qui réduit la bande passante.
+Le format utilise le delta encoding : seules les différences entre deux frames consécutives sont calculées.
 
 ### Arrêt
 
-Cliquer sur **Arrêter** pour couper le streaming. Le compteur de frames et les statistiques sont réinitialisées.
+Cliquer sur **Arrêter** pour couper la génération. Le compteur de frames est réinitialisé.

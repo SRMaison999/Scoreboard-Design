@@ -23,6 +23,7 @@ const TEAM_NAME_ELEMENT = {
     side: 'left' as const,
     showFlag: true,
     fontSizeOverride: 0,
+    fontFamily: '',
   },
 };
 

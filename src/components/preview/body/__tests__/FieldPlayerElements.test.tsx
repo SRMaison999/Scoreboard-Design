@@ -6,7 +6,7 @@ describe('PlayerRowElement', () => {
   it('affiche un placeholder lorsque les donn\u00e9es sont vides', () => {
     render(
       <PlayerRowElement
-        element={{ config: { playerName: '', playerNumber: '', position: '', showNumber: true, showPosition: false, fontSize: 24, textColor: '#ffffff' } }}
+        element={{ config: { playerName: '', playerNumber: '', position: '', showNumber: true, showPosition: false, fontSize: 24, fontFamily: '', textColor: '#ffffff' } }}
       />,
     );
     expect(screen.getByText('Joueur')).toBeInTheDocument();
@@ -15,7 +15,7 @@ describe('PlayerRowElement', () => {
   it('affiche le nom et le num\u00e9ro du joueur', () => {
     render(
       <PlayerRowElement
-        element={{ config: { playerName: 'KOPITAR', playerNumber: '11', position: 'C', showNumber: true, showPosition: false, fontSize: 24, textColor: '#ffffff' } }}
+        element={{ config: { playerName: 'KOPITAR', playerNumber: '11', position: 'C', showNumber: true, showPosition: false, fontSize: 24, fontFamily: '', textColor: '#ffffff' } }}
       />,
     );
     expect(screen.getByText('#11 KOPITAR')).toBeInTheDocument();
@@ -24,20 +24,20 @@ describe('PlayerRowElement', () => {
   it('n\u2019affiche pas le num\u00e9ro si showNumber est false', () => {
     render(
       <PlayerRowElement
-        element={{ config: { playerName: 'KOPITAR', playerNumber: '11', position: 'C', showNumber: false, showPosition: false, fontSize: 24, textColor: '#ffffff' } }}
+        element={{ config: { playerName: 'KOPITAR', playerNumber: '11', position: 'C', showNumber: false, showPosition: false, fontSize: 24, fontFamily: '', textColor: '#ffffff' } }}
       />,
     );
     expect(screen.getByText('KOPITAR')).toBeInTheDocument();
     expect(screen.queryByText('#11')).not.toBeInTheDocument();
   });
 
-  it('affiche la position si showPosition est true', () => {
+  it('affiche la position en fran\u00e7ais si showPosition est true', () => {
     render(
       <PlayerRowElement
-        element={{ config: { playerName: 'KOPITAR', playerNumber: '11', position: 'C', showNumber: true, showPosition: true, fontSize: 24, textColor: '#ffffff' } }}
+        element={{ config: { playerName: 'KOPITAR', playerNumber: '11', position: 'C', showNumber: true, showPosition: true, fontSize: 24, fontFamily: '', textColor: '#ffffff' } }}
       />,
     );
-    expect(screen.getByText('C')).toBeInTheDocument();
+    expect(screen.getByText('Centre')).toBeInTheDocument();
   });
 });
 
@@ -45,7 +45,7 @@ describe('PlayerListElement', () => {
   it('affiche un placeholder lorsque la liste est vide et sans titre', () => {
     render(
       <PlayerListElement
-        element={{ config: { title: '', players: [], showNumbers: true, showPositions: true, fontSize: 20, textColor: '#ffffff', titleColor: '#ffffff' } }}
+        element={{ config: { title: '', players: [], showNumbers: true, showPositions: true, fontSize: 20, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff' } }}
       />,
     );
     expect(screen.getByText('Liste de joueurs')).toBeInTheDocument();
@@ -60,7 +60,7 @@ describe('PlayerListElement', () => {
             { name: 'KOPITAR', number: '11', position: 'C' },
             { name: 'KEMPE', number: '9', position: 'LW' },
           ],
-          showNumbers: true, showPositions: true, fontSize: 20, textColor: '#ffffff', titleColor: '#ffffff',
+          showNumbers: true, showPositions: true, fontSize: 20, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff',
         } }}
       />,
     );
@@ -75,7 +75,7 @@ describe('PlayerListElement', () => {
         element={{ config: {
           title: 'GARDIENS',
           players: [{ name: 'QUICK', number: '32', position: 'G' }],
-          showNumbers: false, showPositions: true, fontSize: 20, textColor: '#ffffff', titleColor: '#ffffff',
+          showNumbers: false, showPositions: true, fontSize: 20, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff',
         } }}
       />,
     );

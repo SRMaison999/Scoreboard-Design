@@ -8,10 +8,11 @@ La navigation est organisée sur deux niveaux :
 
 ### Rail d'icônes (navigation principale)
 
-Un rail vertical d'icônes sur le bord gauche permet de basculer entre 5 groupes :
+Un rail vertical d'icônes sur le bord gauche permet de basculer entre 6 groupes :
 
 | Icône | Groupe | Description |
 |-------|--------|-------------|
+| Grille | **Modes** | Sélection du type d'affichage (Layout libre, Stats centrées, etc.) |
 | Fichier | **Contenu** | Équipes, scores, body type, pénalités, médias |
 | Palette | **Apparence** | Dimensions, polices, couleurs, fond |
 | Horloge | **Horloge** | Temps de jeu, phases, démo |
@@ -44,28 +45,22 @@ Survoler une icône affiche une infobulle avec le nom du groupe.
 
 Le type d'affichage se choisit dans le panneau **Modes** (1re icône du rail). Le Layout libre est proposé en premier.
 
-Quand le Layout libre est sélectionné, le panneau éditeur adopte une **navigation dédiée en deux colonnes** :
+Quand le Layout libre est sélectionné, le panneau éditeur adopte une **navigation dédiée** :
 
 #### Rail d'icônes dédié au Layout libre
 
-Un rail vertical de 10 icônes remplace la navigation standard. Ce rail permet d'accéder rapidement à toutes les fonctionnalités du mode libre :
+Un rail vertical de 4 icônes remplace la navigation standard :
 
 | Icône | Onglet | Contenu |
 |-------|--------|---------|
+| Bibliothèque | **Bibliothèque** | Catalogue des 43 éléments, organisé en 11 catégories avec champ de recherche |
 | Engrenage | **Canvas** | Mode pleine page, grille et guides, aimantation, taille de grille, annuler/rétablir, raccourcis clavier |
-| Dièse | **Match** | Éléments de match : Score, Horloge, Période, Nom d'équipe, Drapeau, Temps morts, Tirs au but |
-| Texte | **Texte** | Éléments textuels : Bloc de texte |
-| Graphique | **Données** | Éléments de visualisation : Ligne de stat, Barre comparative |
-| Utilisateur | **Joueurs** | Éléments joueurs : Photo joueur |
-| Image | **Médias** | Éléments décoratifs : Image, Forme (rectangle, cercle, arrondi), Séparateur |
-| Grille | **Composés** | Blocs complets : Header complet, Colonne de pénalités, Types 2-14 intégrés |
 | Couches | **Couches** | Liste des champs avec réordonnancement, visibilité et verrouillage |
 | Signet | **Presets** | Sauvegarde et chargement de champs individuels ou d'écrans complets |
-| Clé | **Propriétés** | Panneau de propriétés du champ sélectionné (position, taille, style, effets) |
 
-#### Zone de contenu
+#### Panneau de propriétés
 
-À droite du rail, la zone de contenu affiche le panneau correspondant à l'onglet actif. Les onglets de catégorie (Match, Texte, Données, Joueurs, Médias, Composés) affichent une liste d'éléments cliquables ou glissables sur le canvas. L'onglet **Propriétés** affiche les paramètres du champ sélectionné, ou une barre d'outils multi-sélection si plusieurs champs sont sélectionnés.
+Le panneau de propriétés (300 px) est toujours visible à droite du canvas. Il affiche les paramètres du champ sélectionné (position, taille, style, effets) ou un accès aux données du match quand aucun champ n'est sélectionné.
 
 Voir le chapitre 3 (Layout libre) pour le détail de chaque fonctionnalité.
 
@@ -144,7 +139,7 @@ Voir le chapitre 3 (Layout libre) pour le détail de chaque fonctionnalité.
 
 ### Sous-onglet Broadcast
 
-- Intégration CasparCG / Viz pour diffusion broadcast
+- Export de données JSON et génération de frames
 
 ---
 

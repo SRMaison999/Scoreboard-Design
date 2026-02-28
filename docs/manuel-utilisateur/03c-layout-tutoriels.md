@@ -20,7 +20,7 @@
 
 **Objectif :** créer un affichage de match standard avec drapeaux, noms, scores et horloge.
 
-**Résultat :** une bande de score en haut du canvas, prête pour la diffusion.
+**Résultat :** une bande de score en haut du canvas.
 
 1. Sélectionnez le mode **Layout libre** (mode par défaut)
 2. Dans le panneau gauche, onglet **Équipes**, section **Header** :
@@ -45,7 +45,7 @@
 
 ## Tutoriel 2 : Bande basse (lower third)
 
-**Objectif :** créer une bande d'information en bas de l'écran, idéale pour la retransmission broadcast.
+**Objectif :** créer une bande d'information en bas de l'écran (lower third).
 
 **Résultat :** une bande compacte en bas du canvas avec drapeaux, noms courts et score.
 

@@ -21,6 +21,7 @@ import { TimelineEventEditor, TimelineListEditor } from './FieldEventEditors';
 import { ScheduleMatchEditor, ScheduleListEditor } from './FieldScheduleEditors';
 import { PlayerCardEditor, PeriodScoreRowEditor } from './FieldCardEditors';
 import { TeamNationSelector } from './TeamNationSelector';
+import { FontFamilyOverrideSelect } from './FontFamilyOverrideSelect';
 
 interface FieldElementConfigEditorProps {
   readonly fieldId: string;
@@ -117,6 +118,7 @@ function ClockDisplayEditor({ fieldId, element }: {
         />
         {CUSTOM_FIELD_LABELS.configShowBox}
       </label>
+      <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
       <FontSizeOverrideInput fieldId={fieldId} element={element} />
     </div>
   );
@@ -168,6 +170,7 @@ export function FieldElementConfigEditor({ fieldId, element }: FieldElementConfi
         <div className="flex flex-col gap-2">
           <SideSelector fieldId={fieldId} element={element} />
           <TeamNationSelector element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
           <FontSizeOverrideInput fieldId={fieldId} element={element} />
         </div>
       );
@@ -177,6 +180,7 @@ export function FieldElementConfigEditor({ fieldId, element }: FieldElementConfi
           <SideSelector fieldId={fieldId} element={element} />
           <TeamNationSelector element={element} />
           <ShowFlagToggle fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
           <FontSizeOverrideInput fieldId={fieldId} element={element} />
         </div>
       );
@@ -191,54 +195,141 @@ export function FieldElementConfigEditor({ fieldId, element }: FieldElementConfi
       return (
         <div className="flex flex-col gap-2">
           <SideSelector fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
           <PenaltyColumnEditor element={element} />
         </div>
       );
     case 'header-block':
-      return <HeaderBlockFullEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <HeaderBlockFullEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'clock-display':
       return <ClockDisplayEditor fieldId={fieldId} element={element} />;
     case 'period-display':
       return (
         <div className="flex flex-col gap-2">
           <ClockDataEditor />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
           <FontSizeOverrideInput fieldId={fieldId} element={element} />
         </div>
       );
     case 'stat-line':
-      return <StatLineDataEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <StatLineDataEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'bar-compare':
-      return <BarCompareDataEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <BarCompareDataEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'player-photo':
       return <PlayerPhotoEditor fieldId={fieldId} element={element} />;
     case 'player-row':
-      return <PlayerRowEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <PlayerRowEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'player-list':
-      return <PlayerListEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <PlayerListEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'goal-scorer':
-      return <GoalScorerEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <GoalScorerEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'goal-assists':
-      return <GoalAssistsEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <GoalAssistsEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'goal-details':
-      return <GoalDetailsEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <GoalDetailsEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'staff-row':
-      return <StaffRowEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <StaffRowEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'staff-list':
-      return <StaffListEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <StaffListEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'data-table':
-      return <DataTableEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <DataTableEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'timeline-event':
-      return <TimelineEventEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <TimelineEventEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'timeline-list':
-      return <TimelineListEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <TimelineListEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'schedule-match':
-      return <ScheduleMatchEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <ScheduleMatchEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'schedule-list':
-      return <ScheduleListEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <ScheduleListEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'player-card':
-      return <PlayerCardEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <PlayerCardEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'period-score-row':
-      return <PeriodScoreRowEditor fieldId={fieldId} element={element} />;
+      return (
+        <div className="flex flex-col gap-2">
+          <PeriodScoreRowEditor fieldId={fieldId} element={element} />
+          <FontFamilyOverrideSelect fieldId={fieldId} element={element} />
+        </div>
+      );
     case 'shape-block':
       return <ShapeEditor fieldId={fieldId} element={element} />;
     case 'separator-line':

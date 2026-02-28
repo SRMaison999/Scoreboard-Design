@@ -86,7 +86,7 @@ export function makeTeamNameField(
     initialHeight: height,
     element: {
       type: 'team-name',
-      config: { side, showFlag: false, fontSizeOverride: 0 },
+      config: { side, showFlag: false, fontSizeOverride: 0, fontFamily: '' },
     },
     style: { ...baseStyle },
   };
@@ -119,7 +119,7 @@ export function makeScoreField(
     initialHeight: height,
     element: {
       type: 'score-display',
-      config: { side, showLabel: false, fontSizeOverride: 0 },
+      config: { side, showLabel: false, fontSizeOverride: 0, fontFamily: '' },
     },
     style: { ...baseStyle },
   };
@@ -151,7 +151,7 @@ export function makeClockField(
     initialHeight: height,
     element: {
       type: 'clock-display',
-      config: { showPeriod: false, showBox: false, fontSizeOverride: 0 },
+      config: { showPeriod: false, showBox: false, fontSizeOverride: 0, fontFamily: '' },
     },
     style: { ...baseStyle },
   };
@@ -183,7 +183,7 @@ export function makePeriodField(
     initialHeight: height,
     element: {
       type: 'period-display',
-      config: { fontSizeOverride: 0 },
+      config: { fontSizeOverride: 0, fontFamily: '' },
     },
     style: { ...baseStyle },
   };
@@ -216,7 +216,7 @@ export function makePenaltyColumn(
     initialHeight: height,
     element: {
       type: 'penalty-column',
-      config: { side },
+      config: { side, fontFamily: '' },
     },
     style: { ...baseStyle },
   };
@@ -249,7 +249,7 @@ export function makeStatLine(
     initialHeight: height,
     element: {
       type: 'stat-line',
-      config: { statIndex },
+      config: { statIndex, fontFamily: '' },
     },
     style: { ...baseStyle },
   };

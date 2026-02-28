@@ -17,7 +17,7 @@ function setupBroadcastChannel() {
 describe('GoalScorerEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'goal-scorer' }> = {
     type: 'goal-scorer',
-    config: { scorerName: '', scorerNumber: '', scorerPhoto: '', showPhoto: true, showNumber: true, fontSize: 32, textColor: '#ffffff' },
+    config: { scorerName: '', scorerNumber: '', scorerPhoto: '', showPhoto: true, showNumber: true, fontSize: 32, fontFamily: '', textColor: '#ffffff' },
   };
 
   beforeEach(() => {
@@ -41,7 +41,7 @@ describe('GoalScorerEditor', () => {
 describe('GoalAssistsEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'goal-assists' }> = {
     type: 'goal-assists',
-    config: { assist1Name: '', assist1Number: '', assist2Name: '', assist2Number: '', showNumbers: true, fontSize: 20, textColor: '#ffffff' },
+    config: { assist1Name: '', assist1Number: '', assist2Name: '', assist2Number: '', showNumbers: true, fontSize: 20, fontFamily: '', textColor: '#ffffff' },
   };
 
   beforeEach(() => {
@@ -66,7 +66,7 @@ describe('GoalAssistsEditor', () => {
 describe('GoalDetailsEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'goal-details' }> = {
     type: 'goal-details',
-    config: { goalTime: '', goalPeriod: '', goalCountMatch: '', goalCountTournament: '', showPeriod: true, showCount: true, fontSize: 20, textColor: '#ffffff' },
+    config: { goalTime: '', goalPeriod: '', goalCountMatch: '', goalCountTournament: '', showPeriod: true, showCount: true, fontSize: 20, fontFamily: '', textColor: '#ffffff' },
   };
 
   beforeEach(() => {

@@ -29,9 +29,11 @@ describe('BodyType12', () => {
     expect(screen.getByText('SLAFKOVSKY')).toBeInTheDocument();
   });
 
-  it('affiche les positions', () => {
+  it('affiche les positions en fran\u00e7ais', () => {
     render(<BodyType12 {...baseProps} />);
-    expect(screen.getAllByText('D').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText('D\u00e9fenseur').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText('Gardien')).toBeInTheDocument();
+    expect(screen.getByText('Centre')).toBeInTheDocument();
   });
 
   it('gère un roster vide', () => {

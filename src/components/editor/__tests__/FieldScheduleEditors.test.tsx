@@ -17,7 +17,7 @@ function setupBroadcastChannel() {
 describe('ScheduleMatchEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'schedule-match' }> = {
     type: 'schedule-match',
-    config: { date: '25/02', time: '19:00', teamLeft: 'LAK', teamRight: 'MTL', scoreLeft: '', scoreRight: '', status: 'upcoming', venue: '', fontSize: 18, textColor: '#ffffff' },
+    config: { date: '25/02', time: '19:00', teamLeft: 'LAK', teamRight: 'MTL', scoreLeft: '', scoreRight: '', status: 'upcoming', venue: '', fontSize: 18, fontFamily: '', textColor: '#ffffff' },
   };
 
   beforeEach(() => {
@@ -45,7 +45,7 @@ describe('ScheduleMatchEditor', () => {
 describe('ScheduleListEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'schedule-list' }> = {
     type: 'schedule-list',
-    config: { title: '', matches: [], fontSize: 16, textColor: '#ffffff', titleColor: '#ffffff' },
+    config: { title: '', matches: [], fontSize: 16, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff' },
   };
 
   beforeEach(() => {

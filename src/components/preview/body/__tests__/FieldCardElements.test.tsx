@@ -9,7 +9,7 @@ describe('PlayerCardElement', () => {
         element={{ type: 'player-card', config: {
           title: '', subtitle: '', playerName: 'KOPITAR', playerNumber: '11',
           playerTeam: 'LAK', playerPhoto: '', stats: [],
-          fontSize: 24, textColor: '#ffffff', titleColor: '#ffffff',
+          fontSize: 24, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff',
         } }}
         height={450}
       />,
@@ -26,7 +26,7 @@ describe('PlayerCardElement', () => {
           title: 'JOUEUR DU MATCH', subtitle: 'Meilleur marqueur',
           playerName: 'KEMPE', playerNumber: '9',
           playerTeam: '', playerPhoto: '', stats: [],
-          fontSize: 24, textColor: '#ffffff', titleColor: '#ffffff',
+          fontSize: 24, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff',
         } }}
         height={450}
       />,
@@ -44,7 +44,7 @@ describe('PlayerCardElement', () => {
             { label: 'BUTS', value: '12' },
             { label: 'PASSES', value: '25' },
           ],
-          fontSize: 24, textColor: '#ffffff', titleColor: '#ffffff',
+          fontSize: 24, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff',
         } }}
         height={450}
       />,
@@ -60,7 +60,7 @@ describe('PeriodScoreRowElement', () => {
   it('affiche un placeholder quand il n\u2019y a pas de périodes', () => {
     render(
       <PeriodScoreRowElement
-        element={{ type: 'period-score-row', config: { periods: [], fontSize: 18, headerColor: '#ffffff', textColor: '#ffffff' } }}
+        element={{ type: 'period-score-row', config: { periods: [], fontSize: 18, fontFamily: '', headerColor: '#ffffff', textColor: '#ffffff' } }}
       />,
     );
     expect(screen.getByText('-')).toBeInTheDocument();
@@ -75,7 +75,7 @@ describe('PeriodScoreRowElement', () => {
             { period: 'P2', scoreLeft: '2', scoreRight: '1' },
             { period: 'P3', scoreLeft: '0', scoreRight: '2' },
           ],
-          fontSize: 18, headerColor: '#ffffff', textColor: '#ffffff',
+          fontSize: 18, fontFamily: '', headerColor: '#ffffff', textColor: '#ffffff',
         } }}
       />,
     );

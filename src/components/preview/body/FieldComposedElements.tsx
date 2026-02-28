@@ -9,10 +9,11 @@ import { PenaltyColumn } from '@/components/preview/PenaltyColumn';
 import type { ScoreboardState } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 
-export function HeaderBlockElement({ state, colors, opacities }: {
+export function HeaderBlockElement({ state, colors, opacities, element }: {
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
+  readonly element?: { readonly config: { readonly fontFamily?: string } };
 }) {
   return (
     <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
@@ -37,6 +38,7 @@ export function HeaderBlockElement({ state, colors, opacities }: {
         logoMode={state.logoMode}
         showFlagTeam1={state.showFlagTeam1}
         showFlagTeam2={state.showFlagTeam2}
+        fontFamilyOverride={element?.config.fontFamily}
       />
     </div>
   );
@@ -46,7 +48,7 @@ export function PenaltyColumnElement({ state, colors, opacities, element }: {
   readonly state: ScoreboardState;
   readonly colors: ColorMap;
   readonly opacities: OpacityMap;
-  readonly element: { readonly config: { readonly side: string } };
+  readonly element: { readonly config: { readonly side: string; readonly fontFamily?: string } };
 }) {
   const side = element.config.side as 'left' | 'right';
   const penalties = side === 'left' ? state.penaltiesLeft : state.penaltiesRight;
@@ -64,6 +66,7 @@ export function PenaltyColumnElement({ state, colors, opacities, element }: {
         fontBody={state.fontBody}
         fontSizePenaltyTime={state.fontSizes.penaltyTime}
         fontSizePenaltyNumber={state.fontSizes.penaltyNumber}
+        fontFamilyOverride={element.config.fontFamily}
       />
     </div>
   );

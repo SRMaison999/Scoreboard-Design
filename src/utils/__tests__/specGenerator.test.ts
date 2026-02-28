@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { generateSpec } from '@/utils/specGenerator';
 import { DEFAULT_STATE } from '@/data/defaultState';
 import type { ScoreboardState } from '@/types/scoreboard';
+import { DEFAULT_FIELD_STYLE } from '@/types/customField';
+import type { CustomFieldsData, CustomField } from '@/types/customField';
 
 function stateWith(overrides: Partial<ScoreboardState>): ScoreboardState {
   return { ...DEFAULT_STATE, ...overrides };
@@ -130,5 +132,67 @@ describe('generateSpec', () => {
     const spec = generateSpec(state);
     const data = spec.body.data as Record<string, unknown>;
     expect(data).not.toBe(state.standingsData);
+  });
+
+  it('inclut le fontFamily des champs en layout libre', () => {
+    const field: CustomField = {
+      id: 'test-field',
+      label: 'Score',
+      x: 100, y: 50, width: 200, height: 100,
+      rotation: 0, zIndex: 1, locked: false, visible: true,
+      lockAspectRatio: false, scaleContent: true,
+      initialWidth: 200, initialHeight: 100,
+      element: {
+        type: 'text-block',
+        config: {
+          content: 'TEST', fontSize: 24, fontWeight: 700,
+          fontFamily: "'Oswald', sans-serif",
+          textAlign: 'center' as const, textTransform: 'none' as const,
+          letterSpacing: 0, textColor: '#ffffff',
+        },
+      },
+      style: { ...DEFAULT_FIELD_STYLE },
+    };
+    const fieldsData: CustomFieldsData = {
+      fields: [field],
+      fullPageMode: false, snapToGrid: true, gridSize: 20,
+      showGuides: true, selectedFieldIds: [], zoneSelectionActive: false,
+    };
+    const spec = generateSpec(stateWith({ bodyType: 1, customFieldsData: fieldsData }));
+    const data = spec.body.data as Record<string, unknown>;
+    const fields = data.fields as Array<Record<string, unknown>>;
+    expect(fields).toHaveLength(1);
+    const first = fields[0] as Record<string, unknown>;
+    const element = first.element as Record<string, unknown>;
+    const config = element.config as Record<string, unknown>;
+    expect(config.fontFamily).toBe("'Oswald', sans-serif");
+  });
+
+  it('inclut fontFamily vide quand pas de police par champ', () => {
+    const field: CustomField = {
+      id: 'test-field-2',
+      label: 'Horloge',
+      x: 0, y: 0, width: 150, height: 80,
+      rotation: 0, zIndex: 1, locked: false, visible: true,
+      lockAspectRatio: false, scaleContent: true,
+      initialWidth: 150, initialHeight: 80,
+      element: {
+        type: 'clock-display',
+        config: { showPeriod: false, showBox: false, fontSizeOverride: 36, fontFamily: '' },
+      },
+      style: { ...DEFAULT_FIELD_STYLE },
+    };
+    const fieldsData: CustomFieldsData = {
+      fields: [field],
+      fullPageMode: false, snapToGrid: true, gridSize: 20,
+      showGuides: true, selectedFieldIds: [], zoneSelectionActive: false,
+    };
+    const spec = generateSpec(stateWith({ bodyType: 1, customFieldsData: fieldsData }));
+    const data = spec.body.data as Record<string, unknown>;
+    const fields = data.fields as Array<Record<string, unknown>>;
+    const first = fields[0] as Record<string, unknown>;
+    const element = first.element as Record<string, unknown>;
+    const config = element.config as Record<string, unknown>;
+    expect(config.fontFamily).toBe('');
   });
 });

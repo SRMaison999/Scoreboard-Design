@@ -110,7 +110,7 @@ describe('useFieldFontSize', () => {
   it('retourne isGlobal true pour score-display sans fontSizeOverride', () => {
     const element = {
       type: 'score-display' as const,
-      config: { side: 'left' as const, showLabel: false, fontSizeOverride: 0 },
+      config: { side: 'left' as const, showLabel: false, fontSizeOverride: 0, fontFamily: '' },
     };
     useScoreboardStore.getState().addCustomField(element, 0, 0, 120, 100);
 
@@ -121,7 +121,7 @@ describe('useFieldFontSize', () => {
   it('increase sur score-display définit fontSizeOverride', () => {
     const element = {
       type: 'score-display' as const,
-      config: { side: 'left' as const, showLabel: false, fontSizeOverride: 0 },
+      config: { side: 'left' as const, showLabel: false, fontSizeOverride: 0, fontFamily: '' },
     };
     useScoreboardStore.getState().addCustomField(element, 0, 0, 120, 100);
 

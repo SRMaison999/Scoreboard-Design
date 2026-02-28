@@ -28,7 +28,7 @@ function setupBroadcastChannel() {
 describe('StatLineDataEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'stat-line' }> = {
     type: 'stat-line',
-    config: { statIndex: 0 },
+    config: { statIndex: 0, fontFamily: '' },
   };
 
   beforeEach(() => {
@@ -75,7 +75,7 @@ describe('StatLineDataEditor', () => {
 describe('BarCompareDataEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'bar-compare' }> = {
     type: 'bar-compare',
-    config: { barIndex: 0 },
+    config: { barIndex: 0, fontFamily: '' },
   };
 
   beforeEach(() => {
@@ -123,7 +123,7 @@ describe('BarCompareDataEditor', () => {
 describe('PenaltyColumnEditor', () => {
   const ELEMENT_LEFT: Extract<FieldElementConfig, { type: 'penalty-column' }> = {
     type: 'penalty-column',
-    config: { side: 'left' },
+    config: { side: 'left', fontFamily: '' },
   };
 
   beforeEach(() => {
@@ -165,7 +165,7 @@ describe('PenaltyColumnEditor', () => {
 describe('HeaderBlockFullEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'header-block' }> = {
     type: 'header-block',
-    config: { showClock: true },
+    config: { showClock: true, fontFamily: '' },
   };
 
   beforeEach(() => {

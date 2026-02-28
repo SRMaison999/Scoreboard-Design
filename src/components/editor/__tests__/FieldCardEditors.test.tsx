@@ -20,7 +20,7 @@ describe('PlayerCardEditor', () => {
     config: {
       title: '', subtitle: '', playerName: 'KOPITAR', playerNumber: '11',
       playerTeam: 'LAK', playerPhoto: '', stats: [],
-      fontSize: 24, textColor: '#ffffff', titleColor: '#ffffff',
+      fontSize: 24, fontFamily: '', textColor: '#ffffff', titleColor: '#ffffff',
     },
   };
 
@@ -52,7 +52,7 @@ describe('PlayerCardEditor', () => {
 describe('PeriodScoreRowEditor', () => {
   const ELEMENT: Extract<FieldElementConfig, { type: 'period-score-row' }> = {
     type: 'period-score-row',
-    config: { periods: [], fontSize: 18, headerColor: '#ffffff', textColor: '#ffffff' },
+    config: { periods: [], fontSize: 18, fontFamily: '', headerColor: '#ffffff', textColor: '#ffffff' },
   };
 
   beforeEach(() => {

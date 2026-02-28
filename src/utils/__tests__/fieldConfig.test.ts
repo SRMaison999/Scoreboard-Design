@@ -8,14 +8,14 @@ describe('updateFieldElementConfig', () => {
     const updateElement = vi.fn();
     const element: FieldElementConfig = {
       type: 'header-block',
-      config: { showClock: false },
+      config: { showClock: false, fontFamily: '' },
     };
 
     updateFieldElementConfig(updateElement, 'f1', element, { showClock: true });
 
     expect(updateElement).toHaveBeenCalledWith('f1', {
       type: 'header-block',
-      config: { showClock: true },
+      config: { showClock: true, fontFamily: '' },
     });
   });
 
@@ -23,14 +23,14 @@ describe('updateFieldElementConfig', () => {
     const updateElement = vi.fn();
     const element: FieldElementConfig = {
       type: 'clock-display',
-      config: { showPeriod: true, showBox: false, fontSizeOverride: 0 },
+      config: { showPeriod: true, showBox: false, fontSizeOverride: 0, fontFamily: '' },
     };
 
     updateFieldElementConfig(updateElement, 'f2', element, { showBox: true });
 
     expect(updateElement).toHaveBeenCalledWith('f2', {
       type: 'clock-display',
-      config: { showPeriod: true, showBox: true, fontSizeOverride: 0 },
+      config: { showPeriod: true, showBox: true, fontSizeOverride: 0, fontFamily: '' },
     });
   });
 });

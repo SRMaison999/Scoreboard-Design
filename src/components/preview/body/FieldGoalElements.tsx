@@ -31,6 +31,7 @@ export function GoalScorerElement({ element, height }: {
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', gap: 16,
+      fontFamily: c.fontFamily || 'inherit',
       padding: '8px 16px', overflow: 'hidden',
     }}>
       {hasPhoto && (
@@ -92,6 +93,7 @@ export function GoalAssistsElement({ element }: {
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', gap: 16,
       fontSize: c.fontSize, fontWeight: 600,
+      fontFamily: c.fontFamily || 'inherit',
       color: c.textColor || '#ffffff',
       textTransform: 'uppercase', letterSpacing: 1,
       padding: '0 16px', overflow: 'hidden', whiteSpace: 'nowrap',
@@ -127,6 +129,7 @@ export function GoalDetailsElement({ element }: {
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', gap: 16,
       fontSize: c.fontSize, fontWeight: 600,
+      fontFamily: c.fontFamily || 'inherit',
       color: c.textColor || '#ffffff',
       padding: '0 16px', overflow: 'hidden', whiteSpace: 'nowrap',
     }}>

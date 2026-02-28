@@ -233,8 +233,16 @@ export const EDITOR_LABELS = {
   rosterCoach: 'Entraîneur',
   rosterPlayerNumber: 'No',
   rosterPlayerName: 'Nom',
-  rosterPlayerPosition: 'Pos.',
+  rosterPlayerPosition: 'Position',
   rosterAddPlayer: 'Ajouter un joueur',
+
+  /* Positions de joueurs */
+  positionG: 'Gardien',
+  positionD: 'Défenseur',
+  positionC: 'Centre',
+  positionF: 'Attaquant',
+  positionLW: 'Ailier gauche',
+  positionRW: 'Ailier droit',
 
   /* Schedule (type 13) */
   sectionSchedule: 'Calendrier',

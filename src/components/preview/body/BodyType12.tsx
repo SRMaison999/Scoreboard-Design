@@ -1,6 +1,7 @@
 import { hexToRgba } from '@/utils/color';
 import { ff, scaleFontSize } from '@/utils/font';
 import { Flag } from '@/components/preview/Flag';
+import { POSITION_LABELS } from '@/constants/positions';
 import type { RosterData } from '@/types/bodyTypes/roster';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
@@ -106,15 +107,16 @@ export function BodyType12({
           </div>
           <div
             style={{
-              width: 40,
+              minWidth: 100,
               fontSize: scaleFontSize(16, sc),
               fontWeight: 500,
               color: col('statLabel'),
-              textAlign: 'center',
+              textAlign: 'right',
               letterSpacing: 1,
+              whiteSpace: 'nowrap',
             }}
           >
-            {player.position}
+            {POSITION_LABELS[player.position] ?? player.position}
           </div>
         </div>
       ))}

@@ -27,7 +27,8 @@ export function StaffRowElement({ element }: {
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', gap: 12,
-      fontSize: c.fontSize, color: c.textColor || '#ffffff',
+      fontSize: c.fontSize, fontFamily: c.fontFamily || 'inherit',
+      color: c.textColor || '#ffffff',
       padding: '0 12px', overflow: 'hidden', whiteSpace: 'nowrap',
     }}>
       {c.role && (
@@ -82,6 +83,7 @@ export function StaffListElement({ element }: {
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', flexDirection: 'column',
+      fontFamily: c.fontFamily || 'inherit',
       padding: '8px 12px', overflow: 'hidden',
     }}>
       {c.title && (
@@ -125,6 +127,7 @@ export function DataTableElement({ element }: {
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', flexDirection: 'column',
+      fontFamily: c.fontFamily || 'inherit',
       padding: '8px', overflow: 'hidden',
     }}>
       {c.title && (

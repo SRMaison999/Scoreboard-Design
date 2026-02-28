@@ -5,7 +5,7 @@
  */
 
 import type { ScoreboardSpec } from '@/utils/specGenerator';
-import { heading, bullet, buildLayoutOverview, buildLogosSection } from '@/utils/specMarkdownHelpers';
+import { heading, bullet, asRecord, asArray, buildLayoutOverview, buildLogosSection } from '@/utils/specMarkdownHelpers';
 import {
   explainType1, explainType2, explainType3, explainType4,
   explainType5, explainType6, explainType7, explainType8,
@@ -151,6 +151,41 @@ function buildFontsSection(spec: ScoreboardSpec): string {
     const val = fs[key as keyof typeof fs];
     if (val !== undefined) {
       lines.push(bullet(label, `${val}px`));
+    }
+  }
+
+  if (spec.body.type === 1) {
+    const bodyData = asRecord(spec.body.data);
+    const fields = asArray(bodyData.fields);
+    const overrides: Array<{ label: string; type: string; fontFamily: string }> = [];
+    for (const f of fields) {
+      const row = asRecord(f);
+      const element = asRecord(row.element);
+      const config = asRecord(element.config);
+      const fontFamily = config.fontFamily;
+      if (typeof fontFamily === 'string' && fontFamily !== '') {
+        overrides.push({
+          label: String(row.label ?? ''),
+          type: String(element.type ?? ''),
+          fontFamily,
+        });
+      }
+    }
+    lines.push('');
+    lines.push(heading(3, 'Polices par champ (Layout libre)'));
+    lines.push('');
+    if (overrides.length > 0) {
+      lines.push('Certains champs utilisent une police specifique :');
+      lines.push('');
+      lines.push('| Champ | Type | Police |');
+      lines.push('|-------|------|--------|');
+      for (const o of overrides) {
+        lines.push(`| ${o.label} | ${o.type} | \`${o.fontFamily}\` |`);
+      }
+      lines.push('');
+      lines.push('Les autres champs heritent de la police globale du corps.');
+    } else {
+      lines.push('Tous les champs utilisent la police globale du corps.');
     }
   }
 

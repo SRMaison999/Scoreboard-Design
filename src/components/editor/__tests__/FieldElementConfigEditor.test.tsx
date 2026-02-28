@@ -26,7 +26,7 @@ describe('FieldElementConfigEditor', () => {
   it('affiche le selecteur de cote pour un score-display', () => {
     const element: FieldElementConfig = {
       type: 'score-display',
-      config: { side: 'left', showLabel: false, fontSizeOverride: 0 },
+      config: { side: 'left', showLabel: false, fontSizeOverride: 0, fontFamily: '' },
     };
     render(<FieldElementConfigEditor fieldId="f1" element={element} />);
     expect(screen.getByText(CUSTOM_FIELD_LABELS.configSide)).toBeInTheDocument();
@@ -62,7 +62,7 @@ describe('FieldElementConfigEditor', () => {
   it('affiche l editeur de header-block avec la checkbox horloge', () => {
     const element: FieldElementConfig = {
       type: 'header-block',
-      config: { showClock: true },
+      config: { showClock: true, fontFamily: '' },
     };
     render(<FieldElementConfigEditor fieldId="f1" element={element} />);
     expect(screen.getByText(CUSTOM_FIELD_LABELS.configShowClock)).toBeInTheDocument();
@@ -78,7 +78,7 @@ describe('FieldElementConfigEditor', () => {
   it('affiche l editeur de header-block avec horloge desactivee', () => {
     const element: FieldElementConfig = {
       type: 'header-block',
-      config: { showClock: false },
+      config: { showClock: false, fontFamily: '' },
     };
     render(<FieldElementConfigEditor fieldId="f1" element={element} />);
     const checkboxes = screen.getAllByRole('checkbox');
@@ -92,7 +92,7 @@ describe('FieldElementConfigEditor', () => {
   it('affiche l editeur de clock-display avec les checkboxes', () => {
     const element: FieldElementConfig = {
       type: 'clock-display',
-      config: { showPeriod: true, showBox: false, fontSizeOverride: 0 },
+      config: { showPeriod: true, showBox: false, fontSizeOverride: 0, fontFamily: '' },
     };
     render(<FieldElementConfigEditor fieldId="f1" element={element} />);
     expect(screen.getByText(CUSTOM_FIELD_LABELS.configShowPeriod)).toBeInTheDocument();
@@ -105,7 +105,7 @@ describe('FieldElementConfigEditor', () => {
   it('affiche le selecteur de cote et la case drapeau pour un team-name', () => {
     const element: FieldElementConfig = {
       type: 'team-name',
-      config: { side: 'left', showFlag: true, fontSizeOverride: 0 },
+      config: { side: 'left', showFlag: true, fontSizeOverride: 0, fontFamily: '' },
     };
     render(<FieldElementConfigEditor fieldId="f1" element={element} />);
     expect(screen.getByText(CUSTOM_FIELD_LABELS.configSide)).toBeInTheDocument();
