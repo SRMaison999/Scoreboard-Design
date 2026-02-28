@@ -1,3 +1,5 @@
+import type { SpectatorsStyleOverrides } from '@/types/elementStyleOverride';
+
 /** Preset d'affichage des spectateurs */
 export type SpectatorsPreset =
   | 'centered'
@@ -17,6 +19,8 @@ export interface SpectatorsData {
   showCapacity: boolean;
   /** Texte de label personnalisé affiché au-dessus / autour du nombre */
   label: string;
+  /** Surcharges de style par rôle d'élément */
+  styleOverrides: SpectatorsStyleOverrides;
 }
 
 export const DEFAULT_SPECTATORS_DATA: SpectatorsData = {
@@ -28,4 +32,5 @@ export const DEFAULT_SPECTATORS_DATA: SpectatorsData = {
   showVenue: true,
   showCapacity: true,
   label: 'SPECTATEURS',
+  styleOverrides: {},
 };

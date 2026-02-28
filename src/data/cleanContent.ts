@@ -109,6 +109,7 @@ export const CLEAN_CONTENT: Partial<ScoreboardState> = {
     showNocs: true,
     showRoles: true,
     referees: [],
+    styleOverrides: {},
   },
 
   spectatorsData: {
@@ -120,6 +121,7 @@ export const CLEAN_CONTENT: Partial<ScoreboardState> = {
     showVenue: false,
     showCapacity: false,
     label: '',
+    styleOverrides: {},
   },
 
   customFieldsData: structuredClone(DEFAULT_CUSTOM_FIELDS_DATA),

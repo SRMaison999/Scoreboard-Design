@@ -1,3 +1,5 @@
+import type { RefereesStyleOverrides } from '@/types/elementStyleOverride';
+
 /** Rôle d'un arbitre IIHF */
 export type RefereeRole = 'referee' | 'linesman';
 
@@ -30,6 +32,8 @@ export interface RefereesData {
   showNocs: boolean;
   showRoles: boolean;
   referees: RefereeEntry[];
+  /** Surcharges de style par rôle d'élément */
+  styleOverrides: RefereesStyleOverrides;
 }
 
 export const DEFAULT_REFEREES_DATA: RefereesData = {
@@ -45,4 +49,5 @@ export const DEFAULT_REFEREES_DATA: RefereesData = {
     { name: 'GOFMAN', number: '44', nationality: 'RUS', role: 'linesman', showFlag: true, showNoc: true, showRole: true },
     { name: 'ONDRACEK', number: '82', nationality: 'CZE', role: 'linesman', showFlag: true, showNoc: true, showRole: true },
   ],
+  styleOverrides: {},
 };

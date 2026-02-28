@@ -300,6 +300,37 @@ export const EDITOR_LABELS = {
   spectatorsShowCapacity: 'Afficher la capacit\u00e9',
   spectatorsLabel: 'Label personnalis\u00e9',
 
+  /* Surcharges de style par \u00e9l\u00e9ment */
+  styleOverridesSection: 'Style par \u00e9l\u00e9ment',
+  styleOverrideEnabled: 'Personnaliser',
+  styleOverrideFontSize: 'Taille (px)',
+  styleOverrideFontWeight: 'Graisse',
+  styleOverrideFontFamily: 'Police',
+  styleOverrideLetterSpacing: 'Espacement lettres',
+  styleOverrideTextTransform: 'Casse',
+  styleOverrideColor: 'Couleur',
+  styleOverrideOpacity: 'Opacit\u00e9',
+  styleOverrideTextTransformNone: 'Normal',
+  styleOverrideTextTransformUppercase: 'Majuscules',
+  styleOverrideTextTransformLowercase: 'Minuscules',
+  styleOverrideUseGlobal: 'Global',
+  styleOverrideReset: 'R\u00e9initialiser',
+
+  /* Noms des r\u00f4les d\u2019\u00e9l\u00e9ments - Arbitres */
+  styleRoleRefereesTitle: 'Titre',
+  styleRoleRefereesName: 'Noms',
+  styleRoleRefereesNumber: 'Num\u00e9ros',
+  styleRoleRefereesNoc: 'NOC',
+  styleRoleRefereesRole: 'R\u00f4le',
+  styleRoleRefereesCategoryTitle: 'Titre de cat\u00e9gorie',
+
+  /* Noms des r\u00f4les d\u2019\u00e9l\u00e9ments - Spectateurs */
+  styleRoleSpectatorsTitle: 'Titre',
+  styleRoleSpectatorsCount: 'Nombre',
+  styleRoleSpectatorsLabel: 'Label',
+  styleRoleSpectatorsVenue: 'Lieu',
+  styleRoleSpectatorsCapacity: 'Capacit\u00e9',
+
   /* Header - Timeouts */
   sectionTimeouts: 'Temps morts',
   showTimeoutsLabel: 'Afficher les temps morts',

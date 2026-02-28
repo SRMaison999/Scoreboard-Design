@@ -73,6 +73,7 @@ describe('BodyType16', () => {
         showVenue: false,
         showCapacity: false,
         label: '',
+        styleOverrides: {},
       },
     };
     const { container } = render(<BodyType16 {...props} />);
