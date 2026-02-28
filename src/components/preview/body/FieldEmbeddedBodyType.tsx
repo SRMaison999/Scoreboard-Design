@@ -1,5 +1,5 @@
 /**
- * Rend un body type (2-14) a l'interieur d'un champ personnalise du Layout libre.
+ * Rend un body type (2-16) a l'interieur d'un champ personnalise du Layout libre.
  * Reutilise les composants BodyType existants avec le state courant.
  */
 
@@ -16,6 +16,8 @@ import { BodyType10 } from './BodyType10';
 import { BodyType11 } from './BodyType11';
 import { BodyType12 } from './BodyType12';
 import { BodyType13 } from './BodyType13';
+import { BodyType15 } from './BodyType15';
+import { BodyType16 } from './BodyType16';
 import type { ScoreboardState } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 
@@ -64,6 +66,10 @@ export function EmbeddedBodyType({ bodyTypeId, state, colors, opacities }: Embed
       return <BodyType13 scheduleData={state.scheduleData} {...shared} />;
     case 14:
       return <BodyType1 stats={state.stats} titleCenter={state.titleCenter} {...shared} />;
+    case 15:
+      return <BodyType15 refereesData={state.refereesData} {...shared} />;
+    case 16:
+      return <BodyType16 spectatorsData={state.spectatorsData} {...shared} />;
     default:
       return null;
   }
