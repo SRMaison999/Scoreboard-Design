@@ -194,7 +194,7 @@ Détail complet dans `docs/HOCKEY_SCOREBOARD_EDITOR_SPEC.md` section 7.
 
 ## Ajout d'un body type — CHECKLIST OBLIGATOIRE
 
-Avant d'ajouter un nouveau body type, consulter IMPÉRATIVEMENT la checklist complète en 29 étapes dans `docs/ARCHITECTURE_QUICK_START.md` section 7. Les oublis les plus fréquents :
+Avant d'ajouter un nouveau body type, consulter IMPÉRATIVEMENT la checklist complète en 33 étapes dans `docs/ARCHITECTURE_QUICK_START.md` section 7. Les oublis les plus fréquents :
 
 | Étape souvent oubliée | Fichier | Conséquence de l'oubli |
 |---|---|---|
@@ -205,7 +205,9 @@ Avant d'ajouter un nouveau body type, consulter IMPÉRATIVEMENT la checklist com
 | Documentation technique | `CODEBASE_OVERVIEW.md` | Le tableau des body types, le nombre de types et les actions du store sont obsolètes |
 | Manuel body types | `04-body-types.md` | Le type n'est pas documenté pour l'utilisateur |
 
-**RÈGLE** : après avoir implémenté un body type, TOUJOURS vérifier que le type est utilisable depuis le mode Layout libre ET que la documentation est à jour (chapitres 03, 03b, 04, CODEBASE_OVERVIEW).
+**RÈGLE IMPLÉMENTATION** : suivre les étapes A à G de la checklist (sections 1-29).
+
+**RÈGLE VÉRIFICATION (OBLIGATOIRE)** : après avoir implémenté un body type, TOUJOURS exécuter la passe de vérification de la **section H** de la checklist (`docs/ARCHITECTURE_QUICK_START.md` section 7, étapes 30-33). Cette section contient des commandes `grep` concrètes à exécuter. Chaque grep DOIT retourner au moins un résultat. Si un grep ne retourne rien, l'étape correspondante a été oubliée — la corriger AVANT de commiter. Ne JAMAIS considérer un body type comme terminé sans avoir exécuté et validé la section H.
 
 ---
 

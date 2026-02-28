@@ -215,6 +215,63 @@ Checklist exhaustive. CHAQUE etape est obligatoire — un oubli provoque des err
 28. Mettre a jour `docs/CODEBASE_OVERVIEW.md` (tableau des body types, nombre de types, actions du store, version du store, plage du BodyRenderer)
 29. Mettre a jour `docs/DOCUMENTATION_INDEX.md` si necessaire
 
+### H. Verification finale (OBLIGATOIRE — NE JAMAIS SAUTER)
+
+Apres avoir termine toutes les etapes ci-dessus, executer cette passe de controle AVANT le dernier commit. Chaque grep DOIT retourner au moins un resultat. Si un grep ne retourne rien, l'etape correspondante a ete oubliee.
+
+Remplacer `N` par le numero du body type et `NomDuType` par son nom (ex: `Arbitres`, `Spectateurs`).
+
+**30. Verification code** :
+
+```bash
+echo "=== VERIFICATION CODE ==="
+echo "--- Types ---"
+grep -n "BodyTypeN\|bodyTypeN\|body_type_N" src/types/scoreboard.ts
+grep -n "BodyTypeN\|bodyTypeN" src/types/storeActions.ts
+grep -n "bodyScaleN" src/types/fontSizes.ts
+echo "--- Store et etat ---"
+grep -n "xxxData\|NomDuType" src/data/defaultState.ts
+grep -n "xxxData\|NomDuType" src/data/cleanContent.ts
+grep -n "xxxData\|NomDuType" src/stores/scoreboardStore.ts
+grep -n "xxxData\|NomDuType" src/hooks/useOutputSync.ts
+echo "--- Constantes ---"
+grep -n "NomDuType\|body-type-N" src/constants/bodyTypes.ts
+grep -n "NomDuType" src/constants/labels.ts
+grep -n "NomDuType" src/utils/specGenerator.ts
+grep -n "NomDuType\|bodyScaleN" src/components/editor/FontSizeSection.tsx
+echo "--- Composants ---"
+grep -n "BodyTypeN\|case N:" src/components/preview/body/ScoreboardCanvas.tsx
+grep -n "case N:" src/components/editor/BodyContentSection.tsx
+```
+
+**31. Verification Layout libre** :
+
+```bash
+echo "=== VERIFICATION LAYOUT LIBRE ==="
+grep -n "body-type-N" src/types/customField.ts
+grep -n "body-type-N\|NomDuType" src/constants/libraryElements.ts
+grep -n "body-type-N\|BodyTypeN" src/components/preview/body/FieldEmbeddedBodyType.tsx
+```
+
+**32. Verification documentation** :
+
+```bash
+echo "=== VERIFICATION DOCUMENTATION ==="
+grep -n "NomDuType\|Type N" docs/manuel-utilisateur/04-body-types.md
+grep -n "NomDuType\|type N\|N)" docs/manuel-utilisateur/03-layout-libre.md
+grep -n "NomDuType\|type N" docs/manuel-utilisateur/03b-layout-elements.md
+grep -n "NomDuType\|BodyTypeN" docs/CODEBASE_OVERVIEW.md
+grep -n "NomDuType" docs/DOCUMENTATION_INDEX.md
+```
+
+**33. Verification tests + build** :
+
+```bash
+npm run type-check && npm run lint && npm run test:run
+```
+
+> **REGLE** : si un seul grep de l'etape 30, 31 ou 32 ne retourne aucun resultat, CORRIGER l'oubli AVANT de commiter.
+
 ---
 
 ## 8. Ajouter un composant UI
