@@ -455,6 +455,22 @@ Les 15 types d'affichage classiques (Stats centrées, Stats gauche/droite, Fiche
 
 **Exemple concret :** placez un Header complet en haut, un Classement au centre et une Fiche joueur en bas pour créer un écran de pause publicitaire complet. Vous pouvez aussi intégrer un bloc Arbitres ou Spectateurs pour enrichir vos pages d'information. Consultez le chapitre [Tutoriels pas à pas](03c-layout-tutoriels.md) pour des guides détaillés.
 
+### Arbitres (type 15)
+
+Bloc embarqué présentant les officiels du match avec drapeaux de nationalité, codes NOC et rôles. Les données affichées sont celles configurées dans l'onglet [Body types > Arbitres](04-body-types.md#type-15--arbitres).
+
+**Options :** **Preset d'affichage** (tous, un par un, colonnes par rôle, lignes par rôle, libre), **Drapeaux** (afficher/masquer), **Codes NOC** (afficher/masquer), **Rôles** (afficher/masquer).
+
+**Astuce :** combinez un Header complet en haut avec un bloc Arbitres en dessous pour créer un écran de présentation des officiels avant le match. Ajustez le preset selon l'espace disponible : « Colonnes par rôle » pour un affichage large, « Un par un » pour un bandeau compact.
+
+### Spectateurs (type 16)
+
+Bloc embarqué affichant le nombre de spectateurs présents, avec lieu et capacité optionnels. Les données affichées sont celles configurées dans l'onglet [Body types > Spectateurs](04-body-types.md#type-16--spectateurs).
+
+**Options :** **Preset d'affichage** (centré, bannière, compact, détaillé, libre), **Label personnalisé** (texte affiché autour du nombre), **Lieu** (nom de l'arène), **Capacité** (capacité maximale).
+
+**Astuce :** le preset « Bannière » est idéal pour intégrer l'affluence dans un layout existant sans occuper trop de place. Combinez avec un Header complet et un bloc Classement pour un écran d'information complet pendant les pauses.
+
 ---
 
 ## Organiser les couches
