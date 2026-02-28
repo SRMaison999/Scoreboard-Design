@@ -24,11 +24,11 @@ Les trois vues partagent le meme state Zustand. La synchronisation entre fenetre
 
 **Fichier** : `src/stores/scoreboardStore.ts`
 
-State principal de l'application. Contient toutes les donnees du scoreboard : equipes, scores, couleurs, polices, phases, penalites, et les donnees specifiques aux 13 body types.
+State principal de l'application. Contient toutes les donnees du scoreboard : equipes, scores, couleurs, polices, phases, penalites, et les donnees specifiques aux 16 body types.
 
 **Middleware** :
 - `immer` : mutations immutables via draft
-- `persist` : sauvegarde automatique dans `localStorage` (cle `scoreboard-state`, version 9)
+- `persist` : sauvegarde automatique dans `localStorage` (cle `scoreboard-state`, version 10)
 
 **Actions principales** :
 - `update(key, value)` : mise a jour generique d'un champ
@@ -40,7 +40,7 @@ State principal de l'application. Contient toutes les donnees du scoreboard : eq
 - `incrementScore/decrementScore` : scores
 - `nextPhase` : avancer a la phase suivante
 - `loadState/resetState` : charger/reinitialiser
-- Actions specifiques par body type (updateGoalField, addRosterPlayer, etc.)
+- Actions specifiques par body type (updateGoalField, addRosterPlayer, updateReferee, updateSpectateurs, etc.)
 - `addCustomField/updateCustomField/removeCustomField` : champs personnalisés (Body Type 1 - Layout libre)
 - `selectField/reorderField` : sélection et réordonnancement des couches
 - `moveSelectedFields/removeSelectedFields/duplicateSelectedFields` : operations multi-selection
@@ -353,11 +353,11 @@ Voir `docs/DESIGN_SYSTEM_REFERENCE.md` pour le detail.
 - Fond en degrade (`bgTop` -> `bgMid` -> `bgBot`) ou fond uniforme
 - `Header` : drapeaux/logos, noms d'equipes, scores (avec mode TeamBadge : flag/logo/both)
 - `ClockOverlay` : horloge et periode
-- `BodyRenderer` : switch vers le body type actif (2-14)
+- `BodyRenderer` : switch vers le body type actif (2-16)
 - `PenaltyColumn` (gauche et droite) : penalites actives
 - `CompetitionLogoRenderer` / `SponsorLogoRenderer` : logos en overlay
 
-**14 body types** dans `src/components/preview/body/` :
+**16 body types** dans `src/components/preview/body/` :
 
 Le Layout libre (type 1, composant BodyType14) est le mode principal, proposé en premier dans l'interface.
 
@@ -377,6 +377,8 @@ Le Layout libre (type 1, composant BodyType14) est le mode principal, proposé e
 | 11 | BodyType11 | Barres comparatives |
 | 12 | BodyType12 | Roster / composition |
 | 13 | BodyType13 | Calendrier / prochains matchs |
+| 15 | BodyType15 | Arbitres (drapeaux, NOC, rôles) |
+| 16 | BodyType16 | Spectateurs (affluence, lieu, capacité) |
 
 **Sous-composants du Body Type 1 (Layout libre, composant BodyType14)** :
 
@@ -392,6 +394,7 @@ Le Layout libre (type 1, composant BodyType14) est le mode principal, proposé e
 | `FieldEventElements.tsx` | Renderers des éléments événement : événement unique (but/pénalité/temps mort), chronologie |
 | `FieldScheduleElements.tsx` | Renderers des éléments calendrier : match unique, programme (liste de matchs) |
 | `FieldCardElements.tsx` | Renderers de la fiche joueur (photo, nom, équipe, stats) et du score par période |
+| `FieldEmbeddedBodyType.tsx` | Renderers des body types embarqués (types 2-16) utilisés comme éléments composés dans le Layout libre |
 | `ZoneSelectionOverlay.tsx` | Overlay de sélection de zone par rectangle, extrait en composant autonome |
 
 ### 5.4 Operateur (`src/components/operator/`)
