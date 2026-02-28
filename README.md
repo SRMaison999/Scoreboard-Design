@@ -16,7 +16,7 @@
 
 - [Aperçu](#aperçu)
 - [Fonctionnalités](#fonctionnalités)
-- [Les 14 types d'affichage](#les-14-types-daffichage)
+- [Les 16 types d'affichage](#les-16-types-daffichage)
 - [Stack technique](#stack-technique)
 - [Prérequis](#prérequis)
 - [Démarrage rapide](#démarrage-rapide)
@@ -26,7 +26,7 @@
 - [Persistance des données](#persistance-des-données)
 - [Routes et modes](#routes-et-modes)
 - [Personnalisation visuelle](#personnalisation-visuelle)
-- [Mode mise en page libre](#mode-mise-en-page-libre-body-type-14)
+- [Mode mise en page libre](#mode-mise-en-page-libre-body-type-1)
 - [Horloge et phases](#horloge-et-phases)
 - [Sortie broadcast](#sortie-broadcast)
 - [Gestion des données](#gestion-des-données)
@@ -61,13 +61,14 @@ La synchronisation entre les fenêtres s'effectue via l'API `BroadcastChannel`, 
 ### Éditeur visuel complet
 
 - **6 panneaux d'édition** : Modes, Contenu, Apparence, Horloge, Animations, Intégrations
+- **16 types d'affichage** (body types) du format fixe au mode libre complet
 - **14 canaux de couleur** avec opacité indépendante (0-100 %)
 - **25 polices Google Fonts** organisées en 6 catégories (Sport, Condensée, Moderne, Display, Monospace, Serif)
 - **3 zones de police indépendantes** : équipes, horloge, corps
 - **Tailles automatiques** adaptées au nombre de lignes (1 à 8 lignes de statistiques)
 - **5 presets de couleurs** : Classic Blue, Dark Pro, Ice White, Hockey Red, Arena Green
 - **4 presets de mise en page** pour le mode libre
-- **Drapeaux CSS** pour 31 nations (codes NOC)
+- **Drapeaux SVG** pour 31 nations (codes NOC)
 - **Preview responsive** avec scaling automatique (1920x1080 par défaut, configurable)
 
 ### Mode opérateur live
@@ -110,26 +111,28 @@ Interface simplifiée pour le contrôle en direct pendant la retransmission :
 
 ---
 
-## Les 14 types d'affichage
+## Les 16 types d'affichage
 
-L'application propose 14 **body types**, du format fixe au mode libre complet :
+L'application propose 16 **body types**, du format fixe au mode libre complet :
 
 | Type | Nom | Description |
 |------|-----|-------------|
 | 1 | **Layout libre** | Éditeur drag-and-drop complet (voir section dédiée) |
 | 2 | Stats gauche/droite | Statistiques en colonnes décalées avec double titre |
-| 3 | Stats joueur | Photo joueur + liste label/valeur |
-| 4 | But | Écran de célébration de but |
-| 5 | Fiche joueur | Vue détaillée d'un joueur (statistiques étendues) |
-| 6 | Classement | Tableau de classement (standings) |
-| 7 | Score final | Écran de fin de match |
-| 8 | Texte libre | Message configurable |
-| 9 | Face-à-face | Comparaison tête-à-tête entre deux joueurs |
-| 10 | Calendrier | Liste des matchs (schedule) |
-| 11 | Barres | Diagramme à barres comparatif |
-| 12 | Roster | Affichage de l'effectif |
-| 13 | Timeline | Frise chronologique des événements |
-| 14 | Stats centrées | Statistiques équipe gauche / droite en colonnes centrées |
+| 3 | Stats joueur | Fiche d'un joueur avec photo et statistiques individuelles |
+| 4 | Célébration de but | Affichage du buteur, des assistants et du temps du but |
+| 5 | Fiche joueur | Carte complète d'un joueur avec nom, numéro et stats |
+| 6 | Classement | Tableau de classement avec colonnes personnalisables |
+| 7 | Score final | Résultat du match avec détail par période et but gagnant |
+| 8 | Texte libre | Message texte personnalisé avec alignement et taille |
+| 9 | Face-à-face | Comparaison directe de deux joueurs avec stats |
+| 10 | Chronologie | Événements du match en ordre chronologique |
+| 11 | Barres comparatives | Graphiques en barres pour comparer les statistiques |
+| 12 | Composition d'équipe | Liste des joueurs avec numéros et positions |
+| 13 | Calendrier | Programme des matchs avec dates, heures et résultats |
+| 14 | Stats centrées | Titre centré, lignes de stats équilibrées gauche/droite |
+| 15 | Arbitres | Présentation des arbitres avec drapeaux, NOC et rôles |
+| 16 | Spectateurs | Affichage du nombre de spectateurs et informations sur le lieu |
 
 ---
 
@@ -144,6 +147,7 @@ L'application propose 14 **body types**, du format fixe au mode libre complet :
 | Styles (canvas) | Inline styles (capturable par OBS) | -- |
 | Build | Vite | 7.3 |
 | Desktop | Electron | 40.x |
+| Routage | React Router DOM | 7.13 |
 | Tests | Vitest + Testing Library + jest-dom | 4.0 |
 | Persistance | IndexedDB via Dexie.js | 4.3 |
 | Import données | PapaParse (CSV) + ExcelJS (Excel) | 5.5 / 4.4 |
@@ -221,47 +225,49 @@ scoreboard-design/
 │   ├── components/
 │   │   ├── ui/                     # Composants UI réutilisables (Button, Modal, Section...)
 │   │   ├── common/                 # Composants partagés (manuel utilisateur)
-│   │   ├── editor/                 # Panneau éditeur (36+ sections d'édition)
-│   │   │   ├── panels/            #   6 onglets (Modes, Contenu, Apparence...)
-│   │   │   ├── sections/          #   Sections d'édition spécialisées
-│   │   │   └── toolbar/           #   Barre d'outils supérieure
+│   │   ├── editor/                 # Panneau éditeur (38+ sections d'édition)
+│   │   │   ├── panels/            #   11 panneaux (Modes, Contenu, Apparence, Layout libre...)
+│   │   │   └── ...                #   Sections d'édition spécialisées
 │   │   ├── preview/                # Canvas de preview + renderers
-│   │   │   ├── body-types/        #   14 renderers de body types
-│   │   │   ├── canvas/            #   Composants du canvas (grille, guides, règles)
-│   │   │   └── elements/          #   Éléments du mode libre
+│   │   │   ├── body/              #   16 renderers de body types
+│   │   │   └── ...                #   Éléments du mode libre, guides, menus
 │   │   ├── operator/               # Mode opérateur live
 │   │   └── output/                 # Fenêtre de sortie broadcast + overlays
-│   ├── hooks/                      # 25 hooks custom
-│   │   ├── useScoreboardStore.ts  #   Accès au store principal
-│   │   ├── useFreeLayoutDrag.ts   #   Drag-and-drop pour le mode libre
+│   ├── hooks/                      # 27 hooks custom
+│   │   ├── useTimer.ts            #   Gestion de l'horloge en temps réel
+│   │   ├── useFieldDrag.ts        #   Drag-and-drop pour le mode libre
 │   │   ├── useSmartGuides.ts      #   Guides d'alignement dynamiques
 │   │   ├── useCanvasZoom.ts       #   Zoom et panoramique du canvas
-│   │   ├── useTimer.ts            #   Gestion de l'horloge en temps réel
-│   │   ├── useKeyboardShortcuts.ts #  Raccourcis clavier
-│   │   ├── useUndoRedo.ts         #   Historique annuler/refaire
-│   │   └── ...                    #   18 autres hooks spécialisés
+│   │   ├── useOutputSync.ts       #   Synchronisation fenêtre de sortie
+│   │   ├── useOperatorKeyboard.ts #   Raccourcis clavier opérateur
+│   │   ├── useBroadcast.ts        #   Communication BroadcastChannel
+│   │   └── ...                    #   20 autres hooks spécialisés
 │   ├── stores/                     # 18 stores Zustand
 │   │   ├── scoreboardStore.ts     #   Store principal (template, scores, horloge)
-│   │   ├── freeLayoutStore.ts     #   Store du mode libre (éléments, sélection)
-│   │   ├── templateLibraryStore.ts #  Bibliothèque de templates (IndexedDB)
+│   │   ├── canvasViewStore.ts     #   Canvas (zoom, pan, grille, guides)
+│   │   ├── templateStore.ts       #   Bibliothèque de templates (IndexedDB)
 │   │   ├── photoStore.ts          #   Photos des joueurs
 │   │   ├── logoStore.ts           #   Logos (équipe, compétition, sponsors)
-│   │   ├── overlayStore.ts        #   Overlays multi-scoreboard
-│   │   ├── animationStore.ts      #   Animations et transitions
+│   │   ├── multiScoreboardStore.ts #  Overlays multi-scoreboard
+│   │   ├── broadcastStore.ts      #   Diffusion et communication
 │   │   └── ...                    #   11 autres stores spécialisés
-│   ├── types/                      # 23 modules de types TypeScript
-│   ├── constants/                  # 10 modules de constantes
+│   ├── types/                      # 44 modules de types TypeScript
+│   ├── constants/                  # 13 modules de constantes
 │   │   ├── labels.ts              #   Labels d'interface
 │   │   ├── colors.ts              #   Tokens de couleurs
 │   │   ├── fonts.ts               #   Catalogue des polices
+│   │   ├── bodyTypes.ts           #   Définition des 16 body types
+│   │   ├── libraryElements.ts     #   45 éléments de bibliothèque
 │   │   ├── nations.ts             #   31 codes NOC + drapeaux
-│   │   └── ...                    #   6 autres modules
-│   ├── utils/                      # 30 fonctions utilitaires
+│   │   └── ...                    #   7 autres modules
+│   ├── utils/                      # 32 fonctions utilitaires
 │   ├── api/                        # 9 modules API
-│   │   ├── frameDataApi.ts        #   Frame Data API (delta encoding)
-│   │   ├── broadcastSync.ts       #   Synchronisation BroadcastChannel
-│   │   ├── liveDataApi.ts         #   Données en temps réel (WebSocket/HTTP)
-│   │   └── ...                    #   6 autres modules d'intégration
+│   │   ├── frameConverters.ts     #   Convertisseurs Frame Data
+│   │   ├── frameDelta.ts          #   Delta encoding
+│   │   ├── broadcast/             #   Streaming broadcast
+│   │   ├── liveData/              #   Données en temps réel (WebSocket/HTTP)
+│   │   ├── sync/                  #   Synchronisation multi-site
+│   │   └── ...                    #   4 autres modules
 │   ├── data/                       # État par défaut, presets, contenu du manuel
 │   ├── lib/                        # Utilitaires (cn() pour Tailwind)
 │   ├── styles/                     # CSS (éditeur, impression)
@@ -276,16 +282,18 @@ scoreboard-design/
 
 | Métrique | Valeur |
 |----------|--------|
-| Composants React | ~98 |
-| Hooks custom | 25 |
+| Composants React | ~153 |
+| Hooks custom | 27 |
 | Stores Zustand | 18 |
-| Fichiers de types | 23 |
-| Modules de constantes | 10 |
-| Fonctions utilitaires | 30 |
+| Fichiers de types | 44 |
+| Modules de constantes | 13 |
+| Fonctions utilitaires | 32 |
 | Modules API | 9 |
-| Fichiers de tests | 211 |
-| Sections d'éditeur | 36+ |
-| Renderers de body types | 14 (+ variantes) |
+| Fichiers de tests | 225 |
+| Sections d'éditeur | 38+ |
+| Panneaux d'éditeur | 11 |
+| Renderers de body types | 16 (+ variantes) |
+| Éléments de bibliothèque | 45 |
 
 ---
 
@@ -298,23 +306,23 @@ L'application utilise **Zustand** avec les middlewares `immer` (mutations immuta
 | Store | Responsabilité |
 |-------|---------------|
 | `scoreboardStore` | Store principal : template actif, scores, horloge, phases, pénalités, couleurs, polices |
-| `freeLayoutStore` | Mode libre : éléments, sélection, historique undo/redo, clipboard |
-| `templateLibraryStore` | Bibliothèque de templates (CRUD via IndexedDB/Dexie.js) |
+| `canvasViewStore` | Canvas : zoom, panoramique, grille, guides, règles |
+| `templateStore` | Bibliothèque de templates (CRUD via IndexedDB/Dexie.js) |
 | `photoStore` | Photos des joueurs (upload, compression, stockage IndexedDB) |
 | `logoStore` | Logos d'équipe, de compétition et de sponsors |
-| `overlayStore` | Overlays multi-scoreboard (bandeau bas, score bug, ticker) |
-| `animationStore` | Animations et transitions des éléments |
-| `rosterStore` | Effectifs importés (CSV, Excel, JSON) |
-| `fieldPresetStore` | Presets de champs et de mises en page |
-| `elementLibraryStore` | Bibliothèque d'éléments réutilisables (50+ éléments) |
-| `canvasStore` | État du canvas (zoom, pan, grille, guides, règles) |
-| `contextMenuStore` | Menu contextuel (couper, copier, coller, dupliquer) |
-| `keyboardShortcutStore` | Raccourcis clavier configurables |
-| `frameDataStore` | Frame Data API (enregistrement, snapshots) |
+| `multiScoreboardStore` | Overlays multi-scoreboard (bandeau bas, score bug, ticker) |
+| `broadcastStore` | Diffusion et communication entre fenêtres |
+| `clipboardStore` | Presse-papiers (couper, copier, coller, dupliquer) |
+| `customFieldActions` | Actions des champs personnalisés du mode libre |
+| `editorUIStore` | État de l'interface éditeur (onglets, panneaux) |
+| `frameStore` | Frame Data API (enregistrement, snapshots, delta encoding) |
 | `liveDataStore` | Données live (WebSocket, polling) |
+| `presetStore` | Presets de couleurs et de mises en page |
 | `syncStore` | Synchronisation multi-site |
-| `integrationStore` | Intégrations CasparCG/Viz |
-| `uiStore` | État de l'interface (onglets, panneaux) |
+| `timerActions` | Actions de l'horloge (démarrer, arrêter, réinitialiser) |
+| `toastStore` | Notifications toast (messages utilisateur) |
+| `undoRedoStore` | Historique annuler/refaire (50 niveaux) |
+| `zoneSelectionStore` | Sélection de zone (boîte de sélection) |
 
 ---
 
@@ -409,11 +417,11 @@ Organisées en 6 catégories :
 
 ### 31 nations supportées
 
-Drapeaux CSS intégrés pour les codes NOC : AUT, BLR, BUL, CAN, CHN, CRO, CZE, DEN, EST, FIN, FRA, GBR, GER, HUN, ITA, JPN, KAZ, KOR, LAT, LTU, NED, NOR, POL, ROU, RUS, SUI, SVK, SWE, TUR, UKR, USA.
+Drapeaux SVG intégrés pour les codes NOC : AUT, BLR, BUL, CAN, CHN, CRO, CZE, DEN, EST, FIN, FRA, GBR, GER, HUN, ITA, JPN, KAZ, KOR, LAT, LTU, NOR, POL, ROU, RUS, SLO, SRB, SUI, SVK, SWE, UKR, USA.
 
 ---
 
-## Mode mise en page libre (Body Type 14)
+## Mode mise en page libre (Body Type 1)
 
 Le mode libre offre un éditeur drag-and-drop complet pour créer des mises en page entièrement personnalisées :
 
@@ -440,7 +448,7 @@ Le mode libre offre un éditeur drag-and-drop complet pour créer des mises en p
 
 ### Bibliothèque d'éléments
 
-50+ éléments réutilisables organisés en 11 catégories, incluant :
+45 éléments réutilisables organisés en catégories, incluant :
 
 - Lignes de joueurs, affichages de score, photos, listes de staff
 - Tableaux, événements, calendriers, texte libre, séparateurs
@@ -560,7 +568,7 @@ Format d'export : `.scoreboard.json`
 
 ## Tests
 
-Le projet utilise **Vitest** + **Testing Library** + **jest-dom** avec **211 fichiers de tests**.
+Le projet utilise **Vitest** + **Testing Library** + **jest-dom** avec **225 fichiers de tests**.
 
 ```bash
 # Tests en mode watch
@@ -603,7 +611,7 @@ Le projet dispose d'une documentation technique complète dans le répertoire `d
 
 | Document | Description |
 |----------|-------------|
-| [Spécification technique](docs/HOCKEY_SCOREBOARD_EDITOR_SPEC.md) | Architecture complète, 14 body types, Frame Data API, interfaces TypeScript |
+| [Spécification technique](docs/HOCKEY_SCOREBOARD_EDITOR_SPEC.md) | Architecture complète, 16 body types, Frame Data API, interfaces TypeScript |
 | [Démarrage rapide](docs/ARCHITECTURE_QUICK_START.md) | Guide d'intégration pour les nouveaux développeurs |
 | [Vue d'ensemble](docs/CODEBASE_OVERVIEW.md) | Architecture du système, flux de données, organisation des stores |
 | [Design system](docs/DESIGN_SYSTEM_REFERENCE.md) | Tokens de couleurs, typographie, composants UI |
@@ -613,12 +621,14 @@ Le projet dispose d'une documentation technique complète dans le répertoire `d
 
 ### Manuel utilisateur
 
-Le [manuel utilisateur](docs/manuel-utilisateur/) est intégré à l'application et comprend **14 chapitres** en français couvrant l'ensemble des fonctionnalités. Il inclut une **barre de recherche intelligente** (insensible aux accents, surlignage des résultats, extraits de contexte) :
+Le [manuel utilisateur](docs/manuel-utilisateur/) est intégré à l'application et comprend **16 chapitres** en français couvrant l'ensemble des fonctionnalités. Il inclut une **barre de recherche intelligente** (insensible aux accents, surlignage des résultats, extraits de contexte) :
 
 1. Introduction
 2. Guide de l'éditeur
-3. Types d'affichage (body types)
-4. Layout libre (prise en main, éléments, tutoriels)
+3. Layout libre (prise en main)
+3b. Layout libre (éléments)
+3c. Layout libre (tutoriels)
+4. Types d'affichage (body types)
 5. Personnalisation visuelle
 6. Horloge et phases
 7. Templates
@@ -675,13 +685,13 @@ Les 9 phases de développement sont toutes terminées :
 | 2 | Capture, impression, dimensionnement des polices, dimensions du template | Terminé |
 | 3 | Gestion des templates (IndexedDB, JSON, import/export) | Terminé |
 | 4 | Frame Data API (sérialisation, delta encoding, enregistrement) | Terminé |
-| 5 | 13 body types prédéfinis (types 1 à 13) | Terminé |
+| 5 | 16 body types (types 1 à 16, incluant Arbitres et Spectateurs) | Terminé |
 | 6 | Mode opérateur live (raccourcis clavier, fenêtre de sortie) | Terminé |
 | 7 | Photos et médias (photos joueurs, logos équipe/sponsors) | Terminé |
 | 8 | Animations et export (enregistrement vidéo, export GIF) | Terminé |
 | 9 | Intégrations externes (import rosters, API live, multi-scoreboard, sync, CasparCG/Viz) | Terminé |
 
-Le mode **mise en page libre** (Body Type 14) a été développé en parallèle avec des fonctionnalités avancées : multi-sélection, guides intelligents, zoom/pan, redimensionnement à 8 poignées, menu contextuel, rotation, édition en ligne, distribution/alignement, 50+ éléments réutilisables, presets, undo/redo et raccourcis clavier.
+Le mode **mise en page libre** (Body Type 1) a été développé en parallèle avec des fonctionnalités avancées : multi-sélection, guides intelligents, zoom/pan, redimensionnement à 8 poignées, menu contextuel, rotation, édition en ligne, distribution/alignement, 45 éléments réutilisables, presets, undo/redo et raccourcis clavier.
 
 ---
 
