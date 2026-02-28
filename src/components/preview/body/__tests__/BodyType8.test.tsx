@@ -35,7 +35,7 @@ describe('BodyType8', () => {
   it('gère un texte vide', () => {
     const props = {
       ...baseProps,
-      freeTextData: { lines: [] },
+      freeTextData: { lines: [], styleOverrides: {} },
     };
     const { container } = render(<BodyType8 {...props} />);
     expect(container.firstChild).toBeInTheDocument();

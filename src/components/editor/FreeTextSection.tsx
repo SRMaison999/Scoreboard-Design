@@ -1,11 +1,18 @@
+import { useMemo, useCallback } from 'react';
 import { Section } from '@/components/ui/Section';
 import { InputField } from '@/components/ui/InputField';
 import { Button } from '@/components/ui/Button';
+import { StyleOverridePanel } from '@/components/editor/StyleOverridePanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
 import type { TextAlign } from '@/types/bodyTypes/freeText';
+import type { ElementStyleOverride, FreeTextStyleRole } from '@/types/elementStyleOverride';
 
 const MAX_LINES = 10;
+
+const STYLE_ROLES = [
+  { role: 'line', label: EDITOR_LABELS.styleRoleFreeTextLine },
+] as const;
 
 const ALIGN_OPTIONS: { value: TextAlign; label: string }[] = [
   { value: 'left', label: EDITOR_LABELS.freeTextAlignLeft },
@@ -18,6 +25,15 @@ export function FreeTextSection() {
   const addLine = useScoreboardStore((s) => s.addFreeTextLine);
   const removeLine = useScoreboardStore((s) => s.removeFreeTextLine);
   const updateLine = useScoreboardStore((s) => s.updateFreeTextLine);
+  const updateStyleOverride = useScoreboardStore((s) => s.updateFreeTextStyleOverride);
+
+  const overrides = useMemo(() => data.styleOverrides ?? {}, [data.styleOverrides]);
+  const handleStyleUpdate = useCallback(
+    (role: string, override: ElementStyleOverride | undefined) => {
+      updateStyleOverride(role as FreeTextStyleRole, override);
+    },
+    [updateStyleOverride],
+  );
 
   const title = `${EDITOR_LABELS.sectionFreeText} (${String(data.lines.length)}/${String(MAX_LINES)})`;
 
@@ -80,6 +96,12 @@ export function FreeTextSection() {
           + {EDITOR_LABELS.freeTextAddLine}
         </Button>
       )}
+
+      <StyleOverridePanel
+        roles={STYLE_ROLES}
+        overrides={overrides}
+        onUpdate={handleStyleUpdate}
+      />
     </Section>
   );
 }

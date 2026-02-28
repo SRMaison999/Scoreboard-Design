@@ -1,3 +1,5 @@
+import type { ScheduleStyleOverrides } from '@/types/elementStyleOverride';
+
 export type MatchStatus = 'upcoming' | 'live' | 'finished';
 
 export interface ScheduleMatch {
@@ -14,6 +16,7 @@ export interface ScheduleMatch {
 export interface ScheduleData {
   title: string;
   matches: ScheduleMatch[];
+  styleOverrides: ScheduleStyleOverrides;
 }
 
 export const DEFAULT_SCHEDULE_DATA: ScheduleData = {
@@ -23,4 +26,5 @@ export const DEFAULT_SCHEDULE_DATA: ScheduleData = {
     { date: '15/02', time: '20:00', teamLeft: 'FIN', teamRight: 'USA', scoreLeft: '', scoreRight: '', status: 'upcoming', venue: 'Arena Milano' },
     { date: '16/02', time: '16:00', teamLeft: 'SVK', teamRight: 'CZE', scoreLeft: '', scoreRight: '', status: 'upcoming', venue: 'Arena Cortina' },
   ],
+  styleOverrides: {},
 };

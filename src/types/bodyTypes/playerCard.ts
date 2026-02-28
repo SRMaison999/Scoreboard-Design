@@ -1,3 +1,5 @@
+import type { PlayerCardStyleOverrides } from '@/types/elementStyleOverride';
+
 export interface PlayerCardStat {
   label: string;
   value: string;
@@ -11,6 +13,7 @@ export interface PlayerCardData {
   playerTeam: string;
   playerPhoto: string;
   stats: PlayerCardStat[];
+  styleOverrides: PlayerCardStyleOverrides;
 }
 
 export const DEFAULT_PLAYER_CARD_DATA: PlayerCardData = {
@@ -26,4 +29,5 @@ export const DEFAULT_PLAYER_CARD_DATA: PlayerCardData = {
     { label: 'POINTS', value: '5' },
     { label: '+/-', value: '+4' },
   ],
+  styleOverrides: {},
 };

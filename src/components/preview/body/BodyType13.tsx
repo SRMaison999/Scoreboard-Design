@@ -1,9 +1,11 @@
-import { hexToRgba } from '@/utils/color';
+import { resolveElementStyle, resolveColor } from '@/utils/elementStyle';
 import { ff, scaleFontSize } from '@/utils/font';
 import type { ScheduleData, MatchStatus } from '@/types/bodyTypes/schedule';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
 import type { FontSizeConfig } from '@/types/fontSizes';
+import type { StyleContext, ElementDefaults } from '@/utils/elementStyle';
+import type { ScheduleStyleOverrides } from '@/types/elementStyleOverride';
 
 interface BodyType13Props {
   readonly scheduleData: ScheduleData;
@@ -28,6 +30,41 @@ const STATUS_LABELS: Record<MatchStatus, string> = {
   finished: 'FIN',
 };
 
+const DEFAULTS_TITLE: ElementDefaults = {
+  fontSize: 26, fontWeight: 600, letterSpacing: 5,
+  textTransform: 'uppercase', colorKey: 'titleText',
+};
+
+const DEFAULTS_DATE: ElementDefaults = {
+  fontSize: 14, fontWeight: 400, letterSpacing: 0,
+  textTransform: 'none', colorKey: 'statLabel',
+};
+
+const DEFAULTS_TIME: ElementDefaults = {
+  fontSize: 16, fontWeight: 600, letterSpacing: 0,
+  textTransform: 'none', colorKey: 'statVal',
+};
+
+const DEFAULTS_TEAM_NAME: ElementDefaults = {
+  fontSize: 20, fontWeight: 700, letterSpacing: 2,
+  textTransform: 'uppercase', colorKey: 'statVal',
+};
+
+const DEFAULTS_SCORE: ElementDefaults = {
+  fontSize: 18, fontWeight: 700, letterSpacing: 2,
+  textTransform: 'uppercase', colorKey: 'statVal',
+};
+
+const DEFAULTS_STATUS: ElementDefaults = {
+  fontSize: 12, fontWeight: 700, letterSpacing: 1,
+  textTransform: 'none', colorKey: 'statVal',
+};
+
+const DEFAULTS_VENUE: ElementDefaults = {
+  fontSize: 12, fontWeight: 400, letterSpacing: 0,
+  textTransform: 'none', colorKey: 'statLabel',
+};
+
 export function BodyType13({
   scheduleData,
   showPenalties,
@@ -36,10 +73,19 @@ export function BodyType13({
   fontBody,
   fontSizes,
 }: BodyType13Props) {
-  const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const pad = showPenalties ? 10 : 40;
   const sc = fontSizes?.bodyScale13 ?? 100;
-  const { title, matches } = scheduleData;
+  const ctx: StyleContext = { colors, opacities, fontBody, bodyScale: sc };
+  const { title, matches, styleOverrides } = scheduleData;
+  const ov: ScheduleStyleOverrides = styleOverrides ?? {};
+
+  const titleStyle = resolveElementStyle(DEFAULTS_TITLE, ctx, ov.title);
+  const dateStyle = resolveElementStyle(DEFAULTS_DATE, ctx, ov.date);
+  const timeStyle = resolveElementStyle(DEFAULTS_TIME, ctx, ov.time);
+  const teamNameStyle = resolveElementStyle(DEFAULTS_TEAM_NAME, ctx, ov.teamName);
+  const scoreStyle = resolveElementStyle(DEFAULTS_SCORE, ctx, ov.score);
+  const statusBaseStyle = resolveElementStyle(DEFAULTS_STATUS, ctx, ov.status);
+  const venueStyle = resolveElementStyle(DEFAULTS_VENUE, ctx, ov.venue);
 
   return (
     <div
@@ -57,12 +103,8 @@ export function BodyType13({
       {/* Titre */}
       <div
         style={{
-          fontSize: scaleFontSize(26, sc),
-          fontWeight: 600,
-          letterSpacing: 5,
-          textTransform: 'uppercase',
-          color: col('titleText'),
           marginBottom: 6,
+          ...titleStyle,
         }}
       >
         {title}
@@ -81,17 +123,15 @@ export function BodyType13({
             borderBottom: '1px solid rgba(255,255,255,0.06)',
           }}
         >
-          <div style={{ width: 50, fontSize: scaleFontSize(14, sc), color: col('statLabel'), flexShrink: 0 }}>
+          <div style={{ width: 50, flexShrink: 0, ...dateStyle }}>
             {match.date}
           </div>
           <div
             style={{
               width: 46,
-              fontSize: scaleFontSize(16, sc),
-              fontWeight: 600,
               fontVariantNumeric: 'tabular-nums',
-              color: col('statVal'),
               flexShrink: 0,
+              ...timeStyle,
             }}
           >
             {match.time}
@@ -103,32 +143,26 @@ export function BodyType13({
               alignItems: 'center',
               justifyContent: 'center',
               gap: 10,
-              fontSize: scaleFontSize(20, sc),
-              fontWeight: 700,
-              letterSpacing: 2,
-              textTransform: 'uppercase',
-              color: col('statVal'),
+              ...teamNameStyle,
             }}
           >
             <span>{match.teamLeft}</span>
             {match.status === 'finished' || match.status === 'live' ? (
-              <span style={{ fontSize: scaleFontSize(18, sc), fontVariantNumeric: 'tabular-nums' }}>
+              <span style={{ fontVariantNumeric: 'tabular-nums', ...scoreStyle }}>
                 {match.scoreLeft} - {match.scoreRight}
               </span>
             ) : (
-              <span style={{ fontSize: scaleFontSize(14, sc), color: col('statLabel') }}>vs</span>
+              <span style={{ fontSize: scaleFontSize(14, sc), color: resolveColor('statLabel', ctx) }}>vs</span>
             )}
             <span>{match.teamRight}</span>
           </div>
           <div
             style={{
               width: 50,
-              fontSize: scaleFontSize(12, sc),
-              fontWeight: 700,
               textAlign: 'center',
-              color: statusColor(match.status),
-              letterSpacing: 1,
               flexShrink: 0,
+              ...statusBaseStyle,
+              color: ov.status?.color ? statusBaseStyle.color : statusColor(match.status),
             }}
           >
             {STATUS_LABELS[match.status]}
@@ -137,13 +171,12 @@ export function BodyType13({
             <div
               style={{
                 width: 110,
-                fontSize: scaleFontSize(12, sc),
-                color: col('statLabel'),
                 textAlign: 'right',
                 overflow: 'hidden',
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
                 flexShrink: 0,
+                ...venueStyle,
               }}
             >
               {match.venue}

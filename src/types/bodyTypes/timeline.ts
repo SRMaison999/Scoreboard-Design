@@ -1,3 +1,5 @@
+import type { TimelineStyleOverrides } from '@/types/elementStyleOverride';
+
 export type TimelineEventType = 'goal' | 'penalty' | 'timeout' | 'period';
 
 export interface TimelineEvent {
@@ -11,6 +13,7 @@ export interface TimelineEvent {
 export interface TimelineData {
   title: string;
   events: TimelineEvent[];
+  styleOverrides: TimelineStyleOverrides;
 }
 
 export const DEFAULT_TIMELINE_DATA: TimelineData = {
@@ -21,4 +24,5 @@ export const DEFAULT_TIMELINE_DATA: TimelineData = {
     { period: '2nd', time: '08:17', type: 'goal', description: 'LAINE (BARKOV)', team: 'FIN' },
     { period: '2nd', time: '15:30', type: 'timeout', description: 'Temps mort', team: 'SVK' },
   ],
+  styleOverrides: {},
 };

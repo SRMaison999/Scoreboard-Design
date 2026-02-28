@@ -267,6 +267,8 @@ describe('scoreboardStore', () => {
         showPlayerPhoto: s.showPlayerPhoto,
         playerStats: s.playerStats,
         stats: s.stats,
+        statsStyleOverrides: s.statsStyleOverrides,
+        playerStatsStyleOverrides: s.playerStatsStyleOverrides,
         penaltiesLeft: s.penaltiesLeft,
         penaltiesRight: s.penaltiesRight,
         goalData: s.goalData,

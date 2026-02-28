@@ -1,10 +1,21 @@
+import { useMemo, useCallback } from 'react';
 import { Section } from '@/components/ui/Section';
 import { InputField } from '@/components/ui/InputField';
 import { Button } from '@/components/ui/Button';
+import { StyleOverridePanel } from '@/components/editor/StyleOverridePanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
+import type { ElementStyleOverride, HeadToHeadStyleRole } from '@/types/elementStyleOverride';
 
 const MAX_STATS = 8;
+
+const STYLE_ROLES = [
+  { role: 'title', label: EDITOR_LABELS.styleRoleHeadToHeadTitle },
+  { role: 'playerName', label: EDITOR_LABELS.styleRoleHeadToHeadPlayerName },
+  { role: 'playerInfo', label: EDITOR_LABELS.styleRoleHeadToHeadPlayerInfo },
+  { role: 'statValue', label: EDITOR_LABELS.styleRoleHeadToHeadStatValue },
+  { role: 'statLabel', label: EDITOR_LABELS.styleRoleHeadToHeadStatLabel },
+] as const;
 
 export function HeadToHeadSection() {
   const data = useScoreboardStore((s) => s.headToHeadData);
@@ -13,6 +24,15 @@ export function HeadToHeadSection() {
   const addStat = useScoreboardStore((s) => s.addHeadToHeadStat);
   const removeStat = useScoreboardStore((s) => s.removeHeadToHeadStat);
   const updateStat = useScoreboardStore((s) => s.updateHeadToHeadStat);
+  const updateStyleOverride = useScoreboardStore((s) => s.updateHeadToHeadStyleOverride);
+
+  const overrides = useMemo(() => data.styleOverrides ?? {}, [data.styleOverrides]);
+  const handleStyleUpdate = useCallback(
+    (role: string, override: ElementStyleOverride | undefined) => {
+      updateStyleOverride(role as HeadToHeadStyleRole, override);
+    },
+    [updateStyleOverride],
+  );
 
   const title = `${EDITOR_LABELS.sectionHeadToHead} (${String(data.stats.length)}/${String(MAX_STATS)})`;
 
@@ -101,6 +121,12 @@ export function HeadToHeadSection() {
           + {EDITOR_LABELS.headToHeadAddStat}
         </Button>
       )}
+
+      <StyleOverridePanel
+        roles={STYLE_ROLES}
+        overrides={overrides}
+        onUpdate={handleStyleUpdate}
+      />
     </Section>
   );
 }

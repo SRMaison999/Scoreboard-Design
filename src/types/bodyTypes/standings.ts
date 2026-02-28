@@ -1,3 +1,5 @@
+import type { StandingsStyleOverrides } from '@/types/elementStyleOverride';
+
 export interface StandingsColumn {
   id: string;
   label: string;
@@ -13,6 +15,7 @@ export interface StandingsData {
   title: string;
   columns: StandingsColumn[];
   rows: StandingsRow[];
+  styleOverrides: StandingsStyleOverrides;
 }
 
 const DEFAULT_COLUMNS: StandingsColumn[] = [
@@ -37,4 +40,5 @@ export const DEFAULT_STANDINGS_DATA: StandingsData = {
   title: 'GROUPE A - CLASSEMENT',
   columns: DEFAULT_COLUMNS,
   rows: DEFAULT_ROWS,
+  styleOverrides: {},
 };

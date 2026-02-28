@@ -38,7 +38,7 @@ describe('BodyType13', () => {
   it('gère un calendrier vide', () => {
     const props = {
       ...baseProps,
-      scheduleData: { title: 'TEST', matches: [] },
+      scheduleData: { title: 'TEST', matches: [], styleOverrides: {} },
     };
     const { container } = render(<BodyType13 {...props} />);
     expect(container.firstChild).toBeInTheDocument();

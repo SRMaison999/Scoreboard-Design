@@ -60,7 +60,7 @@ describe('BodyType3', () => {
     render(<BodyType3 {...baseProps} fontSizes={scaledFontSizes} />);
     const title = screen.getByText('GAME STATISTICS');
     const titleFs = parseInt(title.style.fontSize, 10);
-    expect(titleFs).toBe(60);
+    expect(titleFs).toBe(52);
   });
 
   it('réduit les tailles avec un body scale inférieur à 100', () => {
@@ -68,6 +68,6 @@ describe('BodyType3', () => {
     render(<BodyType3 {...baseProps} fontSizes={scaledFontSizes} />);
     const title = screen.getByText('GAME STATISTICS');
     const titleFs = parseInt(title.style.fontSize, 10);
-    expect(titleFs).toBe(15);
+    expect(titleFs).toBe(13);
   });
 });

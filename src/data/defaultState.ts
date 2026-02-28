@@ -115,5 +115,8 @@ export const DEFAULT_STATE: ScoreboardState = {
   scoreboardVisible: true,
   animationConfig: { ...DEFAULT_ANIMATION_CONFIG },
 
+  statsStyleOverrides: {},
+  playerStatsStyleOverrides: {},
+
   customFieldsData: structuredClone(DEFAULT_CUSTOM_FIELDS_DATA),
 };

@@ -18,6 +18,7 @@ import type { FontSizeConfig } from './fontSizes';
 import type { LogoMode, LogoPosition } from './logo';
 import type { AnimationConfig } from './animation';
 import type { CustomFieldsData } from './customField';
+import type { StatsStyleOverrides, PlayerStatsStyleOverrides } from './elementStyleOverride';
 
 export type BodyTypeId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16;
 
@@ -100,6 +101,9 @@ export interface ScoreboardState {
   playerStats: PlayerStat[];
 
   stats: StatLine[];
+  statsStyleOverrides: StatsStyleOverrides;
+
+  playerStatsStyleOverrides: PlayerStatsStyleOverrides;
 
   penaltiesLeft: Penalty[];
   penaltiesRight: Penalty[];

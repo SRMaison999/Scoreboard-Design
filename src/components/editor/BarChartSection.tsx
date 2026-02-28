@@ -1,8 +1,18 @@
+import { useMemo, useCallback } from 'react';
 import { Section } from '@/components/ui/Section';
 import { InputField } from '@/components/ui/InputField';
 import { Button } from '@/components/ui/Button';
+import { StyleOverridePanel } from '@/components/editor/StyleOverridePanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
+import type { ElementStyleOverride, BarChartStyleRole } from '@/types/elementStyleOverride';
+
+const STYLE_ROLES = [
+  { role: 'title', label: EDITOR_LABELS.styleRoleBarChartTitle },
+  { role: 'teamName', label: EDITOR_LABELS.styleRoleBarChartTeamName },
+  { role: 'rowLabel', label: EDITOR_LABELS.styleRoleBarChartRowLabel },
+  { role: 'rowValue', label: EDITOR_LABELS.styleRoleBarChartRowValue },
+] as const;
 
 const MAX_ROWS = 8;
 
@@ -17,6 +27,15 @@ export function BarChartSection() {
   const addRow = useScoreboardStore((s) => s.addBarChartRow);
   const removeRow = useScoreboardStore((s) => s.removeBarChartRow);
   const updateRow = useScoreboardStore((s) => s.updateBarChartRow);
+  const updateStyleOverride = useScoreboardStore((s) => s.updateBarChartStyleOverride);
+
+  const overrides = useMemo(() => data.styleOverrides ?? {}, [data.styleOverrides]);
+  const handleStyleUpdate = useCallback(
+    (role: string, override: ElementStyleOverride | undefined) => {
+      updateStyleOverride(role as BarChartStyleRole, override);
+    },
+    [updateStyleOverride],
+  );
 
   const title = `${EDITOR_LABELS.sectionBarChart} (${String(data.rows.length)}/${String(MAX_ROWS)})`;
 
@@ -78,6 +97,12 @@ export function BarChartSection() {
           + {EDITOR_LABELS.barChartAddRow}
         </Button>
       )}
+
+      <StyleOverridePanel
+        roles={STYLE_ROLES}
+        overrides={overrides}
+        onUpdate={handleStyleUpdate}
+      />
     </Section>
   );
 }

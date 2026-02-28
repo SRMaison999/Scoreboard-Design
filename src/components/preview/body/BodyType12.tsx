@@ -1,11 +1,13 @@
-import { hexToRgba } from '@/utils/color';
-import { ff, scaleFontSize } from '@/utils/font';
+import { resolveElementStyle } from '@/utils/elementStyle';
+import { ff } from '@/utils/font';
 import { Flag } from '@/components/preview/Flag';
 import { POSITION_LABELS } from '@/constants/positions';
 import type { RosterData } from '@/types/bodyTypes/roster';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
 import type { FontSizeConfig } from '@/types/fontSizes';
+import type { StyleContext, ElementDefaults } from '@/utils/elementStyle';
+import type { RosterStyleOverrides } from '@/types/elementStyleOverride';
 
 interface BodyType12Props {
   readonly rosterData: RosterData;
@@ -17,6 +19,31 @@ interface BodyType12Props {
   readonly flagOverrides?: Record<string, string>;
 }
 
+const DEFAULTS_TITLE: ElementDefaults = {
+  fontSize: 26, fontWeight: 600, letterSpacing: 5,
+  textTransform: 'uppercase', colorKey: 'titleText',
+};
+
+const DEFAULTS_COACH: ElementDefaults = {
+  fontSize: 16, fontWeight: 400, letterSpacing: 3,
+  textTransform: 'none', colorKey: 'statLabel', hardcodedOpacity: 0.7,
+};
+
+const DEFAULTS_PLAYER_NUMBER: ElementDefaults = {
+  fontSize: 20, fontWeight: 700, letterSpacing: 0,
+  textTransform: 'none', colorKey: 'statVal',
+};
+
+const DEFAULTS_PLAYER_NAME: ElementDefaults = {
+  fontSize: 20, fontWeight: 600, letterSpacing: 2,
+  textTransform: 'uppercase', colorKey: 'statVal',
+};
+
+const DEFAULTS_POSITION: ElementDefaults = {
+  fontSize: 16, fontWeight: 500, letterSpacing: 1,
+  textTransform: 'none', colorKey: 'statLabel',
+};
+
 export function BodyType12({
   rosterData,
   showPenalties,
@@ -26,10 +53,17 @@ export function BodyType12({
   fontSizes,
   flagOverrides,
 }: BodyType12Props) {
-  const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const pad = showPenalties ? 10 : 40;
   const sc = fontSizes?.bodyScale12 ?? 100;
-  const { title, team, coach, players } = rosterData;
+  const ctx: StyleContext = { colors, opacities, fontBody, bodyScale: sc };
+  const { title, team, coach, players, styleOverrides } = rosterData;
+  const ov: RosterStyleOverrides = styleOverrides ?? {};
+
+  const titleStyle = resolveElementStyle(DEFAULTS_TITLE, ctx, ov.title);
+  const coachStyle = resolveElementStyle(DEFAULTS_COACH, ctx, ov.coach);
+  const playerNumberStyle = resolveElementStyle(DEFAULTS_PLAYER_NUMBER, ctx, ov.playerNumber);
+  const playerNameStyle = resolveElementStyle(DEFAULTS_PLAYER_NAME, ctx, ov.playerName);
+  const positionStyle = resolveElementStyle(DEFAULTS_POSITION, ctx, ov.position);
 
   return (
     <div
@@ -49,21 +83,17 @@ export function BodyType12({
         <Flag code={team} w={44} h={28} flagOverrides={flagOverrides} />
         <div
           style={{
-            fontSize: scaleFontSize(26, sc),
-            fontWeight: 600,
-            letterSpacing: 5,
-            textTransform: 'uppercase',
             lineHeight: 1,
-            color: col('titleText'),
+            ...titleStyle,
           }}
         >
           {title}
         </div>
       </div>
 
-      {/* Entraîneur */}
+      {/* Entra\u00eeneur */}
       {coach && (
-        <div style={{ fontSize: scaleFontSize(16, sc), color: col('statLabel'), letterSpacing: 3, opacity: 0.7, marginBottom: 4 }}>
+        <div style={{ marginBottom: 4, ...coachStyle }}>
           Coach : {coach}
         </div>
       )}
@@ -84,11 +114,9 @@ export function BodyType12({
           <div
             style={{
               width: 40,
-              fontSize: scaleFontSize(20, sc),
-              fontWeight: 700,
               fontVariantNumeric: 'tabular-nums',
-              color: col('statVal'),
               textAlign: 'center',
+              ...playerNumberStyle,
             }}
           >
             {player.number}
@@ -96,11 +124,7 @@ export function BodyType12({
           <div
             style={{
               flex: 1,
-              fontSize: scaleFontSize(20, sc),
-              fontWeight: 600,
-              letterSpacing: 2,
-              textTransform: 'uppercase',
-              color: col('statVal'),
+              ...playerNameStyle,
             }}
           >
             {player.name}
@@ -108,12 +132,9 @@ export function BodyType12({
           <div
             style={{
               minWidth: 100,
-              fontSize: scaleFontSize(16, sc),
-              fontWeight: 500,
-              color: col('statLabel'),
               textAlign: 'right',
-              letterSpacing: 1,
               whiteSpace: 'nowrap',
+              ...positionStyle,
             }}
           >
             {POSITION_LABELS[player.position] ?? player.position}

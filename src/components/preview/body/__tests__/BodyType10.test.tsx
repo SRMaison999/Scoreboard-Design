@@ -33,7 +33,7 @@ describe('BodyType10', () => {
   it('gère une timeline vide', () => {
     const props = {
       ...baseProps,
-      timelineData: { title: 'TEST', events: [] },
+      timelineData: { title: 'TEST', events: [], styleOverrides: {} },
     };
     const { container } = render(<BodyType10 {...props} />);
     expect(container.firstChild).toBeInTheDocument();

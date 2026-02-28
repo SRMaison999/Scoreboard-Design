@@ -1,13 +1,24 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Section } from '@/components/ui/Section';
 import { InputField } from '@/components/ui/InputField';
 import { Select } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
 import { ImageUpload } from '@/components/ui/ImageUpload';
+import { StyleOverridePanel } from '@/components/editor/StyleOverridePanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { HOCKEY_NATIONS } from '@/constants/nations';
 import { EDITOR_LABELS } from '@/constants/labels';
 import { compressImage } from '@/utils/image';
+import type { ElementStyleOverride, PlayerCardStyleRole } from '@/types/elementStyleOverride';
+
+const STYLE_ROLES = [
+  { role: 'title', label: EDITOR_LABELS.styleRolePlayerCardTitle },
+  { role: 'subtitle', label: EDITOR_LABELS.styleRolePlayerCardSubtitle },
+  { role: 'playerName', label: EDITOR_LABELS.styleRolePlayerCardPlayerName },
+  { role: 'teamName', label: EDITOR_LABELS.styleRolePlayerCardTeamName },
+  { role: 'statValue', label: EDITOR_LABELS.styleRolePlayerCardStatValue },
+  { role: 'statLabel', label: EDITOR_LABELS.styleRolePlayerCardStatLabel },
+] as const;
 
 const NATION_OPTIONS = HOCKEY_NATIONS.map((n) => ({
   value: n.noc,
@@ -22,6 +33,15 @@ export function PlayerCardSection() {
   const addStat = useScoreboardStore((s) => s.addPlayerCardStat);
   const removeStat = useScoreboardStore((s) => s.removePlayerCardStat);
   const updateStat = useScoreboardStore((s) => s.updatePlayerCardStat);
+  const updateStyleOverride = useScoreboardStore((s) => s.updatePlayerCardStyleOverride);
+
+  const overrides = useMemo(() => data.styleOverrides ?? {}, [data.styleOverrides]);
+  const handleStyleUpdate = useCallback(
+    (role: string, override: ElementStyleOverride | undefined) => {
+      updateStyleOverride(role as PlayerCardStyleRole, override);
+    },
+    [updateStyleOverride],
+  );
 
   const handlePhotoUpload = useCallback(
     (dataUrl: string) => {
@@ -112,6 +132,12 @@ export function PlayerCardSection() {
           + {EDITOR_LABELS.playerCardAddStat}
         </Button>
       )}
+
+      <StyleOverridePanel
+        roles={STYLE_ROLES}
+        overrides={overrides}
+        onUpdate={handleStyleUpdate}
+      />
     </Section>
   );
 }

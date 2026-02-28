@@ -23,7 +23,9 @@ export const CLEAN_CONTENT: Partial<ScoreboardState> = {
   titleRight: '',
 
   playerStats: [],
+  playerStatsStyleOverrides: {},
   stats: [],
+  statsStyleOverrides: {},
   penaltiesLeft: [],
   penaltiesRight: [],
 
@@ -40,6 +42,7 @@ export const CLEAN_CONTENT: Partial<ScoreboardState> = {
     assist1Number: '',
     assist2Name: '',
     assist2Number: '',
+    styleOverrides: {},
   },
 
   playerCardData: {
@@ -50,12 +53,14 @@ export const CLEAN_CONTENT: Partial<ScoreboardState> = {
     playerTeam: '',
     playerPhoto: '',
     stats: [],
+    styleOverrides: {},
   },
 
   standingsData: {
     title: '',
     columns: [],
     rows: [],
+    styleOverrides: {},
   },
 
   finalScoreData: {
@@ -66,10 +71,12 @@ export const CLEAN_CONTENT: Partial<ScoreboardState> = {
     gwgTeam: '',
     gwgTime: '',
     overtimeNote: '',
+    styleOverrides: {},
   },
 
   freeTextData: {
     lines: [],
+    styleOverrides: {},
   },
 
   headToHeadData: {
@@ -77,16 +84,19 @@ export const CLEAN_CONTENT: Partial<ScoreboardState> = {
     playerLeft: { name: '', number: '', team: '' },
     playerRight: { name: '', number: '', team: '' },
     stats: [],
+    styleOverrides: {},
   },
 
   timelineData: {
     title: '',
     events: [],
+    styleOverrides: {},
   },
 
   barChartData: {
     title: '',
     rows: [],
+    styleOverrides: {},
   },
 
   rosterData: {
@@ -94,11 +104,13 @@ export const CLEAN_CONTENT: Partial<ScoreboardState> = {
     team: '',
     coach: '',
     players: [],
+    styleOverrides: {},
   },
 
   scheduleData: {
     title: '',
     matches: [],
+    styleOverrides: {},
   },
 
   refereesData: {

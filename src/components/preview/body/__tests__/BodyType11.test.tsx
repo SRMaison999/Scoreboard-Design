@@ -41,7 +41,7 @@ describe('BodyType11', () => {
   it('gère des données vides', () => {
     const props = {
       ...baseProps,
-      barChartData: { title: 'TEST', rows: [] },
+      barChartData: { title: 'TEST', rows: [], styleOverrides: {} },
     };
     const { container } = render(<BodyType11 {...props} />);
     expect(container.firstChild).toBeInTheDocument();

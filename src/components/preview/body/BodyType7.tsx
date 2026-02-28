@@ -1,10 +1,11 @@
-import { hexToRgba } from '@/utils/color';
-import { ff, scaleFontSize } from '@/utils/font';
+import { resolveElementStyle, resolveColor } from '@/utils/elementStyle';
+import { ff } from '@/utils/font';
 import { Flag } from '@/components/preview/Flag';
 import type { FinalScoreData } from '@/types/bodyTypes/finalScore';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
 import type { FontSizeConfig } from '@/types/fontSizes';
+import type { StyleContext, ElementDefaults } from '@/utils/elementStyle';
 
 interface BodyType7Props {
   readonly finalScoreData: FinalScoreData;
@@ -20,6 +21,36 @@ interface BodyType7Props {
   readonly flagOverrides?: Record<string, string>;
 }
 
+const DEFAULTS_TITLE: ElementDefaults = {
+  fontSize: 26, fontWeight: 600, letterSpacing: 8,
+  textTransform: 'uppercase', colorKey: 'titleText',
+};
+
+const DEFAULTS_TEAM_NAME: ElementDefaults = {
+  fontSize: 20, fontWeight: 700, letterSpacing: 4,
+  textTransform: 'none', colorKey: 'titleText',
+};
+
+const DEFAULTS_SCORE: ElementDefaults = {
+  fontSize: 72, fontWeight: 900, letterSpacing: 8,
+  textTransform: 'none', colorKey: 'statVal',
+};
+
+const DEFAULTS_PERIOD_SCORES: ElementDefaults = {
+  fontSize: 16, fontWeight: 400, letterSpacing: 3,
+  textTransform: 'none', colorKey: 'statLabel', hardcodedOpacity: 0.7,
+};
+
+const DEFAULTS_OVERTIME_NOTE: ElementDefaults = {
+  fontSize: 18, fontWeight: 600, letterSpacing: 4,
+  textTransform: 'none', colorKey: 'statVal',
+};
+
+const DEFAULTS_GWG: ElementDefaults = {
+  fontSize: 14, fontWeight: 400, letterSpacing: 2,
+  textTransform: 'none', colorKey: 'statLabel', hardcodedOpacity: 0.8,
+};
+
 export function BodyType7({
   finalScoreData,
   team1,
@@ -33,10 +64,20 @@ export function BodyType7({
   fontSizes,
   flagOverrides,
 }: BodyType7Props) {
-  const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const sc = fontSizes?.bodyScale7 ?? 100;
   const pad = showPenalties ? 10 : 40;
-  const { title, periodScores, showGwg, gwgPlayer, gwgTeam, gwgTime, overtimeNote } = finalScoreData;
+  const ctx: StyleContext = { colors, opacities, fontBody, bodyScale: sc };
+  const { title, periodScores, showGwg, gwgPlayer, gwgTeam, gwgTime, overtimeNote, styleOverrides } = finalScoreData;
+  const ov = styleOverrides ?? {};
+
+  const titleStyle = resolveElementStyle(DEFAULTS_TITLE, ctx, ov.title);
+  const teamNameStyle = resolveElementStyle(DEFAULTS_TEAM_NAME, ctx, ov.teamName);
+  const scoreStyle = resolveElementStyle(DEFAULTS_SCORE, ctx, ov.score);
+  const periodScoresStyle = resolveElementStyle(DEFAULTS_PERIOD_SCORES, ctx, ov.periodScores);
+  const overtimeNoteStyle = resolveElementStyle(DEFAULTS_OVERTIME_NOTE, ctx, ov.overtimeNote);
+  const gwgStyle = resolveElementStyle(DEFAULTS_GWG, ctx, ov.gwg);
+
+  const glowColor = resolveColor(DEFAULTS_SCORE.colorKey, ctx, ov.score);
 
   const periodSummary = periodScores
     .map((ps) => `${ps.scoreLeft}-${ps.scoreRight}`)
@@ -56,15 +97,7 @@ export function BodyType7({
       }}
     >
       {/* Titre */}
-      <div
-        style={{
-          fontSize: scaleFontSize(32, sc),
-          fontWeight: 600,
-          letterSpacing: 8,
-          textTransform: 'uppercase',
-          color: col('titleText'),
-        }}
-      >
+      <div style={titleStyle}>
         {title}
       </div>
 
@@ -81,11 +114,8 @@ export function BodyType7({
           <Flag code={team1} w={70} h={44} flagOverrides={flagOverrides} />
           <span
             style={{
-              fontSize: scaleFontSize(48, sc),
-              fontWeight: 700,
-              letterSpacing: 4,
               lineHeight: 1,
-              color: col('statVal'),
+              ...teamNameStyle,
             }}
           >
             {team1}
@@ -93,12 +123,9 @@ export function BodyType7({
         </div>
         <div
           style={{
-            fontSize: scaleFontSize(90, sc),
-            fontWeight: 900,
-            color: col('statVal'),
             fontVariantNumeric: 'tabular-nums',
-            textShadow: `0 0 30px ${col('statVal')}60`,
-            letterSpacing: 8,
+            textShadow: `0 0 30px ${glowColor}60`,
+            ...scoreStyle,
           }}
         >
           {score1} - {score2}
@@ -106,11 +133,8 @@ export function BodyType7({
         <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
           <span
             style={{
-              fontSize: scaleFontSize(48, sc),
-              fontWeight: 700,
-              letterSpacing: 4,
               lineHeight: 1,
-              color: col('statVal'),
+              ...teamNameStyle,
             }}
           >
             {team2}
@@ -121,14 +145,14 @@ export function BodyType7({
 
       {/* Note prolongation */}
       {overtimeNote && (
-        <div style={{ fontSize: scaleFontSize(22, sc), fontWeight: 600, color: col('statLabel'), letterSpacing: 4 }}>
+        <div style={overtimeNoteStyle}>
           ({overtimeNote})
         </div>
       )}
 
       {/* Scores par periode */}
       {periodScores.length > 0 && (
-        <div style={{ fontSize: scaleFontSize(20, sc), color: col('statLabel'), letterSpacing: 3, opacity: 0.7 }}>
+        <div style={periodScoresStyle}>
           {periodSummary}
         </div>
       )}
@@ -137,11 +161,8 @@ export function BodyType7({
       {showGwg && gwgPlayer && (
         <div
           style={{
-            fontSize: scaleFontSize(20, sc),
-            color: col('statLabel'),
-            letterSpacing: 2,
             marginTop: 8,
-            opacity: 0.8,
+            ...gwgStyle,
           }}
         >
           GWG : {gwgPlayer} ({gwgTeam}) {gwgTime}

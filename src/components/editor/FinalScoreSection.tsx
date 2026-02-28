@@ -1,8 +1,20 @@
+import { useMemo, useCallback } from 'react';
 import { Section } from '@/components/ui/Section';
 import { InputField } from '@/components/ui/InputField';
 import { Button } from '@/components/ui/Button';
+import { StyleOverridePanel } from '@/components/editor/StyleOverridePanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
+import type { ElementStyleOverride, FinalScoreStyleRole } from '@/types/elementStyleOverride';
+
+const STYLE_ROLES = [
+  { role: 'title', label: EDITOR_LABELS.styleRoleFinalScoreTitle },
+  { role: 'teamName', label: EDITOR_LABELS.styleRoleFinalScoreTeamName },
+  { role: 'score', label: EDITOR_LABELS.styleRoleFinalScoreScore },
+  { role: 'periodScores', label: EDITOR_LABELS.styleRoleFinalScorePeriodScores },
+  { role: 'overtimeNote', label: EDITOR_LABELS.styleRoleFinalScoreOvertimeNote },
+  { role: 'gwg', label: EDITOR_LABELS.styleRoleFinalScoreGwg },
+] as const;
 
 const MAX_PERIODS = 8;
 
@@ -12,6 +24,15 @@ export function FinalScoreSection() {
   const addPeriod = useScoreboardStore((s) => s.addPeriodScore);
   const removePeriod = useScoreboardStore((s) => s.removePeriodScore);
   const updatePeriod = useScoreboardStore((s) => s.updatePeriodScore);
+  const updateStyleOverride = useScoreboardStore((s) => s.updateFinalScoreStyleOverride);
+
+  const overrides = useMemo(() => data.styleOverrides ?? {}, [data.styleOverrides]);
+  const handleStyleUpdate = useCallback(
+    (role: string, override: ElementStyleOverride | undefined) => {
+      updateStyleOverride(role as FinalScoreStyleRole, override);
+    },
+    [updateStyleOverride],
+  );
 
   const title = `${EDITOR_LABELS.sectionFinalScore} (${String(data.periodScores.length)}/${String(MAX_PERIODS)})`;
 
@@ -100,6 +121,12 @@ export function FinalScoreSection() {
           + {EDITOR_LABELS.finalScoreAddPeriod}
         </Button>
       )}
+
+      <StyleOverridePanel
+        roles={STYLE_ROLES}
+        overrides={overrides}
+        onUpdate={handleStyleUpdate}
+      />
     </Section>
   );
 }

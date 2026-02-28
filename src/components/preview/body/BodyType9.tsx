@@ -1,4 +1,4 @@
-import { hexToRgba } from '@/utils/color';
+import { resolveElementStyle, resolveColor } from '@/utils/elementStyle';
 import { ff, scaleFontSize } from '@/utils/font';
 import { PhotoCircle } from '@/components/preview/PhotoCircle';
 import { playerPhotoKey } from '@/types/playerPhoto';
@@ -6,6 +6,7 @@ import type { HeadToHeadData } from '@/types/bodyTypes/headToHead';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
 import type { FontSizeConfig } from '@/types/fontSizes';
+import type { StyleContext, ElementDefaults } from '@/utils/elementStyle';
 
 interface BodyType9Props {
   readonly headToHeadData: HeadToHeadData;
@@ -17,6 +18,31 @@ interface BodyType9Props {
   readonly fontSizes?: FontSizeConfig;
 }
 
+const DEFAULTS_TITLE: ElementDefaults = {
+  fontSize: 26, fontWeight: 600, letterSpacing: 5,
+  textTransform: 'uppercase', colorKey: 'titleText',
+};
+
+const DEFAULTS_PLAYER_NAME: ElementDefaults = {
+  fontSize: 22, fontWeight: 700, letterSpacing: 2,
+  textTransform: 'none', colorKey: 'statVal',
+};
+
+const DEFAULTS_PLAYER_INFO: ElementDefaults = {
+  fontSize: 14, fontWeight: 400, letterSpacing: 2,
+  textTransform: 'none', colorKey: 'statLabel',
+};
+
+const DEFAULTS_STAT_VALUE: ElementDefaults = {
+  fontSize: 28, fontWeight: 700, letterSpacing: 0,
+  textTransform: 'none', colorKey: 'statVal',
+};
+
+const DEFAULTS_STAT_LABEL: ElementDefaults = {
+  fontSize: 14, fontWeight: 500, letterSpacing: 3,
+  textTransform: 'uppercase', colorKey: 'statLabel',
+};
+
 export function BodyType9({
   headToHeadData,
   showPenalties,
@@ -26,12 +52,21 @@ export function BodyType9({
   playerPhotos = {},
   fontSizes,
 }: BodyType9Props) {
-  const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const pad = showPenalties ? 10 : 40;
   const sc = fontSizes?.bodyScale9 ?? 100;
-  const { title, playerLeft, playerRight, stats } = headToHeadData;
+  const ctx: StyleContext = { colors, opacities, fontBody, bodyScale: sc };
+  const { title, playerLeft, playerRight, stats, styleOverrides } = headToHeadData;
+  const ov = styleOverrides ?? {};
   const photoLeft = playerPhotos[playerPhotoKey(playerLeft.team, playerLeft.number)] ?? '';
   const photoRight = playerPhotos[playerPhotoKey(playerRight.team, playerRight.number)] ?? '';
+
+  const titleStyle = resolveElementStyle(DEFAULTS_TITLE, ctx, ov.title);
+  const playerNameStyle = resolveElementStyle(DEFAULTS_PLAYER_NAME, ctx, ov.playerName);
+  const playerInfoStyle = resolveElementStyle(DEFAULTS_PLAYER_INFO, ctx, ov.playerInfo);
+  const statValueStyle = resolveElementStyle(DEFAULTS_STAT_VALUE, ctx, ov.statValue);
+  const statLabelStyle = resolveElementStyle(DEFAULTS_STAT_LABEL, ctx, ov.statLabel);
+
+  const photoColor = resolveColor('statVal', ctx, ov.playerName);
 
   return (
     <div
@@ -47,15 +82,7 @@ export function BodyType9({
       }}
     >
       {/* Titre */}
-      <div
-        style={{
-          fontSize: scaleFontSize(28, sc),
-          fontWeight: 600,
-          letterSpacing: 5,
-          textTransform: 'uppercase',
-          color: col('titleText'),
-        }}
-      >
+      <div style={titleStyle}>
         {title}
       </div>
 
@@ -74,24 +101,24 @@ export function BodyType9({
             fallbackText={playerLeft.number}
             size={scaleFontSize(64, sc)}
             fontSize={scaleFontSize(24, sc)}
-            color={col('statVal')}
+            color={photoColor}
             fontFamily={ff(fontBody)}
           />
           <div>
-            <div style={{ fontSize: scaleFontSize(32, sc), fontWeight: 700, color: col('statVal'), letterSpacing: 2 }}>
+            <div style={playerNameStyle}>
               {playerLeft.name}
             </div>
-            <div style={{ fontSize: scaleFontSize(16, sc), color: col('statLabel'), letterSpacing: 2 }}>
+            <div style={playerInfoStyle}>
               #{playerLeft.number} {playerLeft.team}
             </div>
           </div>
         </div>
         <div style={{ textAlign: 'right', display: 'flex', alignItems: 'center', gap: 16 }}>
           <div>
-            <div style={{ fontSize: scaleFontSize(32, sc), fontWeight: 700, color: col('statVal'), letterSpacing: 2 }}>
+            <div style={playerNameStyle}>
               {playerRight.name}
             </div>
-            <div style={{ fontSize: scaleFontSize(16, sc), color: col('statLabel'), letterSpacing: 2 }}>
+            <div style={playerInfoStyle}>
               {playerRight.team} #{playerRight.number}
             </div>
           </div>
@@ -100,7 +127,7 @@ export function BodyType9({
             fallbackText={playerRight.number}
             size={scaleFontSize(64, sc)}
             fontSize={scaleFontSize(24, sc)}
-            color={col('statVal')}
+            color={photoColor}
             fontFamily={ff(fontBody)}
           />
         </div>
@@ -123,10 +150,8 @@ export function BodyType9({
             style={{
               flex: 1,
               textAlign: 'left',
-              fontSize: scaleFontSize(26, sc),
-              fontWeight: 700,
               fontVariantNumeric: 'tabular-nums',
-              color: col('statVal'),
+              ...statValueStyle,
             }}
           >
             {stat.valueLeft}
@@ -135,11 +160,7 @@ export function BodyType9({
             style={{
               flex: 1,
               textAlign: 'center',
-              fontSize: scaleFontSize(16, sc),
-              fontWeight: 500,
-              letterSpacing: 3,
-              textTransform: 'uppercase',
-              color: col('statLabel'),
+              ...statLabelStyle,
             }}
           >
             {stat.label}
@@ -148,10 +169,8 @@ export function BodyType9({
             style={{
               flex: 1,
               textAlign: 'right',
-              fontSize: scaleFontSize(26, sc),
-              fontWeight: 700,
               fontVariantNumeric: 'tabular-nums',
-              color: col('statVal'),
+              ...statValueStyle,
             }}
           >
             {stat.valueRight}

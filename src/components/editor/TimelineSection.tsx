@@ -1,9 +1,21 @@
+import { useMemo, useCallback } from 'react';
 import { Section } from '@/components/ui/Section';
 import { InputField } from '@/components/ui/InputField';
 import { Button } from '@/components/ui/Button';
+import { StyleOverridePanel } from '@/components/editor/StyleOverridePanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
 import type { TimelineEventType } from '@/types/bodyTypes/timeline';
+import type { ElementStyleOverride, TimelineStyleRole } from '@/types/elementStyleOverride';
+
+const STYLE_ROLES = [
+  { role: 'title', label: EDITOR_LABELS.styleRoleTimelineTitle },
+  { role: 'time', label: EDITOR_LABELS.styleRoleTimelineTime },
+  { role: 'team', label: EDITOR_LABELS.styleRoleTimelineTeam },
+  { role: 'description', label: EDITOR_LABELS.styleRoleTimelineDescription },
+  { role: 'period', label: EDITOR_LABELS.styleRoleTimelinePeriod },
+  { role: 'symbol', label: EDITOR_LABELS.styleRoleTimelineSymbol },
+] as const;
 
 const MAX_EVENTS = 8;
 
@@ -20,6 +32,15 @@ export function TimelineSection() {
   const addEvent = useScoreboardStore((s) => s.addTimelineEvent);
   const removeEvent = useScoreboardStore((s) => s.removeTimelineEvent);
   const updateEvent = useScoreboardStore((s) => s.updateTimelineEvent);
+  const updateStyleOverride = useScoreboardStore((s) => s.updateTimelineStyleOverride);
+
+  const overrides = useMemo(() => data.styleOverrides ?? {}, [data.styleOverrides]);
+  const handleStyleUpdate = useCallback(
+    (role: string, override: ElementStyleOverride | undefined) => {
+      updateStyleOverride(role as TimelineStyleRole, override);
+    },
+    [updateStyleOverride],
+  );
 
   const title = `${EDITOR_LABELS.sectionTimeline} (${String(data.events.length)}/${String(MAX_EVENTS)})`;
 
@@ -86,6 +107,12 @@ export function TimelineSection() {
           + {EDITOR_LABELS.timelineAddEvent}
         </Button>
       )}
+
+      <StyleOverridePanel
+        roles={STYLE_ROLES}
+        overrides={overrides}
+        onUpdate={handleStyleUpdate}
+      />
     </Section>
   );
 }
