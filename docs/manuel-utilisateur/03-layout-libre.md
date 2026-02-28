@@ -79,7 +79,7 @@ Quand activé, le header du scoreboard (drapeaux, noms d'équipes, scores, horlo
 
 ## Bibliothèque d'éléments
 
-La bibliothèque propose 43 éléments répartis en 11 catégories :
+La bibliothèque propose 45 éléments répartis en 11 catégories :
 
 | Catégorie | Éléments disponibles | Description |
 |-----------|---------------------|-------------|
@@ -93,7 +93,7 @@ La bibliothèque propose 43 éléments répartis en 11 catégories :
 | **Événement** | Événement, Chronologie | Événement unique (but, pénalité, temps mort, changement de période) ou chronologie complète avec liste d'événements triés. |
 | **Calendrier** | Match, Programme | Match unique (date, heure, équipes, score, statut) ou programme complet avec liste de matchs à venir et terminés. |
 | **Médias** | Image, Forme (rectangle, cercle, arrondi), Séparateur (ligne) | Éléments décoratifs et structurels pour habiller le scoreboard. |
-| **Composés** | Header complet, Colonne de pénalités, Types 2-14 intégrés | Blocs complets réutilisant les layouts à agencement fixe comme éléments individuels. |
+| **Composés** | Header complet, Colonne de pénalités, Types 2-16 intégrés | Blocs complets réutilisant les layouts à agencement fixe comme éléments individuels (incluant Arbitres et Spectateurs). |
 
 Un **champ de recherche** en haut de la bibliothèque permet de filtrer les éléments par nom. Cliquer sur un élément l'ajoute immédiatement au canvas avec des dimensions par défaut.
 

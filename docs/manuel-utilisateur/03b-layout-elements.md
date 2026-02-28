@@ -449,9 +449,11 @@ Affiche la liste des pénalités d'une équipe.
 
 ### Types d'affichage embarqués
 
-Les 13 types d'affichage classiques (Stats centrées, Stats gauche/droite, Fiche joueur, Classement, etc.) peuvent être ajoutés comme éléments dans le canvas du Layout libre. Cela permet de combiner plusieurs types sur un même écran.
+Les 15 types d'affichage classiques (Stats centrées, Stats gauche/droite, Fiche joueur, Classement, Arbitres, Spectateurs, etc.) peuvent être ajoutés comme éléments dans le canvas du Layout libre. Cela permet de combiner plusieurs types sur un même écran.
 
-**Exemple concret :** placez un Header complet en haut, un Classement au centre et une Fiche joueur en bas pour créer un écran de pause publicitaire complet. Consultez le chapitre [Tutoriels pas à pas](03c-layout-tutoriels.md) pour des guides détaillés.
+**Types disponibles :** Stats centrées (2), Stats gauche/droite (3), Détails du but (4), Fiche joueur (5), Classement (6), Score final (7), Texte libre (8), Face à face (9), Chronologie (10), Barres comparatives (11), Effectif (12), Programme (13), Header complet (14), Arbitres (15), Spectateurs (16).
+
+**Exemple concret :** placez un Header complet en haut, un Classement au centre et une Fiche joueur en bas pour créer un écran de pause publicitaire complet. Vous pouvez aussi intégrer un bloc Arbitres ou Spectateurs pour enrichir vos pages d'information. Consultez le chapitre [Tutoriels pas à pas](03c-layout-tutoriels.md) pour des guides détaillés.
 
 ---
 
