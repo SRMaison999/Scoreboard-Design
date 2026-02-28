@@ -201,6 +201,20 @@ export const useScoreboardStore = create<ScoreboardStore>()(
       updateScheduleMatch: (index: number, field: string, value: string) =>
         set((s) => { const m = s.scheduleData.matches[index]; if (m) (m as Record<string, string>)[field] = value; }),
 
+      /* Referees (type 15) */
+      updateRefereesField: (field, value) =>
+        set((s) => { (s.refereesData as Record<string, unknown>)[field] = value; }),
+      addReferee: () =>
+        set((s) => { if (s.refereesData.referees.length < MAX_LINES) s.refereesData.referees.push({ name: 'ARBITRE', number: '0', nationality: '', role: 'referee', showFlag: true, showNoc: true, showRole: true }); }),
+      removeReferee: (index: number) =>
+        set((s) => { s.refereesData.referees.splice(index, 1); }),
+      updateReferee: (index, field, value) =>
+        set((s) => { const r = s.refereesData.referees[index]; if (r) (r as Record<string, string | boolean>)[field] = value; }),
+
+      /* Spectators (type 16) */
+      updateSpectatorsField: (field, value) =>
+        set((s) => { (s.spectatorsData as Record<string, unknown>)[field] = value; }),
+
       /* Shootout */
       addShootoutAttempt: (side: PenaltySide) =>
         set((s) => { (side === 'left' ? s.shootoutLeft : s.shootoutRight).push({ result: 'pending' }); }),
@@ -270,7 +284,7 @@ export const useScoreboardStore = create<ScoreboardStore>()(
     })),
     {
       name: 'scoreboard-state',
-      version: 9,
+      version: 10,
       merge: (persistedState, currentState) => ({
         ...currentState,
         ...(persistedState as Partial<ScoreboardStore>),
@@ -314,7 +328,7 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         }
         if (state['fontSizes'] && typeof state['fontSizes'] === 'object') {
           const fs = state['fontSizes'] as Record<string, unknown>;
-          for (let i = 1; i <= 14; i++) {
+          for (let i = 1; i <= 16; i++) {
             if (fs[`bodyScale${i}`] === undefined) {
               fs[`bodyScale${i}`] = 100;
             }
@@ -344,6 +358,13 @@ export const useScoreboardStore = create<ScoreboardStore>()(
           delete cfd['selectedFieldId'];
         } else if (cfd && cfd['selectedFieldIds'] === undefined) {
           cfd['selectedFieldIds'] = [];
+        }
+        /* Migration v10 : ajout refereesData et spectatorsData */
+        if (state['refereesData'] === undefined) {
+          state['refereesData'] = { title: '', preset: 'all', activeIndex: 0, showFlags: true, showNocs: true, showRoles: true, referees: [] };
+        }
+        if (state['spectatorsData'] === undefined) {
+          state['spectatorsData'] = { title: '', preset: 'centered', count: '', venue: '', capacity: '', showVenue: false, showCapacity: false, label: '' };
         }
         /* Migration : showFlagTeam1/showFlagTeam2 auto-detecte */
         if (state['showFlagTeam1'] === undefined) {

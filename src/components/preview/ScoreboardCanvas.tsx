@@ -17,6 +17,8 @@ import { BodyType11 } from './body/BodyType11';
 import { BodyType12 } from './body/BodyType12';
 import { BodyType13 } from './body/BodyType13';
 import { BodyType14 } from './body/BodyType14';
+import { BodyType15 } from './body/BodyType15';
+import { BodyType16 } from './body/BodyType16';
 import { hexToRgba } from '@/utils/color';
 import { ff } from '@/utils/font';
 import type { ScoreboardState } from '@/types/scoreboard';
@@ -81,6 +83,10 @@ function BodyRenderer({ state, colors, opacities, fontBody, fontSizes, playerPho
       return <BodyType12 rosterData={state.rosterData} flagOverrides={flagOverrides} {...shared} />;
     case 13:
       return <BodyType13 scheduleData={state.scheduleData} {...shared} />;
+    case 15:
+      return <BodyType15 refereesData={state.refereesData} flagOverrides={flagOverrides} {...shared} />;
+    case 16:
+      return <BodyType16 spectatorsData={state.spectatorsData} {...shared} />;
     default:
       return <BodyType1 stats={state.stats} titleCenter={state.titleCenter} {...shared} />;
   }

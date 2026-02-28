@@ -1682,6 +1682,8 @@ L'architecture doit permettre d'ajouter facilement :
 - [ ] Type 11 : Calendrier / Prochains matchs
 - [ ] Type 12 : Tirs au but (Shootout)
 - [ ] Type 13 : Texte libre / Message
+- [x] Type 15 : Arbitres (presets, drapeaux, NOC, rôles)
+- [x] Type 16 : Spectateurs (presets, lieu, capacité)
 - [ ] Sections éditeur correspondantes pour chaque type
 - [ ] Tests pour chaque type
 

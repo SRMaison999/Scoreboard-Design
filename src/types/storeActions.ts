@@ -5,6 +5,8 @@ import type { PlayerCardData } from './bodyTypes/playerCard';
 import type { FinalScoreData } from './bodyTypes/finalScore';
 import type { ShootoutResult } from './bodyTypes/shootout';
 import type { RosterData, RosterPlayer } from './bodyTypes/roster';
+import type { RefereesData, RefereeEntry } from './bodyTypes/referees';
+import type { SpectatorsData } from './bodyTypes/spectators';
 import type { RosterImportMode } from './rosterImport';
 import type { FontSizeKey } from './fontSizes';
 import type { CustomField, FieldElementConfig, FieldStyle } from './customField';
@@ -105,6 +107,15 @@ export interface ScoreboardActions {
   addScheduleMatch: () => void;
   removeScheduleMatch: (index: number) => void;
   updateScheduleMatch: (index: number, field: string, value: string) => void;
+
+  /* Referees (type 15) */
+  updateRefereesField: (field: keyof RefereesData, value: unknown) => void;
+  addReferee: () => void;
+  removeReferee: (index: number) => void;
+  updateReferee: (index: number, field: keyof RefereeEntry, value: string | boolean) => void;
+
+  /* Spectators (type 16) */
+  updateSpectatorsField: (field: keyof SpectatorsData, value: unknown) => void;
 
   /* Shootout */
   addShootoutAttempt: (side: PenaltySide) => void;

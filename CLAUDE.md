@@ -192,6 +192,22 @@ Détail complet dans `docs/HOCKEY_SCOREBOARD_EDITOR_SPEC.md` section 7.
 
 ---
 
+## Ajout d'un body type — CHECKLIST OBLIGATOIRE
+
+Avant d'ajouter un nouveau body type, consulter IMPÉRATIVEMENT la checklist complète en 28 étapes dans `docs/ARCHITECTURE_QUICK_START.md` section 7. Les oublis les plus fréquents :
+
+| Étape souvent oubliée | Fichier | Conséquence de l'oubli |
+|---|---|---|
+| Intégration Layout libre | `FieldEmbeddedBodyType.tsx` | Le type n'est pas rendu quand embarqué dans un champ du Layout libre |
+| Intégration Layout libre | `customField.ts` + `libraryElements.ts` | Le type n'apparaît pas dans la bibliothèque d'éléments |
+| Synchronisation état | `useOutputSync.ts` | Le champ de données n'est pas transmis à la fenêtre de sortie |
+| Documentation Layout libre | `03-layout-libre.md` + `03b-layout-elements.md` | Le manuel ne mentionne pas le type dans les éléments composés |
+| Manuel body types | `04-body-types.md` | Le type n'est pas documenté pour l'utilisateur |
+
+**RÈGLE** : après avoir implémenté un body type, TOUJOURS vérifier que le type est utilisable depuis le mode Layout libre ET que la documentation est à jour (chapitres 03, 03b, 04).
+
+---
+
 ## Checklist avant CHAQUE modification
 
 - [ ] Lu la spec (`docs/HOCKEY_SCOREBOARD_EDITOR_SPEC.md`) pour la partie concernée

@@ -25,6 +25,20 @@ describe('EmbeddedBodyType', () => {
     expect(container.firstChild).toBeInTheDocument();
   });
 
+  it('rend le body type 15 (arbitres) sans erreur', () => {
+    const { container } = render(
+      <EmbeddedBodyType bodyTypeId={15} {...defaultProps} />,
+    );
+    expect(container.firstChild).toBeInTheDocument();
+  });
+
+  it('rend le body type 16 (spectateurs) sans erreur', () => {
+    const { container } = render(
+      <EmbeddedBodyType bodyTypeId={16} {...defaultProps} />,
+    );
+    expect(container.firstChild).toBeInTheDocument();
+  });
+
   it('retourne null pour un body type inconnu', () => {
     const { container } = render(
       <EmbeddedBodyType bodyTypeId={99} {...defaultProps} />,

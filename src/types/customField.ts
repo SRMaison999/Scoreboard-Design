@@ -34,7 +34,8 @@ export type FieldElementType =
   | 'body-type-2' | 'body-type-3' | 'body-type-4'
   | 'body-type-5' | 'body-type-6' | 'body-type-7' | 'body-type-8'
   | 'body-type-9' | 'body-type-10' | 'body-type-11' | 'body-type-12'
-  | 'body-type-13' | 'body-type-14' | 'header-block' | 'penalty-column';
+  | 'body-type-13' | 'body-type-14' | 'body-type-15' | 'body-type-16'
+  | 'header-block' | 'penalty-column';
 
 /* --- Configuration spécifique par type d'élément --- */
 
@@ -179,7 +180,9 @@ export type FieldElementConfig =
   | { readonly type: 'body-type-11'; readonly config: BodyTypeBlockConfig }
   | { readonly type: 'body-type-12'; readonly config: BodyTypeBlockConfig }
   | { readonly type: 'body-type-13'; readonly config: BodyTypeBlockConfig }
-  | { readonly type: 'body-type-14'; readonly config: BodyTypeBlockConfig };
+  | { readonly type: 'body-type-14'; readonly config: BodyTypeBlockConfig }
+  | { readonly type: 'body-type-15'; readonly config: BodyTypeBlockConfig }
+  | { readonly type: 'body-type-16'; readonly config: BodyTypeBlockConfig };
 
 /* --- Style d'un champ --- */
 

@@ -10,6 +10,8 @@ import { DEFAULT_TIMELINE_DATA } from '@/types/bodyTypes/timeline';
 import { DEFAULT_BAR_CHART_DATA } from '@/types/bodyTypes/barChart';
 import { DEFAULT_ROSTER_DATA } from '@/types/bodyTypes/roster';
 import { DEFAULT_SCHEDULE_DATA } from '@/types/bodyTypes/schedule';
+import { DEFAULT_REFEREES_DATA } from '@/types/bodyTypes/referees';
+import { DEFAULT_SPECTATORS_DATA } from '@/types/bodyTypes/spectators';
 import { DEFAULT_FONT_SIZES } from '@/types/fontSizes';
 import { DEFAULT_TEMPLATE_WIDTH, DEFAULT_TEMPLATE_HEIGHT } from '@/constants/resolutions';
 import { DEFAULT_ANIMATION_CONFIG } from '@/types/animation';
@@ -80,6 +82,8 @@ export const DEFAULT_STATE: ScoreboardState = {
   barChartData: structuredClone(DEFAULT_BAR_CHART_DATA),
   rosterData: structuredClone(DEFAULT_ROSTER_DATA),
   scheduleData: structuredClone(DEFAULT_SCHEDULE_DATA),
+  refereesData: structuredClone(DEFAULT_REFEREES_DATA),
+  spectatorsData: structuredClone(DEFAULT_SPECTATORS_DATA),
 
   showTimeouts: false,
   timeoutsLeft: 0,

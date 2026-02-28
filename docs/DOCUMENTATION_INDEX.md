@@ -18,7 +18,7 @@
 | [manuel-utilisateur/01-introduction.md](./manuel-utilisateur/01-introduction.md) | Presentation de l'application et prise en main |
 | [manuel-utilisateur/02-editeur.md](./manuel-utilisateur/02-editeur.md) | Guide complet du panneau editeur |
 | [manuel-utilisateur/03-layout-libre.md](./manuel-utilisateur/03-layout-libre.md) | Layout libre (chapitre unique avec table des matieres, compose de 3 sections : prise en main, elements et presets, tutoriels) |
-| [manuel-utilisateur/04-body-types.md](./manuel-utilisateur/04-body-types.md) | Les 13 types d'affichage predéfinis (types 1-13, incluant Stats centrées et Stats gauche/droite) |
+| [manuel-utilisateur/04-body-types.md](./manuel-utilisateur/04-body-types.md) | Les 15 types d'affichage predéfinis (types 1-16, incluant Arbitres et Spectateurs) |
 | [manuel-utilisateur/05-personnalisation.md](./manuel-utilisateur/05-personnalisation.md) | Couleurs, polices, dimensions, presets, mise a l'echelle par corps |
 | [manuel-utilisateur/06-horloge-et-phases.md](./manuel-utilisateur/06-horloge-et-phases.md) | Configuration de l'horloge, des phases et du mode demo |
 | [manuel-utilisateur/07-templates.md](./manuel-utilisateur/07-templates.md) | Sauvegarde, chargement, import et export de templates |
@@ -47,7 +47,7 @@
 | 2 | Screenshot, impression, tailles de police, dimensions template | Termine |
 | 3 | Gestion de templates (IndexedDB, JSON, import/export) | Termine |
 | 4 | Frame Data API (serialisation, delta encoding, enregistrement) | Termine |
-| 5 | Body types 4-13 (13 types au total) | Termine |
+| 5 | Body types 4-16 (15 types au total, incluant Arbitres et Spectateurs) | Termine |
 | 6 | Mode operateur live (raccourcis clavier, fenetre de sortie) | Termine |
 | 7 | Photos et medias (photos joueurs, logos equipe/competition/sponsor) | Termine |
 | 8 | Animations et export video/GIF | Termine |

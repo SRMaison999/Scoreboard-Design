@@ -279,6 +279,8 @@ describe('scoreboardStore', () => {
         barChartData: s.barChartData,
         rosterData: s.rosterData,
         scheduleData: s.scheduleData,
+        refereesData: s.refereesData,
+        spectatorsData: s.spectatorsData,
         showTimeouts: s.showTimeouts,
         timeoutsLeft: s.timeoutsLeft,
         timeoutsRight: s.timeoutsRight,
