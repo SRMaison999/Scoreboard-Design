@@ -1,12 +1,15 @@
 import type { RosterPlayer, PlayerPosition } from '@/types/bodyTypes/roster';
 import type { RosterImportResult, RosterImportColumn } from '@/types/rosterImport';
 import { VALID_POSITIONS, MAX_ROSTER_IMPORT } from '@/types/rosterImport';
+import { FRENCH_POSITION_ALIASES } from '@/constants/positions';
 
 function normalizePosition(raw: string): PlayerPosition | null {
   const upper = raw.trim().toUpperCase();
   if ((VALID_POSITIONS as readonly string[]).includes(upper)) {
     return upper as PlayerPosition;
   }
+  const alias = FRENCH_POSITION_ALIASES[upper];
+  if (alias) return alias;
   return null;
 }
 
@@ -47,7 +50,7 @@ export function validateAndMapRows(
 
     const position = normalizePosition(posRaw);
     if (!position) {
-      warnings.push(`${lineLabel} : position "${posRaw}" invalide, d\u00e9faut "F"`);
+      warnings.push(`${lineLabel} : position "${posRaw}" invalide, d\u00e9faut "Attaquant"`);
     }
 
     players.push({

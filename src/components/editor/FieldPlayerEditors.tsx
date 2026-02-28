@@ -9,6 +9,7 @@ import { Select } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { CUSTOM_FIELD_LABELS } from '@/constants/customFields';
+import { POSITION_OPTIONS_WITH_EMPTY } from '@/constants/positions';
 import type { FieldElementConfig, PlayerListEntry } from '@/types/customField';
 import { updateFieldElementConfig } from '@/utils/fieldConfig';
 
@@ -85,7 +86,7 @@ export function PlayerListEditor({ fieldId, element }: EditorProps) {
             <div className="flex gap-1">
               <input className="w-12 bg-gray-900 border border-gray-700 rounded px-1.5 py-0.5 text-gray-200 text-[12px]" placeholder="#" value={player.number} onChange={(e) => updatePlayer(idx, 'number', e.target.value)} />
               <input className="flex-1 bg-gray-900 border border-gray-700 rounded px-1.5 py-0.5 text-gray-200 text-[12px]" placeholder={CUSTOM_FIELD_LABELS.configPlayerName} value={player.name} onChange={(e) => updatePlayer(idx, 'name', e.target.value)} />
-              <Select value={player.position} onChange={(v) => updatePlayer(idx, 'position', v)} options={POSITION_OPTIONS} />
+              <Select value={player.position} onChange={(v) => updatePlayer(idx, 'position', v)} options={POSITION_OPTIONS_WITH_EMPTY} />
             </div>
             <button type="button" className="text-[10px] text-red-400 self-end cursor-pointer" onClick={() => removePlayer(idx)}>
               {CUSTOM_FIELD_LABELS.configPlayerListRemove}
@@ -99,16 +100,6 @@ export function PlayerListEditor({ fieldId, element }: EditorProps) {
 }
 
 /* --- Composants partages --- */
-
-const POSITION_OPTIONS = [
-  { value: '', label: '-' },
-  { value: 'G', label: 'G' },
-  { value: 'D', label: 'D' },
-  { value: 'C', label: 'C' },
-  { value: 'LW', label: 'AG' },
-  { value: 'RW', label: 'AD' },
-  { value: 'F', label: 'A' },
-];
 
 function FontSizeInput({ value, onChange }: { readonly value: number; readonly onChange: (v: number) => void }) {
   return (

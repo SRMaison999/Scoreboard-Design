@@ -291,7 +291,7 @@ Composition d'équipe avec positions et informations.
 | Paramètre | Description |
 |-----------|-------------|
 | **Titre** | Titre et équipe |
-| **Joueurs** | Position (G, D, F, C, LW, RW), numéro, nom |
+| **Joueurs** | Position (Gardien, Défenseur, Attaquant, Centre, Ailier gauche, Ailier droit), numéro, nom |
 | **Entraîneur** | Nom de l'entraîneur |
 | **Statistiques** | Statistiques résumées de l'équipe |
 

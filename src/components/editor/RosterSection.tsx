@@ -11,19 +11,11 @@ import {
   exportRosterJson,
   downloadFile,
 } from '@/utils/roster/rosterExporter';
-import type { PlayerPosition, RosterPlayer } from '@/types/bodyTypes/roster';
+import { POSITION_OPTIONS } from '@/constants/positions';
+import type { RosterPlayer } from '@/types/bodyTypes/roster';
 import type { RosterImportMode } from '@/types/rosterImport';
 
 const MAX_PLAYERS = 25;
-
-const POSITION_OPTIONS: { value: PlayerPosition; label: string }[] = [
-  { value: 'G', label: 'G' },
-  { value: 'D', label: 'D' },
-  { value: 'C', label: 'C' },
-  { value: 'LW', label: 'LW' },
-  { value: 'RW', label: 'RW' },
-  { value: 'F', label: 'F' },
-];
 
 export function RosterSection() {
   const data = useScoreboardStore((s) => s.rosterData);
@@ -107,7 +99,7 @@ export function RosterSection() {
             value={player.name}
             onChange={(v) => updatePlayer(i, 'name', v)}
           />
-          <div className="flex flex-col gap-0.5 min-w-0" style={{ width: 70 }}>
+          <div className="flex flex-col gap-0.5 min-w-0" style={{ width: 130 }}>
             <label className="text-[11px] text-gray-400 font-medium">
               {EDITOR_LABELS.rosterPlayerPosition}
             </label>

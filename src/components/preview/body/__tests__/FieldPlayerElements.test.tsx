@@ -31,13 +31,13 @@ describe('PlayerRowElement', () => {
     expect(screen.queryByText('#11')).not.toBeInTheDocument();
   });
 
-  it('affiche la position si showPosition est true', () => {
+  it('affiche la position en fran\u00e7ais si showPosition est true', () => {
     render(
       <PlayerRowElement
         element={{ config: { playerName: 'KOPITAR', playerNumber: '11', position: 'C', showNumber: true, showPosition: true, fontSize: 24, fontFamily: '', textColor: '#ffffff' } }}
       />,
     );
-    expect(screen.getByText('C')).toBeInTheDocument();
+    expect(screen.getByText('Centre')).toBeInTheDocument();
   });
 });
 

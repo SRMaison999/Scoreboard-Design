@@ -4,6 +4,8 @@
  * Rendus sur le canvas (inline styles autorises).
  */
 
+import { POSITION_LABELS } from '@/constants/positions';
+import type { PlayerPosition } from '@/types/bodyTypes/roster';
 import type { PlayerRowConfig, PlayerListConfig, PlayerListEntry } from '@/types/customField';
 
 function playerLabel(name: string, number: string, showNumber: boolean): string {
@@ -43,7 +45,7 @@ export function PlayerRowElement({ element }: {
       <span>{display}</span>
       {c.showPosition && c.position && (
         <span style={{ fontSize: c.fontSize * 0.7, fontWeight: 500, opacity: 0.7 }}>
-          {c.position}
+          {POSITION_LABELS[c.position as PlayerPosition] ?? c.position}
         </span>
       )}
     </div>
@@ -72,7 +74,7 @@ function PlayerRow({ player, showNumber, showPosition, fontSize, textColor }: {
       )}
       <span style={{ flex: 1 }}>{player.name}</span>
       {showPosition && player.position && (
-        <span style={{ fontSize: fontSize * 0.75, opacity: 0.7 }}>{player.position}</span>
+        <span style={{ fontSize: fontSize * 0.75, opacity: 0.7 }}>{POSITION_LABELS[player.position as PlayerPosition] ?? player.position}</span>
       )}
     </div>
   );

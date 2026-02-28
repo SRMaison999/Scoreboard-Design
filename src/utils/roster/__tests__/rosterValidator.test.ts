@@ -43,13 +43,45 @@ describe('validateAndMapRows', () => {
     expect(result.errors[0]).toContain('nom manquant');
   });
 
-  it('d\u00e9faut en F pour une position invalide', () => {
+  it('d\u00e9faut en F pour une position invalide avec message fran\u00e7ais', () => {
     const result = validateAndMapRows([
       { number: '1', name: 'HUET', position: 'INVALID' },
     ]);
     expect(result.success).toBe(true);
     expect(result.players[0]?.position).toBe('F');
     expect(result.warnings[0]).toContain('invalide');
+    expect(result.warnings[0]).toContain('Attaquant');
+  });
+
+  it('accepte les positions en fran\u00e7ais complet', () => {
+    const result = validateAndMapRows([
+      { number: '1', name: 'HUET', position: 'Gardien' },
+      { number: '3', name: 'CERNAK', position: 'D\u00e9fenseur' },
+      { number: '11', name: 'KOPITAR', position: 'Centre' },
+      { number: '18', name: 'SLAFKOVSKY', position: 'Ailier gauche' },
+      { number: '81', name: 'HOSSA', position: 'Ailier droit' },
+      { number: '9', name: 'TATAR', position: 'Attaquant' },
+    ]);
+    expect(result.success).toBe(true);
+    expect(result.players[0]?.position).toBe('G');
+    expect(result.players[1]?.position).toBe('D');
+    expect(result.players[2]?.position).toBe('C');
+    expect(result.players[3]?.position).toBe('LW');
+    expect(result.players[4]?.position).toBe('RW');
+    expect(result.players[5]?.position).toBe('F');
+    expect(result.warnings).toHaveLength(0);
+  });
+
+  it('accepte les anciennes abr\u00e9viations fran\u00e7aises (AG, AD, A)', () => {
+    const result = validateAndMapRows([
+      { number: '18', name: 'SLAFKOVSKY', position: 'AG' },
+      { number: '81', name: 'HOSSA', position: 'AD' },
+      { number: '9', name: 'TATAR', position: 'A' },
+    ]);
+    expect(result.success).toBe(true);
+    expect(result.players[0]?.position).toBe('LW');
+    expect(result.players[1]?.position).toBe('RW');
+    expect(result.players[2]?.position).toBe('F');
   });
 
   it('normalise le nom en majuscules', () => {
