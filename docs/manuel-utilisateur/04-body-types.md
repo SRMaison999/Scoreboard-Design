@@ -70,6 +70,10 @@ POWER PLAY         PENALTY KILLING
 - Les deux titres sont positionnés dans les colonnes de valeurs (pas centrés)
 - Permet de comparer deux contextes différents côte à côte
 
+### Mise en forme personnalisée
+
+Rôles disponibles : **Titre**, **Valeurs**, **Labels**. Propriétés personnalisables : taille, graisse, police, espacement, casse, couleur, opacité.
+
 ---
 
 ## Type 3 : Stats joueur
@@ -104,6 +108,10 @@ POINTS    [11]  KOPITAR          18
 - Tous les textes à la même taille de police
 - Gap uniforme de 35px entre colonnes
 
+### Mise en forme personnalisée
+
+Rôles disponibles : **Titre**, **Labels**, **Noms de joueurs**, **Valeurs**. Propriétés personnalisables : taille, graisse, police, espacement, casse, couleur, opacité.
+
 ---
 
 ## Type 4 : But / Célébration
@@ -127,6 +135,10 @@ Affichage d'un but marqué avec détails du buteur et des passeurs.
 - Annonce immédiate d'un but pendant le match
 - Récapitulatif des buts avec détails complets
 
+### Mise en forme personnalisée
+
+Rôles disponibles : **Texte "BUT"**, **Nom d'équipe**, **Nom du buteur**, **Passeur 1**, **Passeur 2**, **Temps et période**. Propriétés personnalisables : taille, graisse, police, espacement, casse, couleur, opacité.
+
 ---
 
 ## Type 5 : Fiche joueur
@@ -149,6 +161,10 @@ Grande fiche joueur avec photo, nom, numéro, équipe et statistiques.
 - Joueur du match à la fin d'une rencontre
 - Présentation de joueur avant le match
 - Meilleur joueur d'un tournoi
+
+### Mise en forme personnalisée
+
+Rôles disponibles : **Titre**, **Sous-titre**, **Nom du joueur**, **Nom d'équipe**, **Valeurs**, **Labels**. Propriétés personnalisables : taille, graisse, police, espacement, casse, couleur, opacité.
 
 ---
 
@@ -178,6 +194,10 @@ Tableau de classement avec colonnes configurables.
 4  [GER]  GER      3   0   2   0    1    3  11   1
 ```
 
+### Mise en forme personnalisée
+
+Rôles disponibles : **Titre**, **En-têtes de colonnes**, **Rang**, **Noms d'équipes**, **Valeurs**. Propriétés personnalisables : taille, graisse, police, espacement, casse, couleur, opacité.
+
 ---
 
 ## Type 7 : Score final
@@ -194,6 +214,10 @@ Affichage grand format du score final avec détails par période.
 | **Scores par période** | Détail de chaque période |
 | **But gagnant** | Joueur, équipe, temps du but décisif |
 | **Mention spéciale** | Prolongation, tirs au but, double prolongation |
+
+### Mise en forme personnalisée
+
+Rôles disponibles : **Titre**, **Noms d'équipes**, **Score**, **Scores par période**, **Note prolongation**, **But gagnant**. Propriétés personnalisables : taille, graisse, police, espacement, casse, couleur, opacité.
 
 ---
 
@@ -217,6 +241,10 @@ Zone de texte multiligne avec mise en forme.
 - Annonces d'événements
 - Informations complémentaires (lieu, date, compétition)
 
+### Mise en forme personnalisée
+
+Rôles disponibles : **Lignes de texte** (propriétés globales pour toutes les lignes). Propriétés personnalisables : taille, graisse, police, espacement, casse, couleur, opacité. Note : les propriétés par ligne (taille, graisse, alignement) restent configurables individuellement.
+
 ---
 
 ## Type 9 : Face-à-face joueurs
@@ -235,6 +263,10 @@ Deux joueurs face à face avec comparaison statistique et photos circulaires.
 | **Lignes de comparaison** | Label + valeur gauche + valeur droite |
 | **Photos** | Chargées depuis la galerie de photos joueurs (voir chapitre 11) |
 
+### Mise en forme personnalisée
+
+Rôles disponibles : **Titre**, **Noms de joueurs**, **Infos joueurs**, **Valeurs**, **Labels**. Propriétés personnalisables : taille, graisse, police, espacement, casse, couleur, opacité.
+
 ---
 
 ## Type 10 : Chronologie
@@ -251,6 +283,10 @@ Liste chronologique des événements du match.
 | **Événements** | Période, temps, type, équipe, joueur, détail |
 | **Types d'événements** | But, pénalité, temps mort, début/fin de période, tir au but |
 | **Score courant** | Affiché automatiquement après chaque but |
+
+### Mise en forme personnalisée
+
+Rôles disponibles : **Titre**, **Temps**, **Équipe**, **Description**, **Période**, **Symbole**. Propriétés personnalisables : taille, graisse, police, espacement, casse, couleur, opacité.
 
 ---
 
@@ -278,6 +314,10 @@ SHOTS ON GOAL
 | **Barres** | Label, valeur gauche, valeur droite |
 | **Format** | Pourcentage ou valeurs absolues |
 
+### Mise en forme personnalisée
+
+Rôles disponibles : **Titre**, **Noms d'équipes**, **Labels**, **Valeurs**. Propriétés personnalisables : taille, graisse, police, espacement, casse, couleur, opacité.
+
 ---
 
 ## Type 12 : Composition d'équipe (Roster)
@@ -295,6 +335,10 @@ Composition d'équipe avec positions et informations.
 | **Entraîneur** | Nom de l'entraîneur |
 | **Statistiques** | Statistiques résumées de l'équipe |
 
+### Mise en forme personnalisée
+
+Rôles disponibles : **Titre**, **Entraîneur**, **Numéros**, **Noms de joueurs**, **Position**. Propriétés personnalisables : taille, graisse, police, espacement, casse, couleur, opacité.
+
 ---
 
 ## Type 13 : Calendrier / Prochains matchs
@@ -311,6 +355,10 @@ Liste des matchs à venir ou terminés.
 | **Matchs** | Date, heure, équipes (avec drapeaux), lieu |
 | **Statut** | À venir, en cours, terminé |
 | **Scores** | Affichés pour les matchs terminés |
+
+### Mise en forme personnalisée
+
+Rôles disponibles : **Titre**, **Date**, **Heure**, **Noms d'équipes**, **Score**, **Statut**, **Lieu**. Propriétés personnalisables : taille, graisse, police, espacement, casse, couleur, opacité.
 
 ---
 

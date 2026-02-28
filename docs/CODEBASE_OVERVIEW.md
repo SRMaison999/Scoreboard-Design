@@ -365,22 +365,22 @@ Le Layout libre (type 1, composant BodyType14) est le mode principal, proposé e
 |------|-----------|-------------|
 | 1 | BodyType14 | **Layout libre** (champs personnalisés, mode principal) |
 | 14 | BodyType1 | Stats centrées (valeur / label / valeur) |
-| 2 | BodyType2 | Stats gauche/droite (2 titres) |
-| 3 | BodyType3 | Stats joueur avec photo |
-| 4 | BodyType4 | But / celebration |
-| 5 | BodyType5 | Fiche joueur |
-| 6 | BodyType6 | Classement / tableau |
-| 7 | BodyType7 | Score final |
-| 8 | BodyType8 | Texte libre |
-| 9 | BodyType9 | Face-a-face joueurs |
-| 10 | BodyType10 | Chronologie / evenements |
-| 11 | BodyType11 | Barres comparatives |
-| 12 | BodyType12 | Roster / composition |
-| 13 | BodyType13 | Calendrier / prochains matchs |
+| 2 | BodyType2 | Stats gauche/droite (2 titres) — style par élément |
+| 3 | BodyType3 | Stats joueur avec photo — style par élément |
+| 4 | BodyType4 | But / celebration — style par élément |
+| 5 | BodyType5 | Fiche joueur — style par élément |
+| 6 | BodyType6 | Classement / tableau — style par élément |
+| 7 | BodyType7 | Score final — style par élément |
+| 8 | BodyType8 | Texte libre — style par élément |
+| 9 | BodyType9 | Face-a-face joueurs — style par élément |
+| 10 | BodyType10 | Chronologie / evenements — style par élément |
+| 11 | BodyType11 | Barres comparatives — style par élément |
+| 12 | BodyType12 | Roster / composition — style par élément |
+| 13 | BodyType13 | Calendrier / prochains matchs — style par élément |
 | 15 | BodyType15 | Arbitres (drapeaux, NOC, rôles) — style par élément |
 | 16 | BodyType16 | Spectateurs (affluence, lieu, capacité) — style par élément |
 
-**Système de surcharges de style par élément** (types 15, 16 — extensible à tous) :
+**Système de surcharges de style par élément** (types 2-13, 15, 16) :
 
 Les body types dotés du système `ElementStyleOverride` permettent de personnaliser individuellement chaque rôle d'élément (titre, valeur, label, etc.) : police, taille, graisse, espacement, casse, couleur et opacité. L'architecture est dans :
 
