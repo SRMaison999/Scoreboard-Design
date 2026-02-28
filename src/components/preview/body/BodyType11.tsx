@@ -1,9 +1,12 @@
 import { hexToRgba } from '@/utils/color';
-import { ff, scaleFontSize } from '@/utils/font';
+import { resolveElementStyle } from '@/utils/elementStyle';
+import { ff } from '@/utils/font';
 import type { BarChartData } from '@/types/bodyTypes/barChart';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
 import type { FontSizeConfig } from '@/types/fontSizes';
+import type { StyleContext, ElementDefaults } from '@/utils/elementStyle';
+import type { BarChartStyleOverrides } from '@/types/elementStyleOverride';
 
 interface BodyType11Props {
   readonly barChartData: BarChartData;
@@ -15,6 +18,26 @@ interface BodyType11Props {
   readonly fontBody: FontId;
   readonly fontSizes?: FontSizeConfig;
 }
+
+const DEFAULTS_TITLE: ElementDefaults = {
+  fontSize: 26, fontWeight: 600, letterSpacing: 5,
+  textTransform: 'uppercase', colorKey: 'titleText',
+};
+
+const DEFAULTS_TEAM_NAME: ElementDefaults = {
+  fontSize: 18, fontWeight: 700, letterSpacing: 3,
+  textTransform: 'none', colorKey: 'statVal',
+};
+
+const DEFAULTS_ROW_LABEL: ElementDefaults = {
+  fontSize: 14, fontWeight: 500, letterSpacing: 3,
+  textTransform: 'uppercase', colorKey: 'statLabel',
+};
+
+const DEFAULTS_ROW_VALUE: ElementDefaults = {
+  fontSize: 20, fontWeight: 700, letterSpacing: 0,
+  textTransform: 'none', colorKey: 'statVal',
+};
 
 function formatValue(value: number, format: 'percent' | 'absolute'): string {
   return format === 'percent' ? `${String(value)}%` : String(value);
@@ -33,7 +56,14 @@ export function BodyType11({
   const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const pad = showPenalties ? 10 : 40;
   const sc = fontSizes?.bodyScale11 ?? 100;
-  const { title, rows } = barChartData;
+  const ctx: StyleContext = { colors, opacities, fontBody, bodyScale: sc };
+  const { title, rows, styleOverrides } = barChartData;
+  const ov: BarChartStyleOverrides = styleOverrides ?? {};
+
+  const titleStyle = resolveElementStyle(DEFAULTS_TITLE, ctx, ov.title);
+  const teamNameStyle = resolveElementStyle(DEFAULTS_TEAM_NAME, ctx, ov.teamName);
+  const rowLabelStyle = resolveElementStyle(DEFAULTS_ROW_LABEL, ctx, ov.rowLabel);
+  const rowValueStyle = resolveElementStyle(DEFAULTS_ROW_VALUE, ctx, ov.rowValue);
 
   return (
     <div
@@ -48,22 +78,14 @@ export function BodyType11({
       }}
     >
       {/* Titre */}
-      <div
-        style={{
-          fontSize: scaleFontSize(26, sc),
-          fontWeight: 600,
-          letterSpacing: 5,
-          textTransform: 'uppercase',
-          color: col('titleText'),
-        }}
-      >
+      <div style={titleStyle}>
         {title}
       </div>
 
       {/* Noms d'équipes */}
       <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', padding: '0 10px' }}>
-        <div style={{ fontSize: scaleFontSize(18, sc), fontWeight: 700, color: col('statVal'), letterSpacing: 3 }}>{team1}</div>
-        <div style={{ fontSize: scaleFontSize(18, sc), fontWeight: 700, color: col('statVal'), letterSpacing: 3 }}>{team2}</div>
+        <div style={teamNameStyle}>{team1}</div>
+        <div style={teamNameStyle}>{team2}</div>
       </div>
 
       {/* Barres */}
@@ -77,12 +99,8 @@ export function BodyType11({
             <div
               style={{
                 textAlign: 'center',
-                fontSize: scaleFontSize(14, sc),
-                fontWeight: 500,
-                letterSpacing: 3,
-                textTransform: 'uppercase',
-                color: col('statLabel'),
                 marginBottom: 4,
+                ...rowLabelStyle,
               }}
             >
               {row.label}
@@ -92,10 +110,8 @@ export function BodyType11({
                 style={{
                   width: 55,
                   textAlign: 'right',
-                  fontSize: scaleFontSize(20, sc),
-                  fontWeight: 700,
                   fontVariantNumeric: 'tabular-nums',
-                  color: col('statVal'),
+                  ...rowValueStyle,
                 }}
               >
                 {formatValue(row.valueLeft, row.format)}
@@ -126,10 +142,8 @@ export function BodyType11({
                 style={{
                   width: 55,
                   textAlign: 'left',
-                  fontSize: scaleFontSize(20, sc),
-                  fontWeight: 700,
                   fontVariantNumeric: 'tabular-nums',
-                  color: col('statVal'),
+                  ...rowValueStyle,
                 }}
               >
                 {formatValue(row.valueRight, row.format)}

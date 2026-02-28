@@ -1,3 +1,5 @@
+import type { HeadToHeadStyleOverrides } from '@/types/elementStyleOverride';
+
 export interface HeadToHeadPlayer {
   name: string;
   number: string;
@@ -15,6 +17,7 @@ export interface HeadToHeadData {
   playerLeft: HeadToHeadPlayer;
   playerRight: HeadToHeadPlayer;
   stats: HeadToHeadStat[];
+  styleOverrides: HeadToHeadStyleOverrides;
 }
 
 export const DEFAULT_HEAD_TO_HEAD_DATA: HeadToHeadData = {
@@ -27,4 +30,5 @@ export const DEFAULT_HEAD_TO_HEAD_DATA: HeadToHeadData = {
     { label: 'POINTS', valueLeft: '20', valueRight: '23' },
     { label: '+/-', valueLeft: '+6', valueRight: '+8' },
   ],
+  styleOverrides: {},
 };

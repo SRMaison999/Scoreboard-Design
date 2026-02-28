@@ -1,4 +1,5 @@
 import type { PenaltySide } from '@/types/scoreboard';
+import type { GoalStyleOverrides } from '@/types/elementStyleOverride';
 
 export interface GoalData {
   readonly scoringTeamSide: PenaltySide;
@@ -13,6 +14,7 @@ export interface GoalData {
   assist1Number: string;
   assist2Name: string;
   assist2Number: string;
+  styleOverrides: GoalStyleOverrides;
 }
 
 export const DEFAULT_GOAL_DATA: GoalData = {
@@ -28,4 +30,5 @@ export const DEFAULT_GOAL_DATA: GoalData = {
   assist1Number: '88',
   assist2Name: '',
   assist2Number: '',
+  styleOverrides: {},
 };

@@ -1,3 +1,5 @@
+import type { RosterStyleOverrides } from '@/types/elementStyleOverride';
+
 export type PlayerPosition = 'G' | 'D' | 'F' | 'C' | 'LW' | 'RW';
 
 export interface RosterPlayer {
@@ -11,6 +13,7 @@ export interface RosterData {
   team: string;
   coach: string;
   players: RosterPlayer[];
+  styleOverrides: RosterStyleOverrides;
 }
 
 export const DEFAULT_ROSTER_DATA: RosterData = {
@@ -25,4 +28,5 @@ export const DEFAULT_ROSTER_DATA: RosterData = {
     { number: '18', name: 'SLAFKOVSKY', position: 'LW' },
     { number: '81', name: 'HOSSA', position: 'RW' },
   ],
+  styleOverrides: {},
 };

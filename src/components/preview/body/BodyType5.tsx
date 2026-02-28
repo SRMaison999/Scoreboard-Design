@@ -1,4 +1,4 @@
-import { hexToRgba } from '@/utils/color';
+import { resolveElementStyle, resolveColor } from '@/utils/elementStyle';
 import { ff, scaleFontSize } from '@/utils/font';
 import { Flag } from '@/components/preview/Flag';
 import { PhotoCircle } from '@/components/preview/PhotoCircle';
@@ -6,6 +6,8 @@ import type { PlayerCardData } from '@/types/bodyTypes/playerCard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
 import type { FontSizeConfig } from '@/types/fontSizes';
+import type { ElementDefaults, StyleContext } from '@/utils/elementStyle';
+import type { PlayerCardStyleOverrides } from '@/types/elementStyleOverride';
 
 interface BodyType5Props {
   readonly playerCardData: PlayerCardData;
@@ -17,6 +19,36 @@ interface BodyType5Props {
   readonly flagOverrides?: Record<string, string>;
 }
 
+const DEFAULTS_TITLE: ElementDefaults = {
+  fontSize: 26, fontWeight: 600, letterSpacing: 5,
+  textTransform: 'uppercase', colorKey: 'titleText',
+};
+
+const DEFAULTS_SUBTITLE: ElementDefaults = {
+  fontSize: 14, fontWeight: 400, letterSpacing: 3,
+  textTransform: 'none', colorKey: 'titleText', hardcodedOpacity: 0.7,
+};
+
+const DEFAULTS_PLAYER_NAME: ElementDefaults = {
+  fontSize: 30, fontWeight: 700, letterSpacing: 4,
+  textTransform: 'uppercase', colorKey: 'statVal',
+};
+
+const DEFAULTS_TEAM_NAME: ElementDefaults = {
+  fontSize: 16, fontWeight: 400, letterSpacing: 4,
+  textTransform: 'none', colorKey: 'titleText',
+};
+
+const DEFAULTS_STAT_VALUE: ElementDefaults = {
+  fontSize: 28, fontWeight: 700, letterSpacing: 0,
+  textTransform: 'none', colorKey: 'statVal',
+};
+
+const DEFAULTS_STAT_LABEL: ElementDefaults = {
+  fontSize: 12, fontWeight: 500, letterSpacing: 2,
+  textTransform: 'uppercase', colorKey: 'statLabel',
+};
+
 export function BodyType5({
   playerCardData,
   showPenalties,
@@ -26,10 +58,20 @@ export function BodyType5({
   fontSizes,
   flagOverrides,
 }: BodyType5Props) {
-  const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const sc = fontSizes?.bodyScale5 ?? 100;
+  const ctx: StyleContext = { colors, opacities, fontBody, bodyScale: sc };
+  const ov: PlayerCardStyleOverrides = playerCardData.styleOverrides ?? {};
   const pad = showPenalties ? 10 : 40;
   const { title, subtitle, playerName, playerNumber, playerTeam, playerPhoto, stats } = playerCardData;
+
+  const titleStyle = resolveElementStyle(DEFAULTS_TITLE, ctx, ov.title);
+  const subtitleStyle = resolveElementStyle(DEFAULTS_SUBTITLE, ctx, ov.subtitle);
+  const playerNameStyle = resolveElementStyle(DEFAULTS_PLAYER_NAME, ctx, ov.playerName);
+  const teamNameStyle = resolveElementStyle(DEFAULTS_TEAM_NAME, ctx, ov.teamName);
+  const statValueStyle = resolveElementStyle(DEFAULTS_STAT_VALUE, ctx, ov.statValue);
+  const statValueColor = resolveColor('statVal', ctx, ov.statValue);
+  const statLabelStyle = resolveElementStyle(DEFAULTS_STAT_LABEL, ctx, ov.statLabel);
+  const playerNameColor = resolveColor('statVal', ctx, ov.playerName);
 
   return (
     <div
@@ -45,20 +87,12 @@ export function BodyType5({
       }}
     >
       {/* Titre */}
-      <div
-        style={{
-          fontSize: scaleFontSize(30, sc),
-          fontWeight: 600,
-          letterSpacing: 5,
-          textTransform: 'uppercase',
-          color: col('titleText'),
-        }}
-      >
+      <div style={titleStyle}>
         {title}
       </div>
 
       {subtitle && (
-        <div style={{ fontSize: scaleFontSize(20, sc), color: col('statLabel'), letterSpacing: 3, opacity: 0.7 }}>
+        <div style={subtitleStyle}>
           {subtitle}
         </div>
       )}
@@ -70,26 +104,18 @@ export function BodyType5({
           fallbackText={playerNumber}
           size={scaleFontSize(180, sc)}
           fontSize={scaleFontSize(56, sc)}
-          color={col('statVal')}
+          color={playerNameColor}
           fontFamily={ff(fontBody)}
         />
       </div>
 
       {/* Nom + equipe */}
-      <div
-        style={{
-          fontSize: scaleFontSize(40, sc),
-          fontWeight: 700,
-          letterSpacing: 4,
-          textTransform: 'uppercase',
-          color: col('statVal'),
-        }}
-      >
+      <div style={playerNameStyle}>
         {playerName}
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <Flag code={playerTeam} w={50} h={32} flagOverrides={flagOverrides} />
-        <span style={{ fontSize: scaleFontSize(22, sc), letterSpacing: 4, lineHeight: 1, color: col('statLabel') }}>
+        <span style={{ lineHeight: 1, ...teamNameStyle }}>
           {playerTeam}
         </span>
       </div>
@@ -109,23 +135,17 @@ export function BodyType5({
             <div key={`st-${i}`} style={{ textAlign: 'center' }}>
               <div
                 style={{
-                  fontSize: scaleFontSize(36, sc),
-                  fontWeight: 700,
-                  color: col('statVal'),
                   fontVariantNumeric: 'tabular-nums',
-                  textShadow: `0 0 12px ${col('statVal')}5a`,
+                  textShadow: `0 0 12px ${statValueColor}5a`,
+                  ...statValueStyle,
                 }}
               >
                 {s.value}
               </div>
               <div
                 style={{
-                  fontSize: scaleFontSize(14, sc),
-                  fontWeight: 500,
-                  letterSpacing: 2,
-                  textTransform: 'uppercase',
-                  color: col('statLabel'),
                   marginTop: 4,
+                  ...statLabelStyle,
                 }}
               >
                 {s.label}

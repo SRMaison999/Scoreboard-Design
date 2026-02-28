@@ -1,3 +1,5 @@
+import type { BarChartStyleOverrides } from '@/types/elementStyleOverride';
+
 export interface BarChartRow {
   label: string;
   valueLeft: number;
@@ -8,6 +10,7 @@ export interface BarChartRow {
 export interface BarChartData {
   title: string;
   rows: BarChartRow[];
+  styleOverrides: BarChartStyleOverrides;
 }
 
 export const DEFAULT_BAR_CHART_DATA: BarChartData = {
@@ -18,4 +21,5 @@ export const DEFAULT_BAR_CHART_DATA: BarChartData = {
     { label: 'FACE-OFF %', valueLeft: 52, valueRight: 48, format: 'percent' },
     { label: 'HITS', valueLeft: 18, valueRight: 22, format: 'absolute' },
   ],
+  styleOverrides: {},
 };

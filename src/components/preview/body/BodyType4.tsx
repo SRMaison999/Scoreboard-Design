@@ -1,4 +1,4 @@
-import { hexToRgba } from '@/utils/color';
+import { resolveElementStyle, resolveColor } from '@/utils/elementStyle';
 import { ff, scaleFontSize } from '@/utils/font';
 import { Flag } from '@/components/preview/Flag';
 import { PhotoCircle } from '@/components/preview/PhotoCircle';
@@ -6,6 +6,8 @@ import type { GoalData } from '@/types/bodyTypes/goal';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
 import type { FontSizeConfig } from '@/types/fontSizes';
+import type { ElementDefaults, StyleContext } from '@/utils/elementStyle';
+import type { GoalStyleOverrides } from '@/types/elementStyleOverride';
 
 interface BodyType4Props {
   readonly goalData: GoalData;
@@ -19,6 +21,36 @@ interface BodyType4Props {
   readonly flagOverrides?: Record<string, string>;
 }
 
+const DEFAULTS_GOAL_TEXT: ElementDefaults = {
+  fontSize: 72, fontWeight: 900, letterSpacing: 12,
+  textTransform: 'uppercase', colorKey: 'titleText',
+};
+
+const DEFAULTS_TEAM_NAME: ElementDefaults = {
+  fontSize: 20, fontWeight: 700, letterSpacing: 6,
+  textTransform: 'none', colorKey: 'titleText',
+};
+
+const DEFAULTS_SCORER_NAME: ElementDefaults = {
+  fontSize: 36, fontWeight: 700, letterSpacing: 4,
+  textTransform: 'uppercase', colorKey: 'statVal',
+};
+
+const DEFAULTS_ASSIST: ElementDefaults = {
+  fontSize: 18, fontWeight: 400, letterSpacing: 2,
+  textTransform: 'none', colorKey: 'statVal',
+};
+
+const DEFAULTS_ASSIST_SECONDARY: ElementDefaults = {
+  fontSize: 16, fontWeight: 400, letterSpacing: 2,
+  textTransform: 'none', colorKey: 'statVal', hardcodedOpacity: 0.8,
+};
+
+const DEFAULTS_TIME_PERIOD: ElementDefaults = {
+  fontSize: 14, fontWeight: 400, letterSpacing: 3,
+  textTransform: 'none', colorKey: 'statLabel', hardcodedOpacity: 0.7,
+};
+
 export function BodyType4({
   goalData,
   team1,
@@ -30,12 +62,23 @@ export function BodyType4({
   fontSizes,
   flagOverrides,
 }: BodyType4Props) {
-  const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const sc = fontSizes?.bodyScale4 ?? 100;
+  const ctx: StyleContext = { colors, opacities, fontBody, bodyScale: sc };
+  const ov: GoalStyleOverrides = goalData.styleOverrides ?? {};
   const pad = showPenalties ? 10 : 40;
   const scoringTeam = goalData.scoringTeamSide === 'left' ? team1 : team2;
   const hasAssist1 = goalData.assist1Name.trim() !== '';
   const hasAssist2 = goalData.assist2Name.trim() !== '';
+
+  const goalTextStyle = resolveElementStyle(DEFAULTS_GOAL_TEXT, ctx, ov.goalText);
+  const goalTextColor = resolveColor('titleText', ctx, ov.goalText);
+  const teamNameStyle = resolveElementStyle(DEFAULTS_TEAM_NAME, ctx, ov.teamName);
+  const scorerNameStyle = resolveElementStyle(DEFAULTS_SCORER_NAME, ctx, ov.scorerName);
+  const assistStyle = resolveElementStyle(DEFAULTS_ASSIST, ctx, ov.assist);
+  const assistSecondaryStyle = resolveElementStyle(DEFAULTS_ASSIST_SECONDARY, ctx, ov.assistSecondary);
+  const timePeriodStyle = resolveElementStyle(DEFAULTS_TIME_PERIOD, ctx, ov.timePeriod);
+  const scorerColor = resolveColor('statVal', ctx, ov.scorerName);
+  const statLabelColor = resolveColor('statLabel', ctx, ov.timePeriod);
 
   return (
     <div
@@ -53,12 +96,8 @@ export function BodyType4({
       {/* GOAL! */}
       <div
         style={{
-          fontSize: scaleFontSize(72, sc),
-          fontWeight: 900,
-          letterSpacing: 12,
-          textTransform: 'uppercase',
-          color: col('titleText'),
-          textShadow: `0 0 40px ${col('titleText')}80`,
+          textShadow: `0 0 40px ${goalTextColor}80`,
+          ...goalTextStyle,
         }}
       >
         GOAL
@@ -69,11 +108,8 @@ export function BodyType4({
         <Flag code={scoringTeam} w={60} h={38} flagOverrides={flagOverrides} />
         <div
           style={{
-            fontSize: scaleFontSize(36, sc),
-            fontWeight: 700,
-            letterSpacing: 6,
             lineHeight: 1,
-            color: col('statVal'),
+            ...teamNameStyle,
           }}
         >
           {scoringTeam}
@@ -86,25 +122,17 @@ export function BodyType4({
         fallbackText={goalData.scorerNumber}
         size={scaleFontSize(140, sc)}
         fontSize={scaleFontSize(48, sc)}
-        color={col('statVal')}
+        color={scorerColor}
         fontFamily={ff(fontBody)}
       />
 
       {/* Nom du buteur */}
-      <div
-        style={{
-          fontSize: scaleFontSize(40, sc),
-          fontWeight: 700,
-          letterSpacing: 4,
-          textTransform: 'uppercase',
-          color: col('statVal'),
-        }}
-      >
+      <div style={scorerNameStyle}>
         {goalData.scorerName}
       </div>
 
       {/* Stats du buteur */}
-      <div style={{ display: 'flex', gap: 30, fontSize: scaleFontSize(22, sc), color: col('statLabel') }}>
+      <div style={{ display: 'flex', gap: 30, fontSize: scaleFontSize(22, sc), color: statLabelColor }}>
         {goalData.goalCountMatch && (
           <span>{goalData.goalCountMatch}e but du match</span>
         )}
@@ -115,12 +143,12 @@ export function BodyType4({
 
       {/* Assists */}
       {hasAssist1 && (
-        <div style={{ fontSize: scaleFontSize(24, sc), color: col('statLabel'), letterSpacing: 2 }}>
+        <div style={assistStyle}>
           Assist : #{goalData.assist1Number} {goalData.assist1Name}
         </div>
       )}
       {hasAssist2 && (
-        <div style={{ fontSize: scaleFontSize(22, sc), color: col('statLabel'), letterSpacing: 2, opacity: 0.8 }}>
+        <div style={assistSecondaryStyle}>
           Assist 2 : #{goalData.assist2Number} {goalData.assist2Name}
         </div>
       )}
@@ -128,11 +156,8 @@ export function BodyType4({
       {/* Temps et periode */}
       <div
         style={{
-          fontSize: scaleFontSize(20, sc),
-          color: col('statLabel'),
-          opacity: 0.7,
-          letterSpacing: 3,
           marginTop: 8,
+          ...timePeriodStyle,
         }}
       >
         {goalData.goalTime} - {goalData.goalPeriod}

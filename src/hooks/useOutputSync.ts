@@ -39,6 +39,8 @@ function selectState(store: ReturnType<typeof useScoreboardStore.getState>): Sco
     showPlayerPhoto: store.showPlayerPhoto,
     playerStats: store.playerStats,
     stats: store.stats,
+    statsStyleOverrides: store.statsStyleOverrides,
+    playerStatsStyleOverrides: store.playerStatsStyleOverrides,
     penaltiesLeft: store.penaltiesLeft,
     penaltiesRight: store.penaltiesRight,
     goalData: store.goalData,

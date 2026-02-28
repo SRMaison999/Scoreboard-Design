@@ -1,9 +1,10 @@
-import { hexToRgba } from '@/utils/color';
+import { resolveElementStyle } from '@/utils/elementStyle';
 import { ff, scaleFontSize } from '@/utils/font';
 import type { FreeTextData } from '@/types/bodyTypes/freeText';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
 import type { FontSizeConfig } from '@/types/fontSizes';
+import type { StyleContext, ElementDefaults } from '@/utils/elementStyle';
 
 interface BodyType8Props {
   readonly freeTextData: FreeTextData;
@@ -14,6 +15,11 @@ interface BodyType8Props {
   readonly fontSizes?: FontSizeConfig;
 }
 
+const DEFAULTS_LINE: ElementDefaults = {
+  fontSize: 30, fontWeight: 400, letterSpacing: 3,
+  textTransform: 'uppercase', colorKey: 'titleText',
+};
+
 export function BodyType8({
   freeTextData,
   showPenalties,
@@ -22,9 +28,12 @@ export function BodyType8({
   fontBody,
   fontSizes,
 }: BodyType8Props) {
-  const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const pad = showPenalties ? 10 : 40;
   const sc = fontSizes?.bodyScale8 ?? 100;
+  const ctx: StyleContext = { colors, opacities, fontBody, bodyScale: sc };
+  const ov = freeTextData.styleOverrides ?? {};
+
+  const baseStyle = resolveElementStyle(DEFAULTS_LINE, ctx, ov.line);
 
   return (
     <div
@@ -43,13 +52,12 @@ export function BodyType8({
         <div
           key={`line-${i}`}
           style={{
+            ...baseStyle,
             fontSize: scaleFontSize(line.fontSize, sc),
-            fontWeight: line.bold ? 700 : 400,
+            fontWeight: line.bold ? 700 : (baseStyle.fontWeight ?? 400),
             textAlign: line.align,
+            letterSpacing: line.fontSize > 40 ? 6 : (baseStyle.letterSpacing ?? 3),
             width: '100%',
-            letterSpacing: line.fontSize > 40 ? 6 : 3,
-            textTransform: 'uppercase',
-            color: col('titleText'),
             lineHeight: 1.3,
           }}
         >

@@ -101,6 +101,7 @@ describe('BarCompareElement', () => {
           { label: 'SHOTS ON GOAL', valueLeft: 32, valueRight: 28, format: 'absolute' },
           { label: 'POWER PLAY', valueLeft: 75, valueRight: 80, format: 'percent' },
         ],
+        styleOverrides: {},
       },
     });
     render(
@@ -124,6 +125,7 @@ describe('BarCompareElement', () => {
           { label: 'SHOTS ON GOAL', valueLeft: 32, valueRight: 28, format: 'absolute' },
           { label: 'POWER PLAY', valueLeft: 75, valueRight: 80, format: 'percent' },
         ],
+        styleOverrides: {},
       },
     });
     render(
@@ -141,7 +143,7 @@ describe('BarCompareElement', () => {
 
   it('affiche un placeholder lorsque barIndex est hors limites', () => {
     const state = makeState({
-      barChartData: { title: 'TEST', rows: [] },
+      barChartData: { title: 'TEST', rows: [], styleOverrides: {} },
     });
     render(
       <BarCompareElement
@@ -161,6 +163,7 @@ describe('BarCompareElement', () => {
         rows: [
           { label: 'HITS', valueLeft: 18, valueRight: 22, format: 'absolute' },
         ],
+        styleOverrides: {},
       },
     });
     render(

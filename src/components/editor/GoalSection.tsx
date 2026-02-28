@@ -1,14 +1,34 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Section } from '@/components/ui/Section';
 import { InputField } from '@/components/ui/InputField';
 import { ImageUpload } from '@/components/ui/ImageUpload';
+import { StyleOverridePanel } from '@/components/editor/StyleOverridePanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
 import { compressImage } from '@/utils/image';
+import type { ElementStyleOverride, GoalStyleRole } from '@/types/elementStyleOverride';
+
+const STYLE_ROLES = [
+  { role: 'goalText', label: EDITOR_LABELS.styleRoleGoalGoalText },
+  { role: 'teamName', label: EDITOR_LABELS.styleRoleGoalTeamName },
+  { role: 'scorerName', label: EDITOR_LABELS.styleRoleGoalScorerName },
+  { role: 'assist', label: EDITOR_LABELS.styleRoleGoalAssist },
+  { role: 'assistSecondary', label: EDITOR_LABELS.styleRoleGoalAssistSecondary },
+  { role: 'timePeriod', label: EDITOR_LABELS.styleRoleGoalTimePeriod },
+] as const;
 
 export function GoalSection() {
   const goalData = useScoreboardStore((s) => s.goalData);
   const updateGoalField = useScoreboardStore((s) => s.updateGoalField);
+  const updateStyleOverride = useScoreboardStore((s) => s.updateGoalStyleOverride);
+
+  const overrides = useMemo(() => goalData.styleOverrides ?? {}, [goalData.styleOverrides]);
+  const handleStyleUpdate = useCallback(
+    (role: string, override: ElementStyleOverride | undefined) => {
+      updateStyleOverride(role as GoalStyleRole, override);
+    },
+    [updateStyleOverride],
+  );
 
   const handlePhotoUpload = useCallback(
     (dataUrl: string) => {
@@ -120,6 +140,12 @@ export function GoalSection() {
           />
         </div>
       </div>
+
+      <StyleOverridePanel
+        roles={STYLE_ROLES}
+        overrides={overrides}
+        onUpdate={handleStyleUpdate}
+      />
     </Section>
   );
 }

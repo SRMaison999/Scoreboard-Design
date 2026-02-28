@@ -39,7 +39,7 @@ describe('BodyType12', () => {
   it('gère un roster vide', () => {
     const props = {
       ...baseProps,
-      rosterData: { title: 'TEST', team: 'X', coach: '', players: [] },
+      rosterData: { title: 'TEST', team: 'X', coach: '', players: [], styleOverrides: {} },
     };
     const { container } = render(<BodyType12 {...props} />);
     expect(container.firstChild).toBeInTheDocument();

@@ -1,3 +1,5 @@
+import type { FreeTextStyleOverrides } from '@/types/elementStyleOverride';
+
 export type TextAlign = 'left' | 'center' | 'right';
 
 export interface FreeTextLine {
@@ -9,6 +11,7 @@ export interface FreeTextLine {
 
 export interface FreeTextData {
   lines: FreeTextLine[];
+  styleOverrides: FreeTextStyleOverrides;
 }
 
 export const DEFAULT_FREE_TEXT_DATA: FreeTextData = {
@@ -17,4 +20,5 @@ export const DEFAULT_FREE_TEXT_DATA: FreeTextData = {
     { text: 'Championnat du monde de hockey sur glace', fontSize: 30, align: 'center', bold: false },
     { text: '2026', fontSize: 40, align: 'center', bold: true },
   ],
+  styleOverrides: {},
 };

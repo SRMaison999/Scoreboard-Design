@@ -317,6 +317,89 @@ export const EDITOR_LABELS = {
   styleOverrideReset: 'R\u00e9initialiser',
 
   /* Noms des r\u00f4les d\u2019\u00e9l\u00e9ments - Arbitres */
+  /* Noms des r\u00f4les d'\u00e9l\u00e9ments - Stats G/D (type 2) */
+  styleRoleStatsTitle: 'Titre',
+  styleRoleStatsStatValue: 'Valeurs',
+  styleRoleStatsStatLabel: 'Labels',
+
+  /* Noms des r\u00f4les d'\u00e9l\u00e9ments - Stats Joueur (type 3) */
+  styleRolePlayerStatsTitle: 'Titre',
+  styleRolePlayerStatsStatLabel: 'Labels',
+  styleRolePlayerStatsPlayerName: 'Noms de joueurs',
+  styleRolePlayerStatsValue: 'Valeurs',
+
+  /* Noms des r\u00f4les d'\u00e9l\u00e9ments - But (type 4) */
+  styleRoleGoalGoalText: 'Texte GOAL',
+  styleRoleGoalTeamName: 'Nom d\u2019\u00e9quipe',
+  styleRoleGoalScorerName: 'Nom du buteur',
+  styleRoleGoalAssist: 'Passeur 1',
+  styleRoleGoalAssistSecondary: 'Passeur 2',
+  styleRoleGoalTimePeriod: 'Temps / P\u00e9riode',
+
+  /* Noms des r\u00f4les d'\u00e9l\u00e9ments - Fiche Joueur (type 5) */
+  styleRolePlayerCardTitle: 'Titre',
+  styleRolePlayerCardSubtitle: 'Sous-titre',
+  styleRolePlayerCardPlayerName: 'Nom du joueur',
+  styleRolePlayerCardTeamName: 'Nom d\u2019\u00e9quipe',
+  styleRolePlayerCardStatValue: 'Valeurs',
+  styleRolePlayerCardStatLabel: 'Labels',
+
+  /* Noms des r\u00f4les d'\u00e9l\u00e9ments - Classement (type 6) */
+  styleRoleStandingsTitle: 'Titre',
+  styleRoleStandingsHeader: 'En-t\u00eates de colonnes',
+  styleRoleStandingsRank: 'Rang',
+  styleRoleStandingsTeamName: 'Noms d\u2019\u00e9quipes',
+  styleRoleStandingsCellValue: 'Valeurs',
+
+  /* Noms des r\u00f4les d'\u00e9l\u00e9ments - Score Final (type 7) */
+  styleRoleFinalScoreTitle: 'Titre',
+  styleRoleFinalScoreTeamName: 'Noms d\u2019\u00e9quipes',
+  styleRoleFinalScoreScore: 'Score',
+  styleRoleFinalScorePeriodScores: 'Scores par p\u00e9riode',
+  styleRoleFinalScoreOvertimeNote: 'Note prolongation',
+  styleRoleFinalScoreGwg: 'But gagnant',
+
+  /* Noms des r\u00f4les d'\u00e9l\u00e9ments - Texte Libre (type 8) */
+  styleRoleFreeTextLine: 'Lignes de texte',
+
+  /* Noms des r\u00f4les d'\u00e9l\u00e9ments - Face-\u00e0-face (type 9) */
+  styleRoleHeadToHeadTitle: 'Titre',
+  styleRoleHeadToHeadPlayerName: 'Noms de joueurs',
+  styleRoleHeadToHeadPlayerInfo: 'Infos joueurs',
+  styleRoleHeadToHeadStatValue: 'Valeurs',
+  styleRoleHeadToHeadStatLabel: 'Labels',
+
+  /* Noms des r\u00f4les d'\u00e9l\u00e9ments - Chronologie (type 10) */
+  styleRoleTimelineTitle: 'Titre',
+  styleRoleTimelineTime: 'Temps',
+  styleRoleTimelineTeam: '\u00c9quipe',
+  styleRoleTimelineDescription: 'Description',
+  styleRoleTimelinePeriod: 'P\u00e9riode',
+  styleRoleTimelineSymbol: 'Symbole',
+
+  /* Noms des r\u00f4les d'\u00e9l\u00e9ments - Barres (type 11) */
+  styleRoleBarChartTitle: 'Titre',
+  styleRoleBarChartTeamName: 'Noms d\u2019\u00e9quipes',
+  styleRoleBarChartRowLabel: 'Labels',
+  styleRoleBarChartRowValue: 'Valeurs',
+
+  /* Noms des r\u00f4les d'\u00e9l\u00e9ments - Composition (type 12) */
+  styleRoleRosterTitle: 'Titre',
+  styleRoleRosterCoach: 'Entra\u00eeneur',
+  styleRoleRosterPlayerNumber: 'Num\u00e9ros',
+  styleRoleRosterPlayerName: 'Noms de joueurs',
+  styleRoleRosterPosition: 'Position',
+
+  /* Noms des r\u00f4les d'\u00e9l\u00e9ments - Calendrier (type 13) */
+  styleRoleScheduleTitle: 'Titre',
+  styleRoleScheduleDate: 'Date',
+  styleRoleScheduleTime: 'Heure',
+  styleRoleScheduleTeamName: 'Noms d\u2019\u00e9quipes',
+  styleRoleScheduleScore: 'Score',
+  styleRoleScheduleStatus: 'Statut',
+  styleRoleScheduleVenue: 'Lieu',
+
+  /* Noms des r\u00f4les d'\u00e9l\u00e9ments - Arbitres (type 15) */
   styleRoleRefereesTitle: 'Titre',
   styleRoleRefereesName: 'Noms',
   styleRoleRefereesNumber: 'Num\u00e9ros',

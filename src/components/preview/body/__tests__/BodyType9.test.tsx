@@ -39,6 +39,7 @@ describe('BodyType9', () => {
         playerLeft: { name: 'A', number: '1', team: 'X' },
         playerRight: { name: 'B', number: '2', team: 'Y' },
         stats: [],
+        styleOverrides: {},
       },
     };
     const { container } = render(<BodyType9 {...props} />);

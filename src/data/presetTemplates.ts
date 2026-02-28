@@ -66,6 +66,7 @@ const standingsState: ScoreboardState = {
       { team: 'FIN', values: { gp: '3', w: '1', l: '1', otl: '1', pts: '4' }, highlighted: false },
       { team: 'SVK', values: { gp: '3', w: '0', l: '2', otl: '1', pts: '1' }, highlighted: false },
     ],
+    styleOverrides: {},
   },
 };
 

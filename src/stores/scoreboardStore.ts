@@ -60,6 +60,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { if (s.stats.length < MAX_LINES) s.stats.push({ valLeft: '0', label: 'STAT', valRight: '0' }); }),
       removeStat: (index: number) =>
         set((s) => { s.stats.splice(index, 1); }),
+      updateStatsStyleOverride: (role, override) =>
+        set((s) => { if (override) { s.statsStyleOverrides[role] = override; } else { delete s.statsStyleOverrides[role]; } }),
 
       /* Player stats (type 3) */
       updatePlayerStat: (index: number, field: string, value: string) =>
@@ -68,6 +70,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { if (s.playerStats.length < MAX_LINES) s.playerStats.push({ label: 'STAT', value: '0', playerName: 'PLAYER', playerNumber: '00' }); }),
       removePlayerStat: (index: number) =>
         set((s) => { s.playerStats.splice(index, 1); }),
+      updatePlayerStatsStyleOverride: (role, override) =>
+        set((s) => { if (override) { s.playerStatsStyleOverrides[role] = override; } else { delete s.playerStatsStyleOverrides[role]; } }),
 
       /* Penalites */
       updatePenalty: (side: PenaltySide, index: number, field: string, value: string) =>
@@ -100,7 +104,9 @@ export const useScoreboardStore = create<ScoreboardStore>()(
 
       /* Goal (type 4) */
       updateGoalField: (field, value) =>
-        set((s) => { (s.goalData as Record<string, string>)[field] = value; }),
+        set((s) => { (s.goalData as unknown as Record<string, string>)[field] = value; }),
+      updateGoalStyleOverride: (role, override) =>
+        set((s) => { if (override) { s.goalData.styleOverrides[role] = override; } else { delete s.goalData.styleOverrides[role]; } }),
 
       /* Player Card (type 5) */
       updatePlayerCardField: (field, value) =>
@@ -111,6 +117,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { s.playerCardData.stats.splice(index, 1); }),
       updatePlayerCardStat: (index: number, field: string, value: string) =>
         set((s) => { const st = s.playerCardData.stats[index]; if (st) (st as Record<string, string>)[field] = value; }),
+      updatePlayerCardStyleOverride: (role, override) =>
+        set((s) => { if (override) { s.playerCardData.styleOverrides[role] = override; } else { delete s.playerCardData.styleOverrides[role]; } }),
 
       /* Standings (type 6) */
       updateStandingsTitle: (value: string) =>
@@ -121,6 +129,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { s.standingsData.rows.splice(index, 1); }),
       updateStandingsRowField: (index: number, field: string, value: string) =>
         set((s) => { const row = s.standingsData.rows[index]; if (!row) return; if (field === 'team') row.team = value; else if (field === 'highlighted') row.highlighted = value === 'true'; else row.values[field] = value; }),
+      updateStandingsStyleOverride: (role, override) =>
+        set((s) => { if (override) { s.standingsData.styleOverrides[role] = override; } else { delete s.standingsData.styleOverrides[role]; } }),
 
       /* Final Score (type 7) */
       updateFinalScoreField: (field, value) =>
@@ -131,6 +141,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { s.finalScoreData.periodScores.splice(index, 1); }),
       updatePeriodScore: (index: number, field: string, value: string) =>
         set((s) => { const ps = s.finalScoreData.periodScores[index]; if (ps) (ps as Record<string, string>)[field] = value; }),
+      updateFinalScoreStyleOverride: (role, override) =>
+        set((s) => { if (override) { s.finalScoreData.styleOverrides[role] = override; } else { delete s.finalScoreData.styleOverrides[role]; } }),
 
       /* Free Text (type 8) */
       addFreeTextLine: () =>
@@ -139,6 +151,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { s.freeTextData.lines.splice(index, 1); }),
       updateFreeTextLine: (index: number, field: string, value: unknown) =>
         set((s) => { const line = s.freeTextData.lines[index]; if (line) (line as Record<string, unknown>)[field] = value; }),
+      updateFreeTextStyleOverride: (role, override) =>
+        set((s) => { if (override) { s.freeTextData.styleOverrides[role] = override; } else { delete s.freeTextData.styleOverrides[role]; } }),
 
       /* Head to Head (type 9) */
       updateHeadToHeadTitle: (value: string) =>
@@ -151,6 +165,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { s.headToHeadData.stats.splice(index, 1); }),
       updateHeadToHeadStat: (index: number, field: string, value: string) =>
         set((s) => { const st = s.headToHeadData.stats[index]; if (st) (st as Record<string, string>)[field] = value; }),
+      updateHeadToHeadStyleOverride: (role, override) =>
+        set((s) => { if (override) { s.headToHeadData.styleOverrides[role] = override; } else { delete s.headToHeadData.styleOverrides[role]; } }),
 
       /* Timeline (type 10) */
       updateTimelineTitle: (value: string) =>
@@ -161,6 +177,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { s.timelineData.events.splice(index, 1); }),
       updateTimelineEvent: (index: number, field: string, value: string) =>
         set((s) => { const ev = s.timelineData.events[index]; if (ev) (ev as Record<string, string>)[field] = value; }),
+      updateTimelineStyleOverride: (role, override) =>
+        set((s) => { if (override) { s.timelineData.styleOverrides[role] = override; } else { delete s.timelineData.styleOverrides[role]; } }),
 
       /* Bar Chart (type 11) */
       updateBarChartTitle: (value: string) =>
@@ -171,6 +189,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { s.barChartData.rows.splice(index, 1); }),
       updateBarChartRow: (index: number, field: string, value: string | number) =>
         set((s) => { const row = s.barChartData.rows[index]; if (row) (row as Record<string, string | number>)[field] = value; }),
+      updateBarChartStyleOverride: (role, override) =>
+        set((s) => { if (override) { s.barChartData.styleOverrides[role] = override; } else { delete s.barChartData.styleOverrides[role]; } }),
 
       /* Roster (type 12) */
       updateRosterField: (field, value) =>
@@ -190,6 +210,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
             s.rosterData.players.push(...players.slice(0, remaining));
           }
         }),
+      updateRosterStyleOverride: (role, override) =>
+        set((s) => { if (override) { s.rosterData.styleOverrides[role] = override; } else { delete s.rosterData.styleOverrides[role]; } }),
 
       /* Schedule (type 13) */
       updateScheduleTitle: (value: string) =>
@@ -200,6 +222,8 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { s.scheduleData.matches.splice(index, 1); }),
       updateScheduleMatch: (index: number, field: string, value: string) =>
         set((s) => { const m = s.scheduleData.matches[index]; if (m) (m as Record<string, string>)[field] = value; }),
+      updateScheduleStyleOverride: (role, override) =>
+        set((s) => { if (override) { s.scheduleData.styleOverrides[role] = override; } else { delete s.scheduleData.styleOverrides[role]; } }),
 
       /* Referees (type 15) */
       updateRefereesField: (field, value) =>
@@ -378,6 +402,24 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         const specData = state['spectatorsData'] as Record<string, unknown> | undefined;
         if (specData && specData['styleOverrides'] === undefined) {
           specData['styleOverrides'] = {};
+        }
+        /* Migration : ajout styleOverrides aux body types 2-13 */
+        if (state['statsStyleOverrides'] === undefined) {
+          state['statsStyleOverrides'] = {};
+        }
+        if (state['playerStatsStyleOverrides'] === undefined) {
+          state['playerStatsStyleOverrides'] = {};
+        }
+        const dataKeys = [
+          'goalData', 'playerCardData', 'standingsData', 'finalScoreData',
+          'freeTextData', 'headToHeadData', 'timelineData', 'barChartData',
+          'rosterData', 'scheduleData',
+        ] as const;
+        for (const key of dataKeys) {
+          const d = state[key] as Record<string, unknown> | undefined;
+          if (d && d['styleOverrides'] === undefined) {
+            d['styleOverrides'] = {};
+          }
         }
         /* Migration : showFlagTeam1/showFlagTeam2 auto-detecte */
         if (state['showFlagTeam1'] === undefined) {

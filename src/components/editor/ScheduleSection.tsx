@@ -1,9 +1,22 @@
+import { useMemo, useCallback } from 'react';
 import { Section } from '@/components/ui/Section';
 import { InputField } from '@/components/ui/InputField';
 import { Button } from '@/components/ui/Button';
+import { StyleOverridePanel } from '@/components/editor/StyleOverridePanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
 import type { MatchStatus } from '@/types/bodyTypes/schedule';
+import type { ElementStyleOverride, ScheduleStyleRole } from '@/types/elementStyleOverride';
+
+const STYLE_ROLES = [
+  { role: 'title', label: EDITOR_LABELS.styleRoleScheduleTitle },
+  { role: 'date', label: EDITOR_LABELS.styleRoleScheduleDate },
+  { role: 'time', label: EDITOR_LABELS.styleRoleScheduleTime },
+  { role: 'teamName', label: EDITOR_LABELS.styleRoleScheduleTeamName },
+  { role: 'score', label: EDITOR_LABELS.styleRoleScheduleScore },
+  { role: 'status', label: EDITOR_LABELS.styleRoleScheduleStatus },
+  { role: 'venue', label: EDITOR_LABELS.styleRoleScheduleVenue },
+] as const;
 
 const MAX_MATCHES = 8;
 
@@ -19,6 +32,15 @@ export function ScheduleSection() {
   const addMatch = useScoreboardStore((s) => s.addScheduleMatch);
   const removeMatch = useScoreboardStore((s) => s.removeScheduleMatch);
   const updateMatch = useScoreboardStore((s) => s.updateScheduleMatch);
+  const updateStyleOverride = useScoreboardStore((s) => s.updateScheduleStyleOverride);
+
+  const overrides = useMemo(() => data.styleOverrides ?? {}, [data.styleOverrides]);
+  const handleStyleUpdate = useCallback(
+    (role: string, override: ElementStyleOverride | undefined) => {
+      updateStyleOverride(role as ScheduleStyleRole, override);
+    },
+    [updateStyleOverride],
+  );
 
   const title = `${EDITOR_LABELS.sectionSchedule} (${String(data.matches.length)}/${String(MAX_MATCHES)})`;
 
@@ -90,6 +112,12 @@ export function ScheduleSection() {
           + {EDITOR_LABELS.scheduleAddMatch}
         </Button>
       )}
+
+      <StyleOverridePanel
+        roles={STYLE_ROLES}
+        overrides={overrides}
+        onUpdate={handleStyleUpdate}
+      />
     </Section>
   );
 }

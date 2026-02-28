@@ -1,7 +1,8 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { Section } from '@/components/ui/Section';
 import { InputField } from '@/components/ui/InputField';
 import { Button } from '@/components/ui/Button';
+import { StyleOverridePanel } from '@/components/editor/StyleOverridePanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
 import { RosterImportModal } from '@/components/editor/RosterImportModal';
@@ -14,6 +15,15 @@ import {
 import { POSITION_OPTIONS } from '@/constants/positions';
 import type { RosterPlayer } from '@/types/bodyTypes/roster';
 import type { RosterImportMode } from '@/types/rosterImport';
+import type { ElementStyleOverride, RosterStyleRole } from '@/types/elementStyleOverride';
+
+const STYLE_ROLES = [
+  { role: 'title', label: EDITOR_LABELS.styleRoleRosterTitle },
+  { role: 'coach', label: EDITOR_LABELS.styleRoleRosterCoach },
+  { role: 'playerNumber', label: EDITOR_LABELS.styleRoleRosterPlayerNumber },
+  { role: 'playerName', label: EDITOR_LABELS.styleRoleRosterPlayerName },
+  { role: 'position', label: EDITOR_LABELS.styleRoleRosterPosition },
+] as const;
 
 const MAX_PLAYERS = 25;
 
@@ -24,6 +34,15 @@ export function RosterSection() {
   const removePlayer = useScoreboardStore((s) => s.removeRosterPlayer);
   const updatePlayer = useScoreboardStore((s) => s.updateRosterPlayer);
   const importPlayers = useScoreboardStore((s) => s.importRosterPlayers);
+  const updateStyleOverride = useScoreboardStore((s) => s.updateRosterStyleOverride);
+
+  const overrides = useMemo(() => data.styleOverrides ?? {}, [data.styleOverrides]);
+  const handleStyleUpdate = useCallback(
+    (role: string, override: ElementStyleOverride | undefined) => {
+      updateStyleOverride(role as RosterStyleRole, override);
+    },
+    [updateStyleOverride],
+  );
 
   const [importOpen, setImportOpen] = useState(false);
 
@@ -128,6 +147,12 @@ export function RosterSection() {
           + {EDITOR_LABELS.rosterAddPlayer}
         </Button>
       )}
+
+      <StyleOverridePanel
+        roles={STYLE_ROLES}
+        overrides={overrides}
+        onUpdate={handleStyleUpdate}
+      />
 
       <RosterImportModal
         open={importOpen}

@@ -1,3 +1,5 @@
+import type { FinalScoreStyleOverrides } from '@/types/elementStyleOverride';
+
 export interface PeriodScore {
   period: string;
   scoreLeft: string;
@@ -12,6 +14,7 @@ export interface FinalScoreData {
   gwgTeam: string;
   gwgTime: string;
   overtimeNote: string;
+  styleOverrides: FinalScoreStyleOverrides;
 }
 
 export const DEFAULT_FINAL_SCORE_DATA: FinalScoreData = {
@@ -26,4 +29,5 @@ export const DEFAULT_FINAL_SCORE_DATA: FinalScoreData = {
   gwgTeam: 'SVK',
   gwgTime: '58:23',
   overtimeNote: 'PROL.',
+  styleOverrides: {},
 };

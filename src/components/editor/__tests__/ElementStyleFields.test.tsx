@@ -32,7 +32,7 @@ describe('ElementStyleFields', () => {
   it('appelle onSetFontSize au changement du champ taille', () => {
     const props = renderFields();
     const inputs = screen.getAllByRole('spinbutton');
-    fireEvent.change(inputs[0], { target: { value: '24' } });
+    fireEvent.change(inputs[0]!, { target: { value: '24' } });
     expect(props.onSetFontSize).toHaveBeenCalledWith(24);
   });
 

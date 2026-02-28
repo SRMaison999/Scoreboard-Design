@@ -1,10 +1,10 @@
-import { hexToRgba } from '@/utils/color';
-import { ff, scaleFontSize } from '@/utils/font';
-import { FONT_SIZES } from '@/constants/fontSizes';
+import { resolveElementStyle, resolveColor } from '@/utils/elementStyle';
 import type { StatLine } from '@/types/scoreboard';
 import type { ColorMap, OpacityMap } from '@/types/colors';
 import type { FontId } from '@/types/fonts';
 import type { FontSizeConfig } from '@/types/fontSizes';
+import type { ElementDefaults, StyleContext } from '@/utils/elementStyle';
+import type { StatsStyleOverrides } from '@/types/elementStyleOverride';
 
 interface BodyType2Props {
   readonly stats: readonly StatLine[];
@@ -15,7 +15,23 @@ interface BodyType2Props {
   readonly opacities: OpacityMap;
   readonly fontBody: FontId;
   readonly fontSizes?: FontSizeConfig;
+  readonly statsStyleOverrides?: StatsStyleOverrides;
 }
+
+const DEFAULTS_TITLE: ElementDefaults = {
+  fontSize: 26, fontWeight: 600, letterSpacing: 5,
+  textTransform: 'uppercase', colorKey: 'titleText',
+};
+
+const DEFAULTS_STAT_VALUE: ElementDefaults = {
+  fontSize: 34, fontWeight: 700, letterSpacing: 2,
+  textTransform: 'none', colorKey: 'statVal',
+};
+
+const DEFAULTS_STAT_LABEL: ElementDefaults = {
+  fontSize: 18, fontWeight: 500, letterSpacing: 5,
+  textTransform: 'uppercase', colorKey: 'statLabel',
+};
 
 export function BodyType2({
   stats,
@@ -26,14 +42,12 @@ export function BodyType2({
   opacities,
   fontBody,
   fontSizes,
+  statsStyleOverrides,
 }: BodyType2Props) {
-  const col = (key: keyof ColorMap) => hexToRgba(colors[key], opacities[key] ?? 0);
   const n = stats.length;
-  const autoFs = FONT_SIZES[Math.min(Math.max(n, 1), 8)] ?? FONT_SIZES[1]!;
-  const scale = fontSizes?.bodyScale2 ?? 100;
-  const fsVal = scaleFontSize(fontSizes?.statValue || autoFs.val, scale);
-  const fsLabel = scaleFontSize(fontSizes?.statLabel || autoFs.label, scale);
-  const fsTitle = scaleFontSize(fontSizes?.title || 30, scale);
+  const sc = fontSizes?.bodyScale2 ?? 100;
+  const ctx: StyleContext = { colors, opacities, fontBody, bodyScale: sc };
+  const ov = statsStyleOverrides ?? {};
   const contentPad = showPenalties ? 10 : 40;
   const labelW = showPenalties ? 240 : 300;
 
@@ -45,18 +59,10 @@ export function BodyType2({
   }
   if (n === 0) gridRows.push('1fr');
 
-  const titleStyle: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: fsTitle,
-    fontWeight: 600,
-    letterSpacing: 5,
-    fontFamily: ff(fontBody),
-    textTransform: 'uppercase',
-    color: col('titleText'),
-    whiteSpace: 'nowrap',
-  };
+  const titleStyle = resolveElementStyle(DEFAULTS_TITLE, ctx, ov.title);
+  const statValStyle = resolveElementStyle(DEFAULTS_STAT_VALUE, ctx, ov.statValue);
+  const statLabelStyle = resolveElementStyle(DEFAULTS_STAT_LABEL, ctx, ov.statLabel);
+  const statValColor = resolveColor('statVal', ctx, ov.statValue);
 
   return (
     <div
@@ -72,24 +78,32 @@ export function BodyType2({
         const els: React.ReactNode[] = [];
 
         if (i === 0) {
-          els.push(<div key="tl" style={titleStyle}>{titleLeft}</div>);
+          els.push(
+            <div key="tl" style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              whiteSpace: 'nowrap', ...titleStyle,
+            }}>
+              {titleLeft}
+            </div>,
+          );
           els.push(<div key="tc" />);
-          els.push(<div key="tr" style={titleStyle}>{titleRight}</div>);
+          els.push(
+            <div key="tr" style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              whiteSpace: 'nowrap', ...titleStyle,
+            }}>
+              {titleRight}
+            </div>,
+          );
         }
 
         els.push(
           <div
             key={`vl-${i}`}
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: fsVal,
-              fontWeight: 700,
-              fontFamily: ff(fontBody),
-              letterSpacing: 2,
-              color: col('statVal'),
-              textShadow: `0 0 16px ${col('statVal')}5a`,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              textShadow: `0 0 16px ${statValColor}5a`,
+              ...statValStyle,
             }}
           >
             {s.valLeft}
@@ -100,15 +114,8 @@ export function BodyType2({
           <div
             key={`lb-${i}`}
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: fsLabel,
-              fontWeight: 500,
-              letterSpacing: 5,
-              textTransform: 'uppercase',
-              fontFamily: ff(fontBody),
-              color: col('statLabel'),
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              ...statLabelStyle,
             }}
           >
             {s.label}
@@ -119,15 +126,9 @@ export function BodyType2({
           <div
             key={`vr-${i}`}
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: fsVal,
-              fontWeight: 700,
-              fontFamily: ff(fontBody),
-              letterSpacing: 2,
-              color: col('statVal'),
-              textShadow: `0 0 16px ${col('statVal')}5a`,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              textShadow: `0 0 16px ${statValColor}5a`,
+              ...statValStyle,
             }}
           >
             {s.valRight}

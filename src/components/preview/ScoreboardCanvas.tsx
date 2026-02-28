@@ -60,9 +60,9 @@ function BodyRenderer({ state, colors, opacities, fontBody, fontSizes, playerPho
 
   switch (state.bodyType) {
     case 2:
-      return <BodyType2 stats={state.stats} titleLeft={state.titleLeft} titleRight={state.titleRight} {...shared} />;
+      return <BodyType2 stats={state.stats} titleLeft={state.titleLeft} titleRight={state.titleRight} statsStyleOverrides={state.statsStyleOverrides} {...shared} />;
     case 3:
-      return <BodyType3 playerStats={state.playerStats} titleCenter={state.titleCenter} showPlayerPhoto={state.showPlayerPhoto} playerPhotos={playerPhotos} {...shared} />;
+      return <BodyType3 playerStats={state.playerStats} titleCenter={state.titleCenter} showPlayerPhoto={state.showPlayerPhoto} playerPhotos={playerPhotos} playerStatsStyleOverrides={state.playerStatsStyleOverrides} {...shared} />;
     case 4:
       return <BodyType4 goalData={state.goalData} team1={state.team1} team2={state.team2} flagOverrides={flagOverrides} {...shared} />;
     case 5:
