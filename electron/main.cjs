@@ -9,7 +9,7 @@ function createWindow() {
     height: 900,
     minWidth: 1024,
     minHeight: 600,
-    title: 'Scoreboard Editor',
+    title: 'Scoreboard Design - IH',
     icon: path.join(__dirname, '..', 'public', 'icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),

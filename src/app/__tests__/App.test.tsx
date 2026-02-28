@@ -17,7 +17,7 @@ describe('App', () => {
 
   it('rend l editeur et la preview', () => {
     render(<App />);
-    expect(screen.getByText('Scoreboard Editor')).toBeInTheDocument();
+    expect(screen.getByText('Scoreboard Design - IH')).toBeInTheDocument();
     expect(screen.getByText('Ouvrir la sortie')).toBeInTheDocument();
   });
 

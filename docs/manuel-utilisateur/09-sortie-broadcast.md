@@ -21,7 +21,7 @@ La synchronisation utilise le BroadcastChannel du navigateur :
 ### Capture de fenêtre
 
 1. Dans OBS, ajouter une source "Capture de fenêtre"
-2. Sélectionner la fenêtre de sortie du Scoreboard Editor
+2. Sélectionner la fenêtre de sortie de Scoreboard Design - IH
 3. Ajuster la taille et la position dans la scène OBS
 
 ### Source navigateur

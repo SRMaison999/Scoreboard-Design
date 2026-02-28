@@ -1,6 +1,6 @@
 # Architecture de persistance
 
-Description des mecanismes de persistance du Scoreboard Editor : localStorage, IndexedDB et Frame Data API.
+Description des mecanismes de persistance de Scoreboard Design - Ice Hockey : localStorage, IndexedDB et Frame Data API.
 
 ---
 

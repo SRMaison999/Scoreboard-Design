@@ -19,9 +19,9 @@ describe('EditorPanel', () => {
     useEditorUIStore.setState({ activeRailTab: 'content', activeContentSubTab: 'teams' });
   });
 
-  it('affiche le titre Scoreboard Editor', () => {
+  it('affiche le titre Scoreboard Design - IH', () => {
     render(<EditorPanel />);
-    expect(screen.getByText('Scoreboard Editor')).toBeInTheDocument();
+    expect(screen.getByText('Scoreboard Design - IH')).toBeInTheDocument();
   });
 
   it('affiche le rail de navigation avec 5 onglets', () => {

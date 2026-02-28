@@ -1,6 +1,6 @@
 # Architecture - Guide de demarrage rapide
 
-Guide pour les nouveaux developpeurs souhaitant contribuer au Scoreboard Editor.
+Guide pour les nouveaux developpeurs souhaitant contribuer a Scoreboard Design - Ice Hockey.
 
 ---
 

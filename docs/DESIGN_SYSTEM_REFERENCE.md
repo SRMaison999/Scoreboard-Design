@@ -1,6 +1,6 @@
 # Design System Reference
 
-Reference complete des tokens visuels, couleurs, polices et composants UI du Scoreboard Editor.
+Reference complete des tokens visuels, couleurs, polices et composants UI de Scoreboard Design - Ice Hockey.
 
 ---
 
