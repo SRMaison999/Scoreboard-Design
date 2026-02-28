@@ -377,8 +377,20 @@ Le Layout libre (type 1, composant BodyType14) est le mode principal, proposé e
 | 11 | BodyType11 | Barres comparatives |
 | 12 | BodyType12 | Roster / composition |
 | 13 | BodyType13 | Calendrier / prochains matchs |
-| 15 | BodyType15 | Arbitres (drapeaux, NOC, rôles) |
-| 16 | BodyType16 | Spectateurs (affluence, lieu, capacité) |
+| 15 | BodyType15 | Arbitres (drapeaux, NOC, rôles) — style par élément |
+| 16 | BodyType16 | Spectateurs (affluence, lieu, capacité) — style par élément |
+
+**Système de surcharges de style par élément** (types 15, 16 — extensible à tous) :
+
+Les body types dotés du système `ElementStyleOverride` permettent de personnaliser individuellement chaque rôle d'élément (titre, valeur, label, etc.) : police, taille, graisse, espacement, casse, couleur et opacité. L'architecture est dans :
+
+| Fichier | Rôle |
+|---------|------|
+| `src/types/elementStyleOverride.ts` | Interface `ElementStyleOverride`, types de rôles par body type, `StyleOverrideMap<R>` |
+| `src/utils/elementStyle.ts` | `resolveElementStyle()` : fusion défauts + contexte global + overrides → `CSSProperties` |
+| `src/hooks/useStyleOverrideEditor.ts` | Hook de gestion d'état pour l'éditeur de surcharges |
+| `src/components/editor/StyleOverridePanel.tsx` | Panneau éditeur réutilisable avec liste de rôles |
+| `src/components/editor/ElementStyleFields.tsx` | Champs de formulaire pour un `ElementStyleOverride` |
 
 **Sous-composants du Body Type 1 (Layout libre, composant BodyType14)** :
 

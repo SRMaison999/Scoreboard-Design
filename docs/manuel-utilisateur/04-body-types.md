@@ -352,6 +352,31 @@ Présentation des arbitres du match avec drapeaux de nationalité, codes NOC et 
 | **Lignes par rôle** | Arbitres principaux en haut, juges de ligne en bas |
 | **Libre** | Identique à "Tous", pour personnalisation avancée |
 
+### Mise en forme personnalisée
+
+Chaque élément visuel du type Arbitres peut être personnalisé individuellement via la section **Style par élément** dans le panneau éditeur. Les rôles disponibles sont :
+
+| Rôle | Description |
+|------|-------------|
+| **Titre** | Le titre principal ("REFEREES") |
+| **Noms** | Les noms des arbitres |
+| **Numéros** | Les numéros des arbitres |
+| **NOC** | Les codes de nationalité |
+| **Rôle** | Les libellés "Arbitre principal" / "Juge de ligne" |
+| **Titre de catégorie** | Les en-têtes dans les presets colonnes/lignes |
+
+Pour chaque rôle, vous pouvez surcharger :
+
+- **Taille de police** (en pixels, avant application de l'échelle globale)
+- **Graisse** (400 à 900)
+- **Police** (remplace la police globale du body)
+- **Espacement des lettres** (en pixels)
+- **Casse** (normal, majuscules, minuscules)
+- **Couleur** (remplace la couleur globale du template)
+- **Opacité** (transparence de la couleur personnalisée)
+
+Cliquez sur un rôle pour le déplier et modifier ses propriétés. Un badge "Personnaliser" apparaît à côté des rôles ayant des surcharges actives. Le bouton "Réinitialiser" supprime toutes les surcharges d'un rôle.
+
 ### Cas d'utilisation
 
 - Présentation de l'équipe d'arbitrage avant le match
@@ -397,6 +422,20 @@ Affichage du nombre de spectateurs présents avec plusieurs styles de présentat
 | **Compact** | Version minimale avec label et chiffre uniquement |
 | **Détaillé** | Toutes les informations avec mise en page aérée |
 | **Libre** | Identique à "Centré", pour personnalisation avancée |
+
+### Mise en forme personnalisée
+
+Chaque élément visuel du type Spectateurs peut être personnalisé individuellement via la section **Style par élément**. Les rôles disponibles sont :
+
+| Rôle | Description |
+|------|-------------|
+| **Titre** | Le titre principal ("ATTENDANCE") |
+| **Nombre** | Le chiffre d'affluence |
+| **Label** | Le texte de label ("SPECTATEURS") |
+| **Lieu** | Le nom du lieu / arène |
+| **Capacité** | La capacité maximale |
+
+Les propriétés personnalisables sont identiques à celles du type Arbitres : taille, graisse, police, espacement, casse, couleur et opacité.
 
 ### Cas d'utilisation
 
