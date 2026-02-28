@@ -1,10 +1,8 @@
 # Manuel utilisateur - Sortie broadcast
 
-> **Avertissement :** les fonctionnalités décrites dans ce chapitre (fenêtre de sortie, intégration OBS/vMix/Wirecast, fond transparent) sont implémentées dans le code mais n'ont pas encore été validées en conditions de production broadcast. L'application est actuellement un outil de conception de templates, pas un système de production opérationnel.
-
 ## Fenêtre de sortie
 
-La fenêtre de sortie affiche le scoreboard dans une fenêtre séparée, sans interface éditeur. À terme, cette fenêtre est destinée à être capturée par un logiciel de diffusion (OBS, vMix, Wirecast).
+La fenêtre de sortie affiche le scoreboard dans une fenêtre séparée, sans interface éditeur. Cette fenêtre peut être capturée par un logiciel de diffusion (OBS, vMix, Wirecast).
 
 ## Ouvrir la fenêtre de sortie
 
@@ -17,9 +15,8 @@ La fenêtre de sortie reçoit automatiquement les mises à jour du scoreboard en
 La synchronisation utilise le BroadcastChannel du navigateur :
 - Fonctionne uniquement entre fenêtres du même domaine
 - Unidirectionnelle : l'éditeur/opérateur envoie, la sortie reçoit
-- Temps réel, sans délai perceptible
 
-## Intégration OBS
+## Capture dans OBS
 
 ### Capture de fenêtre
 
@@ -33,13 +30,13 @@ La synchronisation utilise le BroadcastChannel du navigateur :
 2. Entrer l'URL `/output` de l'application
 3. Définir les dimensions (1920x1080 ou selon le template)
 
-## Intégration vMix
+## Capture dans vMix
 
 1. Ajouter une entrée "Web Browser"
 2. Entrer l'URL de la fenêtre de sortie
 3. Définir la résolution souhaitée
 
-## Intégration Wirecast
+## Capture dans Wirecast
 
 1. Ajouter une source "Web Page"
 2. Entrer l'URL de la fenêtre de sortie
@@ -47,11 +44,11 @@ La synchronisation utilise le BroadcastChannel du navigateur :
 
 ## Fond transparent
 
-Le scoreboard peut être utilisé avec un fond transparent pour l'incrustation en superposition. Le dégradé de fond peut être rendu semi-transparent via les sliders d'opacité des couleurs de fond (bgTop, bgMid, bgBot).
+Le scoreboard peut être utilisé avec un fond semi-transparent pour l'incrustation en superposition. Les sliders d'opacité des couleurs de fond (bgTop, bgMid, bgBot) permettent de rendre le dégradé plus ou moins transparent.
 
 ## Conseils
 
 - Utiliser la résolution Full HD (1920x1080) pour une compatibilité maximale
-- La fenêtre de sortie doit rester ouverte pendant toute la diffusion
+- La fenêtre de sortie doit rester ouverte pendant toute la session
 - Si la fenêtre est accidentellement fermée, la rouvrir depuis l'éditeur
 - Vérifier que le navigateur n'est pas en mode "économie d'énergie" (peut ralentir les mises à jour)

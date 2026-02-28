@@ -425,7 +425,7 @@ Affiche une ligne de séparation, idéale pour délimiter visuellement des zones
 - **Épaisseur** : en pixels
 - **Couleur** + opacité
 
-**Astuce :** un séparateur vertical fin (2 px, blanc, opacité 50%) entre les deux scores donne un rendu broadcast professionnel.
+**Astuce :** un séparateur vertical fin (2 px, blanc, opacité 50%) entre les deux scores donne un rendu soigné.
 
 ---
 

@@ -77,13 +77,13 @@ Chaque élément textuel a un slider de taille individuel :
 
 | Élément | Plage |
 |---------|-------|
-| Noms d'équipes | 24-72px |
+| Noms d'équipes | 24-120px |
 | Scores | 40-120px |
 | Horloge | 40-120px |
 | Période | 12-40px |
 | Titres | 16-60px |
-| Valeurs stats | 24-120px |
-| Labels stats | 16-60px |
+| Valeurs stats | 0-120px (0 = automatique) |
+| Labels stats | 0-60px (0 = automatique) |
 | Temps de pénalité | 30-80px |
 | Numéros de pénalité | 30-80px |
 
