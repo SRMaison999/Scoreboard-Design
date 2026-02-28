@@ -163,16 +163,56 @@ tickTimerDraft() dans timerActions.ts
 
 ## 7. Ajouter un body type
 
-1. Creer `src/components/preview/body/BodyTypeN.tsx` (rendu inline styles)
-2. Creer la section editeur `src/components/editor/XxxSection.tsx` (Tailwind)
-3. Definir les types dans `src/types/bodyTypes/xxx.ts`
-4. Ajouter l'etat par defaut dans `src/data/defaultState.ts`
-5. Ajouter les actions dans `src/stores/scoreboardStore.ts`
-6. Ajouter les labels dans `src/constants/labels.ts`
-7. Ajouter le cas dans le switch de `ScoreboardCanvas.tsx` (BodyRenderer)
-8. Ajouter le cas dans le switch de `EditorPanel.tsx` (BodyContentSection)
-9. Ecrire les tests pour le body type et la section editeur
-10. Mettre a jour la documentation
+Checklist exhaustive. CHAQUE etape est obligatoire — un oubli provoque des erreurs de type, des tests en echec ou des fonctionnalites manquantes.
+
+### A. Types et donnees
+
+1. Creer `src/types/bodyTypes/xxx.ts` — interface des donnees + constante `DEFAULT_XXX_DATA`
+2. Ajouter le nouveau numero a `BodyTypeId` dans `src/types/scoreboard.ts`
+3. Ajouter le champ de donnees (`xxxData`) a l'interface `ScoreboardState` dans `src/types/scoreboard.ts`
+4. Ajouter les signatures d'actions dans `src/types/storeActions.ts`
+5. Ajouter `bodyScaleN` dans `src/types/fontSizes.ts` (interface `FontSizeConfig`, `FONT_SIZE_RANGES`, `DEFAULT_FONT_SIZES`)
+
+### B. Store et etat
+
+6. Ajouter l'etat par defaut (`xxxData: structuredClone(DEFAULT_XXX_DATA)`) dans `src/data/defaultState.ts`
+7. Ajouter l'objet vide correspondant dans `src/data/cleanContent.ts`
+8. Ajouter les actions immer dans `src/stores/scoreboardStore.ts` + bumper la version de migration
+9. Ajouter le champ dans `selectState()` de `src/hooks/useOutputSync.ts` (synchronisation fenetre de sortie)
+
+### C. Constantes et labels
+
+10. Ajouter l'entree dans `src/constants/bodyTypes.ts` (registre des types)
+11. Ajouter TOUS les labels dans `src/constants/labels.ts` (section editeur + noms d'echelle)
+12. Ajouter l'entree dans `BODY_TYPE_NAMES` de `src/utils/specGenerator.ts`
+13. Ajouter l'entree dans `BODY_SCALE_NAMES` de `src/components/editor/FontSizeSection.tsx`
+
+### D. Composants de rendu et editeur
+
+14. Creer `src/components/preview/body/BodyTypeN.tsx` (rendu inline styles)
+15. Creer `src/components/editor/XxxSection.tsx` (Tailwind)
+16. Ajouter le cas dans le switch de `ScoreboardCanvas.tsx` (`BodyRenderer`)
+17. Ajouter le cas dans le switch de `src/components/editor/BodyContentSection.tsx`
+
+### E. Integration Layout libre (NE PAS OUBLIER)
+
+18. Ajouter `'body-type-N'` a `FieldElementType` et `FieldElementConfig` dans `src/types/customField.ts`
+19. Ajouter l'element de bibliotheque dans `src/constants/libraryElements.ts` (categorie `'composed'`)
+20. Ajouter le cas dans le switch de `src/components/preview/body/FieldEmbeddedBodyType.tsx` (`EmbeddedBodyType`)
+
+### F. Tests
+
+21. Creer `src/components/preview/body/__tests__/BodyTypeN.test.tsx`
+22. Creer `src/components/editor/__tests__/XxxSection.test.tsx`
+23. Ajouter un test dans `src/components/preview/body/__tests__/FieldEmbeddedBodyType.test.tsx`
+24. Verifier que `src/stores/__tests__/scoreboardStore.test.ts` reste compatible (champ dans `plainState` du test `loadState`)
+
+### G. Documentation (NE PAS OUBLIER)
+
+25. Mettre a jour `docs/manuel-utilisateur/04-body-types.md` (description du type, presets, options)
+26. Mettre a jour `docs/manuel-utilisateur/03-layout-libre.md` (nombre d'elements, plage des types composes)
+27. Mettre a jour `docs/manuel-utilisateur/03b-layout-elements.md` (section « Types d'affichage embarques », liste des types)
+28. Mettre a jour `docs/DOCUMENTATION_INDEX.md` si necessaire
 
 ---
 
