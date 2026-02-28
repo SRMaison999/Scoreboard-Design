@@ -360,7 +360,7 @@ Paramètres spécifiques selon le type d'élément (voir tableau ci-dessous).
 | **Match** | Date, heure, équipe gauche, équipe droite, scores, statut (à venir, en cours, terminé), lieu, taille de police, famille de police, couleur |
 | **Programme** | Titre, liste de matchs (date, heure, équipes, scores, statut, lieu), taille de police, famille de police, couleurs |
 | **Header complet** | Afficher l'horloge (oui/non), famille de police |
-| **Types embarqués (2-14)** | Identifiant du body type à afficher |
+| **Types embarqués (2-16)** | Identifiant du body type à afficher. Inclut notamment Arbitres (15) et Spectateurs (16) — voir chapitre [Body types](04-body-types.md) pour le détail de chaque type |
 
 ## Panneau des couches
 
