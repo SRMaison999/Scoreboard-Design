@@ -19,7 +19,9 @@ describe('UserManual', () => {
 
   it('affiche le titre du manuel quand ouvert', () => {
     render(<UserManual {...defaultProps} />);
-    expect(screen.getByText(EDITOR_LABELS.userManualTitle)).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: EDITOR_LABELS.userManualTitle }),
+    ).toBeInTheDocument();
   });
 
   it('ne rend rien quand ferme', () => {
