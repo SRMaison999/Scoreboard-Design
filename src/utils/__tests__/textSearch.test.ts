@@ -28,7 +28,7 @@ describe('searchManualChapters', () => {
     {
       id: 'ch1',
       title: 'Introduction',
-      content: 'Bienvenue dans le Scoreboard Editor. Cet éditeur permet de créer des affichages.',
+      content: 'Bienvenue dans Scoreboard Design - Ice Hockey. Cet éditeur permet de créer des affichages.',
     },
     {
       id: 'ch2',

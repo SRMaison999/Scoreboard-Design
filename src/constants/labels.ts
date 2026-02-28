@@ -1,7 +1,7 @@
 /* Tous les textes UI de l'application, centralisés ici. */
 
 export const EDITOR_LABELS = {
-  appTitle: 'Scoreboard Editor',
+  appTitle: 'Scoreboard Design - IH',
 
   /* Groupes de sections */
   groupContenu: 'Contenu',

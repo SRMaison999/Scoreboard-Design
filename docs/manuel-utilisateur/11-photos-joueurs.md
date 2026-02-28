@@ -2,7 +2,7 @@
 
 ## Présentation
 
-Le Scoreboard Editor permet d'associer des photos aux joueurs. Ces photos sont affichées automatiquement dans les types d'affichage qui les supportent (stats joueur et face-à-face). Les photos sont stockées localement dans le navigateur via IndexedDB.
+Scoreboard Design - Ice Hockey permet d'associer des photos aux joueurs. Ces photos sont affichées automatiquement dans les types d'affichage qui les supportent (stats joueur et face-à-face). Les photos sont stockées localement dans le navigateur via IndexedDB.
 
 ---
 

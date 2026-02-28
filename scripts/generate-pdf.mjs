@@ -11,7 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const MANUAL_DIR = path.join(__dirname, '..', 'docs', 'manuel-utilisateur');
-const OUTPUT_PATH = path.join(__dirname, '..', 'docs', 'Manuel_Utilisateur_Scoreboard_Editor.pdf');
+const OUTPUT_PATH = path.join(__dirname, '..', 'docs', 'Manuel_Utilisateur_Scoreboard_Design_IH.pdf');
 
 const FILES = [
   '01-introduction.md',
@@ -413,7 +413,7 @@ function addCoverPage(doc, pageWidth, pageHeight) {
   // Title
   const titleY = pageHeight * 0.3;
   doc.font('Helvetica-Bold').fontSize(36).fillColor(COLORS.coverText);
-  doc.text('Scoreboard Editor', 0, titleY, { align: 'center', width: pageWidth });
+  doc.text('Scoreboard Design - Ice Hockey', 0, titleY, { align: 'center', width: pageWidth });
 
   doc.moveDown(0.5);
   doc.font('Helvetica').fontSize(20).fillColor(COLORS.coverSubtitle);
@@ -486,9 +486,9 @@ const doc = new PDFDocument({
   margins: { top: 50, bottom: 50, left: 50, right: 50 },
   bufferPages: true,
   info: {
-    Title: 'Scoreboard Editor - Manuel utilisateur',
+    Title: 'Scoreboard Design - Ice Hockey - Manuel utilisateur',
     Author: 'Scoreboard Design',
-    Subject: 'Manuel utilisateur du Scoreboard Editor pour hockey sur glace',
+    Subject: 'Manuel utilisateur de Scoreboard Design - Ice Hockey',
   },
 });
 

@@ -4,7 +4,7 @@
  */
 module.exports = {
   appId: 'com.scoreboard-design.app',
-  productName: 'Scoreboard Editor',
+  productName: 'Scoreboard Design - IH',
   directories: {
     output: 'release',
     buildResources: 'build',
@@ -30,8 +30,8 @@ module.exports = {
     allowToChangeInstallationDirectory: true,
     createDesktopShortcut: true,
     createStartMenuShortcut: true,
-    shortcutName: 'Scoreboard Editor',
-    artifactName: 'ScoreboardEditor-Setup-${version}.${ext}',
+    shortcutName: 'Scoreboard Design - IH',
+    artifactName: 'ScoreboardDesign-IH-Setup-${version}.${ext}',
   },
   mac: {
     icon: 'build/icon.png',

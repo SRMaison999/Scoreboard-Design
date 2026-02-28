@@ -1,4 +1,4 @@
-# Hockey Scoreboard Editor — Spécification technique complète
+# Scoreboard Design - Ice Hockey — Spécification technique complète
 
 ## Document destiné aux développeurs
 

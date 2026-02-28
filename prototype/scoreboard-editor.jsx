@@ -641,7 +641,7 @@ export default function ScoreboardEditor() {
       <div style={{ width: 360, flexShrink: 0, borderRight: "1px solid #1e293b", overflowY: "auto", padding: 16, display: "flex", flexDirection: "column", gap: 16 }}>
 
         <div style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Oswald', sans-serif", letterSpacing: 2, textTransform: "uppercase", color: "#4fc3f7" }}>
-          Scoreboard Editor
+          Scoreboard Design - IH
         </div>
 
         <Section title="Type de corps">

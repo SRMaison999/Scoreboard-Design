@@ -1,12 +1,12 @@
 # Vue d'ensemble du système
 
-Description détaillée de l'architecture, des modules et du flux de données du Scoreboard Editor.
+Description détaillée de l'architecture, des modules et du flux de données de Scoreboard Design - Ice Hockey.
 
 ---
 
 ## 1. Architecture globale
 
-Le Scoreboard Editor est une application React mono-page avec trois vues :
+Scoreboard Design - Ice Hockey est une application React mono-page avec trois vues :
 
 | Route | Vue | Role |
 |-------|-----|------|

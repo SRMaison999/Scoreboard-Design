@@ -1,8 +1,8 @@
 # Manuel utilisateur - Introduction
 
-## Qu'est-ce que le Scoreboard Editor ?
+## Qu'est-ce que Scoreboard Design - Ice Hockey ?
 
-Le Scoreboard Editor est un outil de conception de templates de scoreboard pour le hockey sur glace. Il permet de concevoir, personnaliser et prévisualiser des affichages de scores, statistiques et classements.
+Scoreboard Design - Ice Hockey est un outil de conception de templates de scoreboard pour le hockey sur glace. Il permet de concevoir, personnaliser et prévisualiser des affichages de scores, statistiques et classements.
 
 ## À qui s'adresse cette application ?
 

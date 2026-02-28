@@ -1,6 +1,6 @@
 # Guide de style des composants
 
-Conventions, patterns et exemples pour le developpement de composants dans le Scoreboard Editor.
+Conventions, patterns et exemples pour le developpement de composants dans Scoreboard Design - Ice Hockey.
 
 ---
 
