@@ -67,7 +67,6 @@ La synchronisation entre les fenêtres s'effectue via l'API `BroadcastChannel`, 
 - **3 zones de police indépendantes** : équipes, horloge, corps
 - **Tailles automatiques** adaptées au nombre de lignes (1 à 8 lignes de statistiques)
 - **5 presets de couleurs** : OMEGA Blue, Dark Mode, Ice White, Hockey Red, Arena Green
-- **4 templates pré-configurés** : Jeux Olympiques, Championnat du monde, Classement groupe, Minimal
 - **Drapeaux SVG** pour 31 nations (codes NOC)
 - **Preview responsive** avec scaling automatique (1920x1080 par défaut, configurable)
 
