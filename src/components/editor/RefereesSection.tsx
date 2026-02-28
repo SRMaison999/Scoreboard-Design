@@ -1,11 +1,14 @@
+import { useMemo, useCallback } from 'react';
 import { Section } from '@/components/ui/Section';
 import { InputField } from '@/components/ui/InputField';
 import { Select } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
+import { StyleOverridePanel } from '@/components/editor/StyleOverridePanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
 import type { SelectOption } from '@/components/ui/Select';
 import type { RefereesPreset, RefereeRole } from '@/types/bodyTypes/referees';
+import type { ElementStyleOverride, RefereesStyleRole } from '@/types/elementStyleOverride';
 
 const MAX_REFEREES = 8;
 
@@ -22,12 +25,31 @@ const ROLE_OPTIONS: readonly SelectOption[] = [
   { value: 'linesman', label: EDITOR_LABELS.refereesRoleLinesman },
 ];
 
+const STYLE_ROLES = [
+  { role: 'title', label: EDITOR_LABELS.styleRoleRefereesTitle },
+  { role: 'name', label: EDITOR_LABELS.styleRoleRefereesName },
+  { role: 'number', label: EDITOR_LABELS.styleRoleRefereesNumber },
+  { role: 'noc', label: EDITOR_LABELS.styleRoleRefereesNoc },
+  { role: 'role', label: EDITOR_LABELS.styleRoleRefereesRole },
+  { role: 'categoryTitle', label: EDITOR_LABELS.styleRoleRefereesCategoryTitle },
+] as const;
+
 export function RefereesSection() {
   const data = useScoreboardStore((s) => s.refereesData);
   const updateField = useScoreboardStore((s) => s.updateRefereesField);
   const addReferee = useScoreboardStore((s) => s.addReferee);
   const removeReferee = useScoreboardStore((s) => s.removeReferee);
   const updateReferee = useScoreboardStore((s) => s.updateReferee);
+  const updateStyleOverride = useScoreboardStore((s) => s.updateRefereesStyleOverride);
+
+  const overrides = useMemo(() => data.styleOverrides ?? {}, [data.styleOverrides]);
+
+  const handleStyleUpdate = useCallback(
+    (role: string, override: ElementStyleOverride | undefined) => {
+      updateStyleOverride(role as RefereesStyleRole, override);
+    },
+    [updateStyleOverride],
+  );
 
   const title = `${EDITOR_LABELS.sectionReferees} (${String(data.referees.length)}/${String(MAX_REFEREES)})`;
 
@@ -153,6 +175,12 @@ export function RefereesSection() {
           + {EDITOR_LABELS.refereesAddReferee}
         </Button>
       )}
+
+      <StyleOverridePanel
+        roles={STYLE_ROLES}
+        overrides={overrides}
+        onUpdate={handleStyleUpdate}
+      />
     </Section>
   );
 }

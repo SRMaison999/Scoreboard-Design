@@ -11,6 +11,7 @@ import type { RosterImportMode } from './rosterImport';
 import type { FontSizeKey } from './fontSizes';
 import type { CustomField, FieldElementConfig, FieldStyle } from './customField';
 import type { DistributionAction } from '@/utils/fieldDistribution';
+import type { ElementStyleOverride, RefereesStyleRole, SpectatorsStyleRole } from './elementStyleOverride';
 
 export interface ScoreboardActions {
   /* Actions generiques */
@@ -113,9 +114,11 @@ export interface ScoreboardActions {
   addReferee: () => void;
   removeReferee: (index: number) => void;
   updateReferee: (index: number, field: keyof RefereeEntry, value: string | boolean) => void;
+  updateRefereesStyleOverride: (role: RefereesStyleRole, override: ElementStyleOverride | undefined) => void;
 
   /* Spectators (type 16) */
   updateSpectatorsField: (field: keyof SpectatorsData, value: unknown) => void;
+  updateSpectatorsStyleOverride: (role: SpectatorsStyleRole, override: ElementStyleOverride | undefined) => void;
 
   /* Shootout */
   addShootoutAttempt: (side: PenaltySide) => void;

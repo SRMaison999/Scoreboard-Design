@@ -194,6 +194,21 @@ Checklist exhaustive. CHAQUE etape est obligatoire — un oubli provoque des err
 16. Ajouter le cas dans le switch de `ScoreboardCanvas.tsx` (`BodyRenderer`)
 17. Ajouter le cas dans le switch de `src/components/editor/BodyContentSection.tsx`
 
+### D-bis. Surcharges de style par element (RECOMMANDE)
+
+Pour rendre le body type personnalisable par l'utilisateur au niveau de chaque element :
+
+14b. Definir les roles d'elements du body type dans `src/types/elementStyleOverride.ts` (ex: `type MonTypeStyleRole = 'title' | 'value' | ...`)
+14c. Ajouter `StyleOverrideMap<MonTypeStyleRole>` au type `XxxStyleOverrides`, et le champ `styleOverrides: XxxStyleOverrides` a l'interface de donnees du body type
+14d. Definir les `ElementDefaults` (valeurs historiquement hardcodees) pour chaque role dans le composant de rendu
+14e. Utiliser `resolveElementStyle(defaults, ctx, override)` au lieu de valeurs hardcodees dans le rendu
+14f. Ajouter une action `updateXxxStyleOverride(role, override)` au store (`storeActions.ts` + `scoreboardStore.ts`)
+14g. Integrer le `StyleOverridePanel` dans la section editeur avec la liste des roles
+14h. Ajouter les labels des roles dans `src/constants/labels.ts` (prefixe `styleRoleXxx`)
+14i. Mettre a jour `cleanContent.ts` et la migration du store pour inclure `styleOverrides: {}`
+
+Fichiers de reference existants : `BodyType15.tsx`, `BodyType16.tsx`, `RefereesSection.tsx`
+
 ### E. Integration Layout libre (NE PAS OUBLIER)
 
 18. Ajouter `'body-type-N'` a `FieldElementType` et `FieldElementConfig` dans `src/types/customField.ts`

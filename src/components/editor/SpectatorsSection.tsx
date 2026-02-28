@@ -1,10 +1,13 @@
+import { useMemo, useCallback } from 'react';
 import { Section } from '@/components/ui/Section';
 import { InputField } from '@/components/ui/InputField';
 import { Select } from '@/components/ui/Select';
+import { StyleOverridePanel } from '@/components/editor/StyleOverridePanel';
 import { useScoreboardStore } from '@/stores/scoreboardStore';
 import { EDITOR_LABELS } from '@/constants/labels';
 import type { SelectOption } from '@/components/ui/Select';
 import type { SpectatorsPreset } from '@/types/bodyTypes/spectators';
+import type { ElementStyleOverride, SpectatorsStyleRole } from '@/types/elementStyleOverride';
 
 const PRESET_OPTIONS: readonly SelectOption[] = [
   { value: 'centered', label: EDITOR_LABELS.spectatorsPresetCentered },
@@ -14,9 +17,27 @@ const PRESET_OPTIONS: readonly SelectOption[] = [
   { value: 'free', label: EDITOR_LABELS.spectatorsPresetFree },
 ];
 
+const STYLE_ROLES = [
+  { role: 'title', label: EDITOR_LABELS.styleRoleSpectatorsTitle },
+  { role: 'count', label: EDITOR_LABELS.styleRoleSpectatorsCount },
+  { role: 'label', label: EDITOR_LABELS.styleRoleSpectatorsLabel },
+  { role: 'venue', label: EDITOR_LABELS.styleRoleSpectatorsVenue },
+  { role: 'capacity', label: EDITOR_LABELS.styleRoleSpectatorsCapacity },
+] as const;
+
 export function SpectatorsSection() {
   const data = useScoreboardStore((s) => s.spectatorsData);
   const updateField = useScoreboardStore((s) => s.updateSpectatorsField);
+  const updateStyleOverride = useScoreboardStore((s) => s.updateSpectatorsStyleOverride);
+
+  const overrides = useMemo(() => data.styleOverrides ?? {}, [data.styleOverrides]);
+
+  const handleStyleUpdate = useCallback(
+    (role: string, override: ElementStyleOverride | undefined) => {
+      updateStyleOverride(role as SpectatorsStyleRole, override);
+    },
+    [updateStyleOverride],
+  );
 
   return (
     <Section title={EDITOR_LABELS.sectionSpectators}>
@@ -80,6 +101,12 @@ export function SpectatorsSection() {
           />
         )}
       </div>
+
+      <StyleOverridePanel
+        roles={STYLE_ROLES}
+        overrides={overrides}
+        onUpdate={handleStyleUpdate}
+      />
     </Section>
   );
 }

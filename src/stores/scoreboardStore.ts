@@ -210,10 +210,14 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         set((s) => { s.refereesData.referees.splice(index, 1); }),
       updateReferee: (index, field, value) =>
         set((s) => { const r = s.refereesData.referees[index]; if (r) (r as Record<string, string | boolean>)[field] = value; }),
+      updateRefereesStyleOverride: (role, override) =>
+        set((s) => { if (override) { s.refereesData.styleOverrides[role] = override; } else { delete s.refereesData.styleOverrides[role]; } }),
 
       /* Spectators (type 16) */
       updateSpectatorsField: (field, value) =>
         set((s) => { (s.spectatorsData as Record<string, unknown>)[field] = value; }),
+      updateSpectatorsStyleOverride: (role, override) =>
+        set((s) => { if (override) { s.spectatorsData.styleOverrides[role] = override; } else { delete s.spectatorsData.styleOverrides[role]; } }),
 
       /* Shootout */
       addShootoutAttempt: (side: PenaltySide) =>
@@ -361,10 +365,19 @@ export const useScoreboardStore = create<ScoreboardStore>()(
         }
         /* Migration v10 : ajout refereesData et spectatorsData */
         if (state['refereesData'] === undefined) {
-          state['refereesData'] = { title: '', preset: 'all', activeIndex: 0, showFlags: true, showNocs: true, showRoles: true, referees: [] };
+          state['refereesData'] = { title: '', preset: 'all', activeIndex: 0, showFlags: true, showNocs: true, showRoles: true, referees: [], styleOverrides: {} };
         }
         if (state['spectatorsData'] === undefined) {
-          state['spectatorsData'] = { title: '', preset: 'centered', count: '', venue: '', capacity: '', showVenue: false, showCapacity: false, label: '' };
+          state['spectatorsData'] = { title: '', preset: 'centered', count: '', venue: '', capacity: '', showVenue: false, showCapacity: false, label: '', styleOverrides: {} };
+        }
+        /* Migration : ajout styleOverrides aux body types existants */
+        const refData = state['refereesData'] as Record<string, unknown> | undefined;
+        if (refData && refData['styleOverrides'] === undefined) {
+          refData['styleOverrides'] = {};
+        }
+        const specData = state['spectatorsData'] as Record<string, unknown> | undefined;
+        if (specData && specData['styleOverrides'] === undefined) {
+          specData['styleOverrides'] = {};
         }
         /* Migration : showFlagTeam1/showFlagTeam2 auto-detecte */
         if (state['showFlagTeam1'] === undefined) {
