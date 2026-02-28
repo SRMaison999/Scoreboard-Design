@@ -65,4 +65,56 @@ describe('renderMarkdown', () => {
     const html = renderMarkdown('');
     expect(html).toBe('');
   });
+
+  it('rend un titre h1', () => {
+    const html = renderMarkdown('# Grand titre');
+    expect(html).toContain('<h2');
+    expect(html).toContain('Grand titre');
+  });
+
+  it('rend un titre h4', () => {
+    const html = renderMarkdown('#### Petit titre');
+    expect(html).toContain('<h4');
+    expect(html).toContain('Petit titre');
+  });
+
+  it('rend une regle horizontale', () => {
+    const html = renderMarkdown('---');
+    expect(html).toContain('<hr');
+  });
+
+  it('rend un bloc de code', () => {
+    const html = renderMarkdown('```\nconst x = 1;\n```');
+    expect(html).toContain('<pre');
+    expect(html).toContain('<code');
+    expect(html).toContain('const x = 1;');
+  });
+
+  it('rend une citation (blockquote)', () => {
+    const html = renderMarkdown('> Texte cite');
+    expect(html).toContain('<blockquote');
+    expect(html).toContain('Texte cite');
+  });
+
+  it('rend un lien markdown comme texte stylise', () => {
+    const html = renderMarkdown('[Mon lien](http://example.com)');
+    expect(html).toContain('Mon lien');
+    expect(html).toContain('text-blue-400');
+    expect(html).not.toContain('http://example.com');
+  });
+
+  it('rend une liste avec imbrication', () => {
+    const html = renderMarkdown('- Parent\n  - Enfant');
+    expect(html).toContain('<ul');
+    expect(html).toContain('Parent');
+    expect(html).toContain('Enfant');
+    expect(html).toContain('pl-6');
+  });
+
+  it('ne confond pas une regle horizontale avec un item de liste', () => {
+    const html = renderMarkdown('- Item\n\n---\n\nTexte');
+    expect(html).toContain('<li');
+    expect(html).toContain('<hr');
+    expect(html).toContain('Texte');
+  });
 });

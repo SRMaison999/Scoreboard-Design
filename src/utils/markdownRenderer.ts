@@ -1,6 +1,7 @@
 /**
  * Rendu simplifie de markdown en fragments HTML.
- * Gere : titres (##, ###), tableaux, listes, gras (**), code (`), paragraphes.
+ * Gere : titres (#-####), tableaux, listes (avec imbrication),
+ * gras, code inline et blocs, liens, blockquotes, regles horizontales, paragraphes.
  */
 
 function escapeHtml(text: string): string {
@@ -14,6 +15,7 @@ function renderInline(text: string): string {
   let result = escapeHtml(text);
   result = result.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   result = result.replace(/`(.+?)`/g, '<code class="bg-gray-800 px-1 rounded text-sm">$1</code>');
+  result = result.replace(/\[([^\]]+)\]\([^)]+\)/g, '<span class="text-blue-400">$1</span>');
   return result;
 }
 
@@ -45,6 +47,13 @@ function getLine(lines: string[], index: number): string {
   return lines[index] ?? '';
 }
 
+function getIndentDepth(line: string): number {
+  const match = line.match(/^(\s*)/);
+  return Math.floor((match?.[1]?.length ?? 0) / 2);
+}
+
+const DEPTH_CLASSES = ['', 'pl-6', 'pl-12'] as const;
+
 export function renderMarkdown(markdown: string): string {
   const lines = markdown.split('\n');
   const htmlParts: string[] = [];
@@ -52,8 +61,15 @@ export function renderMarkdown(markdown: string): string {
 
   while (i < lines.length) {
     const line = getLine(lines, i);
+    const trimmed = line.trim();
 
-    if (line.trim() === '') {
+    if (trimmed === '') {
+      i++;
+      continue;
+    }
+
+    if (line.startsWith('# ')) {
+      htmlParts.push(`<h2 class="text-lg font-bold text-gray-100 mt-6 mb-3">${renderInline(line.slice(2))}</h2>`);
       i++;
       continue;
     }
@@ -70,7 +86,55 @@ export function renderMarkdown(markdown: string): string {
       continue;
     }
 
-    if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
+    if (line.startsWith('#### ')) {
+      htmlParts.push(`<h4 class="text-sm font-medium text-gray-300 mt-3 mb-1">${renderInline(line.slice(5))}</h4>`);
+      i++;
+      continue;
+    }
+
+    if (/^-{3,}$/.test(trimmed)) {
+      htmlParts.push('<hr class="border-gray-700 my-4" />');
+      i++;
+      continue;
+    }
+
+    if (trimmed.startsWith('```')) {
+      i++;
+      const codeLines: string[] = [];
+      while (i < lines.length && !getLine(lines, i).trim().startsWith('```')) {
+        codeLines.push(getLine(lines, i));
+        i++;
+      }
+      if (i < lines.length) i++;
+      const codeHtml = codeLines.map(escapeHtml).join('\n');
+      htmlParts.push(
+        `<pre class="bg-gray-800 rounded p-3 text-sm text-gray-300 overflow-x-auto mb-3 whitespace-pre"><code>${codeHtml}</code></pre>`,
+      );
+      continue;
+    }
+
+    if (trimmed.startsWith('> ') || trimmed === '>') {
+      const quoteLines: string[] = [];
+      while (i < lines.length) {
+        const ql = getLine(lines, i).trim();
+        if (ql.startsWith('> ')) {
+          quoteLines.push(ql.slice(2));
+          i++;
+        } else if (ql === '>') {
+          quoteLines.push('');
+          i++;
+        } else {
+          break;
+        }
+      }
+      const quoteHtml = quoteLines.map((l) => renderInline(l)).join('<br/>');
+      htmlParts.push(
+        `<blockquote class="border-l-2 border-gray-600 pl-3 py-1 mb-3 text-sm text-gray-400 bg-gray-800/50 rounded-r">${quoteHtml}</blockquote>`,
+      );
+      continue;
+    }
+
+    if (trimmed.startsWith('|') && trimmed.endsWith('|')) {
       const tableAcc: string[] = [];
       while (i < lines.length && getLine(lines, i).trim().startsWith('|')) {
         tableAcc.push(getLine(lines, i));
@@ -80,20 +144,25 @@ export function renderMarkdown(markdown: string): string {
       continue;
     }
 
-    if (line.trim().startsWith('- ')) {
-      const listItems: string[] = [];
+    if (trimmed.startsWith('- ')) {
+      const items: Array<{ text: string; depth: number }> = [];
       while (i < lines.length && getLine(lines, i).trim().startsWith('- ')) {
-        listItems.push(getLine(lines, i).trim().slice(2));
+        const raw = getLine(lines, i);
+        items.push({ text: raw.trim().slice(2), depth: getIndentDepth(raw) });
         i++;
       }
-      const itemsHtml = listItems
-        .map((item) => `<li class="text-gray-400">${renderInline(item)}</li>`)
+      const itemsHtml = items
+        .map((item) => {
+          const cls = DEPTH_CLASSES[Math.min(item.depth, 2)] ?? '';
+          const fullClass = cls ? `text-gray-400 ${cls}` : 'text-gray-400';
+          return `<li class="${fullClass}">${renderInline(item.text)}</li>`;
+        })
         .join('');
       htmlParts.push(`<ul class="list-disc list-inside mb-3 space-y-0.5 text-sm">${itemsHtml}</ul>`);
       continue;
     }
 
-    if (/^\d+\.\s/.test(line.trim())) {
+    if (/^\d+\.\s/.test(trimmed)) {
       const listItems: string[] = [];
       while (i < lines.length && /^\d+\.\s/.test(getLine(lines, i).trim())) {
         listItems.push(getLine(lines, i).trim().replace(/^\d+\.\s/, ''));
@@ -106,7 +175,7 @@ export function renderMarkdown(markdown: string): string {
       continue;
     }
 
-    htmlParts.push(`<p class="text-sm text-gray-400 mb-2">${renderInline(line.trim())}</p>`);
+    htmlParts.push(`<p class="text-sm text-gray-400 mb-2">${renderInline(trimmed)}</p>`);
     i++;
   }
 
