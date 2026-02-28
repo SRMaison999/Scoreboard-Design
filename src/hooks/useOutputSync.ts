@@ -51,6 +51,8 @@ function selectState(store: ReturnType<typeof useScoreboardStore.getState>): Sco
     barChartData: store.barChartData,
     rosterData: store.rosterData,
     scheduleData: store.scheduleData,
+    refereesData: store.refereesData,
+    spectatorsData: store.spectatorsData,
     showTimeouts: store.showTimeouts,
     timeoutsLeft: store.timeoutsLeft,
     timeoutsRight: store.timeoutsRight,

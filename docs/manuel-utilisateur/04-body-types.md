@@ -1,6 +1,6 @@
 # Manuel utilisateur - Types d'affichage
 
-Le scoreboard propose 13 types d'affichage prédéfinis pour le corps du scoreboard. Le type est sélectionné dans le panneau **Modes** (1re icône du rail de navigation). Pour le mode **Layout libre**, consulter le [chapitre 3](./03-layout-libre.md).
+Le scoreboard propose 15 types d'affichage prédéfinis pour le corps du scoreboard. Le type est sélectionné dans le panneau **Modes** (1re icône du rail de navigation). Pour le mode **Layout libre**, consulter le [chapitre 3](./03-layout-libre.md).
 
 ---
 
@@ -314,6 +314,98 @@ Liste des matchs à venir ou terminés.
 
 ---
 
+## Type 15 : Arbitres
+
+Présentation des arbitres du match avec drapeaux de nationalité, codes NOC et rôles.
+
+**Idéal pour :** présentation des officiels avant le match, informations sur l'équipe d'arbitrage
+
+### Structure visuelle
+
+```
+                   REFEREES
+
+[FLAG] LAT  #15  ANSONS          Arbitre principal
+[FLAG] RUS  #23  ROMASKO         Arbitre principal
+[FLAG] RUS  #44  GOFMAN          Juge de ligne
+[FLAG] CZE  #82  ONDRACEK        Juge de ligne
+```
+
+### Configuration
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Titre** | Titre de la section |
+| **Preset d'affichage** | Tous, un par un, colonnes par rôle, lignes par rôle, libre |
+| **Drapeaux** | Afficher/masquer les drapeaux (globalement et individuellement) |
+| **NOC** | Afficher/masquer les codes NOC (globalement et individuellement) |
+| **Rôles** | Afficher/masquer les rôles (globalement et individuellement) |
+| **Arbitres** | Nom, numéro, nationalité, rôle (arbitre principal ou juge de ligne) |
+
+### Presets d'affichage
+
+| Preset | Description |
+|--------|-------------|
+| **Tous** | Liste complète de tous les arbitres |
+| **Un par un** | Affiche un seul arbitre à la fois (sélectionnable par index) |
+| **Colonnes par rôle** | Arbitres principaux à gauche, juges de ligne à droite |
+| **Lignes par rôle** | Arbitres principaux en haut, juges de ligne en bas |
+| **Libre** | Identique à "Tous", pour personnalisation avancée |
+
+### Cas d'utilisation
+
+- Présentation de l'équipe d'arbitrage avant le match
+- Affichage individuel de chaque arbitre en alternance
+- Séparation visuelle entre arbitres principaux et juges de ligne
+
+---
+
+## Type 16 : Spectateurs
+
+Affichage du nombre de spectateurs présents avec plusieurs styles de présentation.
+
+**Idéal pour :** annonce de l'affluence, information sur le lieu
+
+### Structure visuelle (preset centré)
+
+```
+                SPECTATEURS
+
+                  8 247
+
+               Hallenstadion
+                / 11 200
+```
+
+### Configuration
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Titre** | Titre de la section |
+| **Preset d'affichage** | Centré, bannière, compact, détaillé, libre |
+| **Nombre de spectateurs** | Le chiffre de l'affluence |
+| **Label personnalisé** | Texte affiché autour du nombre ("SPECTATEURS", "AFFLUENCE", etc.) |
+| **Lieu** | Nom de l'arène ou du stade (affichage optionnel) |
+| **Capacité** | Capacité maximale du lieu (affichage optionnel) |
+
+### Presets d'affichage
+
+| Preset | Description |
+|--------|-------------|
+| **Centré** | Grand chiffre centré avec label, lieu et capacité en dessous |
+| **Bannière** | Présentation horizontale compacte sur une seule ligne |
+| **Compact** | Version minimale avec label et chiffre uniquement |
+| **Détaillé** | Toutes les informations avec mise en page aérée |
+| **Libre** | Identique à "Centré", pour personnalisation avancée |
+
+### Cas d'utilisation
+
+- Annonce de l'affluence officielle pendant le match
+- Affichage du nombre de spectateurs en fin de match
+- Information sur le lieu et la capacité de l'arène
+
+---
+
 ## Tableau récapitulatif
 
 | N° | Type | Usage principal | Complexité |
@@ -331,5 +423,7 @@ Liste des matchs à venir ou terminés.
 | 11 | Barres comparatives | Visualisation de stats | Simple |
 | 12 | Composition | Lineups | Moyen |
 | 13 | Calendrier | Programme | Simple |
+| 15 | Arbitres | Présentation des officiels | Moyen |
+| 16 | Spectateurs | Affluence | Simple |
 
 > Pour le **Layout libre** (composition sur mesure, niveau avancé), consulter le [chapitre 3](./03-layout-libre.md).

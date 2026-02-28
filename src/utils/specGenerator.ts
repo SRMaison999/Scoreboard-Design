@@ -27,6 +27,8 @@ const BODY_TYPE_NAMES: Readonly<Record<BodyTypeId, string>> = {
   12: 'Composition d\'équipe',
   13: 'Calendrier',
   14: 'Stats centrées',
+  15: 'Arbitres',
+  16: 'Spectateurs',
 };
 
 interface SpecTeam {

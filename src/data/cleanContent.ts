@@ -101,5 +101,26 @@ export const CLEAN_CONTENT: Partial<ScoreboardState> = {
     matches: [],
   },
 
+  refereesData: {
+    title: '',
+    preset: 'all',
+    activeIndex: 0,
+    showFlags: true,
+    showNocs: true,
+    showRoles: true,
+    referees: [],
+  },
+
+  spectatorsData: {
+    title: '',
+    preset: 'centered',
+    count: '',
+    venue: '',
+    capacity: '',
+    showVenue: false,
+    showCapacity: false,
+    label: '',
+  },
+
   customFieldsData: structuredClone(DEFAULT_CUSTOM_FIELDS_DATA),
 };

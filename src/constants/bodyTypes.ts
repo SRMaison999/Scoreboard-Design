@@ -92,4 +92,16 @@ export const BODY_TYPES: readonly BodyTypeOption[] = [
     description: 'Programme des matchs avec dates, heures et r\u00e9sultats',
     category: 'info',
   },
+  {
+    id: 15,
+    label: 'Arbitres',
+    description: 'Pr\u00e9sentation des arbitres avec drapeaux, NOC et r\u00f4les',
+    category: 'info',
+  },
+  {
+    id: 16,
+    label: 'Spectateurs',
+    description: 'Affichage du nombre de spectateurs et informations sur le lieu',
+    category: 'info',
+  },
 ] as const;

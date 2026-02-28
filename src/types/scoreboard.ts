@@ -11,13 +11,15 @@ import type { TimelineData } from './bodyTypes/timeline';
 import type { BarChartData } from './bodyTypes/barChart';
 import type { RosterData } from './bodyTypes/roster';
 import type { ScheduleData } from './bodyTypes/schedule';
+import type { RefereesData } from './bodyTypes/referees';
+import type { SpectatorsData } from './bodyTypes/spectators';
 import type { BackgroundMediaMode } from './media';
 import type { FontSizeConfig } from './fontSizes';
 import type { LogoMode, LogoPosition } from './logo';
 import type { AnimationConfig } from './animation';
 import type { CustomFieldsData } from './customField';
 
-export type BodyTypeId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14;
+export type BodyTypeId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16;
 
 export type BgMode = 'uniform' | 'gradient';
 
@@ -131,6 +133,12 @@ export interface ScoreboardState {
 
   /* Type 13 : Calendrier */
   scheduleData: ScheduleData;
+
+  /* Type 15 : Arbitres */
+  refereesData: RefereesData;
+
+  /* Type 16 : Spectateurs */
+  spectatorsData: SpectatorsData;
 
   /* Header : timeouts */
   showTimeouts: boolean;

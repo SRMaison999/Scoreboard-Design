@@ -10,6 +10,8 @@ import { TimelineSection } from './TimelineSection';
 import { BarChartSection } from './BarChartSection';
 import { RosterSection } from './RosterSection';
 import { ScheduleSection } from './ScheduleSection';
+import { RefereesSection } from './RefereesSection';
+import { SpectatorsSection } from './SpectatorsSection';
 import { CustomFieldsSection } from './CustomFieldsSection';
 
 export function BodyContentSection({ bodyType }: { readonly bodyType: number }) {
@@ -25,6 +27,8 @@ export function BodyContentSection({ bodyType }: { readonly bodyType: number }) 
     case 11: return <BarChartSection />;
     case 12: return <RosterSection />;
     case 13: return <ScheduleSection />;
+    case 15: return <RefereesSection />;
+    case 16: return <SpectatorsSection />;
     case 1: return <CustomFieldsSection />;
     default: return <StatsSection />;
   }
