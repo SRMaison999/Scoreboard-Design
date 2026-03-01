@@ -30,6 +30,12 @@
 | [manuel-utilisateur/13-animations-export.md](./manuel-utilisateur/13-animations-export.md) | Animations du scoreboard et export video/GIF |
 | [manuel-utilisateur/14-integrations.md](./manuel-utilisateur/14-integrations.md) | Integrations : import rosters, API scores, multi-scoreboard, sync, CasparCG/Viz |
 
+## Page promotionnelle
+
+| Document | Description | Public cible |
+|----------|-------------|--------------|
+| [LANDING_PAGE.md](./LANDING_PAGE.md) | Presentation approfondie de l'application a destination des professionnels du design visuel et de l'evenementiel sportif | Designers, directeurs techniques, organisateurs |
+
 ## Fichiers projet
 
 | Fichier | Description |
