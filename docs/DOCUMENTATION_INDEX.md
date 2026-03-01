@@ -34,7 +34,7 @@
 
 | Document | Description | Public cible |
 |----------|-------------|--------------|
-| [LANDING_PAGE.md](./LANDING_PAGE.md) | Presentation approfondie de l'application a destination des professionnels du design visuel et de l'evenementiel sportif | Designers, directeurs techniques, organisateurs |
+| [landing-page/](./landing-page/README.md) | Présentation approfondie de l'application à destination des professionnels du design visuel et de l'événementiel sportif (10 chapitres) | Designers, directeurs techniques, organisateurs |
 
 ## Fichiers projet
 
